@@ -62,4 +62,6 @@ end
 include(joinpath(dirname(@__FILE__), "exceptions.jl"))
 include(joinpath(dirname(@__FILE__), "cache.jl"))
 
+include(joinpath(dirname(@__FILE__), "RepositoryAPI.jl"))
+
 end
