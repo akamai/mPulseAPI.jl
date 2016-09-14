@@ -129,48 +129,9 @@ The `domain` `Dict` has the following fields:
 * `created::DateTime`:      The timestamp when this object was created
 * `lastModified::DateTime`: The timestamp when this object was created
 * `attributes::Dict`:       A `Dict` of attributes for this app, including its `AppID`
-* `custom_metrics::Dict`:   A `Dict` mapping Custom Metric names to attributes including DSWB field name with the following structure:
+* `custom_metrics::Dict`:   A $(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "CustomTimerMap-structure.md")))
 
-```julia
-     Dict(
-         <metric name> => Dict(
-             "fieldname" => "custom_metrics_<index>",
-             "lastModified" => <lastModifiedDate>,
-             "description" => "<description>",
-             "dataType" => Dict(
-                 "decimalPlaces" => "2",
-                 "type" => "<metric type>",
-                 "currencySymbol" => "<symbol if this is a currency type>"
-             ),
-             "colors" => <array of color HEX codes>
-         ),
-         ...
-     )
-```
-
-* `custom_timers::Dict`:    A `Dict` mapping Custom Timer names to attributes including DSWB field name with the following structure:
-
-```julia
-     Dict(
-         <timer name> => Dict(
-             "fieldname" => "timers_custom<index>",
-             "mpulseapiname" => "CustomTimer<index>",
-             "lastModified" => <lastModifiedDate>,
-             "description" => "<description>",
-             "colors" => Array(
-                 Dict(
-                     "timingType" => "<seconds | milliseconds>",
-                     "timingStart" => "<start timer value for this colour range>",
-                     "timingEnd" => "<end timer value for this colour range>",
-                     "colorStart => "<start of this color range>",
-                     "endStart => "<end of this color range>"
-                 ),
-                 ...
-             )
-         ),
-         ...
-     )
-```
+* `custom_timers::Dict`:    A $(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "CustomTimerMap-structure.md")))
 
 * `session_timeout::Int64`: The session timeout value in minutes
 * `resource_timing::Bool`:  Flag indicating whether resource timing collection is enabled or not
@@ -399,35 +360,13 @@ end
 Gets a mapping of custom metric names to RedShift field names from domain XML.  This list also includes valid dates.
 
 #### Arguments
-* `body::{AbstractString|XMLElement|Dict}` This is an object containing the domain XML returned by `mPulseAPI.getRepositoryDomain`.  It may be:
-   * An `AbstractString` containing the domain XML.  This will be parsed.
-   * A `LightXML.XMLElement` pointing to the root node of the domain XML.
-   * A `Dict` with a `body` element. This is the domain object returned by `mPulseAPI.getRepositoryDomain`.
+$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "NodeContent-body.md")))
 
 #### Returns
-`{Dict}` Custom Metric names mapped to RedShift fieldnames with the following structure:
-
-```julia
-Dict(
-    <metric name> => Dict(
-        "index" => <index>,                          # Numeric index
-        "fieldname" => "custom_metrics_<index>",     # Field name in dswb tables
-        "lastModified" => <lastModifiedDate>,
-        "description" => "<description>",
-        "dataType" => Dict(
-            "decimalPlaces" => "2",
-            "type" => "<metric type>",
-            "currencySymbol" => "<symbol if this is a currency type>"
-        ),
-        "colors" => <array of color HEX codes>
-    ),
-    ...
-)
-```
+$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "CustomMetricMap-structure.md")))
 
 #### Throws
-* `ArgumentError`           if the data type of `body` is unknown.
-* `LightXML.XMLParseError`  if `body` is an `AbstractString` but contains invalid XML
+$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "NodeContent-throws.md")))
 """
 function getCustomMetricMap(body::Any)
     custom_metrics = Dict()
@@ -473,40 +412,13 @@ end
 Gets a mapping of custom timer names to RedShift field names from domain XML.  This list also includes valid dates.
 
 #### Arguments
-* `body::{AbstractString|XMLElement|Dict}` This is an object containing the domain XML returned by `mPulseAPI.getRepositoryDomain`.  It may be:
-   * An `AbstractString` containing the domain XML.  This will be parsed.
-   * A `LightXML.XMLElement` pointing to the root node of the domain XML.
-   * A `Dict` with a `body` element. This is the domain object returned by `mPulseAPI.getRepositoryDomain`.
+$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "NodeContent-body.md")))
 
 #### Returns
-`{Dict}` Custom Timer names mapped to RedShift fieldnames with the following structure:
-
-```julia
-Dict(
-    <timer name> => Dict(
-        "index" => <index>,                          # Numeric index
-        "fieldname" => "timers_custom<index>",       # Field name in dswb tables
-        "mpulseapiname" => "CustomTimer<index>",
-        "lastModified" => <lastModifiedDate>,
-        "description" => "<description>",
-        "colors" => Array(
-            Dict(
-                "timingType" => "<seconds | milliseconds>",
-                "timingStart" => "<start timer value for this colour range>",
-                "timingEnd" => "<end timer value for this colour range>",
-                "colorStart => "<start of this color range>",
-                "endStart => "<end of this color range>"
-            ),
-            ...
-        )
-    ),
-    ...
-)
-```
+$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "CustomTimerMap-structure.md")))
 
 #### Throws
-* `ArgumentError`           if the data type of `body` is unknown.
-* `LightXML.XMLParseError`  if `body` is an `AbstractString` but contains invalid XML
+$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "NodeContent-throws.md")))
 """
 function getCustomTimerMap(body::Any)
     custom_timers = Dict()
@@ -553,10 +465,7 @@ end
 Gets the content of a node
 
 #### Arguments
-* `body::{AbstractString|XMLElement|Dict}` This is an object containing the domain XML returned by `mPulseAPI.getRepositoryDomain`.  It may be:
-   * An `AbstractString` containing the domain XML.  This will be parsed.
-   * A `LightXML.XMLElement` pointing to the root node of the domain XML.
-   * A `Dict` with a `body` element. This is the domain object returned by `mPulseAPI.getRepositoryDomain`.
+$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "NodeContent-body.md")))
 * `nodeName::AbstractString` The node whose contents shoudl be returned
 * `default::Any` A default value to return if the required node was not found
 
@@ -564,8 +473,7 @@ Gets the content of a node
 `{AbstractString|Number|Boolean}` The content of the requested node cast to the same type as `default` or the value of `default` if the node was not found
 
 #### Throws
-* `ArgumentError`           if the data type of `body` is unknown.
-* `LightXML.XMLParseError`  if `body` is an `AbstractString` but contains invalid XML
+$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "NodeContent-throws.md")))
 """
 function getNodeContent(body::Any, nodeName::AbstractString, default::Any)
     node = getXMLNode(body, nodeName)

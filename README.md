@@ -7,7 +7,7 @@ This snippet will get you up and running.  More explanation below
 using mPulseAPI
 
 # mPulse 57 uses apiToken for authentication
-token = getRepositoryToken(tenant="<tenant name>", apiToken="<mPulse api token for tenant>")
+token = getRepositoryToken("<tenant name>", "<mPulse api token for tenant>")
 
 
 # Get a domain by app name
