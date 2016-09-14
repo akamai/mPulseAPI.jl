@@ -59,4 +59,6 @@ function fixJSONDataType(value::Union{AbstractString, Void})
     return value
 end
 
+include(joinpath(dirname(@__FILE__), "exceptions.jl"))
+
 end
