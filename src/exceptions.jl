@@ -33,7 +33,7 @@ Thrown when a request parameter is invalid
 * `code::AbstractString`        The error code sent from the mPulse server
 * `parameter::AbstractString`   The parameter that the mPulse server had a problem with
 * `value::AbstractString`       The value of the parameter that the mPulse server had a problem with
-* `response::Response           The HTTP Response object that resulted in this exception or `nothing`
+* `response::Response`          The response object from the REST API call.  You can inspect headers, data, cookies, redirects, and the initiating request.
 """
 immutable mPulseAPIRequestException <: Exception
     msg::AbstractString

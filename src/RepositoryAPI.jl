@@ -129,7 +129,7 @@ The `domain` `Dict` has the following fields:
 * `created::DateTime`:      The timestamp when this object was created
 * `lastModified::DateTime`: The timestamp when this object was created
 * `attributes::Dict`:       A `Dict` of attributes for this app, including its `AppID`
-* `custom_metrics::Dict`:   A $(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "CustomTimerMap-structure.md")))
+* `custom_metrics::Dict`:   A $(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "CustomMetricMap-structure.md")))
 
 * `custom_timers::Dict`:    A $(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "CustomTimerMap-structure.md")))
 
