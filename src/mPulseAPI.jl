@@ -60,7 +60,7 @@ function fixJSONDataType(value::Union{AbstractString, Void})
 end
 
 include(joinpath(dirname(@__FILE__), "exceptions.jl"))
-include(joinpath(dirname(@__FILE__), "cache.jl"))
+include(joinpath(dirname(@__FILE__), "cache_utilities.jl"))
 
 include(joinpath(dirname(@__FILE__), "RepositoryAPI.jl"))
 include(joinpath(dirname(@__FILE__), "QueryAPI.jl"))
