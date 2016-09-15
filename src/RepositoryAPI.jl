@@ -121,21 +121,21 @@ If none of these are passed in, then an array of all domains is returned, each i
 
 The `domain` `Dict` has the following fields:
 
-* `name`:                   The app's name
-* `id::Int64`:              The app's ID
-* `body::XMLElement`:       An XML object representing the app's XML definition
-* `tenantID::Int64`:        The ID of the tenant that this app is in
-* `description::AbstractString`: The description of this app entered into mPulse
-* `created::DateTime`:      The timestamp when this object was created
-* `lastModified::DateTime`: The timestamp when this object was created
-* `attributes::Dict`:       A `Dict` of attributes for this app, including its `AppID`
-* `custom_metrics::Dict`:   A $(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "CustomMetricMap-structure.md")))
+* `name`                    The app's name
+* `id::Int64`               The app's ID
+* `body::XMLElement`        An XML object representing the app's XML definition
+* `tenantID::Int64`         The ID of the tenant that this app is in
+* `description::AbstractString`  The description of this app entered into mPulse
+* `created::DateTime`       The timestamp when this object was created
+* `lastModified::DateTime`  The timestamp when this object was created
+* `attributes::Dict`        A `Dict` of attributes for this app, including its `AppID`
+* `custom_metrics::Dict`    A $(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "CustomMetricMap-structure.md")))
 
-* `custom_timers::Dict`:    A $(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "CustomTimerMap-structure.md")))
+* `custom_timers::Dict`     A $(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "CustomTimerMap-structure.md")))
 
-* `session_timeout::Int64`: The session timeout value in minutes
-* `resource_timing::Bool`:  Flag indicating whether resource timing collection is enabled or not
-* `vertical_market::AbstractString`: The vertical market that this domain belongs to
+* `session_timeout::Int64`  The session timeout value in minutes
+* `resource_timing::Bool`   Flag indicating whether resource timing collection is enabled or not
+* `vertical_market::AbstractString`  The vertical market that this domain belongs to
 
 #### Throws
 * `ArgumentError`       if token is empty or domainID, appID and appName are all empty
@@ -214,17 +214,17 @@ You can clear the cache for this tenant using `mPulseAPI.clearTenantCache()` and
 #### Returns
 `{Dict}` The `tenant` object with the following fields:
 
-* `name::AbstractString`:       The tenant's name
-* `id::Int64`:                  The tenant's ID
-* `body::XMLElement`:           An XML object representing the app's XML definition
-* `parentID::Int64`:            The ID of the parent folder that this tenant is in
-* `parentType::AbstractString`: The type of parent object (typically `tenantFolder`)
-* `path::AbstractString`:       The folder path that this tenant is in
-* `description::AbstractString`: The description of this app entered into mPulse
-* `created::DateTime`:          The timestamp when this object was created
-* `lastModified::DateTime`:     The timestamp when this object was created
-* `attributes::Dict`:           A `Dict` of attributes for this app, including its `App ID`
-* `dswbUrls::Array{AbstractString}`: An array of DSWB URLs that are valid auth redirect targets for this tenant
+* `name::AbstractString`        The tenant's name
+* `id::Int64`                   The tenant's ID
+* `body::XMLElement`            An XML object representing the app's XML definition
+* `parentID::Int64`             The ID of the parent folder that this tenant is in
+* `parentType::AbstractString`  The type of parent object (typically `tenantFolder`)
+* `path::AbstractString`        The folder path that this tenant is in
+* `description::AbstractString`  The description of this app entered into mPulse
+* `created::DateTime`           The timestamp when this object was created
+* `lastModified::DateTime`      The timestamp when this object was created
+* `attributes::Dict`            A `Dict` of attributes for this app, including its `App ID`
+* `dswbUrls::Array{AbstractString}`  An array of DSWB URLs that are valid auth redirect targets for this tenant
 
 #### Throws
 * `ArgumentError`       if token is empty or tenantID and name are both empty
