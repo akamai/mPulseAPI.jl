@@ -37,16 +37,16 @@ Get API results from the mPulse Query API (http://docs.soasta.com/query-api/)
 This method is a generic catch-all that queries the mPulse API and returns results as a Julia data structure matching the JSON structure of the specified API call
 
 #### Arguments
-$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "APIResults-common-args.md")))
+$(readdocs("APIResults-common-args"))
 * `query_type::AbstractString`  The specific API query to make.  Must be one of the following:
 
 $(mapfoldl(x -> "   * $x\n", *, query_types))
 
 #### Optional Arguments
-$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "APIResults-common-optargs.md")))
+$(readdocs("APIResults-common-optargs"))
 
 #### Throws
-$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "APIResults-exceptions.md")))
+$(readdocs("APIResults-exceptions"))
 
 #### Returns
 `{Any}` A Julia representation of the JSON returned by the API call. Convenience wrappers in this library may return more appropriate data structures.
@@ -140,13 +140,13 @@ end
 Calls the `summary` endpoint of the mPulse REST API with the passed in filters
 
 #### Arguments
-$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "APIResults-common-args.md")))
+$(readdocs("APIResults-common-args"))
 
 #### Optional Arguments
-$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "APIResults-common-optargs.md")))
+$(readdocs("APIResults-common-optargs"))
 
 #### Throws
-$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "APIResults-exceptions.md")))
+$(readdocs("APIResults-exceptions"))
 
 #### Returns
 `{Dict}` A Julia `Dict` with the following structure:
@@ -173,10 +173,10 @@ end
 Calls the `page-groups` endpoint of the mPulse REST API with the passed in filters
 
 #### Arguments
-$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "APIResults-common-args.md")))
+$(readdocs("APIResults-common-args"))
 
 #### Optional Arguments
-$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "APIResults-common-optargs.md")))
+$(readdocs("APIResults-common-optargs"))
 * `friendly_names::Bool`    *[default: false]* Specify whether column names in the `DataFrame` should be human friendly or developer friendly (default)
 
   Human friendly column names are `Page Group`, `Median Time (ms)`, `MoE (ms)`, `Measurements`, `% of total`
@@ -184,8 +184,8 @@ $(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "APIResults-comm
   Developer friendly column names ar: `:page_group`, `:t_done_median`, `:t_done_moe`, `:t_done_count`, `:t_done_total_pc`
 
 #### Throws
-$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "APIResults-exceptions.md")))
-$(replace(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "CleanSeriesSeries-exceptions.md")), "did not have a `series` element or ", ""))
+$(readdocs("APIResults-exceptions"))
+$(replace(readdocs("CleanSeriesSeries-exceptions"), "did not have a `series` element or ", ""))
 
 #### Returns
 `{DataFrame}` A Julia `DataFrame` with the following columns: `Page Group`, `Median Time (ms)`, `MoE (ms)`, `Measurements`, and `% of total`
@@ -225,10 +225,10 @@ end
 Calls the `browsers` endpoint of the mPulse REST API with the passed in filters
 
 #### Arguments
-$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "APIResults-common-args.md")))
+$(readdocs("APIResults-common-args"))
 
 #### Optional Arguments
-$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "APIResults-common-optargs.md")))
+$(readdocs("APIResults-common-optargs"))
 * `friendly_names::Bool` *[default: false]* Specify whether column names in the `DataFrame` should be human friendly or developer friendly (default)
 
   Human friendly column names are `User Agent`, `Median Time (ms)`, `MoE (ms)`, `Measurements`, `% of total`
@@ -236,8 +236,8 @@ $(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "APIResults-comm
   Developer friendly column names ar: `:user_agent`, `:t_done_median`, `:t_done_moe`, `:t_done_count`, `:t_done_total_pc`
 
 #### Throws
-$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "APIResults-exceptions.md")))
-$(replace(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "CleanSeriesSeries-exceptions.md")), "did not have a `series` element or ", ""))
+$(readdocs("APIResults-exceptions"))
+$(replace(readdocs("CleanSeriesSeries-exceptions"), "did not have a `series` element or ", ""))
 
 #### Returns
 `{DataFrame}` A Julia `DataFrame` with the following columns: `User Agent`, `Median Time (ms)`, `MoE (ms)`, `Measurements`, and `% of total`
@@ -282,10 +282,10 @@ end
 Calls the `ab-tests` endpoint of the mPulse REST API with the passed in filters
 
 #### Arguments
-$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "APIResults-common-args.md")))
+$(readdocs("APIResults-common-args"))
 
 #### Optional Arguments
-$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "APIResults-common-optargs.md")))
+$(readdocs("APIResults-common-optargs"))
 * `friendly_names::Bool` *[default: false]* Specify whether column names in the `DataFrame` should be human friendly or developer friendly (default)
 
   Human friendly column names are `Test Name`, `Median Time (ms)`, `MoE (ms)`, `Measurements`, `% of total`
@@ -293,8 +293,8 @@ $(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "APIResults-comm
   Developer friendly column names ar: `:test_name`, `:t_done_median`, `:t_done_moe`, `:t_done_count`, `:t_done_total_pc`
 
 #### Throws
-$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "APIResults-exceptions.md")))
-$(replace(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "CleanSeriesSeries-exceptions.md")), "did not have a `series` element or ", ""))
+$(readdocs("APIResults-exceptions"))
+$(replace(readdocs("CleanSeriesSeries-exceptions"), "did not have a `series` element or ", ""))
 
 #### Returns
 `{DataFrame}` A Julia `DataFrame` with the following columns: `Test Name`, `Median Time (ms)`, `MoE (ms)`, `Measurements`, and `% of total`
@@ -333,15 +333,15 @@ end
 Calls the `metrics-by-dimension` endpoint of the mPulse REST API with the passed in dimension name and filters
 
 #### Arguments
-$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "APIResults-common-args.md")))
+$(readdocs("APIResults-common-args"))
 * `dimension::AbstractString` The dimension to split metrics by.  The response contains one row for each value of this dimension
 
 #### Optional Arguments
-$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "APIResults-common-optargs.md")))
+$(readdocs("APIResults-common-optargs"))
 
 #### Throws
-$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "APIResults-exceptions.md")))
-$(replace(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "CleanSeriesSeries-exceptions.md")), "did not have a `series` element or ", ""))
+$(readdocs("APIResults-exceptions"))
+$(replace(readdocs("CleanSeriesSeries-exceptions"), "did not have a `series` element or ", ""))
 
 #### Returns
 `{DataFrame}` A Julia `DataFrame` with the following columns: `:<dimension>`, `:<CustomMetric Name>`...
@@ -386,13 +386,13 @@ end
 Calls the `timers-metrics` endpoint of the mPulse REST API with the passed in filters
 
 #### Arguments
-$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "APIResults-common-args.md")))
+$(readdocs("APIResults-common-args"))
 
 #### Optional Arguments
-$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "APIResults-common-optargs.md")))
+$(readdocs("APIResults-common-optargs"))
 
 #### Throws
-$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "APIResults-exceptions.md")))
+$(readdocs("APIResults-exceptions"))
 * `Exception`   If there was an unexpected type error parsing response values
 
 #### Returns
@@ -474,14 +474,14 @@ end
 Calls the `geography` endpoint of the mPulse REST API with the passed in filters
 
 #### Arguments
-$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "APIResults-common-args.md")))
+$(readdocs("APIResults-common-args"))
 
 #### Optional Arguments
-$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "APIResults-common-optargs.md")))
+$(readdocs("APIResults-common-optargs"))
 
 #### Throws
-$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "APIResults-exceptions.md")))
-$(replace(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "CleanSeriesSeries-exceptions.md")), "did not have a `series` element or ", ""))
+$(readdocs("APIResults-exceptions"))
+$(replace(readdocs("CleanSeriesSeries-exceptions"), "did not have a `series` element or ", ""))
 
 #### Returns
 `{DataFrame}` A Julia `DataFrame` with the following columns: `:country`, `:timerID`, `:timerN`, `:timerMedian`, `:timerMOE`
@@ -519,14 +519,14 @@ end
 Calls the `histogram` endpoint of the mPulse REST API with the passed in filters
 
 #### Arguments
-$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "APIResults-common-args.md")))
+$(readdocs("APIResults-common-args"))
 
 #### Optional Arguments
-$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "APIResults-common-optargs.md")))
+$(readdocs("APIResults-common-optargs"))
 
 #### Throws
-$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "APIResults-exceptions.md")))
-$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "CleanSeriesSeries-exceptions.md")))
+$(readdocs("APIResults-exceptions"))
+$(readdocs("CleanSeriesSeries-exceptions"))
 
 #### Returns
 `{Dict}` A julia `Dict` with the following keys:
@@ -590,16 +590,16 @@ end
 Calls the `sessions-per-page-load-time` endpoint of the mPulse REST API with the passed in filters
 
 #### Arguments
-$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "APIResults-common-args.md")))
+$(readdocs("APIResults-common-args"))
 
 #### Optional Arguments
-$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "APIResults-common-optargs.md")))
+$(readdocs("APIResults-common-optargs"))
 
 #### Throws
-$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "APIResults-exceptions.md")))
+$(readdocs("APIResults-exceptions"))
 
 #### Returns
-$(format(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "MetricOverLoadTime-return-format.md")), "Sessions", "Sessions  "))
+$(format(readdocs("MetricOverLoadTime-return-format"), "Sessions", "Sessions  "))
 """
 function getSessionsOverPageLoadTime(token::AbstractString, appID::AbstractString; filters::Dict=Dict())
     return getMetricOverPageLoadTime(token, appID, filters=filters, metric="Sessions")
@@ -612,18 +612,18 @@ end
 Calls the `metric-per-page-load-time` endpoint of the mPulse REST API with the passed in filters
 
 #### Arguments
-$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "APIResults-common-args.md")))
+$(readdocs("APIResults-common-args"))
 
 #### Optional Arguments
 * `metric::AbstractString` The metric name whose data we want.  If not specified, defaults to `BounceRate`
-$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "APIResults-common-optargs.md")))
+$(readdocs("APIResults-common-optargs"))
 
 #### Throws
-$(replace(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "APIResults-exceptions.md")), "one of the request parameters", "the metric name"))
-$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "CleanSeriesSeries-exceptions.md")))
+$(replace(readdocs("APIResults-exceptions"), "one of the request parameters", "the metric name"))
+$(readdocs("CleanSeriesSeries-exceptions"))
 
 #### Returns
-$(format(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "MetricOverLoadTime-return-format.md")), "Metric", "BounceRate"))
+$(format(readdocs("MetricOverLoadTime-return-format"), "Metric", "BounceRate"))
 """
 function getMetricOverPageLoadTime(token::AbstractString, appID::AbstractString; filters::Dict=Dict(), metric::AbstractString="")
     if metric != ""
@@ -658,7 +658,7 @@ end
 Calls the `by-minute` endpoint of the mPulse REST API with the passed in filters
 
 #### Arguments
-$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "APIResults-common-args.md")))
+$(readdocs("APIResults-common-args"))
 
 #### Optional Arguments
 * `timer::AbstractString`   The name of the timer whose data we want.  If not specified, defaults to `PageLoad`.  Other possible
@@ -666,11 +666,11 @@ $(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "APIResults-comm
                             Note that custom timers need to be named `CustomTimer0`, `CustomTimer1`, etc.  Use `mPulseAPI.getRepositoryDomain()`
                             to get a domain, and then inspect `domain["custom_timers"]["<timer name>"]["mpulseapiname"]` to get an
                             appropriate name for this method.
-$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "APIResults-common-optargs.md")))
+$(readdocs("APIResults-common-optargs"))
 
 #### Throws
-$(replace(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "APIResults-exceptions.md")), "one of the request parameters", "the timer name"))
-$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "CleanSeriesSeries-exceptions.md")))
+$(replace(readdocs("APIResults-exceptions"), "one of the request parameters", "the timer name"))
+$(readdocs("CleanSeriesSeries-exceptions"))
 
 #### Returns
 `{DataFrame{` A julia `DataFrame` containing timeseries data for the median value of the timer and its margin of error.

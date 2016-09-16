@@ -59,6 +59,14 @@ function fixJSONDataType(value::Union{AbstractString, Void})
     return value
 end
 
+function readdocs(name::AbstractString)
+    return replace(
+        readall( joinpath(dirname(dirname(@__FILE__)), "doc-snippets", name * ".md") ),
+        r"\n+$"s,
+        ""
+    )
+end
+
 include(joinpath(dirname(@__FILE__), "exceptions.jl"))
 include(joinpath(dirname(@__FILE__), "cache_utilities.jl"))
 

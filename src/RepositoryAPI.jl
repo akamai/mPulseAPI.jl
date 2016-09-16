@@ -129,9 +129,9 @@ The `domain` `Dict` has the following fields:
 * `created::DateTime`       The timestamp when this object was created
 * `lastModified::DateTime`  The timestamp when this object was created
 * `attributes::Dict`        A `Dict` of attributes for this app, including its `AppID`
-* `custom_metrics::Dict`    A $(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "CustomMetricMap-structure.md")))
+* `custom_metrics::Dict`    A $(readdocs("CustomMetricMap-structure"))
 
-* `custom_timers::Dict`     A $(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "CustomTimerMap-structure.md")))
+* `custom_timers::Dict`     A $(readdocs("CustomTimerMap-structure"))
 
 * `session_timeout::Int64`  The session timeout value in minutes
 * `resource_timing::Bool`   Flag indicating whether resource timing collection is enabled or not
@@ -360,13 +360,13 @@ end
 Gets a mapping of custom metric names to RedShift field names from domain XML.  This list also includes valid dates.
 
 #### Arguments
-$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "NodeContent-body.md")))
+$(readdocs("NodeContent-body"))
 
 #### Returns
-$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "CustomMetricMap-structure.md")))
+$(readdocs("CustomMetricMap-structure"))
 
 #### Throws
-$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "NodeContent-throws.md")))
+$(readdocs("NodeContent-throws"))
 """
 function getCustomMetricMap(body::Any)
     custom_metrics = Dict()
@@ -412,13 +412,13 @@ end
 Gets a mapping of custom timer names to RedShift field names from domain XML.  This list also includes valid dates.
 
 #### Arguments
-$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "NodeContent-body.md")))
+$(readdocs("NodeContent-body"))
 
 #### Returns
-$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "CustomTimerMap-structure.md")))
+$(readdocs("CustomTimerMap-structure"))
 
 #### Throws
-$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "NodeContent-throws.md")))
+$(readdocs("NodeContent-throws"))
 """
 function getCustomTimerMap(body::Any)
     custom_timers = Dict()
@@ -465,7 +465,7 @@ end
 Gets the content of a node
 
 #### Arguments
-$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "NodeContent-body.md")))
+$(readdocs("NodeContent-body"))
 * `nodeName::AbstractString` The node whose contents shoudl be returned
 * `default::Any` A default value to return if the required node was not found
 
@@ -473,7 +473,7 @@ $(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "NodeContent-bod
 `{AbstractString|Number|Boolean}` The content of the requested node cast to the same type as `default` or the value of `default` if the node was not found
 
 #### Throws
-$(readall(joinpath(dirname(dirname(@__FILE__)), "doc-snippets", "NodeContent-throws.md")))
+$(readdocs("NodeContent-throws"))
 """
 function getNodeContent(body::Any, nodeName::AbstractString, default::Any)
     node = getXMLNode(body, nodeName)
