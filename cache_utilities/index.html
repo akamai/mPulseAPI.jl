@@ -134,17 +134,17 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="internal-cache-utilities">Internal Cache Utilities</h1>
-<h2 id="namespaced-functions">Namespaced Functions</h2>
+                <h1 id="internal-cache-utilities">Internal Cache Utilities<a class="headerlink" href="#internal-cache-utilities" title="Permanent link">&para;</a></h1>
+<h2 id="namespaced-functions">Namespaced Functions<a class="headerlink" href="#namespaced-functions" title="Permanent link">&para;</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The following methods are not exported by default. You may use them by explicitly
 importing them or by prefixing them with the <code>mPulseAPI.</code> namespace.</p>
 </div>
 <p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/cache_utilities.jl#L87-L137" style="float:right;font-size:0.8em;">cache_utilities.jl#87-137</a></p>
-<h3 id="function-cleardomaincache">function <code>clearDomainCache</code></h3>
+<h3 id="function-cleardomaincache">function <code>clearDomainCache</code><a class="headerlink" href="#function-cleardomaincache" title="Permanent link">&para;</a></h3>
 <p>Expire an entry from the domain cache.  Use this if the domain has changed.</p>
-<h4 id="optional-arguments">Optional Arguments</h4>
+<h4 id="optional-arguments">Optional Arguments<a class="headerlink" href="#optional-arguments" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>domainID::Int64</code></dt>
 <dd>The ID of the domain to expire.</dd>
@@ -153,7 +153,7 @@ importing them or by prefixing them with the <code>mPulseAPI.</code> namespace.<
 <dt><code>appName::AbstractString</code></dt>
 <dd>The App name in mPulse.  This can be got from the mPulse domain configuration dialog.</dd>
 </dl>
-<h4 id="returns">Returns</h4>
+<h4 id="returns">Returns<a class="headerlink" href="#returns" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>true</code></dt>
 <dd>on success</dd>
@@ -162,16 +162,16 @@ importing them or by prefixing them with the <code>mPulseAPI.</code> namespace.<
 </dl>
 <hr />
 <p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/cache_utilities.jl#L108-L137" style="float:right;font-size:0.8em;">cache_utilities.jl#108-137</a></p>
-<h3 id="function-cleartenantcache">function <code>clearTenantCache</code></h3>
+<h3 id="function-cleartenantcache">function <code>clearTenantCache</code><a class="headerlink" href="#function-cleartenantcache" title="Permanent link">&para;</a></h3>
 <p>Expire an entry from the tenant cache.  Use this if the tenant has changed.</p>
-<h4 id="optional-arguments_1">Optional Arguments</h4>
+<h4 id="optional-arguments_1">Optional Arguments<a class="headerlink" href="#optional-arguments_1" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>tenantID::Int64</code></dt>
 <dd>The ID of the tenant to expire.</dd>
 <dt><code>name::AbstractString</code></dt>
 <dd>The Tenant name in mPulse.  This is got from the mPulse domain configuration dialog.</dd>
 </dl>
-<h4 id="returns_1">Returns</h4>
+<h4 id="returns_1">Returns<a class="headerlink" href="#returns_1" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>true</code></dt>
 <dd>on success</dd>
@@ -180,14 +180,14 @@ importing them or by prefixing them with the <code>mPulseAPI.</code> namespace.<
 </dl>
 <hr />
 <p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/cache_utilities.jl#L127-L137" style="float:right;font-size:0.8em;">cache_utilities.jl#127-137</a></p>
-<h3 id="function-cleartokencache">function <code>clearTokenCache</code></h3>
+<h3 id="function-cleartokencache">function <code>clearTokenCache</code><a class="headerlink" href="#function-cleartokencache" title="Permanent link">&para;</a></h3>
 <p>Expire an entry from the token cache.  Use this if the token associated with this tenant is no longer valid.</p>
-<h4 id="arguments">Arguments</h4>
+<h4 id="arguments">Arguments<a class="headerlink" href="#arguments" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>tenant::AbstractString</code></dt>
 <dd>The tenant name whose token needs to be expired</dd>
 </dl>
-<h4 id="returns_2">Returns</h4>
+<h4 id="returns_2">Returns<a class="headerlink" href="#returns_2" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>true</code></dt>
 <dd>on success</dd>

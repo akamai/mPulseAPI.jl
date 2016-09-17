@@ -136,15 +136,15 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="repository-api">Repository API</h1>
-<h2 id="exported-functions">Exported Functions</h2>
+                <h1 id="repository-api">Repository API<a class="headerlink" href="#repository-api" title="Permanent link">&para;</a></h1>
+<h2 id="exported-functions">Exported Functions<a class="headerlink" href="#exported-functions" title="Permanent link">&para;</a></h2>
 <p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L56-L100" style="float:right;font-size:0.8em;">RepositoryAPI.jl#56-100</a></p>
-<h3 id="function-getrepositorytoken">function <code>getRepositoryToken</code></h3>
+<h3 id="function-getrepositorytoken">function <code>getRepositoryToken</code><a class="headerlink" href="#function-getrepositorytoken" title="Permanent link">&para;</a></h3>
 <p>Logs in to the mPulse repository and fetches an Authorization token that can be used for other calls</p>
 <p>The token will be cached in memory for 5 hours, so subsequent calls using the same tenant will return
 quickly without calling out to the API.  This can be a problem if the account has signed in from a different
-location or is logged out of mPulse.  You can clear the cache for this token using <code>mPulseAPI.clearTokenCache(tenant)</code></p>
-<h4 id="arguments">Arguments</h4>
+location or is logged out of mPulse.  You can clear the cache for this token using <a class="x-ref" href="../cache_utilities/index.html#function-cleartokencache"><code>mPulseAPI.clearTokenCache</code></a></p>
+<h4 id="arguments">Arguments<a class="headerlink" href="#arguments" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>tenant::AbstractString</code></dt>
 <dd>The name of the tenant to log in to. The token will be bound to this tenant.</dd>
@@ -153,30 +153,30 @@ location or is logged out of mPulse.  You can clear the cache for this token usi
  previously authenticated with this tenant, the <code>apiToken</code> will be cached and does
  not need to be passed in again</dd>
 </dl>
-<h4 id="returns">Returns</h4>
+<h4 id="returns">Returns<a class="headerlink" href="#returns" title="Permanent link">&para;</a></h4>
 <p><code>{ASCIIString}</code> The mPulse Repository Auth token which may be used in the <code>X-Auth-Token</code> header for subsequent API calls</p>
-<h4 id="throws">Throws</h4>
+<h4 id="throws">Throws<a class="headerlink" href="#throws" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>ArgumentError</code></dt>
 <dd>if the tenant or apiToken are empty</dd>
-<dt><code>mPulseAPIAuthException</code></dt>
+<dt><a href="../exceptions/index.html#datatype-mpulseapiauthexception"><code>mPulseAPIAuthException</code></a></dt>
 <dd>if authentication failed for some reason</dd>
 </dl>
 <hr />
 <p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L189-L237" style="float:right;font-size:0.8em;">RepositoryAPI.jl#189-237</a></p>
-<h3 id="function-getrepositorydomain">function <code>getRepositoryDomain</code></h3>
+<h3 id="function-getrepositorydomain">function <code>getRepositoryDomain</code><a class="headerlink" href="#function-getrepositorydomain" title="Permanent link">&para;</a></h3>
 <p>Fetches a Domain object from the mPulse repository</p>
 <p>To fetch a single domain, at least one of <code>domainID</code>, <code>appID</code> or <code>appName</code> must be passed in to identify the domain.
 If none of these are passed in, then all domains that are readable by the specified <code>token</code> will be returned as an array.</p>
 <p>The domain will be cached in memory for 1 hour, so subsequent calls using a matching <code>domainID</code>, <code>appID</code> or <code>appName</code> return
 quickly without calling out to the API.  This can be a problem if the domain changes in the repository.
-You can clear the cache for this domain using <code>mPulseAPI.clearDomainCache()</code> and passing in one of <code>domainID</code>, <code>appID</code> or <code>appName</code>.</p>
-<h4 id="arguments_1">Arguments</h4>
+You can clear the cache for this domain using <a class="x-ref" href="../cache_utilities/index.html#function-cleardomaincache"><code>mPulseAPI.clearDomainCache</code></a> and passing in one of <code>domainID</code>, <code>appID</code> or <code>appName</code>.</p>
+<h4 id="arguments_1">Arguments<a class="headerlink" href="#arguments_1" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>token::AbstractString</code></dt>
-<dd>The Repository authentication token fetched by calling <code>mPulseAPI.getRepositoryToken</code></dd>
+<dd>The Repository authentication token fetched by calling <a class="x-ref" href="index.html#function-getrepositorytoken"><code>getRepositoryToken</code></a></dd>
 </dl>
-<h4 id="optional-arguments">Optional Arguments</h4>
+<h4 id="optional-arguments">Optional Arguments<a class="headerlink" href="#optional-arguments" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>domainID::Int64</code></dt>
 <dd>The ID of the domain to fetch.  This is the fastest method, but it can be hard to figure out a domain's ID</dd>
@@ -185,7 +185,7 @@ You can clear the cache for this domain using <code>mPulseAPI.clearDomainCache()
 <dt><code>appName::AbstractString</code></dt>
 <dd>The App name in mPulse. This is available from the mPulse domain configuration dialog.</dd>
 </dl>
-<h4 id="returns_1">Returns</h4>
+<h4 id="returns_1">Returns<a class="headerlink" href="#returns_1" title="Permanent link">&para;</a></h4>
 <p><code>{Dict|Array{Dict}}</code> If one of <code>domainID</code>, <code>appID</code> or <code>appName</code> are passed in, then a single <code>domain</code> object is returned as a <code>Dict</code>.</p>
 <p>If none of these are passed in, then an array of all domains is returned, each is a <code>Dict</code>.</p>
 <p>The <code>domain</code> <code>Dict</code> has the following fields:</p>
@@ -254,36 +254,36 @@ You can clear the cache for this domain using <code>mPulseAPI.clearDomainCache()
 <dt><code>vertical_market::AbstractString</code></dt>
 <dd>The vertical market that this domain belongs to</dd>
 </dl>
-<h4 id="throws_1">Throws</h4>
+<h4 id="throws_1">Throws<a class="headerlink" href="#throws_1" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>ArgumentError</code></dt>
 <dd>if token is empty or domainID, appID and appName are all empty</dd>
-<dt><code>mPulseAPIException</code></dt>
+<dt><a href="../exceptions/index.html#datatype-mpulseapiexception"><code>mPulseAPIException</code></a></dt>
 <dd>if API access failed for some reason</dd>
 <dt><code>Exception</code></dt>
 <dd>if something unexpected happened while parsing the repository object</dd>
 </dl>
 <hr />
 <p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L307-L329" style="float:right;font-size:0.8em;">RepositoryAPI.jl#307-329</a></p>
-<h3 id="function-getrepositorytenant">function <code>getRepositoryTenant</code></h3>
+<h3 id="function-getrepositorytenant">function <code>getRepositoryTenant</code><a class="headerlink" href="#function-getrepositorytenant" title="Permanent link">&para;</a></h3>
 <p>Fetches a Tenant object from the mPulse repository</p>
 <p>At least one of <code>tenantID</code> or <code>name</code> must be passed in to identify the tenant.</p>
 <p>The tenant will be cached in memory for 1 hour, so subsequent calls using a matching <code>tenantID</code>, or <code>name</code> return
 quickly without calling out to the API.  This can be a problem if the tenant changes in the repository.
-You can clear the cache for this tenant using <code>mPulseAPI.clearTenantCache()</code> and passing in one of <code>tenantID</code> or <code>name</code>.</p>
-<h4 id="arguments_2">Arguments</h4>
+You can clear the cache for this tenant using <a class="x-ref" href="../cache_utilities/index.html#function-cleartenantcache"><code>mPulseAPI.clearTenantCache</code></a> and passing in one of <code>tenantID</code> or <code>name</code>.</p>
+<h4 id="arguments_2">Arguments<a class="headerlink" href="#arguments_2" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>token::AbstractString</code></dt>
-<dd>The Repository authentication token fetched by calling <code>mPulseAPI.getRepositoryToken</code></dd>
+<dd>The Repository authentication token fetched by calling <a class="x-ref" href="index.html#function-getrepositorytoken"><code>getRepositoryToken</code></a></dd>
 </dl>
-<h4 id="optional-arguments_1">Optional Arguments</h4>
+<h4 id="optional-arguments_1">Optional Arguments<a class="headerlink" href="#optional-arguments_1" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>tenantID::Int64</code></dt>
 <dd>The ID of the tenant to fetch.  This is the fastest method, but it can be hard to figure out a tenant's ID</dd>
 <dt><code>name::AbstractString</code></dt>
 <dd>The Tenant name in mPulse.  This is available from the mPulse tenant list.</dd>
 </dl>
-<h4 id="returns_2">Returns</h4>
+<h4 id="returns_2">Returns<a class="headerlink" href="#returns_2" title="Permanent link">&para;</a></h4>
 <p><code>{Dict}</code> The <code>tenant</code> object with the following fields:</p>
 <dl>
 <dt><code>name::AbstractString</code></dt>
@@ -309,24 +309,24 @@ You can clear the cache for this tenant using <code>mPulseAPI.clearTenantCache()
 <dt><code>dswbUrls::Array{AbstractString}</code></dt>
 <dd>An array of DSWB URLs that are valid auth redirect targets for this tenant</dd>
 </dl>
-<h4 id="throws_2">Throws</h4>
+<h4 id="throws_2">Throws<a class="headerlink" href="#throws_2" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>ArgumentError</code></dt>
 <dd>if token is empty or tenantID and name are both empty</dd>
-<dt><code>mPulseAPIException</code></dt>
+<dt><a href="../exceptions/index.html#datatype-mpulseapiexception"><code>mPulseAPIException</code></a></dt>
 <dd>if API access failed for some reason</dd>
 </dl>
 <hr />
-<h2 id="namespaced-functions">Namespaced Functions</h2>
+<h2 id="namespaced-functions">Namespaced Functions<a class="headerlink" href="#namespaced-functions" title="Permanent link">&para;</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The following methods are not exported by default. You may use them by explicitly
 importing them or by prefixing them with the <code>mPulseAPI.</code> namespace.</p>
 </div>
 <p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L445-L480" style="float:right;font-size:0.8em;">RepositoryAPI.jl#445-480</a></p>
-<h3 id="function-getcustommetricmap">function <code>getCustomMetricMap</code></h3>
+<h3 id="function-getcustommetricmap">function <code>getCustomMetricMap</code><a class="headerlink" href="#function-getcustommetricmap" title="Permanent link">&para;</a></h3>
 <p>Gets a mapping of custom metric names to RedShift field names from domain XML.  This list also includes valid dates.</p>
-<h4 id="arguments_3">Arguments</h4>
+<h4 id="arguments_3">Arguments<a class="headerlink" href="#arguments_3" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>body::{AbstractString|XMLElement|Dict}</code></dt>
 <dd>
@@ -338,7 +338,7 @@ importing them or by prefixing them with the <code>mPulseAPI.</code> namespace.<
 </ul>
 </dd>
 </dl>
-<h4 id="returns_3">Returns</h4>
+<h4 id="returns_3">Returns<a class="headerlink" href="#returns_3" title="Permanent link">&para;</a></h4>
 <p><code>{Dict}</code> of Custom Metric names mapped to RedShift fieldnames with the following structure:</p>
 <pre><code> Dict(
      &lt;metric name&gt; =&gt; Dict(
@@ -356,7 +356,7 @@ importing them or by prefixing them with the <code>mPulseAPI.</code> namespace.<
      ...
  )
 </code></pre>
-<h4 id="throws_3">Throws</h4>
+<h4 id="throws_3">Throws<a class="headerlink" href="#throws_3" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>ArgumentError</code></dt>
 <dd>if the data type of <code>body</code> is unknown.</dd>
@@ -365,9 +365,9 @@ importing them or by prefixing them with the <code>mPulseAPI.</code> namespace.<
 </dl>
 <hr />
 <p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L497-L533" style="float:right;font-size:0.8em;">RepositoryAPI.jl#497-533</a></p>
-<h3 id="function-getcustomtimermap">function <code>getCustomTimerMap</code></h3>
+<h3 id="function-getcustomtimermap">function <code>getCustomTimerMap</code><a class="headerlink" href="#function-getcustomtimermap" title="Permanent link">&para;</a></h3>
 <p>Gets a mapping of custom timer names to RedShift field names from domain XML.  This list also includes valid dates.</p>
-<h4 id="arguments_4">Arguments</h4>
+<h4 id="arguments_4">Arguments<a class="headerlink" href="#arguments_4" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>body::{AbstractString|XMLElement|Dict}</code></dt>
 <dd>
@@ -379,7 +379,7 @@ importing them or by prefixing them with the <code>mPulseAPI.</code> namespace.<
 </ul>
 </dd>
 </dl>
-<h4 id="returns_4">Returns</h4>
+<h4 id="returns_4">Returns<a class="headerlink" href="#returns_4" title="Permanent link">&para;</a></h4>
 <p><code>{Dict}</code> of Custom Timer names mapped to RedShift fieldnames with the following structure:</p>
 <pre><code> Dict(
      &lt;timer name&gt; =&gt; Dict(
@@ -402,7 +402,7 @@ importing them or by prefixing them with the <code>mPulseAPI.</code> namespace.<
      ...
  )
 </code></pre>
-<h4 id="throws_4">Throws</h4>
+<h4 id="throws_4">Throws<a class="headerlink" href="#throws_4" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>ArgumentError</code></dt>
 <dd>if the data type of <code>body</code> is unknown.</dd>
@@ -411,9 +411,9 @@ importing them or by prefixing them with the <code>mPulseAPI.</code> namespace.<
 </dl>
 <hr />
 <p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L557-L581" style="float:right;font-size:0.8em;">RepositoryAPI.jl#557-581</a></p>
-<h3 id="function-getnodecontent">function <code>getNodeContent</code></h3>
+<h3 id="function-getnodecontent">function <code>getNodeContent</code><a class="headerlink" href="#function-getnodecontent" title="Permanent link">&para;</a></h3>
 <p>Gets the content of a node</p>
-<h4 id="arguments_5">Arguments</h4>
+<h4 id="arguments_5">Arguments<a class="headerlink" href="#arguments_5" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>body::{AbstractString|XMLElement|Dict}</code></dt>
 <dd>
@@ -429,9 +429,9 @@ importing them or by prefixing them with the <code>mPulseAPI.</code> namespace.<
 <dt><code>default::Any</code></dt>
 <dd>A default value to return if the required node was not found</dd>
 </dl>
-<h4 id="returns_5">Returns</h4>
+<h4 id="returns_5">Returns<a class="headerlink" href="#returns_5" title="Permanent link">&para;</a></h4>
 <p><code>{AbstractString|Number|Boolean}</code> The content of the requested node cast to the same type as <code>default</code> or the value of <code>default</code> if the node was not found</p>
-<h4 id="throws_5">Throws</h4>
+<h4 id="throws_5">Throws<a class="headerlink" href="#throws_5" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>ArgumentError</code></dt>
 <dd>if the data type of <code>body</code> is unknown.</dd>

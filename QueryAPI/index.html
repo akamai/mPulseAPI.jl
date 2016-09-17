@@ -134,18 +134,18 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="query-api">Query API</h1>
-<h2 id="namespaced-functions">Namespaced Functions</h2>
+                <h1 id="query-api">Query API<a class="headerlink" href="#query-api" title="Permanent link">&para;</a></h1>
+<h2 id="namespaced-functions">Namespaced Functions<a class="headerlink" href="#namespaced-functions" title="Permanent link">&para;</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The following methods are not exported by default. You may use them by explicitly
 importing them or by prefixing them with the <code>mPulseAPI.</code> namespace.</p>
 </div>
 <p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L56-L136" style="float:right;font-size:0.8em;">QueryAPI.jl#56-136</a></p>
-<h3 id="function-getapiresults">function <code>getAPIResults</code></h3>
+<h3 id="function-getapiresults">function <code>getAPIResults</code><a class="headerlink" href="#function-getapiresults" title="Permanent link">&para;</a></h3>
 <p>Get API results from the mPulse Query API (http://docs.soasta.com/query-api/)</p>
 <p>This method is a generic catch-all that queries the mPulse API and returns results as a Julia data structure matching the JSON structure of the specified API call</p>
-<h4 id="arguments">Arguments</h4>
+<h4 id="arguments">Arguments<a class="headerlink" href="#arguments" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>token::AbstractString</code></dt>
 <dd>The Repository authentication token fetched by calling <code>mPulseAPI.getRepositoryToken</code></dd>
@@ -171,7 +171,7 @@ importing them or by prefixing them with the <code>mPulseAPI.</code> namespace.<
 </ul>
 </dd>
 </dl>
-<h4 id="optional-arguments">Optional Arguments</h4>
+<h4 id="optional-arguments">Optional Arguments<a class="headerlink" href="#optional-arguments" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>filters::Dict</code></dt>
 <dd>
@@ -187,25 +187,25 @@ importing them or by prefixing them with the <code>mPulseAPI.</code> namespace.<
 </code></pre>
 </dd>
 </dl>
-<h4 id="throws">Throws</h4>
+<h4 id="throws">Throws<a class="headerlink" href="#throws" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>ArgumentError</code></dt>
 <dd>If the <code>query_type</code> is not recognized</dd>
-<dt><code>mPulseAPIAuthException</code></dt>
+<dt><a href="../exceptions/index.html#datatype-mpulseapiauthexception"><code>mPulseAPIAuthException</code></a></dt>
 <dd>If the <code>token</code> is invalid or has expired.</dd>
-<dt><code>mPulseAPIException</code></dt>
+<dt><a href="../exceptions/index.html#datatype-mpulseapiexception"><code>mPulseAPIException</code></a></dt>
 <dd>If the API returned a non-200 status.  Inspect <code>mPulseAPIException.response</code> for details about
 the problem</dd>
-<dt><code>mPulseAPIRequestException</code></dt>
+<dt><a href="../exceptions/index.html#datatype-mpulseapirequestexception"><code>mPulseAPIRequestException</code></a></dt>
 <dd>If the API was unhappy with a request parameter</dd>
 </dl>
-<h4 id="returns">Returns</h4>
+<h4 id="returns">Returns<a class="headerlink" href="#returns" title="Permanent link">&para;</a></h4>
 <p><code>{Any}</code> A Julia representation of the JSON returned by the API call. Convenience wrappers in this library may return more appropriate data structures.</p>
 <hr />
 <p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L185-L187" style="float:right;font-size:0.8em;">QueryAPI.jl#185-187</a></p>
-<h3 id="function-getsummarytimers">function <code>getSummaryTimers</code></h3>
+<h3 id="function-getsummarytimers">function <code>getSummaryTimers</code><a class="headerlink" href="#function-getsummarytimers" title="Permanent link">&para;</a></h3>
 <p>Calls the <code>summary</code> endpoint of the mPulse REST API with the passed in filters</p>
-<h4 id="arguments_1">Arguments</h4>
+<h4 id="arguments_1">Arguments<a class="headerlink" href="#arguments_1" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>token::AbstractString</code></dt>
 <dd>The Repository authentication token fetched by calling <code>mPulseAPI.getRepositoryToken</code></dd>
@@ -213,7 +213,7 @@ the problem</dd>
 <dd>The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
  <code>mPulseAPI.getRepositoryDomain</code> to fetch a domain and then inspect <code>domain["attributes"]["appID"]</code></dd>
 </dl>
-<h4 id="optional-arguments_1">Optional Arguments</h4>
+<h4 id="optional-arguments_1">Optional Arguments<a class="headerlink" href="#optional-arguments_1" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>filters::Dict</code></dt>
 <dd>
@@ -229,19 +229,19 @@ the problem</dd>
 </code></pre>
 </dd>
 </dl>
-<h4 id="throws_1">Throws</h4>
+<h4 id="throws_1">Throws<a class="headerlink" href="#throws_1" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>ArgumentError</code></dt>
 <dd>If the <code>query_type</code> is not recognized</dd>
-<dt><code>mPulseAPIAuthException</code></dt>
+<dt><a href="../exceptions/index.html#datatype-mpulseapiauthexception"><code>mPulseAPIAuthException</code></a></dt>
 <dd>If the <code>token</code> is invalid or has expired.</dd>
-<dt><code>mPulseAPIException</code></dt>
+<dt><a href="../exceptions/index.html#datatype-mpulseapiexception"><code>mPulseAPIException</code></a></dt>
 <dd>If the API returned a non-200 status.  Inspect <code>mPulseAPIException.response</code> for details about
 the problem</dd>
-<dt><code>mPulseAPIRequestException</code></dt>
+<dt><a href="../exceptions/index.html#datatype-mpulseapirequestexception"><code>mPulseAPIRequestException</code></a></dt>
 <dd>If the API was unhappy with a request parameter</dd>
 </dl>
-<h4 id="returns_1">Returns</h4>
+<h4 id="returns_1">Returns<a class="headerlink" href="#returns_1" title="Permanent link">&para;</a></h4>
 <p><code>{Dict}</code> A Julia <code>Dict</code> with the following string keys:</p>
 <dl>
 <dt><code>n::Int</code></dt>
@@ -255,7 +255,7 @@ the problem</dd>
 <dt><code>moe::Float</code></dt>
 <dd>The 95% confidence interval margin of error on the arithmetic mean of the requested timer in milliseconds</dd>
 </dl>
-<h4 id="examples">Examples</h4>
+<h4 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h4>
 <pre><code class="julia">julia&gt; summary = mPulseAPI.getSummaryTimers(token, appID)
 
 Dict{Any,Any} with 5 entries:
@@ -268,9 +268,9 @@ Dict{Any,Any} with 5 entries:
 
 <hr />
 <p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L211-L225" style="float:right;font-size:0.8em;">QueryAPI.jl#211-225</a></p>
-<h3 id="function-getpagegrouptimers">function <code>getPageGroupTimers</code></h3>
+<h3 id="function-getpagegrouptimers">function <code>getPageGroupTimers</code><a class="headerlink" href="#function-getpagegrouptimers" title="Permanent link">&para;</a></h3>
 <p>Calls the <code>page-groups</code> endpoint of the mPulse REST API with the passed in filters</p>
-<h4 id="arguments_2">Arguments</h4>
+<h4 id="arguments_2">Arguments<a class="headerlink" href="#arguments_2" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>token::AbstractString</code></dt>
 <dd>The Repository authentication token fetched by calling <code>mPulseAPI.getRepositoryToken</code></dd>
@@ -278,7 +278,7 @@ Dict{Any,Any} with 5 entries:
 <dd>The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
  <code>mPulseAPI.getRepositoryDomain</code> to fetch a domain and then inspect <code>domain["attributes"]["appID"]</code></dd>
 </dl>
-<h4 id="optional-arguments_2">Optional Arguments</h4>
+<h4 id="optional-arguments_2">Optional Arguments<a class="headerlink" href="#optional-arguments_2" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>filters::Dict</code></dt>
 <dd>
@@ -302,21 +302,21 @@ Dict{Any,Any} with 5 entries:
 <p><code>:page_group</code>, <code>:t_done_median</code>, <code>:t_done_moe</code>, <code>:t_done_count</code>, <code>:t_done_total_pc</code></p>
 </dd>
 </dl>
-<h4 id="throws_2">Throws</h4>
+<h4 id="throws_2">Throws<a class="headerlink" href="#throws_2" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>ArgumentError</code></dt>
 <dd>If the <code>query_type</code> is not recognized</dd>
-<dt><code>mPulseAPIAuthException</code></dt>
+<dt><a href="../exceptions/index.html#datatype-mpulseapiauthexception"><code>mPulseAPIAuthException</code></a></dt>
 <dd>If the <code>token</code> is invalid or has expired.</dd>
-<dt><code>mPulseAPIException</code></dt>
+<dt><a href="../exceptions/index.html#datatype-mpulseapiexception"><code>mPulseAPIException</code></a></dt>
 <dd>If the API returned a non-200 status.  Inspect <code>mPulseAPIException.response</code> for details about
 the problem</dd>
-<dt><code>mPulseAPIRequestException</code></dt>
+<dt><a href="../exceptions/index.html#datatype-mpulseapirequestexception"><code>mPulseAPIRequestException</code></a></dt>
 <dd>If the API was unhappy with a request parameter</dd>
-<dt><code>mPulseAPIResultFormatException</code></dt>
+<dt><a href="../exceptions/index.html#datatype-mpulseapiresultformatexception"><code>mPulseAPIResultFormatException</code></a></dt>
 <dd>If the API response did had  data in an unexpected data type</dd>
 </dl>
-<h4 id="returns_2">Returns</h4>
+<h4 id="returns_2">Returns<a class="headerlink" href="#returns_2" title="Permanent link">&para;</a></h4>
 <p><code>{DataFrame}</code> A Julia <code>DataFrame</code> with the following columns:</p>
 <p><code>page_group</code>, <code>t_done_median</code>, <code>t_done_moe</code>, <code>t_done_count</code>, and <code>t_done_total_pc</code></p>
 <pre><code class="julia">julia&gt; pgroups = mPulseAPI.getPageGroupTimers(token, appID)
@@ -335,9 +335,9 @@ the problem</dd>
 
 <hr />
 <p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L249-L263" style="float:right;font-size:0.8em;">QueryAPI.jl#249-263</a></p>
-<h3 id="function-getbrowsertimers">function <code>getBrowserTimers</code></h3>
+<h3 id="function-getbrowsertimers">function <code>getBrowserTimers</code><a class="headerlink" href="#function-getbrowsertimers" title="Permanent link">&para;</a></h3>
 <p>Calls the <code>browsers</code> endpoint of the mPulse REST API with the passed in filters</p>
-<h4 id="arguments_3">Arguments</h4>
+<h4 id="arguments_3">Arguments<a class="headerlink" href="#arguments_3" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>token::AbstractString</code></dt>
 <dd>The Repository authentication token fetched by calling <code>mPulseAPI.getRepositoryToken</code></dd>
@@ -345,7 +345,7 @@ the problem</dd>
 <dd>The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
  <code>mPulseAPI.getRepositoryDomain</code> to fetch a domain and then inspect <code>domain["attributes"]["appID"]</code></dd>
 </dl>
-<h4 id="optional-arguments_3">Optional Arguments</h4>
+<h4 id="optional-arguments_3">Optional Arguments<a class="headerlink" href="#optional-arguments_3" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>filters::Dict</code></dt>
 <dd>
@@ -369,21 +369,21 @@ the problem</dd>
 <p><code>:user_agent</code>, <code>:t_done_median</code>, <code>:t_done_moe</code>, <code>:t_done_count</code>, <code>:t_done_total_pc</code></p>
 </dd>
 </dl>
-<h4 id="throws_3">Throws</h4>
+<h4 id="throws_3">Throws<a class="headerlink" href="#throws_3" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>ArgumentError</code></dt>
 <dd>If the <code>query_type</code> is not recognized</dd>
-<dt><code>mPulseAPIAuthException</code></dt>
+<dt><a href="../exceptions/index.html#datatype-mpulseapiauthexception"><code>mPulseAPIAuthException</code></a></dt>
 <dd>If the <code>token</code> is invalid or has expired.</dd>
-<dt><code>mPulseAPIException</code></dt>
+<dt><a href="../exceptions/index.html#datatype-mpulseapiexception"><code>mPulseAPIException</code></a></dt>
 <dd>If the API returned a non-200 status.  Inspect <code>mPulseAPIException.response</code> for details about
 the problem</dd>
-<dt><code>mPulseAPIRequestException</code></dt>
+<dt><a href="../exceptions/index.html#datatype-mpulseapirequestexception"><code>mPulseAPIRequestException</code></a></dt>
 <dd>If the API was unhappy with a request parameter</dd>
-<dt><code>mPulseAPIResultFormatException</code></dt>
+<dt><a href="../exceptions/index.html#datatype-mpulseapiresultformatexception"><code>mPulseAPIResultFormatException</code></a></dt>
 <dd>If the API response did had  data in an unexpected data type</dd>
 </dl>
-<h4 id="returns_3">Returns</h4>
+<h4 id="returns_3">Returns<a class="headerlink" href="#returns_3" title="Permanent link">&para;</a></h4>
 <p><code>{DataFrame}</code> A Julia <code>DataFrame</code> with the following columns:</p>
 <p><code>user_agent</code>, <code>t_done_median</code>, <code>t_done_moe</code>, <code>t_done_count</code>, and <code>t_done_total_pc</code></p>
 <pre><code class="julia">julia&gt; pgroups = mPulseAPI.getBrowserTimers(token, appID)
@@ -402,9 +402,9 @@ the problem</dd>
 
 <hr />
 <p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L287-L301" style="float:right;font-size:0.8em;">QueryAPI.jl#287-301</a></p>
-<h3 id="function-getabtesttimers">function <code>getABTestTimers</code></h3>
+<h3 id="function-getabtesttimers">function <code>getABTestTimers</code><a class="headerlink" href="#function-getabtesttimers" title="Permanent link">&para;</a></h3>
 <p>Calls the <code>ab-tests</code> endpoint of the mPulse REST API with the passed in filters</p>
-<h4 id="arguments_4">Arguments</h4>
+<h4 id="arguments_4">Arguments<a class="headerlink" href="#arguments_4" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>token::AbstractString</code></dt>
 <dd>The Repository authentication token fetched by calling <code>mPulseAPI.getRepositoryToken</code></dd>
@@ -412,7 +412,7 @@ the problem</dd>
 <dd>The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
  <code>mPulseAPI.getRepositoryDomain</code> to fetch a domain and then inspect <code>domain["attributes"]["appID"]</code></dd>
 </dl>
-<h4 id="optional-arguments_4">Optional Arguments</h4>
+<h4 id="optional-arguments_4">Optional Arguments<a class="headerlink" href="#optional-arguments_4" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>filters::Dict</code></dt>
 <dd>
@@ -436,21 +436,21 @@ the problem</dd>
 <p><code>:test_name</code>, <code>:t_done_median</code>, <code>:t_done_moe</code>, <code>:t_done_count</code>, <code>:t_done_total_pc</code></p>
 </dd>
 </dl>
-<h4 id="throws_4">Throws</h4>
+<h4 id="throws_4">Throws<a class="headerlink" href="#throws_4" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>ArgumentError</code></dt>
 <dd>If the <code>query_type</code> is not recognized</dd>
-<dt><code>mPulseAPIAuthException</code></dt>
+<dt><a href="../exceptions/index.html#datatype-mpulseapiauthexception"><code>mPulseAPIAuthException</code></a></dt>
 <dd>If the <code>token</code> is invalid or has expired.</dd>
-<dt><code>mPulseAPIException</code></dt>
+<dt><a href="../exceptions/index.html#datatype-mpulseapiexception"><code>mPulseAPIException</code></a></dt>
 <dd>If the API returned a non-200 status.  Inspect <code>mPulseAPIException.response</code> for details about
 the problem</dd>
-<dt><code>mPulseAPIRequestException</code></dt>
+<dt><a href="../exceptions/index.html#datatype-mpulseapirequestexception"><code>mPulseAPIRequestException</code></a></dt>
 <dd>If the API was unhappy with a request parameter</dd>
-<dt><code>mPulseAPIResultFormatException</code></dt>
+<dt><a href="../exceptions/index.html#datatype-mpulseapiresultformatexception"><code>mPulseAPIResultFormatException</code></a></dt>
 <dd>If the API response did had  data in an unexpected data type</dd>
 </dl>
-<h4 id="returns_4">Returns</h4>
+<h4 id="returns_4">Returns<a class="headerlink" href="#returns_4" title="Permanent link">&para;</a></h4>
 <p><code>{DataFrame}</code> A Julia <code>DataFrame</code> with the following columns:</p>
 <p><code>test_ame</code>, <code>t_done_median</code>, <code>t_done_moe</code>, <code>t_done_count</code>, and <code>t_done_total_pc</code></p>
 <pre><code class="julia">julia&gt; pgroups = mPulseAPI.getABTestTimers(token, appID)
@@ -469,9 +469,9 @@ the problem</dd>
 
 <hr />
 <p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L339-L357" style="float:right;font-size:0.8em;">QueryAPI.jl#339-357</a></p>
-<h3 id="function-getmetricsbydimension">function <code>getMetricsByDimension</code></h3>
+<h3 id="function-getmetricsbydimension">function <code>getMetricsByDimension</code><a class="headerlink" href="#function-getmetricsbydimension" title="Permanent link">&para;</a></h3>
 <p>Calls the <code>metrics-by-dimension</code> endpoint of the mPulse REST API with the passed in dimension name and filters</p>
-<h4 id="arguments_5">Arguments</h4>
+<h4 id="arguments_5">Arguments<a class="headerlink" href="#arguments_5" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>token::AbstractString</code></dt>
 <dd>The Repository authentication token fetched by calling <code>mPulseAPI.getRepositoryToken</code></dd>
@@ -481,7 +481,7 @@ the problem</dd>
 <dt><code>dimension::AbstractString</code></dt>
 <dd>The dimension to split metrics by.  The response contains one row for each value of this dimension</dd>
 </dl>
-<h4 id="optional-arguments_5">Optional Arguments</h4>
+<h4 id="optional-arguments_5">Optional Arguments<a class="headerlink" href="#optional-arguments_5" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>filters::Dict</code></dt>
 <dd>
@@ -497,21 +497,21 @@ the problem</dd>
 </code></pre>
 </dd>
 </dl>
-<h4 id="throws_5">Throws</h4>
+<h4 id="throws_5">Throws<a class="headerlink" href="#throws_5" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>ArgumentError</code></dt>
 <dd>If the <code>query_type</code> is not recognized</dd>
-<dt><code>mPulseAPIAuthException</code></dt>
+<dt><a href="../exceptions/index.html#datatype-mpulseapiauthexception"><code>mPulseAPIAuthException</code></a></dt>
 <dd>If the <code>token</code> is invalid or has expired.</dd>
-<dt><code>mPulseAPIException</code></dt>
+<dt><a href="../exceptions/index.html#datatype-mpulseapiexception"><code>mPulseAPIException</code></a></dt>
 <dd>If the API returned a non-200 status.  Inspect <code>mPulseAPIException.response</code> for details about
 the problem</dd>
-<dt><code>mPulseAPIRequestException</code></dt>
+<dt><a href="../exceptions/index.html#datatype-mpulseapirequestexception"><code>mPulseAPIRequestException</code></a></dt>
 <dd>If the API was unhappy with a request parameter</dd>
-<dt><code>mPulseAPIResultFormatException</code></dt>
+<dt><a href="../exceptions/index.html#datatype-mpulseapiresultformatexception"><code>mPulseAPIResultFormatException</code></a></dt>
 <dd>If the API response did had  data in an unexpected data type</dd>
 </dl>
-<h4 id="returns_5">Returns</h4>
+<h4 id="returns_5">Returns<a class="headerlink" href="#returns_5" title="Permanent link">&para;</a></h4>
 <p><code>{DataFrame}</code> A Julia <code>DataFrame</code> with the following columns: <code>:&lt;dimension&gt;</code>, <code>:&lt;CustomMetric Name&gt;</code>...</p>
 <pre><code class="julia">julia&gt; mPulseAPI.getMetricsByDimension(token, appID, &quot;browser&quot;)
 243x4 DataFrames.DataFrame
@@ -527,9 +527,9 @@ the problem</dd>
 
 <hr />
 <p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L403-L447" style="float:right;font-size:0.8em;">QueryAPI.jl#403-447</a></p>
-<h3 id="function-gettimersmetrics">function <code>getTimersMetrics</code></h3>
+<h3 id="function-gettimersmetrics">function <code>getTimersMetrics</code><a class="headerlink" href="#function-gettimersmetrics" title="Permanent link">&para;</a></h3>
 <p>Calls the <code>timers-metrics</code> endpoint of the mPulse REST API with the passed in filters</p>
-<h4 id="arguments_6">Arguments</h4>
+<h4 id="arguments_6">Arguments<a class="headerlink" href="#arguments_6" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>token::AbstractString</code></dt>
 <dd>The Repository authentication token fetched by calling <code>mPulseAPI.getRepositoryToken</code></dd>
@@ -537,7 +537,7 @@ the problem</dd>
 <dd>The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
  <code>mPulseAPI.getRepositoryDomain</code> to fetch a domain and then inspect <code>domain["attributes"]["appID"]</code></dd>
 </dl>
-<h4 id="optional-arguments_6">Optional Arguments</h4>
+<h4 id="optional-arguments_6">Optional Arguments<a class="headerlink" href="#optional-arguments_6" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>filters::Dict</code></dt>
 <dd>
@@ -553,21 +553,21 @@ the problem</dd>
 </code></pre>
 </dd>
 </dl>
-<h4 id="throws_6">Throws</h4>
+<h4 id="throws_6">Throws<a class="headerlink" href="#throws_6" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>ArgumentError</code></dt>
 <dd>If the <code>query_type</code> is not recognized</dd>
-<dt><code>mPulseAPIAuthException</code></dt>
+<dt><a href="../exceptions/index.html#datatype-mpulseapiauthexception"><code>mPulseAPIAuthException</code></a></dt>
 <dd>If the <code>token</code> is invalid or has expired.</dd>
-<dt><code>mPulseAPIException</code></dt>
+<dt><a href="../exceptions/index.html#datatype-mpulseapiexception"><code>mPulseAPIException</code></a></dt>
 <dd>If the API returned a non-200 status.  Inspect <code>mPulseAPIException.response</code> for details about
 the problem</dd>
-<dt><code>mPulseAPIRequestException</code></dt>
+<dt><a href="../exceptions/index.html#datatype-mpulseapirequestexception"><code>mPulseAPIRequestException</code></a></dt>
 <dd>If the API was unhappy with a request parameter</dd>
 <dt><code>Exception</code></dt>
 <dd>If there was an unexpected type error parsing response values</dd>
 </dl>
-<h4 id="returns_6">Returns</h4>
+<h4 id="returns_6">Returns<a class="headerlink" href="#returns_6" title="Permanent link">&para;</a></h4>
 <p><code>{DataFrame}</code> A <code>DataFrame</code> with one column for each timer and metric.  Known columns include:</p>
 <ul>
 <li><code>:Beacons</code> and <code>:PageLoad</code> will always be present.</li>
@@ -593,9 +593,9 @@ For example, for Last24Hours, there will be 1440 entries representing each minut
 
 <hr />
 <p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L483-L493" style="float:right;font-size:0.8em;">QueryAPI.jl#483-493</a></p>
-<h3 id="function-getgeotimers">function <code>getGeoTimers</code></h3>
+<h3 id="function-getgeotimers">function <code>getGeoTimers</code><a class="headerlink" href="#function-getgeotimers" title="Permanent link">&para;</a></h3>
 <p>Calls the <code>geography</code> endpoint of the mPulse REST API with the passed in filters</p>
-<h4 id="arguments_7">Arguments</h4>
+<h4 id="arguments_7">Arguments<a class="headerlink" href="#arguments_7" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>token::AbstractString</code></dt>
 <dd>The Repository authentication token fetched by calling <code>mPulseAPI.getRepositoryToken</code></dd>
@@ -603,7 +603,7 @@ For example, for Last24Hours, there will be 1440 entries representing each minut
 <dd>The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
  <code>mPulseAPI.getRepositoryDomain</code> to fetch a domain and then inspect <code>domain["attributes"]["appID"]</code></dd>
 </dl>
-<h4 id="optional-arguments_7">Optional Arguments</h4>
+<h4 id="optional-arguments_7">Optional Arguments<a class="headerlink" href="#optional-arguments_7" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>filters::Dict</code></dt>
 <dd>
@@ -619,21 +619,21 @@ For example, for Last24Hours, there will be 1440 entries representing each minut
 </code></pre>
 </dd>
 </dl>
-<h4 id="throws_7">Throws</h4>
+<h4 id="throws_7">Throws<a class="headerlink" href="#throws_7" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>ArgumentError</code></dt>
 <dd>If the <code>query_type</code> is not recognized</dd>
-<dt><code>mPulseAPIAuthException</code></dt>
+<dt><a href="../exceptions/index.html#datatype-mpulseapiauthexception"><code>mPulseAPIAuthException</code></a></dt>
 <dd>If the <code>token</code> is invalid or has expired.</dd>
-<dt><code>mPulseAPIException</code></dt>
+<dt><a href="../exceptions/index.html#datatype-mpulseapiexception"><code>mPulseAPIException</code></a></dt>
 <dd>If the API returned a non-200 status.  Inspect <code>mPulseAPIException.response</code> for details about
 the problem</dd>
-<dt><code>mPulseAPIRequestException</code></dt>
+<dt><a href="../exceptions/index.html#datatype-mpulseapirequestexception"><code>mPulseAPIRequestException</code></a></dt>
 <dd>If the API was unhappy with a request parameter</dd>
-<dt><code>mPulseAPIResultFormatException</code></dt>
+<dt><a href="../exceptions/index.html#datatype-mpulseapiresultformatexception"><code>mPulseAPIResultFormatException</code></a></dt>
 <dd>If the API response did had  data in an unexpected data type</dd>
 </dl>
-<h4 id="returns_7">Returns</h4>
+<h4 id="returns_7">Returns<a class="headerlink" href="#returns_7" title="Permanent link">&para;</a></h4>
 <p><code>{DataFrame}</code> A Julia <code>DataFrame</code> with the following columns: <code>:country</code>, <code>:timerID</code>, <code>:timerN</code>, <code>:timerMedian</code>, <code>:timerMOE</code></p>
 <pre><code class="julia">julia&gt; geo = mPulseAPI.getGeoTimers(token, appID)
 147x5 DataFrames.DataFrame
@@ -650,9 +650,9 @@ the problem</dd>
 
 <hr />
 <p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L559-L573" style="float:right;font-size:0.8em;">QueryAPI.jl#559-573</a></p>
-<h3 id="function-gethistogram">function <code>getHistogram</code></h3>
+<h3 id="function-gethistogram">function <code>getHistogram</code><a class="headerlink" href="#function-gethistogram" title="Permanent link">&para;</a></h3>
 <p>Calls the <code>histogram</code> endpoint of the mPulse REST API with the passed in filters</p>
-<h4 id="arguments_8">Arguments</h4>
+<h4 id="arguments_8">Arguments<a class="headerlink" href="#arguments_8" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>token::AbstractString</code></dt>
 <dd>The Repository authentication token fetched by calling <code>mPulseAPI.getRepositoryToken</code></dd>
@@ -660,7 +660,7 @@ the problem</dd>
 <dd>The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
  <code>mPulseAPI.getRepositoryDomain</code> to fetch a domain and then inspect <code>domain["attributes"]["appID"]</code></dd>
 </dl>
-<h4 id="optional-arguments_8">Optional Arguments</h4>
+<h4 id="optional-arguments_8">Optional Arguments<a class="headerlink" href="#optional-arguments_8" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>filters::Dict</code></dt>
 <dd>
@@ -676,21 +676,21 @@ the problem</dd>
 </code></pre>
 </dd>
 </dl>
-<h4 id="throws_8">Throws</h4>
+<h4 id="throws_8">Throws<a class="headerlink" href="#throws_8" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>ArgumentError</code></dt>
 <dd>If the <code>query_type</code> is not recognized</dd>
-<dt><code>mPulseAPIAuthException</code></dt>
+<dt><a href="../exceptions/index.html#datatype-mpulseapiauthexception"><code>mPulseAPIAuthException</code></a></dt>
 <dd>If the <code>token</code> is invalid or has expired.</dd>
-<dt><code>mPulseAPIException</code></dt>
+<dt><a href="../exceptions/index.html#datatype-mpulseapiexception"><code>mPulseAPIException</code></a></dt>
 <dd>If the API returned a non-200 status.  Inspect <code>mPulseAPIException.response</code> for details about
 the problem</dd>
-<dt><code>mPulseAPIRequestException</code></dt>
+<dt><a href="../exceptions/index.html#datatype-mpulseapirequestexception"><code>mPulseAPIRequestException</code></a></dt>
 <dd>If the API was unhappy with a request parameter</dd>
-<dt><code>mPulseAPIResultFormatException</code></dt>
+<dt><a href="../exceptions/index.html#datatype-mpulseapiresultformatexception"><code>mPulseAPIResultFormatException</code></a></dt>
 <dd>If the API response did had a missing <code>series</code> element or data in an unexpected data type</dd>
 </dl>
-<h4 id="returns_8">Returns</h4>
+<h4 id="returns_8">Returns<a class="headerlink" href="#returns_8" title="Permanent link">&para;</a></h4>
 <p><code>{Dict}</code> A Julia <code>Dict</code> with the following string keys:</p>
 <dl>
 <dt><code>median::Int</code></dt>
@@ -732,9 +732,9 @@ Dict{AbstractString,Any} with 4 entries:
 
 <hr />
 <p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L593-L595" style="float:right;font-size:0.8em;">QueryAPI.jl#593-595</a></p>
-<h3 id="function-getsessionsoverpageloadtime">function <code>getSessionsOverPageLoadTime</code></h3>
+<h3 id="function-getsessionsoverpageloadtime">function <code>getSessionsOverPageLoadTime</code><a class="headerlink" href="#function-getsessionsoverpageloadtime" title="Permanent link">&para;</a></h3>
 <p>Calls the <code>sessions-per-page-load-time</code> endpoint of the mPulse REST API with the passed in filters</p>
-<h4 id="arguments_9">Arguments</h4>
+<h4 id="arguments_9">Arguments<a class="headerlink" href="#arguments_9" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>token::AbstractString</code></dt>
 <dd>The Repository authentication token fetched by calling <code>mPulseAPI.getRepositoryToken</code></dd>
@@ -742,7 +742,7 @@ Dict{AbstractString,Any} with 4 entries:
 <dd>The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
  <code>mPulseAPI.getRepositoryDomain</code> to fetch a domain and then inspect <code>domain["attributes"]["appID"]</code></dd>
 </dl>
-<h4 id="optional-arguments_9">Optional Arguments</h4>
+<h4 id="optional-arguments_9">Optional Arguments<a class="headerlink" href="#optional-arguments_9" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>filters::Dict</code></dt>
 <dd>
@@ -758,19 +758,19 @@ Dict{AbstractString,Any} with 4 entries:
 </code></pre>
 </dd>
 </dl>
-<h4 id="throws_9">Throws</h4>
+<h4 id="throws_9">Throws<a class="headerlink" href="#throws_9" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>ArgumentError</code></dt>
 <dd>If the <code>query_type</code> is not recognized</dd>
-<dt><code>mPulseAPIAuthException</code></dt>
+<dt><a href="../exceptions/index.html#datatype-mpulseapiauthexception"><code>mPulseAPIAuthException</code></a></dt>
 <dd>If the <code>token</code> is invalid or has expired.</dd>
-<dt><code>mPulseAPIException</code></dt>
+<dt><a href="../exceptions/index.html#datatype-mpulseapiexception"><code>mPulseAPIException</code></a></dt>
 <dd>If the API returned a non-200 status.  Inspect <code>mPulseAPIException.response</code> for details about
 the problem</dd>
-<dt><code>mPulseAPIRequestException</code></dt>
+<dt><a href="../exceptions/index.html#datatype-mpulseapirequestexception"><code>mPulseAPIRequestException</code></a></dt>
 <dd>If the API was unhappy with a request parameter</dd>
 </dl>
-<h4 id="returns_9">Returns</h4>
+<h4 id="returns_9">Returns<a class="headerlink" href="#returns_9" title="Permanent link">&para;</a></h4>
 <p><code>{DataFrame}</code> A julia <code>DataFrame</code> mapping the Sessions to a load time bucket:</p>
 <pre><code class="julia">julia&gt; mPulseAPI.getSessionsOverPageLoadTime(token, appID)
 60x2 DataFrames.DataFrame
@@ -788,9 +788,9 @@ the problem</dd>
 
 <hr />
 <p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L620-L644" style="float:right;font-size:0.8em;">QueryAPI.jl#620-644</a></p>
-<h3 id="function-getmetricoverpageloadtime">function <code>getMetricOverPageLoadTime</code></h3>
+<h3 id="function-getmetricoverpageloadtime">function <code>getMetricOverPageLoadTime</code><a class="headerlink" href="#function-getmetricoverpageloadtime" title="Permanent link">&para;</a></h3>
 <p>Calls the <code>metric-per-page-load-time</code> endpoint of the mPulse REST API with the passed in filters</p>
-<h4 id="arguments_10">Arguments</h4>
+<h4 id="arguments_10">Arguments<a class="headerlink" href="#arguments_10" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>token::AbstractString</code></dt>
 <dd>The Repository authentication token fetched by calling <code>mPulseAPI.getRepositoryToken</code></dd>
@@ -798,7 +798,7 @@ the problem</dd>
 <dd>The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
  <code>mPulseAPI.getRepositoryDomain</code> to fetch a domain and then inspect <code>domain["attributes"]["appID"]</code></dd>
 </dl>
-<h4 id="optional-arguments_10">Optional Arguments</h4>
+<h4 id="optional-arguments_10">Optional Arguments<a class="headerlink" href="#optional-arguments_10" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>metric::AbstractString</code></dt>
 <dd>The metric name whose data we want.  If not specified, defaults to <code>BounceRate</code></dd>
@@ -816,21 +816,21 @@ the problem</dd>
 </code></pre>
 </dd>
 </dl>
-<h4 id="throws_10">Throws</h4>
+<h4 id="throws_10">Throws<a class="headerlink" href="#throws_10" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>ArgumentError</code></dt>
 <dd>If the <code>query_type</code> is not recognized</dd>
-<dt><code>mPulseAPIAuthException</code></dt>
+<dt><a href="../exceptions/index.html#datatype-mpulseapiauthexception"><code>mPulseAPIAuthException</code></a></dt>
 <dd>If the <code>token</code> is invalid or has expired.</dd>
-<dt><code>mPulseAPIException</code></dt>
+<dt><a href="../exceptions/index.html#datatype-mpulseapiexception"><code>mPulseAPIException</code></a></dt>
 <dd>If the API returned a non-200 status.  Inspect <code>mPulseAPIException.response</code> for details about
 the problem</dd>
-<dt><code>mPulseAPIRequestException</code></dt>
+<dt><a href="../exceptions/index.html#datatype-mpulseapirequestexception"><code>mPulseAPIRequestException</code></a></dt>
 <dd>If the API was unhappy with a metric</dd>
-<dt><code>mPulseAPIResultFormatException</code></dt>
+<dt><a href="../exceptions/index.html#datatype-mpulseapiresultformatexception"><code>mPulseAPIResultFormatException</code></a></dt>
 <dd>If the API response did had a missing <code>series</code> element or data in an unexpected data type</dd>
 </dl>
-<h4 id="returns_10">Returns</h4>
+<h4 id="returns_10">Returns<a class="headerlink" href="#returns_10" title="Permanent link">&para;</a></h4>
 <p><code>{DataFrame}</code> A julia <code>DataFrame</code> mapping the Metric to a load time bucket:</p>
 <pre><code class="julia">julia&gt; mPulseAPI.getMetricOverPageLoadTime(token, appID)
 60x2 DataFrames.DataFrame
@@ -848,9 +848,9 @@ the problem</dd>
 
 <hr />
 <p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L690-L709" style="float:right;font-size:0.8em;">QueryAPI.jl#690-709</a></p>
-<h3 id="function-gettimerbyminute">function <code>getTimerByMinute</code></h3>
+<h3 id="function-gettimerbyminute">function <code>getTimerByMinute</code><a class="headerlink" href="#function-gettimerbyminute" title="Permanent link">&para;</a></h3>
 <p>Calls the <code>by-minute</code> endpoint of the mPulse REST API with the passed in filters</p>
-<h4 id="arguments_11">Arguments</h4>
+<h4 id="arguments_11">Arguments<a class="headerlink" href="#arguments_11" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>token::AbstractString</code></dt>
 <dd>The Repository authentication token fetched by calling <code>mPulseAPI.getRepositoryToken</code></dd>
@@ -858,7 +858,7 @@ the problem</dd>
 <dd>The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
  <code>mPulseAPI.getRepositoryDomain</code> to fetch a domain and then inspect <code>domain["attributes"]["appID"]</code></dd>
 </dl>
-<h4 id="optional-arguments_11">Optional Arguments</h4>
+<h4 id="optional-arguments_11">Optional Arguments<a class="headerlink" href="#optional-arguments_11" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>timer::AbstractString</code></dt>
 <dd>The name of the timer whose data we want.  If not specified, defaults to <code>PageLoad</code>.  Other possible
@@ -880,21 +880,21 @@ the problem</dd>
 </code></pre>
 </dd>
 </dl>
-<h4 id="throws_11">Throws</h4>
+<h4 id="throws_11">Throws<a class="headerlink" href="#throws_11" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>ArgumentError</code></dt>
 <dd>If the <code>query_type</code> is not recognized</dd>
-<dt><code>mPulseAPIAuthException</code></dt>
+<dt><a href="../exceptions/index.html#datatype-mpulseapiauthexception"><code>mPulseAPIAuthException</code></a></dt>
 <dd>If the <code>token</code> is invalid or has expired.</dd>
-<dt><code>mPulseAPIException</code></dt>
+<dt><a href="../exceptions/index.html#datatype-mpulseapiexception"><code>mPulseAPIException</code></a></dt>
 <dd>If the API returned a non-200 status.  Inspect <code>mPulseAPIException.response</code> for details about
 the problem</dd>
-<dt><code>mPulseAPIRequestException</code></dt>
+<dt><a href="../exceptions/index.html#datatype-mpulseapirequestexception"><code>mPulseAPIRequestException</code></a></dt>
 <dd>If the API was unhappy with a timer</dd>
-<dt><code>mPulseAPIResultFormatException</code></dt>
+<dt><a href="../exceptions/index.html#datatype-mpulseapiresultformatexception"><code>mPulseAPIResultFormatException</code></a></dt>
 <dd>If the API response did had a missing <code>series</code> element or data in an unexpected data type</dd>
 </dl>
-<h4 id="returns_11">Returns</h4>
+<h4 id="returns_11">Returns<a class="headerlink" href="#returns_11" title="Permanent link">&para;</a></h4>
 <p><code>{DataFrame{</code> A julia <code>DataFrame</code> containing timeseries data for the median value of the timer and its margin of error.
 The fields are: <code>:timestamp</code> in milliseconds since the UNIX epoch, <code>:&lt;TimerName&gt;</code> in milliseconds and <code>:moe</code> in milliseconds.</p>
 <pre><code class="julia">julia&gt; data = mPulseAPI.getTimerByMinute(token, appID, timer=&quot;PageLoad&quot;)
@@ -914,30 +914,30 @@ The fields are: <code>:timestamp</code> in milliseconds since the UNIX epoch, <c
 
 <hr />
 <p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L774-L782" style="float:right;font-size:0.8em;">QueryAPI.jl#774-782</a></p>
-<h3 id="function-mergemetrics">function <code>mergeMetrics</code></h3>
+<h3 id="function-mergemetrics">function <code>mergeMetrics</code><a class="headerlink" href="#function-mergemetrics" title="Permanent link">&para;</a></h3>
 <p>Merge multiple similar <code>DataFrames</code> into a single <code>DataFrame</code></p>
 <p>Use this method to merge the results from multiple calls to <code>getMetricOverPageLoadTime()</code> and <code>getSessionsOverPageLoadTime()</code>.
 All passed in <code>DataFrame</code>s MUST contain a <code>:t_done</code> column.</p>
-<h3 id="arguments_12">Arguments</h3>
+<h3 id="arguments_12">Arguments<a class="headerlink" href="#arguments_12" title="Permanent link">&para;</a></h3>
 <dl>
 <dt><code>df1::DataFrame</code></dt>
 <dd>The first <code>DataFrame</code> in the collection.  This method requires at least one <code>DataFrame</code> to be passed in.</dd>
 <dt><code>df2::DataFrame...</code></dt>
 <dd>One or more <code>DataFrame</code> to be merged together with the first one</dd>
 </dl>
-<h3 id="optional-arguments_12">Optional Arguments</h3>
+<h3 id="optional-arguments_12">Optional Arguments<a class="headerlink" href="#optional-arguments_12" title="Permanent link">&para;</a></h3>
 <dl>
 <dt><code>keyField::Symbol=:t_done</code></dt>
 <dd>The column name to join on.  Defaults to <code>:t_done</code></dd>
 <dt><code>joinType::Symbol=:outer</code></dt>
 <dd>The type of join to perform.  See the <code>kind</code> parameter in <code>?join</code> for a list of supported join types</dd>
 </dl>
-<h3 id="throws_12">Throws</h3>
+<h3 id="throws_12">Throws<a class="headerlink" href="#throws_12" title="Permanent link">&para;</a></h3>
 <dl>
 <dt><code>KeyError</code></dt>
 <dd>if the <code>keyField</code> column does not exist in all passed in <code>DataFrame</code>s</dd>
 </dl>
-<h3 id="returns_12">Returns</h3>
+<h3 id="returns_12">Returns<a class="headerlink" href="#returns_12" title="Permanent link">&para;</a></h3>
 <ul>
 <li>If only one <code>DataFrame</code> is passed in, it is returned as-is.  This is not a copy of the first DataFrame.</li>
 <li>If multiple <code>DataFrame</code>s are passed in, they are merged using an <code>outer</code> join on the <code>keyField</code> column, and the resulting <code>DataFrame</code> is returned.
