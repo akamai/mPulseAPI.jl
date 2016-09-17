@@ -32,7 +32,7 @@ Logs in to the mPulse repository and fetches an Authorization token that can be 
 
 The token will be cached in memory for 5 hours, so subsequent calls using the same tenant will return
 quickly without calling out to the API.  This can be a problem if the account has signed in from a different
-location or is logged out of mPulse.  You can clear the cache for this token using `mPulseAPI.clearTokenCache(tenant)`
+location or is logged out of mPulse.  You can clear the cache for this token using [`mPulseAPI.clearTokenCache`](@ref)
 
 #### Arguments
 `tenant::AbstractString`
@@ -110,11 +110,11 @@ If none of these are passed in, then all domains that are readable by the specif
 
 The domain will be cached in memory for 1 hour, so subsequent calls using a matching `domainID`, `appID` or `appName` return
 quickly without calling out to the API.  This can be a problem if the domain changes in the repository.
-You can clear the cache for this domain using `mPulseAPI.clearDomainCache()` and passing in one of `domainID`, `appID` or `appName`.
+You can clear the cache for this domain using [`mPulseAPI.clearDomainCache`](@ref) and passing in one of `domainID`, `appID` or `appName`.
 
 #### Arguments
 `token::AbstractString`
-:    The Repository authentication token fetched by calling `mPulseAPI.getRepositoryToken`
+:    The Repository authentication token fetched by calling [`getRepositoryToken`](@ref)
 
 #### Optional Arguments
 `domainID::Int64`
@@ -246,11 +246,11 @@ At least one of `tenantID` or `name` must be passed in to identify the tenant.
 
 The tenant will be cached in memory for 1 hour, so subsequent calls using a matching `tenantID`, or `name` return
 quickly without calling out to the API.  This can be a problem if the tenant changes in the repository.
-You can clear the cache for this tenant using `mPulseAPI.clearTenantCache()` and passing in one of `tenantID` or `name`.
+You can clear the cache for this tenant using [`mPulseAPI.clearTenantCache`](@ref) and passing in one of `tenantID` or `name`.
 
 #### Arguments
 `token::AbstractString`
-:    The Repository authentication token fetched by calling `mPulseAPI.getRepositoryToken`
+:    The Repository authentication token fetched by calling [`getRepositoryToken`](@ref)
 
 #### Optional Arguments
 `tenantID::Int64`

@@ -9,7 +9,7 @@ Logs in to the mPulse repository and fetches an Authorization token that can be 
 
 The token will be cached in memory for 5 hours, so subsequent calls using the same tenant will return
 quickly without calling out to the API.  This can be a problem if the account has signed in from a different
-location or is logged out of mPulse.  You can clear the cache for this token using `mPulseAPI.clearTokenCache(tenant)`
+location or is logged out of mPulse.  You can clear the cache for this token using [`mPulseAPI.clearTokenCache`](cache_utilities.md#function-cleartokencache){: .x-ref}
 
 #### Arguments
 `tenant::AbstractString`
@@ -27,7 +27,7 @@ location or is logged out of mPulse.  You can clear the cache for this token usi
 `ArgumentError`
 :    if the tenant or apiToken are empty
 
-`mPulseAPIAuthException`
+[`mPulseAPIAuthException`](exceptions.md#datatype-mpulseapiauthexception)
 :    if authentication failed for some reason
 
 ---
@@ -42,11 +42,11 @@ If none of these are passed in, then all domains that are readable by the specif
 
 The domain will be cached in memory for 1 hour, so subsequent calls using a matching `domainID`, `appID` or `appName` return
 quickly without calling out to the API.  This can be a problem if the domain changes in the repository.
-You can clear the cache for this domain using `mPulseAPI.clearDomainCache()` and passing in one of `domainID`, `appID` or `appName`.
+You can clear the cache for this domain using [`mPulseAPI.clearDomainCache`](cache_utilities.md#function-cleardomaincache){: .x-ref} and passing in one of `domainID`, `appID` or `appName`.
 
 #### Arguments
 `token::AbstractString`
-:    The Repository authentication token fetched by calling `mPulseAPI.getRepositoryToken`
+:    The Repository authentication token fetched by calling [`getRepositoryToken`](RepositoryAPI.md#function-getrepositorytoken){: .x-ref}
 
 #### Optional Arguments
 `domainID::Int64`
@@ -148,7 +148,7 @@ The `domain` `Dict` has the following fields:
 `ArgumentError`
 :    if token is empty or domainID, appID and appName are all empty
 
-`mPulseAPIException`
+[`mPulseAPIException`](exceptions.md#datatype-mpulseapiexception)
 :    if API access failed for some reason
 
 `Exception`
@@ -166,11 +166,11 @@ At least one of `tenantID` or `name` must be passed in to identify the tenant.
 
 The tenant will be cached in memory for 1 hour, so subsequent calls using a matching `tenantID`, or `name` return
 quickly without calling out to the API.  This can be a problem if the tenant changes in the repository.
-You can clear the cache for this tenant using `mPulseAPI.clearTenantCache()` and passing in one of `tenantID` or `name`.
+You can clear the cache for this tenant using [`mPulseAPI.clearTenantCache`](cache_utilities.md#function-cleartenantcache){: .x-ref} and passing in one of `tenantID` or `name`.
 
 #### Arguments
 `token::AbstractString`
-:    The Repository authentication token fetched by calling `mPulseAPI.getRepositoryToken`
+:    The Repository authentication token fetched by calling [`getRepositoryToken`](RepositoryAPI.md#function-getrepositorytoken){: .x-ref}
 
 #### Optional Arguments
 `tenantID::Int64`
@@ -220,7 +220,7 @@ You can clear the cache for this tenant using `mPulseAPI.clearTenantCache()` and
 `ArgumentError`
 :    if token is empty or tenantID and name are both empty
 
-`mPulseAPIException`
+[`mPulseAPIException`](exceptions.md#datatype-mpulseapiexception)
 :    if API access failed for some reason
 
 
@@ -240,11 +240,11 @@ Gets a mapping of custom metric names to RedShift field names from domain XML.  
 
 #### Arguments
 `body::{AbstractString|XMLElement|Dict}`
-:    This is an object containing the domain XML returned by `mPulseAPI.getRepositoryDomain`.  It may be:
+:    This is an object containing the domain XML returned by [`mPulseAPI.getRepositoryDomain`](RepositoryAPI.md#function-getrepositorydomain){: .x-ref}.  It may be:
 
      * An `AbstractString` containing the domain XML.  This will be parsed.
      * A `LightXML.XMLElement` pointing to the root node of the domain XML.
-     * A `Dict` with a `body` element. This is the domain object returned by `mPulseAPI.getRepositoryDomain`.
+     * A `Dict` with a `body` element. This is the domain object returned by [`mPulseAPI.getRepositoryDomain`](RepositoryAPI.md#function-getrepositorydomain){: .x-ref}.
 
 
 #### Returns
@@ -282,11 +282,11 @@ Gets a mapping of custom timer names to RedShift field names from domain XML.  T
 
 #### Arguments
 `body::{AbstractString|XMLElement|Dict}`
-:    This is an object containing the domain XML returned by `mPulseAPI.getRepositoryDomain`.  It may be:
+:    This is an object containing the domain XML returned by [`mPulseAPI.getRepositoryDomain`](RepositoryAPI.md#function-getrepositorydomain){: .x-ref}.  It may be:
 
      * An `AbstractString` containing the domain XML.  This will be parsed.
      * A `LightXML.XMLElement` pointing to the root node of the domain XML.
-     * A `Dict` with a `body` element. This is the domain object returned by `mPulseAPI.getRepositoryDomain`.
+     * A `Dict` with a `body` element. This is the domain object returned by [`mPulseAPI.getRepositoryDomain`](RepositoryAPI.md#function-getrepositorydomain){: .x-ref}.
 
 
 #### Returns
@@ -329,11 +329,11 @@ Gets the content of a node
 
 #### Arguments
 `body::{AbstractString|XMLElement|Dict}`
-:    This is an object containing the domain XML returned by `mPulseAPI.getRepositoryDomain`.  It may be:
+:    This is an object containing the domain XML returned by [`mPulseAPI.getRepositoryDomain`](RepositoryAPI.md#function-getrepositorydomain){: .x-ref}.  It may be:
 
      * An `AbstractString` containing the domain XML.  This will be parsed.
      * A `LightXML.XMLElement` pointing to the root node of the domain XML.
-     * A `Dict` with a `body` element. This is the domain object returned by `mPulseAPI.getRepositoryDomain`.
+     * A `Dict` with a `body` element. This is the domain object returned by [`mPulseAPI.getRepositoryDomain`](RepositoryAPI.md#function-getrepositorydomain){: .x-ref}.
 
 
 `nodeName::AbstractString`

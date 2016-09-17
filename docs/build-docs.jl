@@ -1,4 +1,27 @@
 ###############################################################################################
+#
+#  Extract raw Markdown from source files and turn them into docs
+# 
+#  - Use `whos` to get a list of exported symbols from the module
+#  - Use __META__ to get all documented symbols along with path to the sourcefile
+#  - Use `grep` to get line number in file
+#    - because MD.meta only has line for Function and not Module or DataType
+#    - because even when there is a line number, it is off by one
+#  - Use readlines to read in the source file and pull out docs & end line number
+#    - because julia compiles docs to incorrect Markdown objects, and discards the raw MD
+#  - Re-execute all docstrings because they may include external files
+#  - Write .md files and a TOC, add links back to repo with start/end lines for each object
+#  - Create mkdocs.yml
+#  - Run `mkdocs` to build html docs
+#  - Cleanup (optional)
+#  
+#
+#              -- Because julia's own documentation libraries cannot handle all of markdown
+#
+###############################################################################################
+
+
+###############################################################################################
 ###
 ### The following constants may be modified for based on your own config
 ###
@@ -22,7 +45,7 @@ const mkdocs_config = Dict(
     :docs_dir  => "src",
     :use_directory_urls => false,
     :theme     => "readthedocs",
-    :markdown_extensions => [:admonition, :def_list, :attr_list],
+    :markdown_extensions => [:admonition, :def_list, :attr_list, "toc:\n        permalink: True"],
 )
 
 # Don't change this
@@ -145,6 +168,21 @@ labels = Pair[Module => "", DataType => "Type", Function => "Function"]
 exps   = Pair[true => "Exported", false => "Namespaced"]
 
 symbols = getSymbols(Mod)
+refids  = Dict(map(s -> (s[:name] => replace(s[:file], r"\.jl$", ".md") * lowercase(string("#", s[:type], "-", s[:name]))), symbols))
+
+function replace_refs(m)
+    ref = match(Regex("^\\[(`?(?:$mod\\.)?(\\w+)`?)\\]"), m)
+
+    if ref == nothing
+        return m
+    end
+
+    txt = ref.captures[1]
+    ref = ref.captures[2]
+
+    return "[$txt]($(refids[ref])){: .x-ref}"
+end
+
 
 cd(dirname(@__FILE__)) do
 
@@ -200,7 +238,9 @@ cd(dirname(@__FILE__)) do
                                     ##$(typ == Module ? "" : "#") $(lowercase(string(s[:type]))) `$(s[:name])`
                                     """)
 
-                                println(f, s[:doc], "\n---\n")
+                                s_doc = replace(s[:doc], Regex("\\[`?(?:$mod\\.)?\\w+`?\\]\\(@ref\\)"), replace_refs)
+                                s_doc = replace(s_doc, r"^`(\w+)`"m, m -> (r = replace(m, "`", ""); haskey(refids, r) ? "[$m]($(refids[r]))" : m))
+                                println(f, s_doc, "\n---\n")
                             end
                         end
                     end
@@ -229,7 +269,7 @@ cd(dirname(@__FILE__)) do
                                 * [$(p.title)]($(p.name).md)
                                 """)
                         end
-                        println(f, "    * [$(s[:name])]($(p.name).md#$(lowercase(string(s[:type], "-", s[:name]))))")
+                        println(f, "    * [$(s[:name])]($(refids[s[:name]]))")
                         
                     end
 

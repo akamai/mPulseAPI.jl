@@ -17,11 +17,11 @@ This method is a generic catch-all that queries the mPulse API and returns resul
 
 #### Arguments
 `token::AbstractString`
-:    The Repository authentication token fetched by calling `mPulseAPI.getRepositoryToken`
+:    The Repository authentication token fetched by calling [`mPulseAPI.getRepositoryToken`](RepositoryAPI.md#function-getrepositorytoken){: .x-ref}
 
 `appID::AbstractString`
 :    The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
-     `mPulseAPI.getRepositoryDomain` to fetch a domain and then inspect `domain["attributes"]["appID"]`
+     [`mPulseAPI.getRepositoryDomain`](RepositoryAPI.md#function-getrepositorydomain){: .x-ref} to fetch a domain and then inspect `domain["attributes"]["appID"]`
 
 `query_type::AbstractString`
 :    The specific API query to make.  Must be one of the following:
@@ -58,14 +58,14 @@ This method is a generic catch-all that queries the mPulse API and returns resul
 `ArgumentError`
 :   If the `query_type` is not recognized
 
-`mPulseAPIAuthException`
+[`mPulseAPIAuthException`](exceptions.md#datatype-mpulseapiauthexception)
 :   If the `token` is invalid or has expired.
 
-`mPulseAPIException`
+[`mPulseAPIException`](exceptions.md#datatype-mpulseapiexception)
 :   If the API returned a non-200 status.  Inspect `mPulseAPIException.response` for details about
     the problem
 
-`mPulseAPIRequestException`
+[`mPulseAPIRequestException`](exceptions.md#datatype-mpulseapirequestexception)
 :   If the API was unhappy with a request parameter
 
 #### Returns
@@ -80,11 +80,11 @@ Calls the `summary` endpoint of the mPulse REST API with the passed in filters
 
 #### Arguments
 `token::AbstractString`
-:    The Repository authentication token fetched by calling `mPulseAPI.getRepositoryToken`
+:    The Repository authentication token fetched by calling [`mPulseAPI.getRepositoryToken`](RepositoryAPI.md#function-getrepositorytoken){: .x-ref}
 
 `appID::AbstractString`
 :    The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
-     `mPulseAPI.getRepositoryDomain` to fetch a domain and then inspect `domain["attributes"]["appID"]`
+     [`mPulseAPI.getRepositoryDomain`](RepositoryAPI.md#function-getrepositorydomain){: .x-ref} to fetch a domain and then inspect `domain["attributes"]["appID"]`
 
 #### Optional Arguments
 `filters::Dict`
@@ -104,14 +104,14 @@ Calls the `summary` endpoint of the mPulse REST API with the passed in filters
 `ArgumentError`
 :   If the `query_type` is not recognized
 
-`mPulseAPIAuthException`
+[`mPulseAPIAuthException`](exceptions.md#datatype-mpulseapiauthexception)
 :   If the `token` is invalid or has expired.
 
-`mPulseAPIException`
+[`mPulseAPIException`](exceptions.md#datatype-mpulseapiexception)
 :   If the API returned a non-200 status.  Inspect `mPulseAPIException.response` for details about
     the problem
 
-`mPulseAPIRequestException`
+[`mPulseAPIRequestException`](exceptions.md#datatype-mpulseapirequestexception)
 :   If the API was unhappy with a request parameter
 
 #### Returns
@@ -155,11 +155,11 @@ Calls the `page-groups` endpoint of the mPulse REST API with the passed in filte
 
 #### Arguments
 `token::AbstractString`
-:    The Repository authentication token fetched by calling `mPulseAPI.getRepositoryToken`
+:    The Repository authentication token fetched by calling [`mPulseAPI.getRepositoryToken`](RepositoryAPI.md#function-getrepositorytoken){: .x-ref}
 
 `appID::AbstractString`
 :    The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
-     `mPulseAPI.getRepositoryDomain` to fetch a domain and then inspect `domain["attributes"]["appID"]`
+     [`mPulseAPI.getRepositoryDomain`](RepositoryAPI.md#function-getrepositorydomain){: .x-ref} to fetch a domain and then inspect `domain["attributes"]["appID"]`
 
 #### Optional Arguments
 `filters::Dict`
@@ -192,17 +192,17 @@ Calls the `page-groups` endpoint of the mPulse REST API with the passed in filte
 `ArgumentError`
 :   If the `query_type` is not recognized
 
-`mPulseAPIAuthException`
+[`mPulseAPIAuthException`](exceptions.md#datatype-mpulseapiauthexception)
 :   If the `token` is invalid or has expired.
 
-`mPulseAPIException`
+[`mPulseAPIException`](exceptions.md#datatype-mpulseapiexception)
 :   If the API returned a non-200 status.  Inspect `mPulseAPIException.response` for details about
     the problem
 
-`mPulseAPIRequestException`
+[`mPulseAPIRequestException`](exceptions.md#datatype-mpulseapirequestexception)
 :   If the API was unhappy with a request parameter
 
-`mPulseAPIResultFormatException`
+[`mPulseAPIResultFormatException`](exceptions.md#datatype-mpulseapiresultformatexception)
 :    If the API response did had  data in an unexpected data type
 
 #### Returns
@@ -234,11 +234,11 @@ Calls the `browsers` endpoint of the mPulse REST API with the passed in filters
 
 #### Arguments
 `token::AbstractString`
-:    The Repository authentication token fetched by calling `mPulseAPI.getRepositoryToken`
+:    The Repository authentication token fetched by calling [`mPulseAPI.getRepositoryToken`](RepositoryAPI.md#function-getrepositorytoken){: .x-ref}
 
 `appID::AbstractString`
 :    The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
-     `mPulseAPI.getRepositoryDomain` to fetch a domain and then inspect `domain["attributes"]["appID"]`
+     [`mPulseAPI.getRepositoryDomain`](RepositoryAPI.md#function-getrepositorydomain){: .x-ref} to fetch a domain and then inspect `domain["attributes"]["appID"]`
 
 #### Optional Arguments
 `filters::Dict`
@@ -271,17 +271,17 @@ Calls the `browsers` endpoint of the mPulse REST API with the passed in filters
 `ArgumentError`
 :   If the `query_type` is not recognized
 
-`mPulseAPIAuthException`
+[`mPulseAPIAuthException`](exceptions.md#datatype-mpulseapiauthexception)
 :   If the `token` is invalid or has expired.
 
-`mPulseAPIException`
+[`mPulseAPIException`](exceptions.md#datatype-mpulseapiexception)
 :   If the API returned a non-200 status.  Inspect `mPulseAPIException.response` for details about
     the problem
 
-`mPulseAPIRequestException`
+[`mPulseAPIRequestException`](exceptions.md#datatype-mpulseapirequestexception)
 :   If the API was unhappy with a request parameter
 
-`mPulseAPIResultFormatException`
+[`mPulseAPIResultFormatException`](exceptions.md#datatype-mpulseapiresultformatexception)
 :    If the API response did had  data in an unexpected data type
 
 #### Returns
@@ -313,11 +313,11 @@ Calls the `ab-tests` endpoint of the mPulse REST API with the passed in filters
 
 #### Arguments
 `token::AbstractString`
-:    The Repository authentication token fetched by calling `mPulseAPI.getRepositoryToken`
+:    The Repository authentication token fetched by calling [`mPulseAPI.getRepositoryToken`](RepositoryAPI.md#function-getrepositorytoken){: .x-ref}
 
 `appID::AbstractString`
 :    The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
-     `mPulseAPI.getRepositoryDomain` to fetch a domain and then inspect `domain["attributes"]["appID"]`
+     [`mPulseAPI.getRepositoryDomain`](RepositoryAPI.md#function-getrepositorydomain){: .x-ref} to fetch a domain and then inspect `domain["attributes"]["appID"]`
 
 #### Optional Arguments
 `filters::Dict`
@@ -350,17 +350,17 @@ Calls the `ab-tests` endpoint of the mPulse REST API with the passed in filters
 `ArgumentError`
 :   If the `query_type` is not recognized
 
-`mPulseAPIAuthException`
+[`mPulseAPIAuthException`](exceptions.md#datatype-mpulseapiauthexception)
 :   If the `token` is invalid or has expired.
 
-`mPulseAPIException`
+[`mPulseAPIException`](exceptions.md#datatype-mpulseapiexception)
 :   If the API returned a non-200 status.  Inspect `mPulseAPIException.response` for details about
     the problem
 
-`mPulseAPIRequestException`
+[`mPulseAPIRequestException`](exceptions.md#datatype-mpulseapirequestexception)
 :   If the API was unhappy with a request parameter
 
-`mPulseAPIResultFormatException`
+[`mPulseAPIResultFormatException`](exceptions.md#datatype-mpulseapiresultformatexception)
 :    If the API response did had  data in an unexpected data type
 
 #### Returns
@@ -392,11 +392,11 @@ Calls the `metrics-by-dimension` endpoint of the mPulse REST API with the passed
 
 #### Arguments
 `token::AbstractString`
-:    The Repository authentication token fetched by calling `mPulseAPI.getRepositoryToken`
+:    The Repository authentication token fetched by calling [`mPulseAPI.getRepositoryToken`](RepositoryAPI.md#function-getrepositorytoken){: .x-ref}
 
 `appID::AbstractString`
 :    The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
-     `mPulseAPI.getRepositoryDomain` to fetch a domain and then inspect `domain["attributes"]["appID"]`
+     [`mPulseAPI.getRepositoryDomain`](RepositoryAPI.md#function-getrepositorydomain){: .x-ref} to fetch a domain and then inspect `domain["attributes"]["appID"]`
 
 `dimension::AbstractString`
 :    The dimension to split metrics by.  The response contains one row for each value of this dimension
@@ -419,17 +419,17 @@ Calls the `metrics-by-dimension` endpoint of the mPulse REST API with the passed
 `ArgumentError`
 :   If the `query_type` is not recognized
 
-`mPulseAPIAuthException`
+[`mPulseAPIAuthException`](exceptions.md#datatype-mpulseapiauthexception)
 :   If the `token` is invalid or has expired.
 
-`mPulseAPIException`
+[`mPulseAPIException`](exceptions.md#datatype-mpulseapiexception)
 :   If the API returned a non-200 status.  Inspect `mPulseAPIException.response` for details about
     the problem
 
-`mPulseAPIRequestException`
+[`mPulseAPIRequestException`](exceptions.md#datatype-mpulseapirequestexception)
 :   If the API was unhappy with a request parameter
 
-`mPulseAPIResultFormatException`
+[`mPulseAPIResultFormatException`](exceptions.md#datatype-mpulseapiresultformatexception)
 :    If the API response did had  data in an unexpected data type
 
 #### Returns
@@ -457,11 +457,11 @@ Calls the `timers-metrics` endpoint of the mPulse REST API with the passed in fi
 
 #### Arguments
 `token::AbstractString`
-:    The Repository authentication token fetched by calling `mPulseAPI.getRepositoryToken`
+:    The Repository authentication token fetched by calling [`mPulseAPI.getRepositoryToken`](RepositoryAPI.md#function-getrepositorytoken){: .x-ref}
 
 `appID::AbstractString`
 :    The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
-     `mPulseAPI.getRepositoryDomain` to fetch a domain and then inspect `domain["attributes"]["appID"]`
+     [`mPulseAPI.getRepositoryDomain`](RepositoryAPI.md#function-getrepositorydomain){: .x-ref} to fetch a domain and then inspect `domain["attributes"]["appID"]`
 
 #### Optional Arguments
 `filters::Dict`
@@ -481,14 +481,14 @@ Calls the `timers-metrics` endpoint of the mPulse REST API with the passed in fi
 `ArgumentError`
 :   If the `query_type` is not recognized
 
-`mPulseAPIAuthException`
+[`mPulseAPIAuthException`](exceptions.md#datatype-mpulseapiauthexception)
 :   If the `token` is invalid or has expired.
 
-`mPulseAPIException`
+[`mPulseAPIException`](exceptions.md#datatype-mpulseapiexception)
 :   If the API returned a non-200 status.  Inspect `mPulseAPIException.response` for details about
     the problem
 
-`mPulseAPIRequestException`
+[`mPulseAPIRequestException`](exceptions.md#datatype-mpulseapirequestexception)
 :   If the API was unhappy with a request parameter
 
 `Exception`
@@ -529,11 +529,11 @@ Calls the `geography` endpoint of the mPulse REST API with the passed in filters
 
 #### Arguments
 `token::AbstractString`
-:    The Repository authentication token fetched by calling `mPulseAPI.getRepositoryToken`
+:    The Repository authentication token fetched by calling [`mPulseAPI.getRepositoryToken`](RepositoryAPI.md#function-getrepositorytoken){: .x-ref}
 
 `appID::AbstractString`
 :    The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
-     `mPulseAPI.getRepositoryDomain` to fetch a domain and then inspect `domain["attributes"]["appID"]`
+     [`mPulseAPI.getRepositoryDomain`](RepositoryAPI.md#function-getrepositorydomain){: .x-ref} to fetch a domain and then inspect `domain["attributes"]["appID"]`
 
 #### Optional Arguments
 `filters::Dict`
@@ -553,17 +553,17 @@ Calls the `geography` endpoint of the mPulse REST API with the passed in filters
 `ArgumentError`
 :   If the `query_type` is not recognized
 
-`mPulseAPIAuthException`
+[`mPulseAPIAuthException`](exceptions.md#datatype-mpulseapiauthexception)
 :   If the `token` is invalid or has expired.
 
-`mPulseAPIException`
+[`mPulseAPIException`](exceptions.md#datatype-mpulseapiexception)
 :   If the API returned a non-200 status.  Inspect `mPulseAPIException.response` for details about
     the problem
 
-`mPulseAPIRequestException`
+[`mPulseAPIRequestException`](exceptions.md#datatype-mpulseapirequestexception)
 :   If the API was unhappy with a request parameter
 
-`mPulseAPIResultFormatException`
+[`mPulseAPIResultFormatException`](exceptions.md#datatype-mpulseapiresultformatexception)
 :    If the API response did had  data in an unexpected data type
 
 #### Returns
@@ -592,11 +592,11 @@ Calls the `histogram` endpoint of the mPulse REST API with the passed in filters
 
 #### Arguments
 `token::AbstractString`
-:    The Repository authentication token fetched by calling `mPulseAPI.getRepositoryToken`
+:    The Repository authentication token fetched by calling [`mPulseAPI.getRepositoryToken`](RepositoryAPI.md#function-getrepositorytoken){: .x-ref}
 
 `appID::AbstractString`
 :    The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
-     `mPulseAPI.getRepositoryDomain` to fetch a domain and then inspect `domain["attributes"]["appID"]`
+     [`mPulseAPI.getRepositoryDomain`](RepositoryAPI.md#function-getrepositorydomain){: .x-ref} to fetch a domain and then inspect `domain["attributes"]["appID"]`
 
 #### Optional Arguments
 `filters::Dict`
@@ -616,17 +616,17 @@ Calls the `histogram` endpoint of the mPulse REST API with the passed in filters
 `ArgumentError`
 :   If the `query_type` is not recognized
 
-`mPulseAPIAuthException`
+[`mPulseAPIAuthException`](exceptions.md#datatype-mpulseapiauthexception)
 :   If the `token` is invalid or has expired.
 
-`mPulseAPIException`
+[`mPulseAPIException`](exceptions.md#datatype-mpulseapiexception)
 :   If the API returned a non-200 status.  Inspect `mPulseAPIException.response` for details about
     the problem
 
-`mPulseAPIRequestException`
+[`mPulseAPIRequestException`](exceptions.md#datatype-mpulseapirequestexception)
 :   If the API was unhappy with a request parameter
 
-`mPulseAPIResultFormatException`
+[`mPulseAPIResultFormatException`](exceptions.md#datatype-mpulseapiresultformatexception)
 :    If the API response did had a missing `series` element or data in an unexpected data type
 
 #### Returns
@@ -685,11 +685,11 @@ Calls the `sessions-per-page-load-time` endpoint of the mPulse REST API with the
 
 #### Arguments
 `token::AbstractString`
-:    The Repository authentication token fetched by calling `mPulseAPI.getRepositoryToken`
+:    The Repository authentication token fetched by calling [`mPulseAPI.getRepositoryToken`](RepositoryAPI.md#function-getrepositorytoken){: .x-ref}
 
 `appID::AbstractString`
 :    The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
-     `mPulseAPI.getRepositoryDomain` to fetch a domain and then inspect `domain["attributes"]["appID"]`
+     [`mPulseAPI.getRepositoryDomain`](RepositoryAPI.md#function-getrepositorydomain){: .x-ref} to fetch a domain and then inspect `domain["attributes"]["appID"]`
 
 #### Optional Arguments
 `filters::Dict`
@@ -709,14 +709,14 @@ Calls the `sessions-per-page-load-time` endpoint of the mPulse REST API with the
 `ArgumentError`
 :   If the `query_type` is not recognized
 
-`mPulseAPIAuthException`
+[`mPulseAPIAuthException`](exceptions.md#datatype-mpulseapiauthexception)
 :   If the `token` is invalid or has expired.
 
-`mPulseAPIException`
+[`mPulseAPIException`](exceptions.md#datatype-mpulseapiexception)
 :   If the API returned a non-200 status.  Inspect `mPulseAPIException.response` for details about
     the problem
 
-`mPulseAPIRequestException`
+[`mPulseAPIRequestException`](exceptions.md#datatype-mpulseapirequestexception)
 :   If the API was unhappy with a request parameter
 
 #### Returns
@@ -746,11 +746,11 @@ Calls the `metric-per-page-load-time` endpoint of the mPulse REST API with the p
 
 #### Arguments
 `token::AbstractString`
-:    The Repository authentication token fetched by calling `mPulseAPI.getRepositoryToken`
+:    The Repository authentication token fetched by calling [`mPulseAPI.getRepositoryToken`](RepositoryAPI.md#function-getrepositorytoken){: .x-ref}
 
 `appID::AbstractString`
 :    The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
-     `mPulseAPI.getRepositoryDomain` to fetch a domain and then inspect `domain["attributes"]["appID"]`
+     [`mPulseAPI.getRepositoryDomain`](RepositoryAPI.md#function-getrepositorydomain){: .x-ref} to fetch a domain and then inspect `domain["attributes"]["appID"]`
 
 #### Optional Arguments
 `metric::AbstractString`
@@ -773,17 +773,17 @@ Calls the `metric-per-page-load-time` endpoint of the mPulse REST API with the p
 `ArgumentError`
 :   If the `query_type` is not recognized
 
-`mPulseAPIAuthException`
+[`mPulseAPIAuthException`](exceptions.md#datatype-mpulseapiauthexception)
 :   If the `token` is invalid or has expired.
 
-`mPulseAPIException`
+[`mPulseAPIException`](exceptions.md#datatype-mpulseapiexception)
 :   If the API returned a non-200 status.  Inspect `mPulseAPIException.response` for details about
     the problem
 
-`mPulseAPIRequestException`
+[`mPulseAPIRequestException`](exceptions.md#datatype-mpulseapirequestexception)
 :   If the API was unhappy with a metric
 
-`mPulseAPIResultFormatException`
+[`mPulseAPIResultFormatException`](exceptions.md#datatype-mpulseapiresultformatexception)
 :    If the API response did had a missing `series` element or data in an unexpected data type
 
 #### Returns
@@ -813,11 +813,11 @@ Calls the `by-minute` endpoint of the mPulse REST API with the passed in filters
 
 #### Arguments
 `token::AbstractString`
-:    The Repository authentication token fetched by calling `mPulseAPI.getRepositoryToken`
+:    The Repository authentication token fetched by calling [`mPulseAPI.getRepositoryToken`](RepositoryAPI.md#function-getrepositorytoken){: .x-ref}
 
 `appID::AbstractString`
 :    The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
-     `mPulseAPI.getRepositoryDomain` to fetch a domain and then inspect `domain["attributes"]["appID"]`
+     [`mPulseAPI.getRepositoryDomain`](RepositoryAPI.md#function-getrepositorydomain){: .x-ref} to fetch a domain and then inspect `domain["attributes"]["appID"]`
 
 #### Optional Arguments
 `timer::AbstractString`
@@ -844,17 +844,17 @@ Calls the `by-minute` endpoint of the mPulse REST API with the passed in filters
 `ArgumentError`
 :   If the `query_type` is not recognized
 
-`mPulseAPIAuthException`
+[`mPulseAPIAuthException`](exceptions.md#datatype-mpulseapiauthexception)
 :   If the `token` is invalid or has expired.
 
-`mPulseAPIException`
+[`mPulseAPIException`](exceptions.md#datatype-mpulseapiexception)
 :   If the API returned a non-200 status.  Inspect `mPulseAPIException.response` for details about
     the problem
 
-`mPulseAPIRequestException`
+[`mPulseAPIRequestException`](exceptions.md#datatype-mpulseapirequestexception)
 :   If the API was unhappy with a timer
 
-`mPulseAPIResultFormatException`
+[`mPulseAPIResultFormatException`](exceptions.md#datatype-mpulseapiresultformatexception)
 :    If the API response did had a missing `series` element or data in an unexpected data type
 
 #### Returns
