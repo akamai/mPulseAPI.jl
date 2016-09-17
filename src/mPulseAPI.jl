@@ -59,12 +59,43 @@ function fixJSONDataType(value::Union{AbstractString, Void})
     return value
 end
 
-function readdocs(name::AbstractString)
-    return replace(
-        readall( joinpath(dirname(dirname(@__FILE__)), "doc-snippets", name * ".md") ),
-        r"\n+$"s,
-        ""
-    )
+function readdocs(name::AbstractString, replacers=[]; indent=0)
+    # read the file and strip out the newline at the end
+    data = chomp( readall( joinpath(dirname(dirname(@__FILE__)), "doc-snippets", name * ".md") ) )
+
+    # If any placeholders have default values, pull them out and insert them into the replace
+    # array if a value is not already set
+    while( (defaults = match(r"\{(\d+)=(.*?)\}", data)) != nothing)
+        id      = parse(Int, defaults.captures[1])
+        default = defaults.captures[2]
+
+        data = replace(data, Regex("\\{$id=(.*?)\\}"), "{$id}")
+
+        if length(replacers) < id
+            resize!(replacers, id)
+            replacers[id] = default
+        end
+    end
+
+    if length(replacers) > 0
+        # If we have replacers, then replace all non-placeholders braces with {{}}
+        data = replace(data, r"(\{[A-Za-z][\w,|]+\})", s"{\1}")
+
+        # And run the whole thing through format
+        try
+            data = format(data, replacers...)
+        catch
+            println(replacers)
+            println(data)
+            rethrow()
+        end
+    end
+
+    if indent > 0
+        data = replace(data, r"^"m, repeat(" ", indent))
+    end
+
+    return data
 end
 
 include(joinpath(dirname(@__FILE__), "exceptions.jl"))

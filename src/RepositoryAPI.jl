@@ -35,17 +35,23 @@ quickly without calling out to the API.  This can be a problem if the account ha
 location or is logged out of mPulse.  You can clear the cache for this token using `mPulseAPI.clearTokenCache(tenant)`
 
 #### Arguments
-* `tenant::AbstractString`      The name of the tenant to log in to. The token will be bound to this tenant.
-* `apiToken::AbstractString`    The apiToken issued by mPulse that allows authenticating with the API. If you've
-                                previously authenticated with this tenant, the `apiToken` will be cached and does
-                                not need to be passed in again
+`tenant::AbstractString`
+:    The name of the tenant to log in to. The token will be bound to this tenant.
+
+`apiToken::AbstractString`
+:    The apiToken issued by mPulse that allows authenticating with the API. If you've
+     previously authenticated with this tenant, the `apiToken` will be cached and does
+     not need to be passed in again
 
 #### Returns
 `{ASCIIString}` The mPulse Repository Auth token which may be used in the `X-Auth-Token` header for subsequent API calls
 
 #### Throws
-* `ArgumentError`               if the tenant or apiToken are empty
-* `mPulseAPIAuthException`      if authentication failed for some reason
+`ArgumentError`
+:    if the tenant or apiToken are empty
+
+`mPulseAPIAuthException`
+:    if authentication failed for some reason
 """
 function getRepositoryToken(tenant::AbstractString, apiToken::AbstractString)
     if tenant == ""
@@ -107,12 +113,18 @@ quickly without calling out to the API.  This can be a problem if the domain cha
 You can clear the cache for this domain using `mPulseAPI.clearDomainCache()` and passing in one of `domainID`, `appID` or `appName`.
 
 #### Arguments
-* `token::AbstractString`   The Repository authentication token fetched by calling `mPulseAPI.getRepositoryToken`
+`token::AbstractString`
+:    The Repository authentication token fetched by calling `mPulseAPI.getRepositoryToken`
 
 #### Optional Arguments
-* `domainID::Int64`         The ID of the domain to fetch.  This is the fastest method, but it can be hard to figure out a domain's ID
-* `appID::AbstractString`   The App ID (formerly known as API key) associated with the domain.  This is available from the mPulse domain configuration dialog.
-* `appName::AbstractString` The App name in mPulse. This is available from the mPulse domain configuration dialog.
+`domainID::Int64`
+:    The ID of the domain to fetch.  This is the fastest method, but it can be hard to figure out a domain's ID
+
+`appID::AbstractString`
+:    The App ID (formerly known as API key) associated with the domain.  This is available from the mPulse domain configuration dialog.
+
+`appName::AbstractString`
+:    The App name in mPulse. This is available from the mPulse domain configuration dialog.
 
 #### Returns
 `{Dict|Array{Dict}}` If one of `domainID`, `appID` or `appName` are passed in, then a single `domain` object is returned as a `Dict`.
@@ -121,26 +133,58 @@ If none of these are passed in, then an array of all domains is returned, each i
 
 The `domain` `Dict` has the following fields:
 
-* `name`                    The app's name
-* `id::Int64`               The app's ID
-* `body::XMLElement`        An XML object representing the app's XML definition
-* `tenantID::Int64`         The ID of the tenant that this app is in
-* `description::AbstractString`  The description of this app entered into mPulse
-* `created::DateTime`       The timestamp when this object was created
-* `lastModified::DateTime`  The timestamp when this object was created
-* `attributes::Dict`        A `Dict` of attributes for this app, including its `AppID`
-* `custom_metrics::Dict`    A $(readdocs("CustomMetricMap-structure"))
+`name`
+:    The app's name
 
-* `custom_timers::Dict`     A $(readdocs("CustomTimerMap-structure"))
+`id::Int64`
+:    The app's ID
 
-* `session_timeout::Int64`  The session timeout value in minutes
-* `resource_timing::Bool`   Flag indicating whether resource timing collection is enabled or not
-* `vertical_market::AbstractString`  The vertical market that this domain belongs to
+`body::XMLElement`
+:    An XML object representing the app's XML definition
+
+`tenantID::Int64`
+:    The ID of the tenant that this app is in
+
+`description::AbstractString`
+:    The description of this app entered into mPulse
+
+`created::DateTime`
+:    The timestamp when this object was created
+
+`lastModified::DateTime`
+:    The timestamp when this object was created
+
+`attributes::Dict`
+:    A `Dict` of attributes for this app, including its `AppID`
+
+`custom_metrics::Dict`
+:    A $(mPulseAPI.readdocs("CustomMetricMap-structure", indent=5))
+
+
+`custom_timers::Dict`
+:    A $(mPulseAPI.readdocs("CustomTimerMap-structure", indent=5))
+
+
+`session_timeout::Int64`
+:    The session timeout value in minutes
+
+`resource_timing::Bool`
+:    Flag indicating whether resource timing collection is enabled or not
+
+`vertical_market::AbstractString`
+:    The vertical market that this domain belongs to
+
 
 #### Throws
-* `ArgumentError`       if token is empty or domainID, appID and appName are all empty
-* `mPulseAPIException`  if API access failed for some reason
-* `Exception`           if something unexpected happened while parsing the repository object
+`ArgumentError`
+:    if token is empty or domainID, appID and appName are all empty
+
+`mPulseAPIException`
+:    if API access failed for some reason
+
+`Exception`
+:    if something unexpected happened while parsing the repository object
+
 """
 function getRepositoryDomain(token::AbstractString; domainID::Int64=0, appID::AbstractString="", appName::AbstractString="")
     domain_list = getRepositoryObject(
@@ -205,30 +249,60 @@ quickly without calling out to the API.  This can be a problem if the tenant cha
 You can clear the cache for this tenant using `mPulseAPI.clearTenantCache()` and passing in one of `tenantID` or `name`.
 
 #### Arguments
-* `token::AbstractString` The Repository authentication token fetched by calling `mPulseAPI.getRepositoryToken`
+`token::AbstractString`
+:    The Repository authentication token fetched by calling `mPulseAPI.getRepositoryToken`
 
 #### Optional Arguments
-* `tenantID::Int64` The ID of the tenant to fetch.  This is the fastest method, but it can be hard to figure out a tenant's ID
-* `name::AbstractString` The Tenant name in mPulse.  This is available from the mPulse tenant list.
+`tenantID::Int64`
+:    The ID of the tenant to fetch.  This is the fastest method, but it can be hard to figure out a tenant's ID
+
+`name::AbstractString`
+:    The Tenant name in mPulse.  This is available from the mPulse tenant list.
 
 #### Returns
 `{Dict}` The `tenant` object with the following fields:
 
-* `name::AbstractString`        The tenant's name
-* `id::Int64`                   The tenant's ID
-* `body::XMLElement`            An XML object representing the app's XML definition
-* `parentID::Int64`             The ID of the parent folder that this tenant is in
-* `parentType::AbstractString`  The type of parent object (typically `tenantFolder`)
-* `path::AbstractString`        The folder path that this tenant is in
-* `description::AbstractString`  The description of this app entered into mPulse
-* `created::DateTime`           The timestamp when this object was created
-* `lastModified::DateTime`      The timestamp when this object was created
-* `attributes::Dict`            A `Dict` of attributes for this app, including its `App ID`
-* `dswbUrls::Array{AbstractString}`  An array of DSWB URLs that are valid auth redirect targets for this tenant
+`name::AbstractString`
+:    The tenant's name
+
+`id::Int64`
+:    The tenant's ID
+
+`body::XMLElement`
+:    An XML object representing the app's XML definition
+
+`parentID::Int64`
+:    The ID of the parent folder that this tenant is in
+
+`parentType::AbstractString`
+:    The type of parent object (typically `tenantFolder`)
+
+`path::AbstractString`
+:    The folder path that this tenant is in
+
+`description::AbstractString`
+:    The description of this app entered into mPulse
+
+`created::DateTime`
+:    The timestamp when this object was created
+
+`lastModified::DateTime`
+:    The timestamp when this object was created
+
+`attributes::Dict`
+:    A `Dict` of attributes for this app, including its `App ID`
+
+`dswbUrls::Array{AbstractString}`
+:    An array of DSWB URLs that are valid auth redirect targets for this tenant
+
 
 #### Throws
-* `ArgumentError`       if token is empty or tenantID and name are both empty
-* `mPulseAPIException`  if API access failed for some reason
+`ArgumentError`
+:    if token is empty or tenantID and name are both empty
+
+`mPulseAPIException`
+:    if API access failed for some reason
+
 """
 function getRepositoryTenant(token::AbstractString; tenantID::Int64=0, name::AbstractString="")
     tenant = getRepositoryObject(
@@ -360,13 +434,13 @@ end
 Gets a mapping of custom metric names to RedShift field names from domain XML.  This list also includes valid dates.
 
 #### Arguments
-$(readdocs("NodeContent-body"))
+$(mPulseAPI.readdocs("NodeContent-body"))
 
 #### Returns
-$(readdocs("CustomMetricMap-structure"))
+$(mPulseAPI.readdocs("CustomMetricMap-structure"))
 
 #### Throws
-$(readdocs("NodeContent-throws"))
+$(mPulseAPI.readdocs("NodeContent-throws"))
 """
 function getCustomMetricMap(body::Any)
     custom_metrics = Dict()
@@ -412,13 +486,13 @@ end
 Gets a mapping of custom timer names to RedShift field names from domain XML.  This list also includes valid dates.
 
 #### Arguments
-$(readdocs("NodeContent-body"))
+$(mPulseAPI.readdocs("NodeContent-body"))
 
 #### Returns
-$(readdocs("CustomTimerMap-structure"))
+$(mPulseAPI.readdocs("CustomTimerMap-structure"))
 
 #### Throws
-$(readdocs("NodeContent-throws"))
+$(mPulseAPI.readdocs("NodeContent-throws"))
 """
 function getCustomTimerMap(body::Any)
     custom_timers = Dict()
@@ -465,15 +539,20 @@ end
 Gets the content of a node
 
 #### Arguments
-$(readdocs("NodeContent-body"))
-* `nodeName::AbstractString` The node whose contents shoudl be returned
-* `default::Any` A default value to return if the required node was not found
+$(mPulseAPI.readdocs("NodeContent-body"))
+
+`nodeName::AbstractString`
+:    The node whose contents shoudl be returned
+
+`default::Any`
+:    A default value to return if the required node was not found
+
 
 #### Returns
 `{AbstractString|Number|Boolean}` The content of the requested node cast to the same type as `default` or the value of `default` if the node was not found
 
 #### Throws
-$(readdocs("NodeContent-throws"))
+$(mPulseAPI.readdocs("NodeContent-throws"))
 """
 function getNodeContent(body::Any, nodeName::AbstractString, default::Any)
     node = getXMLNode(body, nodeName)

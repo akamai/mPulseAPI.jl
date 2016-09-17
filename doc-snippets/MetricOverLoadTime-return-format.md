@@ -1,4 +1,4 @@
-`{{DataFrame}}` A julia `DataFrame` mapping the {1} to a load time bucket:
+`{DataFrame}` A julia `DataFrame` mapping the {1} to a load time bucket:
 
 ```julia
 julia> mPulseAPI.get{1}OverPageLoadTime(token, appID)

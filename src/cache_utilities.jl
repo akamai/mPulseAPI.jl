@@ -66,13 +66,23 @@ end
 Expire an entry from the domain cache.  Use this if the domain has changed.
 
 #### Optional Arguments
-* `domainID::Int64` The ID of the domain to expire.
-* `appID::AbstractString` The App ID (formerly known as API key) associated with the domain.  This can be got from the mPulse domain configuration dialog.
-* `appName::AbstractString` The App name in mPulse.  This can be got from the mPulse domain configuration dialog.
+`domainID::Int64`
+:    The ID of the domain to expire.
+
+`appID::AbstractString`
+:    The App ID (formerly known as API key) associated with the domain.  This can be got from the mPulse domain configuration dialog.
+
+`appName::AbstractString`
+:    The App name in mPulse.  This can be got from the mPulse domain configuration dialog.
+
 
 #### Returns
-* `true` on success
-* `false` if the entry was not in cache
+`true`
+:    on success
+
+`false`
+:    if the entry was not in cache
+
 """
 clearDomainCache(;domainID::Int64=0, appID::AbstractString="", appName::AbstractString="") = clearObjectCache("domain", Dict{Symbol, Any}(:id => domainID, :key => appID, :name => appName))
 
@@ -80,12 +90,20 @@ clearDomainCache(;domainID::Int64=0, appID::AbstractString="", appName::Abstract
 Expire an entry from the tenant cache.  Use this if the tenant has changed.
 
 #### Optional Arguments
-* `tenantID::Int64` The ID of the tenant to expire.
-* `name::AbstractString` The Tenant name in mPulse.  This is got from the mPulse domain configuration dialog.
+`tenantID::Int64`
+:    The ID of the tenant to expire.
+
+`name::AbstractString`
+:    The Tenant name in mPulse.  This is got from the mPulse domain configuration dialog.
+
 
 #### Returns
-* `true` on success
-* `false` if the entry was not in cache
+`true`
+:    on success
+
+`false`
+:    if the entry was not in cache
+
 """
 clearTenantCache(;tenantID::Int64=0, name::AbstractString="") = clearObjectCache("tenant", Dict{Symbol, Any}(:id => tenantID, :name => name))
 
@@ -94,11 +112,17 @@ clearTenantCache(;tenantID::Int64=0, name::AbstractString="") = clearObjectCache
 Expire an entry from the token cache.  Use this if the token associated with this tenant is no longer valid.
 
 #### Arguments
-* `tenant::AbstractString` The tenant name whose token needs to be expired
+`tenant::AbstractString`
+:    The tenant name whose token needs to be expired
+
 
 #### Returns
-* `true` on success
-* `false` if the entry was not in cache
+`true`
+:    on success
+
+`false`
+:    if the entry was not in cache
+
 """
 function clearTokenCache(tenant::AbstractString)
     # Unlike the other caches, this one only resets the timestamp

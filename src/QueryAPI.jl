@@ -37,16 +37,18 @@ Get API results from the mPulse Query API (http://docs.soasta.com/query-api/)
 This method is a generic catch-all that queries the mPulse API and returns results as a Julia data structure matching the JSON structure of the specified API call
 
 #### Arguments
-$(readdocs("APIResults-common-args"))
-* `query_type::AbstractString`  The specific API query to make.  Must be one of the following:
+$(mPulseAPI.readdocs("APIResults-common-args"))
 
-$(mapfoldl(x -> "   * $x\n", *, query_types))
+`query_type::AbstractString`
+:    The specific API query to make.  Must be one of the following:
+
+$(mapfoldl(x -> "   * $x\n", *, mPulseAPI.query_types))
 
 #### Optional Arguments
-$(readdocs("APIResults-common-optargs"))
+$(mPulseAPI.readdocs("APIResults-common-optargs"))
 
 #### Throws
-$(readdocs("APIResults-exceptions"))
+$(mPulseAPI.readdocs("APIResults-exceptions"))
 
 #### Returns
 `{Any}` A Julia representation of the JSON returned by the API call. Convenience wrappers in this library may return more appropriate data structures.
@@ -140,26 +142,44 @@ end
 Calls the `summary` endpoint of the mPulse REST API with the passed in filters
 
 #### Arguments
-$(readdocs("APIResults-common-args"))
+$(mPulseAPI.readdocs("APIResults-common-args"))
 
 #### Optional Arguments
-$(readdocs("APIResults-common-optargs"))
+$(mPulseAPI.readdocs("APIResults-common-optargs"))
 
 #### Throws
-$(readdocs("APIResults-exceptions"))
+$(mPulseAPI.readdocs("APIResults-exceptions"))
 
 #### Returns
-`{Dict}` A Julia `Dict` with the following structure:
+`{Dict}` A Julia `Dict` with the following string keys:
+
+`n::Int`
+:   The number of beacons with data about the requested timer
+
+`median::Int`
+:   The median of the requested timer in milliseconds
+
+`p95::Int`
+:   The 95th percentile value of the requested timer in milliseconds
+
+`p98::Int`
+:   The 98th percentile value of the requested timer in milliseconds
+
+`moe::Float`
+:   The 95% confidence interval margin of error on the arithmetic mean of the requested timer in milliseconds
+
+
+#### Examples
 
 ```julia
 julia> summary = mPulseAPI.getSummaryTimers(token, appID)
 
 Dict{Any,Any} with 5 entries:
+  "n"      => 356317
   "median" => 3094
   "p95"    => 19700
-  "moe"    => 13.93008126554788
   "p98"    => 40678
-  "n"      => 356317
+  "moe"    => 13.93
 ```
 """
 function getSummaryTimers(token::AbstractString, appID::AbstractString; filters::Dict=Dict())
@@ -173,34 +193,20 @@ end
 Calls the `page-groups` endpoint of the mPulse REST API with the passed in filters
 
 #### Arguments
-$(readdocs("APIResults-common-args"))
+$(mPulseAPI.readdocs("APIResults-common-args"))
 
 #### Optional Arguments
-$(readdocs("APIResults-common-optargs"))
-* `friendly_names::Bool`    *[default: false]* Specify whether column names in the `DataFrame` should be human friendly or developer friendly (default)
+$(mPulseAPI.readdocs("APIResults-common-optargs"))
 
-  Human friendly column names are `Page Group`, `Median Time (ms)`, `MoE (ms)`, `Measurements`, `% of total`
-
-  Developer friendly column names ar: `:page_group`, `:t_done_median`, `:t_done_moe`, `:t_done_count`, `:t_done_total_pc`
+$(mPulseAPI.readdocs("friendly-names", ["Page Group", "page_group"]))
 
 #### Throws
-$(readdocs("APIResults-exceptions"))
-$(replace(readdocs("CleanSeriesSeries-exceptions"), "did not have a `series` element or ", ""))
+$(mPulseAPI.readdocs("APIResults-exceptions"))
+
+$(mPulseAPI.readdocs("CleanSeriesSeries-exceptions", [""]))
 
 #### Returns
-`{DataFrame}` A Julia `DataFrame` with the following columns: `Page Group`, `Median Time (ms)`, `MoE (ms)`, `Measurements`, and `% of total`
-
-```julia
-julia> pgroups = mPulseAPI.getPageGroupTimers(token, appID)
-69x5 DataFrames.DataFrame
-│ Row │ page_group         │ t_done_median    │ t_done_moe │ t_done_count │ t_done_total_pc │
-│-----│--------------------│------------------│------------│--------------│-----------------│
-│ 1   │ "www"              │ 3654             │   28.8075  │ 80908        │ 78.234          │
-│ 2   │ "blog"             │ 2403             │   179.164  │ 1588         │ 1.53552         │
-⋮
-│ 51  │ "(No Page Group)"  │ 1383             │   166.783  │ 30           │ 0.0290085       │
-
-```
+$(mPulseAPI.readdocs("friendly-names-df", ["page_group", "PageGroup", "www", "blog", "Search", "SKU", "PLU", "(No Page Group)", "Checkout"]))
 """
 function getPageGroupTimers(token::AbstractString, appID::AbstractString; filters::Dict=Dict(), friendly_names::Bool=false)
     results = getAPIResults(token, appID, "page-groups", filters=filters)
@@ -225,39 +231,20 @@ end
 Calls the `browsers` endpoint of the mPulse REST API with the passed in filters
 
 #### Arguments
-$(readdocs("APIResults-common-args"))
+$(mPulseAPI.readdocs("APIResults-common-args"))
 
 #### Optional Arguments
-$(readdocs("APIResults-common-optargs"))
-* `friendly_names::Bool` *[default: false]* Specify whether column names in the `DataFrame` should be human friendly or developer friendly (default)
+$(mPulseAPI.readdocs("APIResults-common-optargs"))
 
-  Human friendly column names are `User Agent`, `Median Time (ms)`, `MoE (ms)`, `Measurements`, `% of total`
-
-  Developer friendly column names ar: `:user_agent`, `:t_done_median`, `:t_done_moe`, `:t_done_count`, `:t_done_total_pc`
+$(mPulseAPI.readdocs("friendly-names", ["User Agent", "user_agent"]))
 
 #### Throws
-$(readdocs("APIResults-exceptions"))
-$(replace(readdocs("CleanSeriesSeries-exceptions"), "did not have a `series` element or ", ""))
+$(mPulseAPI.readdocs("APIResults-exceptions"))
+
+$(mPulseAPI.readdocs("CleanSeriesSeries-exceptions", [""]))
 
 #### Returns
-`{DataFrame}` A Julia `DataFrame` with the following columns: `User Agent`, `Median Time (ms)`, `MoE (ms)`, `Measurements`, and `% of total`
-
-```julia
-julia> browsers = mPulseAPI.getBrowserTimers(token, appID)
-212x5 DataFrames.DataFrame
-│ Row │ user_agent                  │ t_done_median    │ t_done_moe │ t_done_count │ t_done_total_pc │
-│-----│-----------------------------│------------------│------------│--------------│-----------------│
-│ 1   │ "Chrome/50"                 │ 3090             │ 40.6601    │ 49904        │ 46.3069         │
-│ 2   │ "Safari/9"                  │ 2557             │ 51.7651    │ 17779        │ 16.4975         │
-│ 3   │ "Mobile Safari/9"           │ 4587             │ 88.988     │ 7248         │ 6.72556         │
-│ 4   │ "Firefox/46"                │ 3463             │ 120.895    │ 6885         │ 6.38872         │
-│ 5   │ "Chrome/49"                 │ 3276             │ 116.507    │ 6688         │ 6.20592         │
-│ 6   │ "IE/11"                     │ 3292             │ 165.514    │ 2949         │ 2.73643         │
-│ 7   │ "Safari/8"                  │ 2875             │ 169.091    │ 2386         │ 2.21402         │
-│ 8   │ "Edge/13"                   │ 2913             │ 235.749    │ 1584         │ 1.46982         │
-│ 9   │ "Firefox/45"                │ 3589             │ 259.906    │ 1572         │ 1.45869         │
-
-```
+$(mPulseAPI.readdocs("friendly-names-df", ["user_agent", "Browser", "Chrome/50", "Safari/9", "Mobile Safari/9", "Firefox/46", "Chrome/49", "IE/11", "Edge/13"]))
 """
 function getBrowserTimers(token::AbstractString, appID::AbstractString; filters::Dict=Dict(), friendly_names::Bool=false)
     results = getAPIResults(token, appID, "browsers", filters=filters)
@@ -282,33 +269,20 @@ end
 Calls the `ab-tests` endpoint of the mPulse REST API with the passed in filters
 
 #### Arguments
-$(readdocs("APIResults-common-args"))
+$(mPulseAPI.readdocs("APIResults-common-args"))
 
 #### Optional Arguments
-$(readdocs("APIResults-common-optargs"))
-* `friendly_names::Bool` *[default: false]* Specify whether column names in the `DataFrame` should be human friendly or developer friendly (default)
+$(mPulseAPI.readdocs("APIResults-common-optargs"))
 
-  Human friendly column names are `Test Name`, `Median Time (ms)`, `MoE (ms)`, `Measurements`, `% of total`
-
-  Developer friendly column names ar: `:test_name`, `:t_done_median`, `:t_done_moe`, `:t_done_count`, `:t_done_total_pc`
+$(mPulseAPI.readdocs("friendly-names", ["Test Name", "test_name"]))
 
 #### Throws
-$(readdocs("APIResults-exceptions"))
-$(replace(readdocs("CleanSeriesSeries-exceptions"), "did not have a `series` element or ", ""))
+$(mPulseAPI.readdocs("APIResults-exceptions"))
+
+$(mPulseAPI.readdocs("CleanSeriesSeries-exceptions", [""]))
 
 #### Returns
-`{DataFrame}` A Julia `DataFrame` with the following columns: `Test Name`, `Median Time (ms)`, `MoE (ms)`, `Measurements`, and `% of total`
-
-```julia
-julia> results = mPulseAPI.getABTestTimers(token, appID)
-1x5 DataFrames.DataFrame
-│ Row │ test_name    │ t_done_median    │ t_done_moe │ t_done_count │ t_done_total_pc │
-│-----│--------------│------------------│------------│--------------│-----------------│
-│ 1   │ "(No Value)" │ 3841             │ 9.51064    │ 504430       │ 70.0            │
-│ 2   │ "Test-A"     │ 3841             │ 9.51064    │ 144123       │ 20.0            │
-│ 3   │ "Test-B"     │ 3841             │ 9.51064    │  72062       │ 10.0            │
-
-```
+$(mPulseAPI.readdocs("friendly-names-df", ["test_ame", "ABTest", "(No Value)", "Test-A", "Test-B", "BlueHead", "Campaign-XXX", "Old-Site", "Slow-SRP"]))
 """
 function getABTestTimers(token::AbstractString, appID::AbstractString; filters::Dict=Dict(), friendly_names::Bool=false)
     results = getAPIResults(token, appID, "ab-tests", filters=filters)
@@ -333,15 +307,18 @@ end
 Calls the `metrics-by-dimension` endpoint of the mPulse REST API with the passed in dimension name and filters
 
 #### Arguments
-$(readdocs("APIResults-common-args"))
-* `dimension::AbstractString` The dimension to split metrics by.  The response contains one row for each value of this dimension
+$(mPulseAPI.readdocs("APIResults-common-args"))
+
+`dimension::AbstractString`
+:    The dimension to split metrics by.  The response contains one row for each value of this dimension
 
 #### Optional Arguments
-$(readdocs("APIResults-common-optargs"))
+$(mPulseAPI.readdocs("APIResults-common-optargs"))
 
 #### Throws
-$(readdocs("APIResults-exceptions"))
-$(replace(readdocs("CleanSeriesSeries-exceptions"), "did not have a `series` element or ", ""))
+$(mPulseAPI.readdocs("APIResults-exceptions"))
+
+$(mPulseAPI.readdocs("CleanSeriesSeries-exceptions", [""]))
 
 #### Returns
 `{DataFrame}` A Julia `DataFrame` with the following columns: `:<dimension>`, `:<CustomMetric Name>`...
@@ -386,14 +363,16 @@ end
 Calls the `timers-metrics` endpoint of the mPulse REST API with the passed in filters
 
 #### Arguments
-$(readdocs("APIResults-common-args"))
+$(mPulseAPI.readdocs("APIResults-common-args"))
 
 #### Optional Arguments
-$(readdocs("APIResults-common-optargs"))
+$(mPulseAPI.readdocs("APIResults-common-optargs"))
 
 #### Throws
-$(readdocs("APIResults-exceptions"))
-* `Exception`   If there was an unexpected type error parsing response values
+$(mPulseAPI.readdocs("APIResults-exceptions"))
+
+`Exception`
+:    If there was an unexpected type error parsing response values
 
 #### Returns
 `{DataFrame}` A `DataFrame` with one column for each timer and metric.  Known columns include:
@@ -474,14 +453,15 @@ end
 Calls the `geography` endpoint of the mPulse REST API with the passed in filters
 
 #### Arguments
-$(readdocs("APIResults-common-args"))
+$(mPulseAPI.readdocs("APIResults-common-args"))
 
 #### Optional Arguments
-$(readdocs("APIResults-common-optargs"))
+$(mPulseAPI.readdocs("APIResults-common-optargs"))
 
 #### Throws
-$(readdocs("APIResults-exceptions"))
-$(replace(readdocs("CleanSeriesSeries-exceptions"), "did not have a `series` element or ", ""))
+$(mPulseAPI.readdocs("APIResults-exceptions"))
+
+$(mPulseAPI.readdocs("CleanSeriesSeries-exceptions", [""]))
 
 #### Returns
 `{DataFrame}` A Julia `DataFrame` with the following columns: `:country`, `:timerID`, `:timerN`, `:timerMedian`, `:timerMOE`
@@ -519,22 +499,31 @@ end
 Calls the `histogram` endpoint of the mPulse REST API with the passed in filters
 
 #### Arguments
-$(readdocs("APIResults-common-args"))
+$(mPulseAPI.readdocs("APIResults-common-args"))
 
 #### Optional Arguments
-$(readdocs("APIResults-common-optargs"))
+$(mPulseAPI.readdocs("APIResults-common-optargs"))
 
 #### Throws
-$(readdocs("APIResults-exceptions"))
-$(readdocs("CleanSeriesSeries-exceptions"))
+$(mPulseAPI.readdocs("APIResults-exceptions"))
+
+$(mPulseAPI.readdocs("CleanSeriesSeries-exceptions"))
 
 #### Returns
-`{Dict}` A julia `Dict` with the following keys:
+`{Dict}` A Julia `Dict` with the following string keys:
 
-* `median:Int` The median value for values in the histogram
-* `p95::Int` The 95th percentile value for values in the histogram
-* `p98::Int` The 98th percentile value for values in the histogram
-* `buckets::DataFrame` Buckets for the histogram.  These buckets are variable width. See below for a description.
+`median::Int`
+:   The median value for values in the histogram in milliseconds
+
+`p95::Int`
+:   The 95th percentile value for values in the histogram in milliseconds
+
+`p98::Int`
+:   The 98th percentile value for values in the histogram in milliseconds
+
+`buckets::DataFrame`
+:   Buckets for the histogram.  These buckets are variable width. See below for a description.
+
 
 ```julia
 julia> histo = mPulseAPI.getHistogram(token, appID)
@@ -590,16 +579,16 @@ end
 Calls the `sessions-per-page-load-time` endpoint of the mPulse REST API with the passed in filters
 
 #### Arguments
-$(readdocs("APIResults-common-args"))
+$(mPulseAPI.readdocs("APIResults-common-args"))
 
 #### Optional Arguments
-$(readdocs("APIResults-common-optargs"))
+$(mPulseAPI.readdocs("APIResults-common-optargs"))
 
 #### Throws
-$(readdocs("APIResults-exceptions"))
+$(mPulseAPI.readdocs("APIResults-exceptions"))
 
 #### Returns
-$(format(readdocs("MetricOverLoadTime-return-format"), "Sessions", "Sessions  "))
+$(mPulseAPI.readdocs("MetricOverLoadTime-return-format", ["Sessions", "Sessions  "]))
 """
 function getSessionsOverPageLoadTime(token::AbstractString, appID::AbstractString; filters::Dict=Dict())
     return getMetricOverPageLoadTime(token, appID, filters=filters, metric="Sessions")
@@ -612,18 +601,21 @@ end
 Calls the `metric-per-page-load-time` endpoint of the mPulse REST API with the passed in filters
 
 #### Arguments
-$(readdocs("APIResults-common-args"))
+$(mPulseAPI.readdocs("APIResults-common-args"))
 
 #### Optional Arguments
-* `metric::AbstractString` The metric name whose data we want.  If not specified, defaults to `BounceRate`
-$(readdocs("APIResults-common-optargs"))
+`metric::AbstractString`
+:    The metric name whose data we want.  If not specified, defaults to `BounceRate`
+
+$(mPulseAPI.readdocs("APIResults-common-optargs"))
 
 #### Throws
-$(replace(readdocs("APIResults-exceptions"), "one of the request parameters", "the metric name"))
-$(readdocs("CleanSeriesSeries-exceptions"))
+$(mPulseAPI.readdocs("APIResults-exceptions", ["metric"]))
+
+$(mPulseAPI.readdocs("CleanSeriesSeries-exceptions"))
 
 #### Returns
-$(format(readdocs("MetricOverLoadTime-return-format"), "Metric", "BounceRate"))
+$(mPulseAPI.readdocs("MetricOverLoadTime-return-format", ["Metric", "BounceRate"]))
 """
 function getMetricOverPageLoadTime(token::AbstractString, appID::AbstractString; filters::Dict=Dict(), metric::AbstractString="")
     if metric != ""
@@ -658,19 +650,22 @@ end
 Calls the `by-minute` endpoint of the mPulse REST API with the passed in filters
 
 #### Arguments
-$(readdocs("APIResults-common-args"))
+$(mPulseAPI.readdocs("APIResults-common-args"))
 
 #### Optional Arguments
-* `timer::AbstractString`   The name of the timer whose data we want.  If not specified, defaults to `PageLoad`.  Other possible
-                            values are TCP, DNS, SSL, etc.  See the output of `mPulseAPI.getTimersMetrics()` for a full list.
-                            Note that custom timers need to be named `CustomTimer0`, `CustomTimer1`, etc.  Use `mPulseAPI.getRepositoryDomain()`
-                            to get a domain, and then inspect `domain["custom_timers"]["<timer name>"]["mpulseapiname"]` to get an
-                            appropriate name for this method.
-$(readdocs("APIResults-common-optargs"))
+`timer::AbstractString`
+:    The name of the timer whose data we want.  If not specified, defaults to `PageLoad`.  Other possible
+     values are TCP, DNS, SSL, etc.  See the output of `mPulseAPI.getTimersMetrics()` for a full list.
+     Note that custom timers need to be named `CustomTimer0`, `CustomTimer1`, etc.  Use `mPulseAPI.getRepositoryDomain()`
+     to get a domain, and then inspect `domain["custom_timers"]["<timer name>"]["mpulseapiname"]` to get an
+     appropriate name for this method.
+
+$(mPulseAPI.readdocs("APIResults-common-optargs"))
 
 #### Throws
-$(replace(readdocs("APIResults-exceptions"), "one of the request parameters", "the timer name"))
-$(readdocs("CleanSeriesSeries-exceptions"))
+$(mPulseAPI.readdocs("APIResults-exceptions", ["timer"]))
+
+$(mPulseAPI.readdocs("CleanSeriesSeries-exceptions"))
 
 #### Returns
 `{DataFrame{` A julia `DataFrame` containing timeseries data for the median value of the timer and its margin of error.
@@ -722,15 +717,22 @@ Use this method to merge the results from multiple calls to `getMetricOverPageLo
 All passed in `DataFrame`s MUST contain a `:t_done` column.
 
 ### Arguments
-* `df1::DataFrame`      The first `DataFrame` in the collection.  This method requires at least one `DataFrame` to be passed in.
-* `df2::DataFrame...`   One or more `DataFrame` to be merged together with the first one
+`df1::DataFrame`
+:    The first `DataFrame` in the collection.  This method requires at least one `DataFrame` to be passed in.
+
+`df2::DataFrame...`
+:    One or more `DataFrame` to be merged together with the first one
 
 ### Optional Arguments
-* `keyField::Symbol`    *[default: `:t_done`]* The column name to join on.  Defaults to `:t_done`
-* `joinType::Symbol`    *[default: `:outer`]* The type of join to perform.  See the `kind` parameter in `?join` for a list of supported join types
+`keyField::Symbol=:t_done`
+:    The column name to join on.  Defaults to `:t_done`
+
+`joinType::Symbol=:outer`
+:    The type of join to perform.  See the `kind` parameter in `?join` for a list of supported join types
 
 ### Throws
-* `KeyError` if the `keyField` column does not exist in all passed in `DataFrame`s
+`KeyError`
+:    if the `keyField` column does not exist in all passed in `DataFrame`s
 
 ### Returns
 * If only one `DataFrame` is passed in, it is returned as-is.  This is not a copy of the first DataFrame.
