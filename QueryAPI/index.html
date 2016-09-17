@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <title>Query API - mPulseAPI.jl Documentation</title>
+  
+
+  <link rel="shortcut icon" href="../img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Query API";
+    var mkdocs_page_input_path = "QueryAPI.md";
+    var mkdocs_page_url = "/QueryAPI/index.html";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script>
+  <script src="../js/theme.js"></script> 
+
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="icon icon-home"> mPulseAPI.jl Documentation</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../index.html">mPulseAPI</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../RepositoryAPI/index.html">Repository API</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 current">
+        <a class="current" href="index.html">Query API</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#query-api">Query API</a></li>
+                
+                    <li><a class="toctree-l4" href="#namespaced-functions">Namespaced Functions</a></li>
+                
+            
+            </ul>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../exceptions/index.html">Exceptions</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../cache_utilities/index.html">Internal Cache Utilities</a>
+        
+    </li>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">mPulseAPI.jl Documentation</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Query API</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        
+          <a href="https://github.com/SOASTA/mPulseAPI.jl/" class="icon icon-github"> Edit on GitHub</a>
+        
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="query-api">Query API</h1>
+<h2 id="namespaced-functions">Namespaced Functions</h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The following methods are not exported by default. You may use them by explicitly
+importing them or by prefixing them with the <code>mPulseAPI.</code> namespace.</p>
+</div>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L56-L136" style="float:right;font-size:0.8em;">QueryAPI.jl#56-136</a></p>
+<h3 id="function-getapiresults">function <code>getAPIResults</code></h3>
+<p>Get API results from the mPulse Query API (http://docs.soasta.com/query-api/)</p>
+<p>This method is a generic catch-all that queries the mPulse API and returns results as a Julia data structure matching the JSON structure of the specified API call</p>
+<h4 id="arguments">Arguments</h4>
+<dl>
+<dt><code>token::AbstractString</code></dt>
+<dd>The Repository authentication token fetched by calling <code>mPulseAPI.getRepositoryToken</code></dd>
+<dt><code>appID::AbstractString</code></dt>
+<dd>The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
+ <code>mPulseAPI.getRepositoryDomain</code> to fetch a domain and then inspect <code>domain["attributes"]["appID"]</code></dd>
+<dt><code>query_type::AbstractString</code></dt>
+<dd>
+<p>The specific API query to make.  Must be one of the following:</p>
+<ul>
+<li>summary</li>
+<li>histogram</li>
+<li>sessions-per-page-load-time</li>
+<li>metric-per-page-load-time</li>
+<li>by-minute</li>
+<li>geography</li>
+<li>page-groups</li>
+<li>browsers</li>
+<li>bandwidth</li>
+<li>ab-tests</li>
+<li>timers-metrics</li>
+<li>metrics-by-dimension</li>
+</ul>
+</dd>
+</dl>
+<h4 id="optional-arguments">Optional Arguments</h4>
+<dl>
+<dt><code>filters::Dict</code></dt>
+<dd>
+<p>A dict of filters to pass to the mPulse Query API. For example <code>Dict("page-group" =&gt; "foo-bar")</code>
+ will filter results to the <code>foo-bar</code> <code>page-group</code>.  The resulting filters will be a merge of
+ what is passed in and the default values with whatever is passed in taking precedence.</p>
+<p>The default filters are:</p>
+<pre><code> Dict(
+     "date-comparator" =&gt; "Last24Hours",
+     "format" =&gt; "json",
+     "series-format" =&gt; "json"
+ )
+</code></pre>
+</dd>
+</dl>
+<h4 id="throws">Throws</h4>
+<dl>
+<dt><code>ArgumentError</code></dt>
+<dd>If the <code>query_type</code> is not recognized</dd>
+<dt><code>mPulseAPIAuthException</code></dt>
+<dd>If the <code>token</code> is invalid or has expired.</dd>
+<dt><code>mPulseAPIException</code></dt>
+<dd>If the API returned a non-200 status.  Inspect <code>mPulseAPIException.response</code> for details about
+the problem</dd>
+<dt><code>mPulseAPIRequestException</code></dt>
+<dd>If the API was unhappy with a request parameter</dd>
+</dl>
+<h4 id="returns">Returns</h4>
+<p><code>{Any}</code> A Julia representation of the JSON returned by the API call. Convenience wrappers in this library may return more appropriate data structures.</p>
+<hr />
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L185-L187" style="float:right;font-size:0.8em;">QueryAPI.jl#185-187</a></p>
+<h3 id="function-getsummarytimers">function <code>getSummaryTimers</code></h3>
+<p>Calls the <code>summary</code> endpoint of the mPulse REST API with the passed in filters</p>
+<h4 id="arguments_1">Arguments</h4>
+<dl>
+<dt><code>token::AbstractString</code></dt>
+<dd>The Repository authentication token fetched by calling <code>mPulseAPI.getRepositoryToken</code></dd>
+<dt><code>appID::AbstractString</code></dt>
+<dd>The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
+ <code>mPulseAPI.getRepositoryDomain</code> to fetch a domain and then inspect <code>domain["attributes"]["appID"]</code></dd>
+</dl>
+<h4 id="optional-arguments_1">Optional Arguments</h4>
+<dl>
+<dt><code>filters::Dict</code></dt>
+<dd>
+<p>A dict of filters to pass to the mPulse Query API. For example <code>Dict("page-group" =&gt; "foo-bar")</code>
+ will filter results to the <code>foo-bar</code> <code>page-group</code>.  The resulting filters will be a merge of
+ what is passed in and the default values with whatever is passed in taking precedence.</p>
+<p>The default filters are:</p>
+<pre><code> Dict(
+     "date-comparator" =&gt; "Last24Hours",
+     "format" =&gt; "json",
+     "series-format" =&gt; "json"
+ )
+</code></pre>
+</dd>
+</dl>
+<h4 id="throws_1">Throws</h4>
+<dl>
+<dt><code>ArgumentError</code></dt>
+<dd>If the <code>query_type</code> is not recognized</dd>
+<dt><code>mPulseAPIAuthException</code></dt>
+<dd>If the <code>token</code> is invalid or has expired.</dd>
+<dt><code>mPulseAPIException</code></dt>
+<dd>If the API returned a non-200 status.  Inspect <code>mPulseAPIException.response</code> for details about
+the problem</dd>
+<dt><code>mPulseAPIRequestException</code></dt>
+<dd>If the API was unhappy with a request parameter</dd>
+</dl>
+<h4 id="returns_1">Returns</h4>
+<p><code>{Dict}</code> A Julia <code>Dict</code> with the following string keys:</p>
+<dl>
+<dt><code>n::Int</code></dt>
+<dd>The number of beacons with data about the requested timer</dd>
+<dt><code>median::Int</code></dt>
+<dd>The median of the requested timer in milliseconds</dd>
+<dt><code>p95::Int</code></dt>
+<dd>The 95th percentile value of the requested timer in milliseconds</dd>
+<dt><code>p98::Int</code></dt>
+<dd>The 98th percentile value of the requested timer in milliseconds</dd>
+<dt><code>moe::Float</code></dt>
+<dd>The 95% confidence interval margin of error on the arithmetic mean of the requested timer in milliseconds</dd>
+</dl>
+<h4 id="examples">Examples</h4>
+<pre><code class="julia">julia&gt; summary = mPulseAPI.getSummaryTimers(token, appID)
+
+Dict{Any,Any} with 5 entries:
+  &quot;n&quot;      =&gt; 356317
+  &quot;median&quot; =&gt; 3094
+  &quot;p95&quot;    =&gt; 19700
+  &quot;p98&quot;    =&gt; 40678
+  &quot;moe&quot;    =&gt; 13.93
+</code></pre>
+
+<hr />
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L211-L225" style="float:right;font-size:0.8em;">QueryAPI.jl#211-225</a></p>
+<h3 id="function-getpagegrouptimers">function <code>getPageGroupTimers</code></h3>
+<p>Calls the <code>page-groups</code> endpoint of the mPulse REST API with the passed in filters</p>
+<h4 id="arguments_2">Arguments</h4>
+<dl>
+<dt><code>token::AbstractString</code></dt>
+<dd>The Repository authentication token fetched by calling <code>mPulseAPI.getRepositoryToken</code></dd>
+<dt><code>appID::AbstractString</code></dt>
+<dd>The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
+ <code>mPulseAPI.getRepositoryDomain</code> to fetch a domain and then inspect <code>domain["attributes"]["appID"]</code></dd>
+</dl>
+<h4 id="optional-arguments_2">Optional Arguments</h4>
+<dl>
+<dt><code>filters::Dict</code></dt>
+<dd>
+<p>A dict of filters to pass to the mPulse Query API. For example <code>Dict("page-group" =&gt; "foo-bar")</code>
+ will filter results to the <code>foo-bar</code> <code>page-group</code>.  The resulting filters will be a merge of
+ what is passed in and the default values with whatever is passed in taking precedence.</p>
+<p>The default filters are:</p>
+<pre><code> Dict(
+     "date-comparator" =&gt; "Last24Hours",
+     "format" =&gt; "json",
+     "series-format" =&gt; "json"
+ )
+</code></pre>
+</dd>
+<dt><code>friendly_names::Bool=false</code></dt>
+<dd>
+<p>Specify whether column names in the <code>DataFrame</code> should be human friendly or developer friendly (default)</p>
+<p>Human friendly column names are:</p>
+<p><code>Page Group</code>, <code>Median Time (ms)</code>, <code>MoE (ms)</code>, <code>Measurements</code>, <code>% of total</code></p>
+<p>Developer friendly column names are:</p>
+<p><code>:page_group</code>, <code>:t_done_median</code>, <code>:t_done_moe</code>, <code>:t_done_count</code>, <code>:t_done_total_pc</code></p>
+</dd>
+</dl>
+<h4 id="throws_2">Throws</h4>
+<dl>
+<dt><code>ArgumentError</code></dt>
+<dd>If the <code>query_type</code> is not recognized</dd>
+<dt><code>mPulseAPIAuthException</code></dt>
+<dd>If the <code>token</code> is invalid or has expired.</dd>
+<dt><code>mPulseAPIException</code></dt>
+<dd>If the API returned a non-200 status.  Inspect <code>mPulseAPIException.response</code> for details about
+the problem</dd>
+<dt><code>mPulseAPIRequestException</code></dt>
+<dd>If the API was unhappy with a request parameter</dd>
+<dt><code>mPulseAPIResultFormatException</code></dt>
+<dd>If the API response did had  data in an unexpected data type</dd>
+</dl>
+<h4 id="returns_2">Returns</h4>
+<p><code>{DataFrame}</code> A Julia <code>DataFrame</code> with the following columns:</p>
+<p><code>page_group</code>, <code>t_done_median</code>, <code>t_done_moe</code>, <code>t_done_count</code>, and <code>t_done_total_pc</code></p>
+<pre><code class="julia">julia&gt; pgroups = mPulseAPI.getPageGroupTimers(token, appID)
+69x5 DataFrames.DataFrame
+| Row | page_group                  | t_done_median    | t_done_moe | t_done_count | t_done_total_pc |
+|-----|-----------------------------|------------------|------------|--------------|-----------------|
+| 1   | www                         | 3090             | 40.6601    | 49904        | 46.3069         |
+| 2   | blog                        | 2557             | 51.7651    | 17779        | 16.4975         |
+| 3   | Search                      | 4587             | 88.988     | 7248         | 6.72556         |
+| 4   | SKU                         | 3463             | 120.895    | 6885         | 6.38872         |
+| 5   | PLU                         | 3276             | 116.507    | 6688         | 6.20592         |
+| 6   | (No Page Group)             | 3292             | 165.514    | 2949         | 2.73643         |
+| 7   | Checkout                    | 2875             | 169.091    | 2386         | 2.21402         |
+
+</code></pre>
+
+<hr />
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L249-L263" style="float:right;font-size:0.8em;">QueryAPI.jl#249-263</a></p>
+<h3 id="function-getbrowsertimers">function <code>getBrowserTimers</code></h3>
+<p>Calls the <code>browsers</code> endpoint of the mPulse REST API with the passed in filters</p>
+<h4 id="arguments_3">Arguments</h4>
+<dl>
+<dt><code>token::AbstractString</code></dt>
+<dd>The Repository authentication token fetched by calling <code>mPulseAPI.getRepositoryToken</code></dd>
+<dt><code>appID::AbstractString</code></dt>
+<dd>The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
+ <code>mPulseAPI.getRepositoryDomain</code> to fetch a domain and then inspect <code>domain["attributes"]["appID"]</code></dd>
+</dl>
+<h4 id="optional-arguments_3">Optional Arguments</h4>
+<dl>
+<dt><code>filters::Dict</code></dt>
+<dd>
+<p>A dict of filters to pass to the mPulse Query API. For example <code>Dict("page-group" =&gt; "foo-bar")</code>
+ will filter results to the <code>foo-bar</code> <code>page-group</code>.  The resulting filters will be a merge of
+ what is passed in and the default values with whatever is passed in taking precedence.</p>
+<p>The default filters are:</p>
+<pre><code> Dict(
+     "date-comparator" =&gt; "Last24Hours",
+     "format" =&gt; "json",
+     "series-format" =&gt; "json"
+ )
+</code></pre>
+</dd>
+<dt><code>friendly_names::Bool=false</code></dt>
+<dd>
+<p>Specify whether column names in the <code>DataFrame</code> should be human friendly or developer friendly (default)</p>
+<p>Human friendly column names are:</p>
+<p><code>User Agent</code>, <code>Median Time (ms)</code>, <code>MoE (ms)</code>, <code>Measurements</code>, <code>% of total</code></p>
+<p>Developer friendly column names are:</p>
+<p><code>:user_agent</code>, <code>:t_done_median</code>, <code>:t_done_moe</code>, <code>:t_done_count</code>, <code>:t_done_total_pc</code></p>
+</dd>
+</dl>
+<h4 id="throws_3">Throws</h4>
+<dl>
+<dt><code>ArgumentError</code></dt>
+<dd>If the <code>query_type</code> is not recognized</dd>
+<dt><code>mPulseAPIAuthException</code></dt>
+<dd>If the <code>token</code> is invalid or has expired.</dd>
+<dt><code>mPulseAPIException</code></dt>
+<dd>If the API returned a non-200 status.  Inspect <code>mPulseAPIException.response</code> for details about
+the problem</dd>
+<dt><code>mPulseAPIRequestException</code></dt>
+<dd>If the API was unhappy with a request parameter</dd>
+<dt><code>mPulseAPIResultFormatException</code></dt>
+<dd>If the API response did had  data in an unexpected data type</dd>
+</dl>
+<h4 id="returns_3">Returns</h4>
+<p><code>{DataFrame}</code> A Julia <code>DataFrame</code> with the following columns:</p>
+<p><code>user_agent</code>, <code>t_done_median</code>, <code>t_done_moe</code>, <code>t_done_count</code>, and <code>t_done_total_pc</code></p>
+<pre><code class="julia">julia&gt; pgroups = mPulseAPI.getBrowserTimers(token, appID)
+69x5 DataFrames.DataFrame
+| Row | user_agent                  | t_done_median    | t_done_moe | t_done_count | t_done_total_pc |
+|-----|-----------------------------|------------------|------------|--------------|-----------------|
+| 1   | Chrome/50                   | 3090             | 40.6601    | 49904        | 46.3069         |
+| 2   | Safari/9                    | 2557             | 51.7651    | 17779        | 16.4975         |
+| 3   | Mobile Safari/9             | 4587             | 88.988     | 7248         | 6.72556         |
+| 4   | Firefox/46                  | 3463             | 120.895    | 6885         | 6.38872         |
+| 5   | Chrome/49                   | 3276             | 116.507    | 6688         | 6.20592         |
+| 6   | IE/11                       | 3292             | 165.514    | 2949         | 2.73643         |
+| 7   | Edge/13                     | 2875             | 169.091    | 2386         | 2.21402         |
+
+</code></pre>
+
+<hr />
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L287-L301" style="float:right;font-size:0.8em;">QueryAPI.jl#287-301</a></p>
+<h3 id="function-getabtesttimers">function <code>getABTestTimers</code></h3>
+<p>Calls the <code>ab-tests</code> endpoint of the mPulse REST API with the passed in filters</p>
+<h4 id="arguments_4">Arguments</h4>
+<dl>
+<dt><code>token::AbstractString</code></dt>
+<dd>The Repository authentication token fetched by calling <code>mPulseAPI.getRepositoryToken</code></dd>
+<dt><code>appID::AbstractString</code></dt>
+<dd>The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
+ <code>mPulseAPI.getRepositoryDomain</code> to fetch a domain and then inspect <code>domain["attributes"]["appID"]</code></dd>
+</dl>
+<h4 id="optional-arguments_4">Optional Arguments</h4>
+<dl>
+<dt><code>filters::Dict</code></dt>
+<dd>
+<p>A dict of filters to pass to the mPulse Query API. For example <code>Dict("page-group" =&gt; "foo-bar")</code>
+ will filter results to the <code>foo-bar</code> <code>page-group</code>.  The resulting filters will be a merge of
+ what is passed in and the default values with whatever is passed in taking precedence.</p>
+<p>The default filters are:</p>
+<pre><code> Dict(
+     "date-comparator" =&gt; "Last24Hours",
+     "format" =&gt; "json",
+     "series-format" =&gt; "json"
+ )
+</code></pre>
+</dd>
+<dt><code>friendly_names::Bool=false</code></dt>
+<dd>
+<p>Specify whether column names in the <code>DataFrame</code> should be human friendly or developer friendly (default)</p>
+<p>Human friendly column names are:</p>
+<p><code>Test Name</code>, <code>Median Time (ms)</code>, <code>MoE (ms)</code>, <code>Measurements</code>, <code>% of total</code></p>
+<p>Developer friendly column names are:</p>
+<p><code>:test_name</code>, <code>:t_done_median</code>, <code>:t_done_moe</code>, <code>:t_done_count</code>, <code>:t_done_total_pc</code></p>
+</dd>
+</dl>
+<h4 id="throws_4">Throws</h4>
+<dl>
+<dt><code>ArgumentError</code></dt>
+<dd>If the <code>query_type</code> is not recognized</dd>
+<dt><code>mPulseAPIAuthException</code></dt>
+<dd>If the <code>token</code> is invalid or has expired.</dd>
+<dt><code>mPulseAPIException</code></dt>
+<dd>If the API returned a non-200 status.  Inspect <code>mPulseAPIException.response</code> for details about
+the problem</dd>
+<dt><code>mPulseAPIRequestException</code></dt>
+<dd>If the API was unhappy with a request parameter</dd>
+<dt><code>mPulseAPIResultFormatException</code></dt>
+<dd>If the API response did had  data in an unexpected data type</dd>
+</dl>
+<h4 id="returns_4">Returns</h4>
+<p><code>{DataFrame}</code> A Julia <code>DataFrame</code> with the following columns:</p>
+<p><code>test_ame</code>, <code>t_done_median</code>, <code>t_done_moe</code>, <code>t_done_count</code>, and <code>t_done_total_pc</code></p>
+<pre><code class="julia">julia&gt; pgroups = mPulseAPI.getABTestTimers(token, appID)
+69x5 DataFrames.DataFrame
+| Row | test_ame                    | t_done_median    | t_done_moe | t_done_count | t_done_total_pc |
+|-----|-----------------------------|------------------|------------|--------------|-----------------|
+| 1   | (No Value)                  | 3090             | 40.6601    | 49904        | 46.3069         |
+| 2   | Test-A                      | 2557             | 51.7651    | 17779        | 16.4975         |
+| 3   | Test-B                      | 4587             | 88.988     | 7248         | 6.72556         |
+| 4   | BlueHead                    | 3463             | 120.895    | 6885         | 6.38872         |
+| 5   | Campaign-XXX                | 3276             | 116.507    | 6688         | 6.20592         |
+| 6   | Old-Site                    | 3292             | 165.514    | 2949         | 2.73643         |
+| 7   | Slow-SRP                    | 2875             | 169.091    | 2386         | 2.21402         |
+
+</code></pre>
+
+<hr />
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L339-L357" style="float:right;font-size:0.8em;">QueryAPI.jl#339-357</a></p>
+<h3 id="function-getmetricsbydimension">function <code>getMetricsByDimension</code></h3>
+<p>Calls the <code>metrics-by-dimension</code> endpoint of the mPulse REST API with the passed in dimension name and filters</p>
+<h4 id="arguments_5">Arguments</h4>
+<dl>
+<dt><code>token::AbstractString</code></dt>
+<dd>The Repository authentication token fetched by calling <code>mPulseAPI.getRepositoryToken</code></dd>
+<dt><code>appID::AbstractString</code></dt>
+<dd>The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
+ <code>mPulseAPI.getRepositoryDomain</code> to fetch a domain and then inspect <code>domain["attributes"]["appID"]</code></dd>
+<dt><code>dimension::AbstractString</code></dt>
+<dd>The dimension to split metrics by.  The response contains one row for each value of this dimension</dd>
+</dl>
+<h4 id="optional-arguments_5">Optional Arguments</h4>
+<dl>
+<dt><code>filters::Dict</code></dt>
+<dd>
+<p>A dict of filters to pass to the mPulse Query API. For example <code>Dict("page-group" =&gt; "foo-bar")</code>
+ will filter results to the <code>foo-bar</code> <code>page-group</code>.  The resulting filters will be a merge of
+ what is passed in and the default values with whatever is passed in taking precedence.</p>
+<p>The default filters are:</p>
+<pre><code> Dict(
+     "date-comparator" =&gt; "Last24Hours",
+     "format" =&gt; "json",
+     "series-format" =&gt; "json"
+ )
+</code></pre>
+</dd>
+</dl>
+<h4 id="throws_5">Throws</h4>
+<dl>
+<dt><code>ArgumentError</code></dt>
+<dd>If the <code>query_type</code> is not recognized</dd>
+<dt><code>mPulseAPIAuthException</code></dt>
+<dd>If the <code>token</code> is invalid or has expired.</dd>
+<dt><code>mPulseAPIException</code></dt>
+<dd>If the API returned a non-200 status.  Inspect <code>mPulseAPIException.response</code> for details about
+the problem</dd>
+<dt><code>mPulseAPIRequestException</code></dt>
+<dd>If the API was unhappy with a request parameter</dd>
+<dt><code>mPulseAPIResultFormatException</code></dt>
+<dd>If the API response did had  data in an unexpected data type</dd>
+</dl>
+<h4 id="returns_5">Returns</h4>
+<p><code>{DataFrame}</code> A Julia <code>DataFrame</code> with the following columns: <code>:&lt;dimension&gt;</code>, <code>:&lt;CustomMetric Name&gt;</code>...</p>
+<pre><code class="julia">julia&gt; mPulseAPI.getMetricsByDimension(token, appID, &quot;browser&quot;)
+243x4 DataFrames.DataFrame
+| Row | browser                          | Conversion | OrderTotal | ServerDown  |
+|-----|----------------------------------|------------|------------|-------------|
+| 1   | &quot;Mobile Safari/9&quot;                | 1.381      | 1.62854e7  | 0.000994956 |
+| 2   | &quot;Chrome/50&quot;                      | 1.98411    | 3.13401e7  | 0.0050615   |
+| 3   | &quot;Safari/9&quot;                       | 3.08288    | 2.10698e7  | 0.00561545  |
+| 4   | &quot;Firefox/46&quot;                     | 1.90974    | 8569362    | 0.00462406  |
+| 5   | &quot;Mobile Safari/8&quot;                | 2.38545    | 2295848    | 0.0         |
+| 6   | &quot;Chrome/49&quot;                      | 2.22828    | 4394331    | 0.0         |
+</code></pre>
+
+<hr />
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L403-L447" style="float:right;font-size:0.8em;">QueryAPI.jl#403-447</a></p>
+<h3 id="function-gettimersmetrics">function <code>getTimersMetrics</code></h3>
+<p>Calls the <code>timers-metrics</code> endpoint of the mPulse REST API with the passed in filters</p>
+<h4 id="arguments_6">Arguments</h4>
+<dl>
+<dt><code>token::AbstractString</code></dt>
+<dd>The Repository authentication token fetched by calling <code>mPulseAPI.getRepositoryToken</code></dd>
+<dt><code>appID::AbstractString</code></dt>
+<dd>The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
+ <code>mPulseAPI.getRepositoryDomain</code> to fetch a domain and then inspect <code>domain["attributes"]["appID"]</code></dd>
+</dl>
+<h4 id="optional-arguments_6">Optional Arguments</h4>
+<dl>
+<dt><code>filters::Dict</code></dt>
+<dd>
+<p>A dict of filters to pass to the mPulse Query API. For example <code>Dict("page-group" =&gt; "foo-bar")</code>
+ will filter results to the <code>foo-bar</code> <code>page-group</code>.  The resulting filters will be a merge of
+ what is passed in and the default values with whatever is passed in taking precedence.</p>
+<p>The default filters are:</p>
+<pre><code> Dict(
+     "date-comparator" =&gt; "Last24Hours",
+     "format" =&gt; "json",
+     "series-format" =&gt; "json"
+ )
+</code></pre>
+</dd>
+</dl>
+<h4 id="throws_6">Throws</h4>
+<dl>
+<dt><code>ArgumentError</code></dt>
+<dd>If the <code>query_type</code> is not recognized</dd>
+<dt><code>mPulseAPIAuthException</code></dt>
+<dd>If the <code>token</code> is invalid or has expired.</dd>
+<dt><code>mPulseAPIException</code></dt>
+<dd>If the API returned a non-200 status.  Inspect <code>mPulseAPIException.response</code> for details about
+the problem</dd>
+<dt><code>mPulseAPIRequestException</code></dt>
+<dd>If the API was unhappy with a request parameter</dd>
+<dt><code>Exception</code></dt>
+<dd>If there was an unexpected type error parsing response values</dd>
+</dl>
+<h4 id="returns_6">Returns</h4>
+<p><code>{DataFrame}</code> A <code>DataFrame</code> with one column for each timer and metric.  Known columns include:</p>
+<ul>
+<li><code>:Beacons</code> and <code>:PageLoad</code> will always be present.</li>
+<li><code>:Sessions</code> and <code>:BounceRate</code> will be present if session tracking is enabled (on by default)</li>
+<li><code>:DNS</code>, <code>:TCP</code>, <code>:SSL</code>, <code>:FirstByte</code>, <code>:DomLoad</code>, <code>:DomReady</code> and <code>:FirstLastByte</code> will be present if NavigationTiming is available (almost always available)</li>
+<li>Custom Timers &amp; Custom Metrics are included if defined and if they have data for the selected time period</li>
+</ul>
+<p>The last row in the DataFrame is the latest value of the timer or metric.  All preceding rows are historic values over the time period broken down by a predefined time unit.
+For example, for Last24Hours, there will be 1440 entries representing each minute in the 24 hour period.</p>
+<pre><code class="julia">julia&gt; mPulseAPI.getTimersMetrics(token, appID)
+1441x16 DataFrames.DataFrame
+| Row  | PageLoad | DNS | DomLoad | DomReady | FirstByte | SSL | FirstLastByte | TCP | DOM Interactive | Sessions | BounceRate | Conversion | OrderTotal | Beacons |
+|------|----------|-----|---------|----------|-----------|-----|---------------|-----|-----------------|----------|------------|------------|------------|---------|
+| 1    | 3442     │ 46  │ 805     │ 3345     │ 732       │ 59  │ 2468          │ 36  │ 1696            │ 353      │ 34         │ 0.566572   │ 58652.0    │ 1808    │
+| 2    | 3308     | 45  | 758     | 3173     | 705       | 56  | 2351          | 32  | 1620            | 331      | 30         | 2.1148     | 266219.0   | 1767    |
+| 3    | 3412     | 38  | 794     | 3287     | 726       | 69  | 2360          | 31  | 1707            | 346      | 29         | 1.44509    | 209205.0   | 1806    |
+| 4    | 3368     | 40  | 775     | 3250     | 701       | 51  | 2500          | 34  | 1670            | 354      | 32         | 2.25989    | 47354.0    | 1850    |
+| 5    | 3346     | 37  | 754     | 3222     | 691       | 61  | 2516          | 31  | 1624            | 326      | 30         | 2.76074    | 132915.0   | 1742    |
+| 6    | 3162     | 36  | 729     | 3040     | 665       | 86  | 2283          | 30  | 1611            | 382      | 28         | 1.57068    | 117284.0   | 1803    |
+| 7    | 3453     | 39  | 862     | 3320     | 787       | 64  | 2471          | 32  | 1772            | 356      | 33         | 2.52809    | 108045.0   | 1727    |
+| 8    | 3593     | 46  | 1028    | 3491     | 889       | 92  | 2495          | 33  | 1952            | 314      | 33         | 1.27389    | 150020.0   | 1715    |
+</code></pre>
+
+<hr />
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L483-L493" style="float:right;font-size:0.8em;">QueryAPI.jl#483-493</a></p>
+<h3 id="function-getgeotimers">function <code>getGeoTimers</code></h3>
+<p>Calls the <code>geography</code> endpoint of the mPulse REST API with the passed in filters</p>
+<h4 id="arguments_7">Arguments</h4>
+<dl>
+<dt><code>token::AbstractString</code></dt>
+<dd>The Repository authentication token fetched by calling <code>mPulseAPI.getRepositoryToken</code></dd>
+<dt><code>appID::AbstractString</code></dt>
+<dd>The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
+ <code>mPulseAPI.getRepositoryDomain</code> to fetch a domain and then inspect <code>domain["attributes"]["appID"]</code></dd>
+</dl>
+<h4 id="optional-arguments_7">Optional Arguments</h4>
+<dl>
+<dt><code>filters::Dict</code></dt>
+<dd>
+<p>A dict of filters to pass to the mPulse Query API. For example <code>Dict("page-group" =&gt; "foo-bar")</code>
+ will filter results to the <code>foo-bar</code> <code>page-group</code>.  The resulting filters will be a merge of
+ what is passed in and the default values with whatever is passed in taking precedence.</p>
+<p>The default filters are:</p>
+<pre><code> Dict(
+     "date-comparator" =&gt; "Last24Hours",
+     "format" =&gt; "json",
+     "series-format" =&gt; "json"
+ )
+</code></pre>
+</dd>
+</dl>
+<h4 id="throws_7">Throws</h4>
+<dl>
+<dt><code>ArgumentError</code></dt>
+<dd>If the <code>query_type</code> is not recognized</dd>
+<dt><code>mPulseAPIAuthException</code></dt>
+<dd>If the <code>token</code> is invalid or has expired.</dd>
+<dt><code>mPulseAPIException</code></dt>
+<dd>If the API returned a non-200 status.  Inspect <code>mPulseAPIException.response</code> for details about
+the problem</dd>
+<dt><code>mPulseAPIRequestException</code></dt>
+<dd>If the API was unhappy with a request parameter</dd>
+<dt><code>mPulseAPIResultFormatException</code></dt>
+<dd>If the API response did had  data in an unexpected data type</dd>
+</dl>
+<h4 id="returns_7">Returns</h4>
+<p><code>{DataFrame}</code> A Julia <code>DataFrame</code> with the following columns: <code>:country</code>, <code>:timerID</code>, <code>:timerN</code>, <code>:timerMedian</code>, <code>:timerMOE</code></p>
+<pre><code class="julia">julia&gt; geo = mPulseAPI.getGeoTimers(token, appID)
+147x5 DataFrames.DataFrame
+│ Row │ country │ timerID    │ timerN │ timerMedian │ timerMOE │
+│-----│---------│------------│--------│-------------│----------│
+│ 1   │ &quot;A1&quot;    │ &quot;PageLoad&quot; │ 25     │ 4600.0      │ 1471.03  │
+│ 2   │ &quot;AD&quot;    │ &quot;PageLoad&quot; │ 1      │ 23649.0     │ 0.0      │
+│ 3   │ &quot;AE&quot;    │ &quot;PageLoad&quot; │ 210    │ 8850.0      │ 302.937  │
+│ 4   │ &quot;AF&quot;    │ &quot;PageLoad&quot; │ 17     │ 9599.0      │ 4313.33  │
+│ 5   │ &quot;AG&quot;    │ &quot;PageLoad&quot; │ 8      │ 6299.0      │ 4004.22  │
+│ 6   │ &quot;AI&quot;    │ &quot;PageLoad&quot; │ 1      │ 16147.0     │ 0.0      │
+│ 7   │ &quot;AL&quot;    │ &quot;PageLoad&quot; │ 6      │ 8699.0      │ 4190.46  │
+</code></pre>
+
+<hr />
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L559-L573" style="float:right;font-size:0.8em;">QueryAPI.jl#559-573</a></p>
+<h3 id="function-gethistogram">function <code>getHistogram</code></h3>
+<p>Calls the <code>histogram</code> endpoint of the mPulse REST API with the passed in filters</p>
+<h4 id="arguments_8">Arguments</h4>
+<dl>
+<dt><code>token::AbstractString</code></dt>
+<dd>The Repository authentication token fetched by calling <code>mPulseAPI.getRepositoryToken</code></dd>
+<dt><code>appID::AbstractString</code></dt>
+<dd>The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
+ <code>mPulseAPI.getRepositoryDomain</code> to fetch a domain and then inspect <code>domain["attributes"]["appID"]</code></dd>
+</dl>
+<h4 id="optional-arguments_8">Optional Arguments</h4>
+<dl>
+<dt><code>filters::Dict</code></dt>
+<dd>
+<p>A dict of filters to pass to the mPulse Query API. For example <code>Dict("page-group" =&gt; "foo-bar")</code>
+ will filter results to the <code>foo-bar</code> <code>page-group</code>.  The resulting filters will be a merge of
+ what is passed in and the default values with whatever is passed in taking precedence.</p>
+<p>The default filters are:</p>
+<pre><code> Dict(
+     "date-comparator" =&gt; "Last24Hours",
+     "format" =&gt; "json",
+     "series-format" =&gt; "json"
+ )
+</code></pre>
+</dd>
+</dl>
+<h4 id="throws_8">Throws</h4>
+<dl>
+<dt><code>ArgumentError</code></dt>
+<dd>If the <code>query_type</code> is not recognized</dd>
+<dt><code>mPulseAPIAuthException</code></dt>
+<dd>If the <code>token</code> is invalid or has expired.</dd>
+<dt><code>mPulseAPIException</code></dt>
+<dd>If the API returned a non-200 status.  Inspect <code>mPulseAPIException.response</code> for details about
+the problem</dd>
+<dt><code>mPulseAPIRequestException</code></dt>
+<dd>If the API was unhappy with a request parameter</dd>
+<dt><code>mPulseAPIResultFormatException</code></dt>
+<dd>If the API response did had a missing <code>series</code> element or data in an unexpected data type</dd>
+</dl>
+<h4 id="returns_8">Returns</h4>
+<p><code>{Dict}</code> A Julia <code>Dict</code> with the following string keys:</p>
+<dl>
+<dt><code>median::Int</code></dt>
+<dd>The median value for values in the histogram in milliseconds</dd>
+<dt><code>p95::Int</code></dt>
+<dd>The 95th percentile value for values in the histogram in milliseconds</dd>
+<dt><code>p98::Int</code></dt>
+<dd>The 98th percentile value for values in the histogram in milliseconds</dd>
+<dt><code>buckets::DataFrame</code></dt>
+<dd>Buckets for the histogram.  These buckets are variable width. See below for a description.</dd>
+</dl>
+<pre><code class="julia">julia&gt; histo = mPulseAPI.getHistogram(token, appID)
+Dict{AbstractString,Any} with 4 entries:
+  &quot;median&quot;  =&gt; 3439
+  &quot;p95&quot;     =&gt; 12843
+  &quot;p98&quot;     =&gt; 22816
+  &quot;buckets&quot; =&gt; 117x3 DataFrames.DataFrame…
+</code></pre>
+
+<p>The buckets <code>DataFrame</code> has the following columns: <code>:bucket_start</code>, <code>:bucket_end</code>, <code>:element_count</code></p>
+<pre><code class="julia">julia&gt; histo[&quot;buckets&quot;]
+117x3 DataFrames.DataFrame
+| Row | bucket_start | bucket_end | element_count |
+|-----|--------------|------------|---------------|
+| 1   | 1            | 2          | 1             |
+| 2   | 3            | 4          | 3             |
+| 3   | 4            | 5          | 8             |
+| 4   | 5            | 6          | 7             |
+| 5   | 6            | 7          | 9             |
+| 6   | 7            | 8          | 8             |
+| 7   | 8            | 9          | 14            |
+| 8   | 9            | 10         | 13            |
+| 9   | 10           | 11         | 17            |
+| 10  | 11           | 12         | 15            |
+| 11  | 12           | 13         | 19            |
+| 12  | 13           | 14         | 18            |
+| 13  | 14           | 15         | 19            |
+</code></pre>
+
+<hr />
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L593-L595" style="float:right;font-size:0.8em;">QueryAPI.jl#593-595</a></p>
+<h3 id="function-getsessionsoverpageloadtime">function <code>getSessionsOverPageLoadTime</code></h3>
+<p>Calls the <code>sessions-per-page-load-time</code> endpoint of the mPulse REST API with the passed in filters</p>
+<h4 id="arguments_9">Arguments</h4>
+<dl>
+<dt><code>token::AbstractString</code></dt>
+<dd>The Repository authentication token fetched by calling <code>mPulseAPI.getRepositoryToken</code></dd>
+<dt><code>appID::AbstractString</code></dt>
+<dd>The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
+ <code>mPulseAPI.getRepositoryDomain</code> to fetch a domain and then inspect <code>domain["attributes"]["appID"]</code></dd>
+</dl>
+<h4 id="optional-arguments_9">Optional Arguments</h4>
+<dl>
+<dt><code>filters::Dict</code></dt>
+<dd>
+<p>A dict of filters to pass to the mPulse Query API. For example <code>Dict("page-group" =&gt; "foo-bar")</code>
+ will filter results to the <code>foo-bar</code> <code>page-group</code>.  The resulting filters will be a merge of
+ what is passed in and the default values with whatever is passed in taking precedence.</p>
+<p>The default filters are:</p>
+<pre><code> Dict(
+     "date-comparator" =&gt; "Last24Hours",
+     "format" =&gt; "json",
+     "series-format" =&gt; "json"
+ )
+</code></pre>
+</dd>
+</dl>
+<h4 id="throws_9">Throws</h4>
+<dl>
+<dt><code>ArgumentError</code></dt>
+<dd>If the <code>query_type</code> is not recognized</dd>
+<dt><code>mPulseAPIAuthException</code></dt>
+<dd>If the <code>token</code> is invalid or has expired.</dd>
+<dt><code>mPulseAPIException</code></dt>
+<dd>If the API returned a non-200 status.  Inspect <code>mPulseAPIException.response</code> for details about
+the problem</dd>
+<dt><code>mPulseAPIRequestException</code></dt>
+<dd>If the API was unhappy with a request parameter</dd>
+</dl>
+<h4 id="returns_9">Returns</h4>
+<p><code>{DataFrame}</code> A julia <code>DataFrame</code> mapping the Sessions to a load time bucket:</p>
+<pre><code class="julia">julia&gt; mPulseAPI.getSessionsOverPageLoadTime(token, appID)
+60x2 DataFrames.DataFrame
+| Row | t_done | Sessions   |
+|-----|--------|------------|
+| 1   | 8      | 50.0       |
+| 2   | 9      | 100.0      |
+| 3   | 10     | 100.0      |
+| 4   | 12     | 100.0      |
+| 5   | 16     | 100.0      |
+| 6   | 18     | 100.0      |
+| 7   | 22     | 100.0      |
+| 8   | 26     | 100.0      |
+</code></pre>
+
+<hr />
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L620-L644" style="float:right;font-size:0.8em;">QueryAPI.jl#620-644</a></p>
+<h3 id="function-getmetricoverpageloadtime">function <code>getMetricOverPageLoadTime</code></h3>
+<p>Calls the <code>metric-per-page-load-time</code> endpoint of the mPulse REST API with the passed in filters</p>
+<h4 id="arguments_10">Arguments</h4>
+<dl>
+<dt><code>token::AbstractString</code></dt>
+<dd>The Repository authentication token fetched by calling <code>mPulseAPI.getRepositoryToken</code></dd>
+<dt><code>appID::AbstractString</code></dt>
+<dd>The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
+ <code>mPulseAPI.getRepositoryDomain</code> to fetch a domain and then inspect <code>domain["attributes"]["appID"]</code></dd>
+</dl>
+<h4 id="optional-arguments_10">Optional Arguments</h4>
+<dl>
+<dt><code>metric::AbstractString</code></dt>
+<dd>The metric name whose data we want.  If not specified, defaults to <code>BounceRate</code></dd>
+<dt><code>filters::Dict</code></dt>
+<dd>
+<p>A dict of filters to pass to the mPulse Query API. For example <code>Dict("page-group" =&gt; "foo-bar")</code>
+ will filter results to the <code>foo-bar</code> <code>page-group</code>.  The resulting filters will be a merge of
+ what is passed in and the default values with whatever is passed in taking precedence.</p>
+<p>The default filters are:</p>
+<pre><code> Dict(
+     "date-comparator" =&gt; "Last24Hours",
+     "format" =&gt; "json",
+     "series-format" =&gt; "json"
+ )
+</code></pre>
+</dd>
+</dl>
+<h4 id="throws_10">Throws</h4>
+<dl>
+<dt><code>ArgumentError</code></dt>
+<dd>If the <code>query_type</code> is not recognized</dd>
+<dt><code>mPulseAPIAuthException</code></dt>
+<dd>If the <code>token</code> is invalid or has expired.</dd>
+<dt><code>mPulseAPIException</code></dt>
+<dd>If the API returned a non-200 status.  Inspect <code>mPulseAPIException.response</code> for details about
+the problem</dd>
+<dt><code>mPulseAPIRequestException</code></dt>
+<dd>If the API was unhappy with a metric</dd>
+<dt><code>mPulseAPIResultFormatException</code></dt>
+<dd>If the API response did had a missing <code>series</code> element or data in an unexpected data type</dd>
+</dl>
+<h4 id="returns_10">Returns</h4>
+<p><code>{DataFrame}</code> A julia <code>DataFrame</code> mapping the Metric to a load time bucket:</p>
+<pre><code class="julia">julia&gt; mPulseAPI.getMetricOverPageLoadTime(token, appID)
+60x2 DataFrames.DataFrame
+| Row | t_done | BounceRate |
+|-----|--------|------------|
+| 1   | 8      | 50.0       |
+| 2   | 9      | 100.0      |
+| 3   | 10     | 100.0      |
+| 4   | 12     | 100.0      |
+| 5   | 16     | 100.0      |
+| 6   | 18     | 100.0      |
+| 7   | 22     | 100.0      |
+| 8   | 26     | 100.0      |
+</code></pre>
+
+<hr />
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L690-L709" style="float:right;font-size:0.8em;">QueryAPI.jl#690-709</a></p>
+<h3 id="function-gettimerbyminute">function <code>getTimerByMinute</code></h3>
+<p>Calls the <code>by-minute</code> endpoint of the mPulse REST API with the passed in filters</p>
+<h4 id="arguments_11">Arguments</h4>
+<dl>
+<dt><code>token::AbstractString</code></dt>
+<dd>The Repository authentication token fetched by calling <code>mPulseAPI.getRepositoryToken</code></dd>
+<dt><code>appID::AbstractString</code></dt>
+<dd>The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
+ <code>mPulseAPI.getRepositoryDomain</code> to fetch a domain and then inspect <code>domain["attributes"]["appID"]</code></dd>
+</dl>
+<h4 id="optional-arguments_11">Optional Arguments</h4>
+<dl>
+<dt><code>timer::AbstractString</code></dt>
+<dd>The name of the timer whose data we want.  If not specified, defaults to <code>PageLoad</code>.  Other possible
+ values are TCP, DNS, SSL, etc.  See the output of <code>mPulseAPI.getTimersMetrics()</code> for a full list.
+ Note that custom timers need to be named <code>CustomTimer0</code>, <code>CustomTimer1</code>, etc.  Use <code>mPulseAPI.getRepositoryDomain()</code>
+ to get a domain, and then inspect <code>domain["custom_timers"]["&lt;timer name&gt;"]["mpulseapiname"]</code> to get an
+ appropriate name for this method.</dd>
+<dt><code>filters::Dict</code></dt>
+<dd>
+<p>A dict of filters to pass to the mPulse Query API. For example <code>Dict("page-group" =&gt; "foo-bar")</code>
+ will filter results to the <code>foo-bar</code> <code>page-group</code>.  The resulting filters will be a merge of
+ what is passed in and the default values with whatever is passed in taking precedence.</p>
+<p>The default filters are:</p>
+<pre><code> Dict(
+     "date-comparator" =&gt; "Last24Hours",
+     "format" =&gt; "json",
+     "series-format" =&gt; "json"
+ )
+</code></pre>
+</dd>
+</dl>
+<h4 id="throws_11">Throws</h4>
+<dl>
+<dt><code>ArgumentError</code></dt>
+<dd>If the <code>query_type</code> is not recognized</dd>
+<dt><code>mPulseAPIAuthException</code></dt>
+<dd>If the <code>token</code> is invalid or has expired.</dd>
+<dt><code>mPulseAPIException</code></dt>
+<dd>If the API returned a non-200 status.  Inspect <code>mPulseAPIException.response</code> for details about
+the problem</dd>
+<dt><code>mPulseAPIRequestException</code></dt>
+<dd>If the API was unhappy with a timer</dd>
+<dt><code>mPulseAPIResultFormatException</code></dt>
+<dd>If the API response did had a missing <code>series</code> element or data in an unexpected data type</dd>
+</dl>
+<h4 id="returns_11">Returns</h4>
+<p><code>{DataFrame{</code> A julia <code>DataFrame</code> containing timeseries data for the median value of the timer and its margin of error.
+The fields are: <code>:timestamp</code> in milliseconds since the UNIX epoch, <code>:&lt;TimerName&gt;</code> in milliseconds and <code>:moe</code> in milliseconds.</p>
+<pre><code class="julia">julia&gt; data = mPulseAPI.getTimerByMinute(token, appID, timer=&quot;PageLoad&quot;)
+1440x3 DataFrames.DataFrame
+| Row  | timestamp     | PageLoad | moe  |
+|------|---------------|----------|------|
+| 1    | 1463452800000 | 3679     | 135  |
+| 2    | 1463452860000 | 3731     | 202  |
+| 3    | 1463452920000 | 3706     | 116  |
+| 4    | 1463452980000 | 3911     | 171  |
+| 5    | 1463453040000 | 3757     | 181  |
+| 6    | 1463453100000 | 3729     | 174  |
+| 7    | 1463453160000 | 3779     | 174  |
+| 8    | 1463453220000 | 3916     | 182  |
+
+</code></pre>
+
+<hr />
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L774-L782" style="float:right;font-size:0.8em;">QueryAPI.jl#774-782</a></p>
+<h3 id="function-mergemetrics">function <code>mergeMetrics</code></h3>
+<p>Merge multiple similar <code>DataFrames</code> into a single <code>DataFrame</code></p>
+<p>Use this method to merge the results from multiple calls to <code>getMetricOverPageLoadTime()</code> and <code>getSessionsOverPageLoadTime()</code>.
+All passed in <code>DataFrame</code>s MUST contain a <code>:t_done</code> column.</p>
+<h3 id="arguments_12">Arguments</h3>
+<dl>
+<dt><code>df1::DataFrame</code></dt>
+<dd>The first <code>DataFrame</code> in the collection.  This method requires at least one <code>DataFrame</code> to be passed in.</dd>
+<dt><code>df2::DataFrame...</code></dt>
+<dd>One or more <code>DataFrame</code> to be merged together with the first one</dd>
+</dl>
+<h3 id="optional-arguments_12">Optional Arguments</h3>
+<dl>
+<dt><code>keyField::Symbol=:t_done</code></dt>
+<dd>The column name to join on.  Defaults to <code>:t_done</code></dd>
+<dt><code>joinType::Symbol=:outer</code></dt>
+<dd>The type of join to perform.  See the <code>kind</code> parameter in <code>?join</code> for a list of supported join types</dd>
+</dl>
+<h3 id="throws_12">Throws</h3>
+<dl>
+<dt><code>KeyError</code></dt>
+<dd>if the <code>keyField</code> column does not exist in all passed in <code>DataFrame</code>s</dd>
+</dl>
+<h3 id="returns_12">Returns</h3>
+<ul>
+<li>If only one <code>DataFrame</code> is passed in, it is returned as-is.  This is not a copy of the first DataFrame.</li>
+<li>If multiple <code>DataFrame</code>s are passed in, they are merged using an <code>outer</code> join on the <code>keyField</code> column, and the resulting <code>DataFrame</code> is returned.
+  Since we perform an outer join, rows in any of the DataFrames that do not have a matching <code>keyField</code> value found in other DataFrames will be filled with <code>NA</code></li>
+</ul>
+<pre><code class="julia">julia&gt; sessions   = mPulseAPI.getSessionsOverPageLoadTime(token, appID);
+julia&gt; bouncerate = mPulseAPI.getMetricOverPageLoadTime(token, appID);
+julia&gt; conversion = mPulseAPI.getMetricOverPageLoadTime(token, appID, metric=&quot;Conversion&quot;);
+
+julia&gt; mPulseAPI.mergeMetrics(sessions, bouncerate, conversion)
+65x4 DataFrames.DataFrame
+| Row | t_done | Sessions | BounceRate | Conversion |
+|-----|--------|----------|------------|------------|
+| 1   | 6      | 1        | NA         | NA         |
+| 2   | 10     | 2        | 50.0       | NA         |
+| 3   | 12     | 2        | 100.0      | NA         |
+| 4   | 17     | 1        | 100.0      | NA         |
+| 5   | 30     | 1        | 100.0      | NA         |
+| 6   | 34     | 1        | NA         | NA         |
+| 7   | 40     | 1        | 100.0      | NA         |
+| 8   | 60     | 2        | 100.0      | NA         |
+| 9   | 70     | 1        | 100.0      | NA         |
+| 10  | 120    | 2        | 100.0      | NA         |
+| 11  | 140    | 1        | NA         | NA         |
+| 12  | 170    | 1        | NA         | NA         |
+| 13  | 190    | 1        | 100.0      | NA         |
+| 14  | 230    | 1        | NA         | NA         |
+...
+| 44  | 3750   | 8332     | 29.5915    | 2.25043    |
+| 45  | 3950   | 7957     | 31.7591    | 2.08962    |
+| 46  | 4200   | 7342     | 34.9953    | 2.02302    |
+| 47  | 4500   | 6783     | 37.0922    | 1.59947    |
+| 48  | 4800   | 6140     | 40.2336    | 1.67129    |
+| 49  | 5100   | 5530     | 42.2393    | 1.32839    |
+</code></pre>
+
+<hr />
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../exceptions/index.html" class="btn btn-neutral float-right" title="Exceptions">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../RepositoryAPI/index.html" class="btn btn-neutral" title="Repository API"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>SOASTA, Inc.</p>
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/SOASTA/mPulseAPI.jl/" class="icon icon-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../RepositoryAPI/index.html" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../exceptions/index.html" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+
+</body>
+</html>

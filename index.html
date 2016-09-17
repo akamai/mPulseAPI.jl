@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Communicate with the mPulse Query & Repository REST APIs to fetch information about tenants and apps.">
+  
+  
+  <title>mPulseAPI.jl Documentation</title>
+  
+
+  <link rel="shortcut icon" href="./img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="./css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="./css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="./css/highlight.css">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "None";
+    var mkdocs_page_input_path = "index.md";
+    var mkdocs_page_url = "/index.html";
+  </script>
+  
+  <script src="./js/jquery-2.1.1.min.js"></script>
+  <script src="./js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="./js/highlight.pack.js"></script>
+  <script src="./js/theme.js"></script> 
+
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="index.html" class="icon icon-home"> mPulseAPI.jl Documentation</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li>
+    <li class="toctree-l1 current">
+        <a class="current" href="index.html">mPulseAPI</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#mpulseapi">mPulseAPI</a></li>
+                
+                    <li><a class="toctree-l4" href="#module-mpulseapi">module mPulseAPI</a></li>
+                
+                    <li><a class="toctree-l4" href="#quick-and-dirty-usage">Quick and dirty usage</a></li>
+                
+                    <li><a class="toctree-l4" href="#table-of-contents">Table of Contents</a></li>
+                
+            
+            </ul>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="RepositoryAPI/index.html">Repository API</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="QueryAPI/index.html">Query API</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="exceptions/index.html">Exceptions</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="cache_utilities/index.html">Internal Cache Utilities</a>
+        
+    </li>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">mPulseAPI.jl Documentation</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>mPulseAPI</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        
+          <a href="https://github.com/SOASTA/mPulseAPI.jl/" class="icon icon-github"> Edit on GitHub</a>
+        
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="mpulseapi">mPulseAPI</h1>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/mPulseAPI.jl#L16-L16" style="float:right;font-size:0.8em;">mPulseAPI.jl#16</a></p>
+<h2 id="module-mpulseapi">module <code>mPulseAPI</code></h2>
+<p>Communicate with the mPulse <a href="http://docs.soasta.com/query-api/">Query</a> &amp; <a href="http://docs.soasta.com/repository-api/">Repository</a> REST APIs to fetch information about tenants and apps.</p>
+<h2 id="quick-and-dirty-usage">Quick and dirty usage</h2>
+<p>This snippet will get you up and running.  More explanation below</p>
+<pre><code class="julia">using mPulseAPI
+
+# mPulse 57 uses apiToken for authentication
+token = getRepositoryToken(&quot;&lt;tenant name&gt;&quot;, &quot;&lt;mPulse api token for tenant&gt;&quot;)
+
+
+# Get a domain by app name
+domain = getRepositoryDomain(token, appName=&quot;&lt;app name from mPulse&gt;&quot;)
+
+# Get a domain by App ID (formerly known as API key)
+domain = getRepositoryDomain(token, appID=&quot;&lt;App ID from mPulse&gt;&quot;)
+
+domain[&quot;attributes&quot;][&quot;appID&quot;]                            # Gets the App ID (formerly known as API key)
+                                                         # for this app
+domain[&quot;custom_metrics&quot;]                                 # Get a Dict of custom metrics
+domain[&quot;custom_metrics&quot;][&quot;Conversion Rate&quot;]              # Get mapping for Conversion Rate custom metric
+domain[&quot;custom_metrics&quot;][&quot;Conversion Rate&quot;][&quot;fieldname&quot;] # Get field name for Conversion Rate custom
+                                                         # metric
+
+# Get all domains in tenant
+domains = getRepositoryDomain(token)
+
+
+# Get a tenant
+tenant = getRepositoryTenant(token, name=&quot;&lt;tenant name from mPulse&gt;&quot;)
+</code></pre>
+
+<hr />
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li>
+<p><a href="exceptions/index.html">Exceptions</a></p>
+<ul>
+<li><a href="exceptions/index.html#datatype-mpulseapiexception">mPulseAPIException</a></li>
+<li><a href="exceptions/index.html#datatype-mpulseapiauthexception">mPulseAPIAuthException</a></li>
+<li><a href="exceptions/index.html#datatype-mpulseapirequestexception">mPulseAPIRequestException</a></li>
+<li><a href="exceptions/index.html#datatype-mpulseapiresultformatexception">mPulseAPIResultFormatException</a></li>
+</ul>
+</li>
+<li>
+<p><a href="RepositoryAPI/index.html">Repository API</a></p>
+<ul>
+<li><a href="RepositoryAPI/index.html#function-getrepositorytoken">getRepositoryToken</a></li>
+<li><a href="RepositoryAPI/index.html#function-getrepositorydomain">getRepositoryDomain</a></li>
+<li><a href="RepositoryAPI/index.html#function-getrepositorytenant">getRepositoryTenant</a></li>
+</ul>
+</li>
+<li>
+<p><a href="QueryAPI/index.html">Query API</a></p>
+<ul>
+<li><a href="QueryAPI/index.html#function-getapiresults">getAPIResults</a></li>
+<li><a href="QueryAPI/index.html#function-getsummarytimers">getSummaryTimers</a></li>
+<li><a href="QueryAPI/index.html#function-getpagegrouptimers">getPageGroupTimers</a></li>
+<li><a href="QueryAPI/index.html#function-getbrowsertimers">getBrowserTimers</a></li>
+<li><a href="QueryAPI/index.html#function-getabtesttimers">getABTestTimers</a></li>
+<li><a href="QueryAPI/index.html#function-getmetricsbydimension">getMetricsByDimension</a></li>
+<li><a href="QueryAPI/index.html#function-gettimersmetrics">getTimersMetrics</a></li>
+<li><a href="QueryAPI/index.html#function-getgeotimers">getGeoTimers</a></li>
+<li><a href="QueryAPI/index.html#function-gethistogram">getHistogram</a></li>
+<li><a href="QueryAPI/index.html#function-getsessionsoverpageloadtime">getSessionsOverPageLoadTime</a></li>
+<li><a href="QueryAPI/index.html#function-getmetricoverpageloadtime">getMetricOverPageLoadTime</a></li>
+<li><a href="QueryAPI/index.html#function-gettimerbyminute">getTimerByMinute</a></li>
+<li><a href="QueryAPI/index.html#function-mergemetrics">mergeMetrics</a></li>
+</ul>
+</li>
+<li>
+<p><a href="RepositoryAPI/index.html">Repository API</a></p>
+<ul>
+<li><a href="RepositoryAPI/index.html#function-getcustommetricmap">getCustomMetricMap</a></li>
+<li><a href="RepositoryAPI/index.html#function-getcustomtimermap">getCustomTimerMap</a></li>
+<li><a href="RepositoryAPI/index.html#function-getnodecontent">getNodeContent</a></li>
+</ul>
+</li>
+<li>
+<p><a href="cache_utilities/index.html">Internal Cache Utilities</a></p>
+<ul>
+<li><a href="cache_utilities/index.html#function-cleardomaincache">clearDomainCache</a></li>
+<li><a href="cache_utilities/index.html#function-cleartenantcache">clearTenantCache</a></li>
+<li><a href="cache_utilities/index.html#function-cleartokencache">clearTokenCache</a></li>
+</ul>
+</li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="RepositoryAPI/index.html" class="btn btn-neutral float-right" title="Repository API">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>SOASTA, Inc.</p>
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/SOASTA/mPulseAPI.jl/" class="icon icon-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+      
+        <span style="margin-left: 15px"><a href="RepositoryAPI/index.html" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+
+</body>
+</html>
+
+<!--
+MkDocs version : 0.15.3
+Build Date UTC : 2016-09-17 00:20:45.916668
+-->

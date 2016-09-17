@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <title>Repository API - mPulseAPI.jl Documentation</title>
+  
+
+  <link rel="shortcut icon" href="../img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Repository API";
+    var mkdocs_page_input_path = "RepositoryAPI.md";
+    var mkdocs_page_url = "/RepositoryAPI/index.html";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script>
+  <script src="../js/theme.js"></script> 
+
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="icon icon-home"> mPulseAPI.jl Documentation</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../index.html">mPulseAPI</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 current">
+        <a class="current" href="index.html">Repository API</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#repository-api">Repository API</a></li>
+                
+                    <li><a class="toctree-l4" href="#exported-functions">Exported Functions</a></li>
+                
+                    <li><a class="toctree-l4" href="#namespaced-functions">Namespaced Functions</a></li>
+                
+            
+            </ul>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../QueryAPI/index.html">Query API</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../exceptions/index.html">Exceptions</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../cache_utilities/index.html">Internal Cache Utilities</a>
+        
+    </li>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">mPulseAPI.jl Documentation</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Repository API</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        
+          <a href="https://github.com/SOASTA/mPulseAPI.jl/" class="icon icon-github"> Edit on GitHub</a>
+        
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="repository-api">Repository API</h1>
+<h2 id="exported-functions">Exported Functions</h2>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L56-L100" style="float:right;font-size:0.8em;">RepositoryAPI.jl#56-100</a></p>
+<h3 id="function-getrepositorytoken">function <code>getRepositoryToken</code></h3>
+<p>Logs in to the mPulse repository and fetches an Authorization token that can be used for other calls</p>
+<p>The token will be cached in memory for 5 hours, so subsequent calls using the same tenant will return
+quickly without calling out to the API.  This can be a problem if the account has signed in from a different
+location or is logged out of mPulse.  You can clear the cache for this token using <code>mPulseAPI.clearTokenCache(tenant)</code></p>
+<h4 id="arguments">Arguments</h4>
+<dl>
+<dt><code>tenant::AbstractString</code></dt>
+<dd>The name of the tenant to log in to. The token will be bound to this tenant.</dd>
+<dt><code>apiToken::AbstractString</code></dt>
+<dd>The apiToken issued by mPulse that allows authenticating with the API. If you've
+ previously authenticated with this tenant, the <code>apiToken</code> will be cached and does
+ not need to be passed in again</dd>
+</dl>
+<h4 id="returns">Returns</h4>
+<p><code>{ASCIIString}</code> The mPulse Repository Auth token which may be used in the <code>X-Auth-Token</code> header for subsequent API calls</p>
+<h4 id="throws">Throws</h4>
+<dl>
+<dt><code>ArgumentError</code></dt>
+<dd>if the tenant or apiToken are empty</dd>
+<dt><code>mPulseAPIAuthException</code></dt>
+<dd>if authentication failed for some reason</dd>
+</dl>
+<hr />
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L189-L237" style="float:right;font-size:0.8em;">RepositoryAPI.jl#189-237</a></p>
+<h3 id="function-getrepositorydomain">function <code>getRepositoryDomain</code></h3>
+<p>Fetches a Domain object from the mPulse repository</p>
+<p>To fetch a single domain, at least one of <code>domainID</code>, <code>appID</code> or <code>appName</code> must be passed in to identify the domain.
+If none of these are passed in, then all domains that are readable by the specified <code>token</code> will be returned as an array.</p>
+<p>The domain will be cached in memory for 1 hour, so subsequent calls using a matching <code>domainID</code>, <code>appID</code> or <code>appName</code> return
+quickly without calling out to the API.  This can be a problem if the domain changes in the repository.
+You can clear the cache for this domain using <code>mPulseAPI.clearDomainCache()</code> and passing in one of <code>domainID</code>, <code>appID</code> or <code>appName</code>.</p>
+<h4 id="arguments_1">Arguments</h4>
+<dl>
+<dt><code>token::AbstractString</code></dt>
+<dd>The Repository authentication token fetched by calling <code>mPulseAPI.getRepositoryToken</code></dd>
+</dl>
+<h4 id="optional-arguments">Optional Arguments</h4>
+<dl>
+<dt><code>domainID::Int64</code></dt>
+<dd>The ID of the domain to fetch.  This is the fastest method, but it can be hard to figure out a domain's ID</dd>
+<dt><code>appID::AbstractString</code></dt>
+<dd>The App ID (formerly known as API key) associated with the domain.  This is available from the mPulse domain configuration dialog.</dd>
+<dt><code>appName::AbstractString</code></dt>
+<dd>The App name in mPulse. This is available from the mPulse domain configuration dialog.</dd>
+</dl>
+<h4 id="returns_1">Returns</h4>
+<p><code>{Dict|Array{Dict}}</code> If one of <code>domainID</code>, <code>appID</code> or <code>appName</code> are passed in, then a single <code>domain</code> object is returned as a <code>Dict</code>.</p>
+<p>If none of these are passed in, then an array of all domains is returned, each is a <code>Dict</code>.</p>
+<p>The <code>domain</code> <code>Dict</code> has the following fields:</p>
+<dl>
+<dt><code>name</code></dt>
+<dd>The app's name</dd>
+<dt><code>id::Int64</code></dt>
+<dd>The app's ID</dd>
+<dt><code>body::XMLElement</code></dt>
+<dd>An XML object representing the app's XML definition</dd>
+<dt><code>tenantID::Int64</code></dt>
+<dd>The ID of the tenant that this app is in</dd>
+<dt><code>description::AbstractString</code></dt>
+<dd>The description of this app entered into mPulse</dd>
+<dt><code>created::DateTime</code></dt>
+<dd>The timestamp when this object was created</dd>
+<dt><code>lastModified::DateTime</code></dt>
+<dd>The timestamp when this object was created</dd>
+<dt><code>attributes::Dict</code></dt>
+<dd>A <code>Dict</code> of attributes for this app, including its <code>AppID</code></dd>
+<dt><code>custom_metrics::Dict</code></dt>
+<dd>A      <code>{Dict}</code> of Custom Metric names mapped to RedShift fieldnames with the following structure:<pre><code>  Dict(
+      &lt;metric name&gt; =&gt; Dict(
+          "index"        =&gt; &lt;index&gt;,                          # Numeric index
+          "fieldname"    =&gt; "custom_metrics_&lt;index&gt;",     # Field name in dswb tables
+          "lastModified" =&gt; &lt;lastModifiedDate&gt;,
+          "description"  =&gt; "&lt;description&gt;",
+          "dataType"     =&gt; Dict(
+              "decimalPlaces"  =&gt; "2",
+              "type"           =&gt; "&lt;metric type&gt;",
+              "currencySymbol" =&gt; "&lt;symbol if this is a currency type&gt;"
+          ),
+          "colors"       =&gt; [&lt;array of color HEX codes&gt;]
+      ),
+      ...
+  )
+</code></pre>
+</dd>
+<dt><code>custom_timers::Dict</code></dt>
+<dd>A      <code>{Dict}</code> of Custom Timer names mapped to RedShift fieldnames with the following structure:<pre><code>  Dict(
+      &lt;timer name&gt; =&gt; Dict(
+          "index"         =&gt; &lt;index&gt;,                      # Numeric index
+          "fieldname"     =&gt; "timers_custom&lt;index&gt;",       # Field name in dswb tables
+          "mpulseapiname" =&gt; "CustomTimer&lt;index&gt;",
+          "lastModified"  =&gt; &lt;lastModifiedDate&gt;,
+          "description"   =&gt; "&lt;description&gt;",
+          "colors"        =&gt; Array(
+              Dict(
+                  "timingType"  =&gt; "&lt;seconds | milliseconds&gt;",
+                  "timingStart" =&gt; "&lt;start timer value for this colour range&gt;",
+                  "timingEnd"   =&gt; "&lt;end timer value for this colour range&gt;",
+                  "colorStart"  =&gt; "&lt;start of this color range&gt;",
+                  "endStart"    =&gt; "&lt;end of this color range&gt;"
+              ),
+              ...
+          )
+      ),
+      ...
+  )
+</code></pre>
+</dd>
+<dt><code>session_timeout::Int64</code></dt>
+<dd>The session timeout value in minutes</dd>
+<dt><code>resource_timing::Bool</code></dt>
+<dd>Flag indicating whether resource timing collection is enabled or not</dd>
+<dt><code>vertical_market::AbstractString</code></dt>
+<dd>The vertical market that this domain belongs to</dd>
+</dl>
+<h4 id="throws_1">Throws</h4>
+<dl>
+<dt><code>ArgumentError</code></dt>
+<dd>if token is empty or domainID, appID and appName are all empty</dd>
+<dt><code>mPulseAPIException</code></dt>
+<dd>if API access failed for some reason</dd>
+<dt><code>Exception</code></dt>
+<dd>if something unexpected happened while parsing the repository object</dd>
+</dl>
+<hr />
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L307-L329" style="float:right;font-size:0.8em;">RepositoryAPI.jl#307-329</a></p>
+<h3 id="function-getrepositorytenant">function <code>getRepositoryTenant</code></h3>
+<p>Fetches a Tenant object from the mPulse repository</p>
+<p>At least one of <code>tenantID</code> or <code>name</code> must be passed in to identify the tenant.</p>
+<p>The tenant will be cached in memory for 1 hour, so subsequent calls using a matching <code>tenantID</code>, or <code>name</code> return
+quickly without calling out to the API.  This can be a problem if the tenant changes in the repository.
+You can clear the cache for this tenant using <code>mPulseAPI.clearTenantCache()</code> and passing in one of <code>tenantID</code> or <code>name</code>.</p>
+<h4 id="arguments_2">Arguments</h4>
+<dl>
+<dt><code>token::AbstractString</code></dt>
+<dd>The Repository authentication token fetched by calling <code>mPulseAPI.getRepositoryToken</code></dd>
+</dl>
+<h4 id="optional-arguments_1">Optional Arguments</h4>
+<dl>
+<dt><code>tenantID::Int64</code></dt>
+<dd>The ID of the tenant to fetch.  This is the fastest method, but it can be hard to figure out a tenant's ID</dd>
+<dt><code>name::AbstractString</code></dt>
+<dd>The Tenant name in mPulse.  This is available from the mPulse tenant list.</dd>
+</dl>
+<h4 id="returns_2">Returns</h4>
+<p><code>{Dict}</code> The <code>tenant</code> object with the following fields:</p>
+<dl>
+<dt><code>name::AbstractString</code></dt>
+<dd>The tenant's name</dd>
+<dt><code>id::Int64</code></dt>
+<dd>The tenant's ID</dd>
+<dt><code>body::XMLElement</code></dt>
+<dd>An XML object representing the app's XML definition</dd>
+<dt><code>parentID::Int64</code></dt>
+<dd>The ID of the parent folder that this tenant is in</dd>
+<dt><code>parentType::AbstractString</code></dt>
+<dd>The type of parent object (typically <code>tenantFolder</code>)</dd>
+<dt><code>path::AbstractString</code></dt>
+<dd>The folder path that this tenant is in</dd>
+<dt><code>description::AbstractString</code></dt>
+<dd>The description of this app entered into mPulse</dd>
+<dt><code>created::DateTime</code></dt>
+<dd>The timestamp when this object was created</dd>
+<dt><code>lastModified::DateTime</code></dt>
+<dd>The timestamp when this object was created</dd>
+<dt><code>attributes::Dict</code></dt>
+<dd>A <code>Dict</code> of attributes for this app, including its <code>App ID</code></dd>
+<dt><code>dswbUrls::Array{AbstractString}</code></dt>
+<dd>An array of DSWB URLs that are valid auth redirect targets for this tenant</dd>
+</dl>
+<h4 id="throws_2">Throws</h4>
+<dl>
+<dt><code>ArgumentError</code></dt>
+<dd>if token is empty or tenantID and name are both empty</dd>
+<dt><code>mPulseAPIException</code></dt>
+<dd>if API access failed for some reason</dd>
+</dl>
+<hr />
+<h2 id="namespaced-functions">Namespaced Functions</h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The following methods are not exported by default. You may use them by explicitly
+importing them or by prefixing them with the <code>mPulseAPI.</code> namespace.</p>
+</div>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L445-L480" style="float:right;font-size:0.8em;">RepositoryAPI.jl#445-480</a></p>
+<h3 id="function-getcustommetricmap">function <code>getCustomMetricMap</code></h3>
+<p>Gets a mapping of custom metric names to RedShift field names from domain XML.  This list also includes valid dates.</p>
+<h4 id="arguments_3">Arguments</h4>
+<dl>
+<dt><code>body::{AbstractString|XMLElement|Dict}</code></dt>
+<dd>
+<p>This is an object containing the domain XML returned by <code>mPulseAPI.getRepositoryDomain</code>.  It may be:</p>
+<ul>
+<li>An <code>AbstractString</code> containing the domain XML.  This will be parsed.</li>
+<li>A <code>LightXML.XMLElement</code> pointing to the root node of the domain XML.</li>
+<li>A <code>Dict</code> with a <code>body</code> element. This is the domain object returned by <code>mPulseAPI.getRepositoryDomain</code>.</li>
+</ul>
+</dd>
+</dl>
+<h4 id="returns_3">Returns</h4>
+<p><code>{Dict}</code> of Custom Metric names mapped to RedShift fieldnames with the following structure:</p>
+<pre><code> Dict(
+     &lt;metric name&gt; =&gt; Dict(
+         "index"        =&gt; &lt;index&gt;,                          # Numeric index
+         "fieldname"    =&gt; "custom_metrics_&lt;index&gt;",     # Field name in dswb tables
+         "lastModified" =&gt; &lt;lastModifiedDate&gt;,
+         "description"  =&gt; "&lt;description&gt;",
+         "dataType"     =&gt; Dict(
+             "decimalPlaces"  =&gt; "2",
+             "type"           =&gt; "&lt;metric type&gt;",
+             "currencySymbol" =&gt; "&lt;symbol if this is a currency type&gt;"
+         ),
+         "colors"       =&gt; [&lt;array of color HEX codes&gt;]
+     ),
+     ...
+ )
+</code></pre>
+<h4 id="throws_3">Throws</h4>
+<dl>
+<dt><code>ArgumentError</code></dt>
+<dd>if the data type of <code>body</code> is unknown.</dd>
+<dt><code>LightXML.XMLParseError</code></dt>
+<dd>if <code>body</code> is an <code>AbstractString</code> but contains invalid XML</dd>
+</dl>
+<hr />
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L497-L533" style="float:right;font-size:0.8em;">RepositoryAPI.jl#497-533</a></p>
+<h3 id="function-getcustomtimermap">function <code>getCustomTimerMap</code></h3>
+<p>Gets a mapping of custom timer names to RedShift field names from domain XML.  This list also includes valid dates.</p>
+<h4 id="arguments_4">Arguments</h4>
+<dl>
+<dt><code>body::{AbstractString|XMLElement|Dict}</code></dt>
+<dd>
+<p>This is an object containing the domain XML returned by <code>mPulseAPI.getRepositoryDomain</code>.  It may be:</p>
+<ul>
+<li>An <code>AbstractString</code> containing the domain XML.  This will be parsed.</li>
+<li>A <code>LightXML.XMLElement</code> pointing to the root node of the domain XML.</li>
+<li>A <code>Dict</code> with a <code>body</code> element. This is the domain object returned by <code>mPulseAPI.getRepositoryDomain</code>.</li>
+</ul>
+</dd>
+</dl>
+<h4 id="returns_4">Returns</h4>
+<p><code>{Dict}</code> of Custom Timer names mapped to RedShift fieldnames with the following structure:</p>
+<pre><code> Dict(
+     &lt;timer name&gt; =&gt; Dict(
+         "index"         =&gt; &lt;index&gt;,                      # Numeric index
+         "fieldname"     =&gt; "timers_custom&lt;index&gt;",       # Field name in dswb tables
+         "mpulseapiname" =&gt; "CustomTimer&lt;index&gt;",
+         "lastModified"  =&gt; &lt;lastModifiedDate&gt;,
+         "description"   =&gt; "&lt;description&gt;",
+         "colors"        =&gt; Array(
+             Dict(
+                 "timingType"  =&gt; "&lt;seconds | milliseconds&gt;",
+                 "timingStart" =&gt; "&lt;start timer value for this colour range&gt;",
+                 "timingEnd"   =&gt; "&lt;end timer value for this colour range&gt;",
+                 "colorStart"  =&gt; "&lt;start of this color range&gt;",
+                 "endStart"    =&gt; "&lt;end of this color range&gt;"
+             ),
+             ...
+         )
+     ),
+     ...
+ )
+</code></pre>
+<h4 id="throws_4">Throws</h4>
+<dl>
+<dt><code>ArgumentError</code></dt>
+<dd>if the data type of <code>body</code> is unknown.</dd>
+<dt><code>LightXML.XMLParseError</code></dt>
+<dd>if <code>body</code> is an <code>AbstractString</code> but contains invalid XML</dd>
+</dl>
+<hr />
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L557-L581" style="float:right;font-size:0.8em;">RepositoryAPI.jl#557-581</a></p>
+<h3 id="function-getnodecontent">function <code>getNodeContent</code></h3>
+<p>Gets the content of a node</p>
+<h4 id="arguments_5">Arguments</h4>
+<dl>
+<dt><code>body::{AbstractString|XMLElement|Dict}</code></dt>
+<dd>
+<p>This is an object containing the domain XML returned by <code>mPulseAPI.getRepositoryDomain</code>.  It may be:</p>
+<ul>
+<li>An <code>AbstractString</code> containing the domain XML.  This will be parsed.</li>
+<li>A <code>LightXML.XMLElement</code> pointing to the root node of the domain XML.</li>
+<li>A <code>Dict</code> with a <code>body</code> element. This is the domain object returned by <code>mPulseAPI.getRepositoryDomain</code>.</li>
+</ul>
+</dd>
+<dt><code>nodeName::AbstractString</code></dt>
+<dd>The node whose contents shoudl be returned</dd>
+<dt><code>default::Any</code></dt>
+<dd>A default value to return if the required node was not found</dd>
+</dl>
+<h4 id="returns_5">Returns</h4>
+<p><code>{AbstractString|Number|Boolean}</code> The content of the requested node cast to the same type as <code>default</code> or the value of <code>default</code> if the node was not found</p>
+<h4 id="throws_5">Throws</h4>
+<dl>
+<dt><code>ArgumentError</code></dt>
+<dd>if the data type of <code>body</code> is unknown.</dd>
+<dt><code>LightXML.XMLParseError</code></dt>
+<dd>if <code>body</code> is an <code>AbstractString</code> but contains invalid XML</dd>
+</dl>
+<hr />
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../QueryAPI/index.html" class="btn btn-neutral float-right" title="Query API">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../index.html" class="btn btn-neutral" title="mPulseAPI"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>SOASTA, Inc.</p>
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/SOASTA/mPulseAPI.jl/" class="icon icon-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../index.html" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../QueryAPI/index.html" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+
+</body>
+</html>

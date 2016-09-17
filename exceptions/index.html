@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <title>Exceptions - mPulseAPI.jl Documentation</title>
+  
+
+  <link rel="shortcut icon" href="../img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Exceptions";
+    var mkdocs_page_input_path = "exceptions.md";
+    var mkdocs_page_url = "/exceptions/index.html";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script>
+  <script src="../js/theme.js"></script> 
+
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="icon icon-home"> mPulseAPI.jl Documentation</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../index.html">mPulseAPI</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../RepositoryAPI/index.html">Repository API</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../QueryAPI/index.html">Query API</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 current">
+        <a class="current" href="index.html">Exceptions</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#exceptions">Exceptions</a></li>
+                
+                    <li><a class="toctree-l4" href="#exported-types">Exported Types</a></li>
+                
+            
+            </ul>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../cache_utilities/index.html">Internal Cache Utilities</a>
+        
+    </li>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">mPulseAPI.jl Documentation</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Exceptions</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        
+          <a href="https://github.com/SOASTA/mPulseAPI.jl/" class="icon icon-github"> Edit on GitHub</a>
+        
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="exceptions">Exceptions</h1>
+<h2 id="exported-types">Exported Types</h2>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/exceptions.jl#L20-L23" style="float:right;font-size:0.8em;">exceptions.jl#20-23</a></p>
+<h3 id="datatype-mpulseapiexception">datatype <code>mPulseAPIException</code></h3>
+<p>Thrown when the REST API has a problem and returns something other than a 2xx response.</p>
+<h4 id="fields">Fields</h4>
+<dl>
+<dt><code>msg::AbstractString</code></dt>
+<dd>The error message</dd>
+<dt><code>response::Response</code></dt>
+<dd>The response object from the REST API call.  You can inspect headers, data, cookies, redirects, and the initiating request.</dd>
+</dl>
+<hr />
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/exceptions.jl#L33-L35" style="float:right;font-size:0.8em;">exceptions.jl#33-35</a></p>
+<h3 id="datatype-mpulseapiauthexception">datatype <code>mPulseAPIAuthException</code></h3>
+<p>Thrown when the token used to authenticate with the REST API is invalid or has expired</p>
+<h4 id="fields_1">Fields</h4>
+<dl>
+<dt><code>response::Response</code></dt>
+<dd>The response object from the REST API call.  You can inspect headers, data, cookies, redirects, and the initiating request.</dd>
+</dl>
+<hr />
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/exceptions.jl#L57-L63" style="float:right;font-size:0.8em;">exceptions.jl#57-63</a></p>
+<h3 id="datatype-mpulseapirequestexception">datatype <code>mPulseAPIRequestException</code></h3>
+<p>Thrown when a request parameter is invalid</p>
+<h4 id="fields_2">Fields</h4>
+<dl>
+<dt><code>msg::AbstractString</code></dt>
+<dd>The error message sent from the mPulse server</dd>
+<dt><code>code::AbstractString</code></dt>
+<dd>The error code sent from the mPulse server</dd>
+<dt><code>parameter::AbstractString</code></dt>
+<dd>The parameter that the mPulse server had a problem with</dd>
+<dt><code>value::AbstractString</code></dt>
+<dd>The value of the parameter that the mPulse server had a problem with</dd>
+<dt><code>response::Response</code></dt>
+<dd>The response object from the REST API call.  You can inspect headers, data, cookies, redirects, and the initiating request.</dd>
+</dl>
+<hr />
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/exceptions.jl#L76-L79" style="float:right;font-size:0.8em;">exceptions.jl#76-79</a></p>
+<h3 id="datatype-mpulseapiresultformatexception">datatype <code>mPulseAPIResultFormatException</code></h3>
+<p>Thrown when the result returned by an API call was not in the expected format</p>
+<h4 id="fields_3">Fields</h4>
+<dl>
+<dt><code>msg::AbstractString</code></dt>
+<dd>The error message</dd>
+<dt><code>data::Any</code></dt>
+<dd>The actual data returned</dd>
+</dl>
+<hr />
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../cache_utilities/index.html" class="btn btn-neutral float-right" title="Internal Cache Utilities">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../QueryAPI/index.html" class="btn btn-neutral" title="Query API"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>SOASTA, Inc.</p>
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/SOASTA/mPulseAPI.jl/" class="icon icon-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../QueryAPI/index.html" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../cache_utilities/index.html" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+
+</body>
+</html>
