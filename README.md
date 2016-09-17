@@ -1,4 +1,13 @@
-Communicate with the mPulse [Query](http://docs.soasta.com/query-api/) & [Repository](http://docs.soasta.com/repository-api/) REST APIs to fetch information about tenants and apps.
+Communicate with the mPulse Query & Repository REST APIs to fetch information about tenants and apps.
+
+## Documentation
+
+### This module:
+* mPulseAPI.jl: https://soasta.github.io/mPulseAPI.jl/
+
+### REST APIs that this module uses:
+* mPulse Query API: http://docs.soasta.com/query-api/
+* SOASTA Repository API: http://docs.soasta.com/repository-api/
 
 ## Quick and dirty usage
 This snippet will get you up and running.  More explanation below
