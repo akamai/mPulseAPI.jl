@@ -4,7 +4,16 @@
 [mPulseAPI.jl#16](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/mPulseAPI.jl#L16-L16){: .source-link style="float:right;font-size:0.8em;"}
 ## module `mPulseAPI`
 
-Communicate with the mPulse [Query](http://docs.soasta.com/query-api/) & [Repository](http://docs.soasta.com/repository-api/) REST APIs to fetch information about tenants and apps.
+Communicate with the mPulse Query & Repository REST APIs to fetch information about tenants and apps.
+
+## Documentation
+
+### This module:
+* mPulseAPI.jl: https://soasta.github.io/mPulseAPI.jl/
+
+### REST APIs that this module uses:
+* mPulse Query API: http://docs.soasta.com/query-api/
+* SOASTA Repository API: http://docs.soasta.com/repository-api/
 
 ## Quick and dirty usage
 This snippet will get you up and running.  More explanation below
@@ -12,7 +21,7 @@ This snippet will get you up and running.  More explanation below
 ```julia
 using mPulseAPI
 
-# mPulse 57 uses apiToken for authentication
+# mPulse uses apiToken for authentication
 token = getRepositoryToken("<tenant name>", "<mPulse api token for tenant>")
 
 

@@ -15,7 +15,7 @@ This snippet will get you up and running.  More explanation below
 ```julia
 using mPulseAPI
 
-# mPulse 57 uses apiToken for authentication
+# mPulse uses apiToken for authentication
 token = getRepositoryToken("<tenant name>", "<mPulse api token for tenant>")
 
 
