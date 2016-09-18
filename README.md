@@ -10,7 +10,9 @@ Communicate with the mPulse Query & Repository REST APIs to fetch information ab
 * SOASTA Repository API: [http://docs.soasta.com/repository-api/](http://docs.soasta.com/repository-api/)
 
 ## Quick and dirty usage
-This snippet will get you up and running.  More explanation below
+This snippet will get you up and running, see the full documentation for more details.
+
+See [how to generate an API Token](/docs/src/apiToken.md) for details about the `apiToken`
 
 ```julia
 using mPulseAPI

@@ -52,6 +52,9 @@ const mkdocs_config = Dict(
 immutable Page
     name::AbstractString
     title::AbstractString
+    pregenerated::Bool
+
+    Page(name::AbstractString, title::AbstractString, pregenerated::Bool=false) = new(name, title, pregenerated)
 end
 
 # Pages to build:
@@ -59,6 +62,7 @@ end
 # - title
 const pages = Page[
     Page("index", mod),
+    Page("apiToken", "How to generate an API Token", true),
     Page("RepositoryAPI", "Repository API"),
     Page("QueryAPI", "Query API"),
     Page("exceptions", "Exceptions"),
@@ -210,7 +214,8 @@ cd(dirname(@__FILE__)) do
     
             println("INFO    -  Processing $(page.name)")
             
-            open(joinpath(doc_src, page.name * ".md"), "w") do f
+            # Only generate pages that are not pre-generated
+            page.pregenerated || open(joinpath(doc_src, page.name * ".md"), "w") do f
                 println(f, """
                     # $(page.title)
 
@@ -238,8 +243,13 @@ cd(dirname(@__FILE__)) do
                                     ##$(typ == Module ? "" : "#") $(lowercase(string(s[:type]))) `$(s[:name])`
                                     """)
 
+                                # Replace references with links to actual functions
                                 s_doc = replace(s[:doc], Regex("\\[`?(?:$mod\\.)?\\w+`?\\]\\(@ref\\)"), replace_refs)
                                 s_doc = replace(s_doc, r"^`(\w+)`"m, m -> (r = replace(m, "`", ""); haskey(refids, r) ? "[$m]($(refids[r]))" : m))
+
+                                # Remove `docs/src/` from any links since we might have that in raw md in our functions
+                                s_doc = replace(s_doc, r"/?docs/src/", "")
+
                                 println(f, s_doc, "\n---\n")
                             end
                         end
@@ -248,7 +258,7 @@ cd(dirname(@__FILE__)) do
 
                 if page.name == "index"
                     println(f, """
-                        ## Table of Contents
+                        ## API Reference
                         """)
 
                     p = Page("", "")
@@ -284,9 +294,7 @@ cd(dirname(@__FILE__)) do
     
     run(`mkdocs build -c -f $mkdocsy`)
 
-    delete_after = any(x -> x=="--no-delete", ARGS) ? false : true
-
-    if delete_after
+    if any(x -> x=="--delete", ARGS)
         for p in pages
             path = joinpath(doc_src, p.name * ".md")
             println("INFO    -  Removing $path")
@@ -302,6 +310,8 @@ cd(dirname(@__FILE__)) do
         rm(mkdocsy)
     end
     
-    #info("Adding all documentation changes in $(doc_src) to this commit.")
-    #success(`git add $(doc_src)`) || exit(1)
+    if any(x -> x=="--add", ARGS)
+        info("Adding all documentation changes in $(doc_src) to this commit.")
+        success(`git add $(doc_src)`)
+    end
 end

@@ -32,7 +32,7 @@ const query_types = [
 
 
 """
-Get API results from the mPulse Query API (http://docs.soasta.com/query-api/)
+Get API results from the mPulse [Query API](http://docs.soasta.com/query-api/)
 
 This method is a generic catch-all that queries the mPulse API and returns results as a Julia data structure matching the JSON structure of the specified API call
 
