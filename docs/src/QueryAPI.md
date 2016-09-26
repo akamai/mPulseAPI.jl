@@ -8,7 +8,7 @@
     importing them or by prefixing them with the `mPulseAPI.` namespace.
 
 
-[QueryAPI.jl#59-139](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L59-L139){: .source-link style="float:right;font-size:0.8em;"}
+[QueryAPI.jl#59-147](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L59-L147){: .source-link style="float:right;font-size:0.8em;"}
 ### function `getAPIResults`
 
 Get API results from the mPulse [Query API](http://docs.soasta.com/query-api/)
@@ -73,7 +73,7 @@ This method is a generic catch-all that queries the mPulse API and returns resul
 
 ---
 
-[QueryAPI.jl#188-190](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L188-L190){: .source-link style="float:right;font-size:0.8em;"}
+[QueryAPI.jl#196-198](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L196-L198){: .source-link style="float:right;font-size:0.8em;"}
 ### function `getSummaryTimers`
 
 Calls the `summary` endpoint of the mPulse REST API with the passed in filters
@@ -145,7 +145,7 @@ Dict{Any,Any} with 5 entries:
 
 ---
 
-[QueryAPI.jl#214-228](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L214-L228){: .source-link style="float:right;font-size:0.8em;"}
+[QueryAPI.jl#222-236](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L222-L236){: .source-link style="float:right;font-size:0.8em;"}
 ### function `getPageGroupTimers`
 
 Calls the `page-groups` endpoint of the mPulse REST API with the passed in filters
@@ -197,7 +197,7 @@ Calls the `page-groups` endpoint of the mPulse REST API with the passed in filte
 :   If the API was unhappy with a request parameter
 
 [`mPulseAPIResultFormatException`](exceptions.md#datatype-mpulseapiresultformatexception)
-:    If the API response did had  data in an unexpected data type
+:    If the API response had  data in an unexpected data type
 
 #### Returns
 `{DataFrame}` A Julia `DataFrame` with the following columns:
@@ -221,7 +221,7 @@ julia> pgroups = mPulseAPI.getPageGroupTimers(token, appID)
 
 ---
 
-[QueryAPI.jl#252-266](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L252-L266){: .source-link style="float:right;font-size:0.8em;"}
+[QueryAPI.jl#260-274](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L260-L274){: .source-link style="float:right;font-size:0.8em;"}
 ### function `getBrowserTimers`
 
 Calls the `browsers` endpoint of the mPulse REST API with the passed in filters
@@ -273,7 +273,7 @@ Calls the `browsers` endpoint of the mPulse REST API with the passed in filters
 :   If the API was unhappy with a request parameter
 
 [`mPulseAPIResultFormatException`](exceptions.md#datatype-mpulseapiresultformatexception)
-:    If the API response did had  data in an unexpected data type
+:    If the API response had  data in an unexpected data type
 
 #### Returns
 `{DataFrame}` A Julia `DataFrame` with the following columns:
@@ -297,7 +297,7 @@ julia> pgroups = mPulseAPI.getBrowserTimers(token, appID)
 
 ---
 
-[QueryAPI.jl#290-304](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L290-L304){: .source-link style="float:right;font-size:0.8em;"}
+[QueryAPI.jl#298-312](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L298-L312){: .source-link style="float:right;font-size:0.8em;"}
 ### function `getABTestTimers`
 
 Calls the `ab-tests` endpoint of the mPulse REST API with the passed in filters
@@ -349,7 +349,7 @@ Calls the `ab-tests` endpoint of the mPulse REST API with the passed in filters
 :   If the API was unhappy with a request parameter
 
 [`mPulseAPIResultFormatException`](exceptions.md#datatype-mpulseapiresultformatexception)
-:    If the API response did had  data in an unexpected data type
+:    If the API response had  data in an unexpected data type
 
 #### Returns
 `{DataFrame}` A Julia `DataFrame` with the following columns:
@@ -373,7 +373,7 @@ julia> pgroups = mPulseAPI.getABTestTimers(token, appID)
 
 ---
 
-[QueryAPI.jl#342-360](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L342-L360){: .source-link style="float:right;font-size:0.8em;"}
+[QueryAPI.jl#350-368](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L350-L368){: .source-link style="float:right;font-size:0.8em;"}
 ### function `getMetricsByDimension`
 
 Calls the `metrics-by-dimension` endpoint of the mPulse REST API with the passed in dimension name and filters
@@ -415,7 +415,7 @@ Calls the `metrics-by-dimension` endpoint of the mPulse REST API with the passed
 :   If the API was unhappy with a request parameter
 
 [`mPulseAPIResultFormatException`](exceptions.md#datatype-mpulseapiresultformatexception)
-:    If the API response did had  data in an unexpected data type
+:    If the API response had  data in an unexpected data type
 
 #### Returns
 `{DataFrame}` A Julia `DataFrame` with the following columns: `:<dimension>`, `:<CustomMetric Name>`...
@@ -435,7 +435,7 @@ julia> mPulseAPI.getMetricsByDimension(token, appID, "browser")
 
 ---
 
-[QueryAPI.jl#406-450](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L406-L450){: .source-link style="float:right;font-size:0.8em;"}
+[QueryAPI.jl#414-458](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L414-L458){: .source-link style="float:right;font-size:0.8em;"}
 ### function `getTimersMetrics`
 
 Calls the `timers-metrics` endpoint of the mPulse REST API with the passed in filters
@@ -504,7 +504,7 @@ julia> mPulseAPI.getTimersMetrics(token, appID)
 
 ---
 
-[QueryAPI.jl#486-496](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L486-L496){: .source-link style="float:right;font-size:0.8em;"}
+[QueryAPI.jl#494-504](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L494-L504){: .source-link style="float:right;font-size:0.8em;"}
 ### function `getGeoTimers`
 
 Calls the `geography` endpoint of the mPulse REST API with the passed in filters
@@ -543,7 +543,7 @@ Calls the `geography` endpoint of the mPulse REST API with the passed in filters
 :   If the API was unhappy with a request parameter
 
 [`mPulseAPIResultFormatException`](exceptions.md#datatype-mpulseapiresultformatexception)
-:    If the API response did had  data in an unexpected data type
+:    If the API response had  data in an unexpected data type
 
 #### Returns
 `{DataFrame}` A Julia `DataFrame` with the following columns: `:country`, `:timerID`, `:timerN`, `:timerMedian`, `:timerMOE`
@@ -564,7 +564,7 @@ julia> geo = mPulseAPI.getGeoTimers(token, appID)
 
 ---
 
-[QueryAPI.jl#562-576](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L562-L576){: .source-link style="float:right;font-size:0.8em;"}
+[QueryAPI.jl#570-584](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L570-L584){: .source-link style="float:right;font-size:0.8em;"}
 ### function `getHistogram`
 
 Calls the `histogram` endpoint of the mPulse REST API with the passed in filters
@@ -603,7 +603,7 @@ Calls the `histogram` endpoint of the mPulse REST API with the passed in filters
 :   If the API was unhappy with a request parameter
 
 [`mPulseAPIResultFormatException`](exceptions.md#datatype-mpulseapiresultformatexception)
-:    If the API response did had a missing `series` element or data in an unexpected data type
+:    If the API response had a missing `series` element or data in an unexpected data type
 
 #### Returns
 `{Dict}` A Julia `Dict` with the following string keys:
@@ -654,7 +654,7 @@ julia> histo["buckets"]
 
 ---
 
-[QueryAPI.jl#596-598](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L596-L598){: .source-link style="float:right;font-size:0.8em;"}
+[QueryAPI.jl#604-606](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L604-L606){: .source-link style="float:right;font-size:0.8em;"}
 ### function `getSessionsOverPageLoadTime`
 
 Calls the `sessions-per-page-load-time` endpoint of the mPulse REST API with the passed in filters
@@ -712,7 +712,7 @@ julia> mPulseAPI.getSessionsOverPageLoadTime(token, appID)
 
 ---
 
-[QueryAPI.jl#623-647](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L623-L647){: .source-link style="float:right;font-size:0.8em;"}
+[QueryAPI.jl#631-655](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L631-L655){: .source-link style="float:right;font-size:0.8em;"}
 ### function `getMetricOverPageLoadTime`
 
 Calls the `metric-per-page-load-time` endpoint of the mPulse REST API with the passed in filters
@@ -754,7 +754,7 @@ Calls the `metric-per-page-load-time` endpoint of the mPulse REST API with the p
 :   If the API was unhappy with a metric
 
 [`mPulseAPIResultFormatException`](exceptions.md#datatype-mpulseapiresultformatexception)
-:    If the API response did had a missing `series` element or data in an unexpected data type
+:    If the API response had a missing `series` element or data in an unexpected data type
 
 #### Returns
 `{DataFrame}` A julia `DataFrame` mapping the Metric to a load time bucket:
@@ -776,7 +776,7 @@ julia> mPulseAPI.getMetricOverPageLoadTime(token, appID)
 
 ---
 
-[QueryAPI.jl#693-712](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L693-L712){: .source-link style="float:right;font-size:0.8em;"}
+[QueryAPI.jl#701-720](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L701-L720){: .source-link style="float:right;font-size:0.8em;"}
 ### function `getTimerByMinute`
 
 Calls the `by-minute` endpoint of the mPulse REST API with the passed in filters
@@ -822,7 +822,7 @@ Calls the `by-minute` endpoint of the mPulse REST API with the passed in filters
 :   If the API was unhappy with a timer
 
 [`mPulseAPIResultFormatException`](exceptions.md#datatype-mpulseapiresultformatexception)
-:    If the API response did had a missing `series` element or data in an unexpected data type
+:    If the API response had a missing `series` element or data in an unexpected data type
 
 #### Returns
 `{DataFrame{` A julia `DataFrame` containing timeseries data for the median value of the timer and its margin of error.
@@ -846,7 +846,7 @@ julia> data = mPulseAPI.getTimerByMinute(token, appID, timer="PageLoad")
 
 ---
 
-[QueryAPI.jl#777-785](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L777-L785){: .source-link style="float:right;font-size:0.8em;"}
+[QueryAPI.jl#785-793](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L785-L793){: .source-link style="float:right;font-size:0.8em;"}
 ### function `mergeMetrics`
 
 Merge multiple similar `DataFrames` into a single `DataFrame`
