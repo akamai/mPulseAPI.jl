@@ -1,5 +1,7 @@
 Communicate with the mPulse Query & Repository REST APIs to fetch information about tenants and apps.
 
+[![Build Status](https://travis-ci.org/SOASTA/mPulseAPI.jl.svg?branch=master)](https://travis-ci.org/SOASTA/mPulseAPI.jl)
+
 ## Documentation
 
 ### This module:
