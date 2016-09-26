@@ -2,7 +2,7 @@
 #
 #  Extract raw Markdown from source files and turn them into docs
 # 
-#  - Use `whos` to get a list of exported symbols from the module
+#  - Use `names(module)` to get a list of exported symbols from the module
 #  - Use __META__ to get all documented symbols along with path to the sourcefile
 #  - Use `grep` to get line number in file
 #    - because MD.meta only has line for Function and not Module or DataType
@@ -81,25 +81,7 @@ eval(parse("using $mod"))
 Mod = eval(parse(mod))
 
 function getSymbols(mod::Module; order=[Module, DataType, Function])
-    # Let's get all exported thingies
-    io = IOBuffer()
-    whos(io, mod)
-    exported = takebuf_string(io)
-    exported = Dict(
-        map(
-            m -> (m.captures[1] => eval(parse(m.captures[2]))),
-            map(
-                o -> match(r"^ *(\w+) +\d+ \w+ +(\w+)", o),
-                filter(
-                    x -> !isempty(x),
-                    split(
-                        exported,
-                        "\n"
-                    )
-                )
-            )
-        )
-    )
+    exported = Dict( map( n -> (string(n) => getfield(mod, n)), names(mod) ) )
 
     declarator = Dict(Function => "(function )?", DataType => "(abstract|immutable|type) ", Module => "module ")
 
