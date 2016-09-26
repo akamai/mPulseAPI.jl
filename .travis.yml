@@ -1,14 +1,12 @@
-# Documentation: http://docs.travis-ci.com/user/languages/julia/
 language: julia
 os:
-  - linux
-  - osx
+- linux
+- osx
 julia:
-  - release
-  - nightly
+- release
+- nightly
+- 0.4
 notifications:
   email: false
-# uncomment the following lines to override the default test script
-#script:
-#  - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
-#  - julia -e 'Pkg.clone(pwd()); Pkg.build("mPulseAPI"); Pkg.test("mPulseAPI"; coverage=true)'
+  slack:
+    secure: isuFiNt773RPNqSj78OcGuozuG9/QsAe+mEZZOjmlSrdWYBGU7v0wi6UZ/XJJF3H5HQrtEUrmU7I4ApiiixeHfw3FiR9EtWmuYn8P3y2b95C4Y34JGZb7ot6B27OA84+FIASriGkdJEdlXq5pah1mOcmgzs46jCl9Q5vFFJx1P+LN7fzBF2FWQ+iKnEv3FCrl+X8yxmABNM8Jp2OoqD6rMzRkhdMz8fHM96HmXRT5PHR86Ky3eqnyvQjXA+k6dOvBFDY7MbqamwArfEe8vAeRozuyjhS6OQNeC0u4gcaylxQWFOWOYbUfGqbM03UfW+jAB1NqThhyxIMzWJoFSzFLobni4C9pQUd4fxvxkBWrPBB39EEAq1zC10zsVS18PKtSEz+dBnI4p9255HqAZLZXgtinfPbXBX27DmHNW6crotEHa4x4th8+i6NozTQfOQGPQUB5lxMe8HX0J+VKTh6ok03COIrANbqhy0bIXOu7zAttuWanQJF0xx/n+AJvmrZB9676fTTFdBQOSQdTBnlQqhk6KlmzCSJJZ2aglXdtxWNn0YvlTzCA80Hw4Em7a6Z9KEpOtKN1Gm9Bc45uT938eLGxv+TPRfNxXgmxzlJZtmEpEfyyJSnY9+dvsRTWUIIRGj3ecbHtIv5n0tiULUZA2sekq2qWNSSMkEAijT2ScI=
