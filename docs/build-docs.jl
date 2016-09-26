@@ -103,7 +103,7 @@ function getSymbols(mod::Module; order=[Module, DataType, Function])
 
     declarator = Dict(Function => "(function )?", DataType => "(abstract|immutable|type) ", Module => "module ")
 
-    # Now get all the thingies and mark the exported ones
+    # Now get all the symbols and mark the exported ones
     function symbol2dict(k)
         k_doc = Docs.doc(k)
 
