@@ -298,7 +298,7 @@ You can clear the cache for this tenant using <a class="x-ref" href="../cache_ut
 <dt><code>id::Int64</code></dt>
 <dd>The tenant's ID</dd>
 <dt><code>body::XMLElement</code></dt>
-<dd>An XML object representing the app's XML definition</dd>
+<dd>An XML object representing the tenant's XML definition or an empty node if you do not have permission to see the full tenant</dd>
 <dt><code>parentID::Int64</code></dt>
 <dd>The ID of the parent folder that this tenant is in</dd>
 <dt><code>parentType::AbstractString</code></dt>
@@ -306,7 +306,7 @@ You can clear the cache for this tenant using <a class="x-ref" href="../cache_ut
 <dt><code>path::AbstractString</code></dt>
 <dd>The folder path that this tenant is in</dd>
 <dt><code>description::AbstractString</code></dt>
-<dd>The description of this app entered into mPulse</dd>
+<dd>The description of this tenant entered into mPulse</dd>
 <dt><code>created::DateTime</code></dt>
 <dd>The timestamp when this object was created</dd>
 <dt><code>lastModified::DateTime</code></dt>
@@ -330,7 +330,7 @@ You can clear the cache for this tenant using <a class="x-ref" href="../cache_ut
 <p>The following methods are not exported by default. You may use them by explicitly
 importing them or by prefixing them with the <code>mPulseAPI.</code> namespace.</p>
 </div>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L445-L480" style="float:right;font-size:0.8em;">RepositoryAPI.jl#445-480</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L451-L486" style="float:right;font-size:0.8em;">RepositoryAPI.jl#451-486</a></p>
 <h3 id="function-getcustommetricmap">function <code>getCustomMetricMap</code><a class="headerlink" href="#function-getcustommetricmap" title="Permanent link">&para;</a></h3>
 <p>Gets a mapping of custom metric names to RedShift field names from domain XML.  This list also includes valid dates.</p>
 <h4 id="arguments_3">Arguments<a class="headerlink" href="#arguments_3" title="Permanent link">&para;</a></h4>
@@ -371,7 +371,7 @@ importing them or by prefixing them with the <code>mPulseAPI.</code> namespace.<
 <dd>if <code>body</code> is an <code>AbstractString</code> but contains invalid XML</dd>
 </dl>
 <hr />
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L497-L533" style="float:right;font-size:0.8em;">RepositoryAPI.jl#497-533</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L503-L539" style="float:right;font-size:0.8em;">RepositoryAPI.jl#503-539</a></p>
 <h3 id="function-getcustomtimermap">function <code>getCustomTimerMap</code><a class="headerlink" href="#function-getcustomtimermap" title="Permanent link">&para;</a></h3>
 <p>Gets a mapping of custom timer names to RedShift field names from domain XML.  This list also includes valid dates.</p>
 <h4 id="arguments_4">Arguments<a class="headerlink" href="#arguments_4" title="Permanent link">&para;</a></h4>
@@ -417,7 +417,7 @@ importing them or by prefixing them with the <code>mPulseAPI.</code> namespace.<
 <dd>if <code>body</code> is an <code>AbstractString</code> but contains invalid XML</dd>
 </dl>
 <hr />
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L557-L581" style="float:right;font-size:0.8em;">RepositoryAPI.jl#557-581</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L563-L587" style="float:right;font-size:0.8em;">RepositoryAPI.jl#563-587</a></p>
 <h3 id="function-getnodecontent">function <code>getNodeContent</code><a class="headerlink" href="#function-getnodecontent" title="Permanent link">&para;</a></h3>
 <p>Gets the content of a node</p>
 <h4 id="arguments_5">Arguments<a class="headerlink" href="#arguments_5" title="Permanent link">&para;</a></h4>
