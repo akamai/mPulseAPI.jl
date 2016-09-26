@@ -290,7 +290,7 @@ You can clear the cache for this tenant using [`mPulseAPI.clearTenantCache`](@re
 :    The timestamp when this object was created
 
 `attributes::Dict`
-:    A `Dict` of attributes for this app, including its `App ID`
+:    A `Dict` of attributes for this tenant
 
 `dswbUrls::Array{AbstractString}`
 :    An array of DSWB URLs that are valid auth redirect targets for this tenant
