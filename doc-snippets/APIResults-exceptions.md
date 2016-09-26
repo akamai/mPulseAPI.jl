@@ -1,6 +1,3 @@
-`ArgumentError`
-:   If the `query_type` is not recognized
-
 `mPulseAPIAuthException`
 :   If the `token` is invalid or has expired.
 

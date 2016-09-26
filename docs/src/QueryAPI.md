@@ -8,7 +8,7 @@
     importing them or by prefixing them with the `mPulseAPI.` namespace.
 
 
-[QueryAPI.jl#56-136](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L56-L136){: .source-link style="float:right;font-size:0.8em;"}
+[QueryAPI.jl#59-139](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L59-L139){: .source-link style="float:right;font-size:0.8em;"}
 ### function `getAPIResults`
 
 Get API results from the mPulse [Query API](http://docs.soasta.com/query-api/)
@@ -73,7 +73,7 @@ This method is a generic catch-all that queries the mPulse API and returns resul
 
 ---
 
-[QueryAPI.jl#185-187](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L185-L187){: .source-link style="float:right;font-size:0.8em;"}
+[QueryAPI.jl#188-190](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L188-L190){: .source-link style="float:right;font-size:0.8em;"}
 ### function `getSummaryTimers`
 
 Calls the `summary` endpoint of the mPulse REST API with the passed in filters
@@ -101,9 +101,6 @@ Calls the `summary` endpoint of the mPulse REST API with the passed in filters
          )
 
 #### Throws
-`ArgumentError`
-:   If the `query_type` is not recognized
-
 [`mPulseAPIAuthException`](exceptions.md#datatype-mpulseapiauthexception)
 :   If the `token` is invalid or has expired.
 
@@ -148,7 +145,7 @@ Dict{Any,Any} with 5 entries:
 
 ---
 
-[QueryAPI.jl#211-225](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L211-L225){: .source-link style="float:right;font-size:0.8em;"}
+[QueryAPI.jl#214-228](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L214-L228){: .source-link style="float:right;font-size:0.8em;"}
 ### function `getPageGroupTimers`
 
 Calls the `page-groups` endpoint of the mPulse REST API with the passed in filters
@@ -189,9 +186,6 @@ Calls the `page-groups` endpoint of the mPulse REST API with the passed in filte
 
 
 #### Throws
-`ArgumentError`
-:   If the `query_type` is not recognized
-
 [`mPulseAPIAuthException`](exceptions.md#datatype-mpulseapiauthexception)
 :   If the `token` is invalid or has expired.
 
@@ -227,7 +221,7 @@ julia> pgroups = mPulseAPI.getPageGroupTimers(token, appID)
 
 ---
 
-[QueryAPI.jl#249-263](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L249-L263){: .source-link style="float:right;font-size:0.8em;"}
+[QueryAPI.jl#252-266](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L252-L266){: .source-link style="float:right;font-size:0.8em;"}
 ### function `getBrowserTimers`
 
 Calls the `browsers` endpoint of the mPulse REST API with the passed in filters
@@ -268,9 +262,6 @@ Calls the `browsers` endpoint of the mPulse REST API with the passed in filters
 
 
 #### Throws
-`ArgumentError`
-:   If the `query_type` is not recognized
-
 [`mPulseAPIAuthException`](exceptions.md#datatype-mpulseapiauthexception)
 :   If the `token` is invalid or has expired.
 
@@ -306,7 +297,7 @@ julia> pgroups = mPulseAPI.getBrowserTimers(token, appID)
 
 ---
 
-[QueryAPI.jl#287-301](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L287-L301){: .source-link style="float:right;font-size:0.8em;"}
+[QueryAPI.jl#290-304](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L290-L304){: .source-link style="float:right;font-size:0.8em;"}
 ### function `getABTestTimers`
 
 Calls the `ab-tests` endpoint of the mPulse REST API with the passed in filters
@@ -347,9 +338,6 @@ Calls the `ab-tests` endpoint of the mPulse REST API with the passed in filters
 
 
 #### Throws
-`ArgumentError`
-:   If the `query_type` is not recognized
-
 [`mPulseAPIAuthException`](exceptions.md#datatype-mpulseapiauthexception)
 :   If the `token` is invalid or has expired.
 
@@ -385,7 +373,7 @@ julia> pgroups = mPulseAPI.getABTestTimers(token, appID)
 
 ---
 
-[QueryAPI.jl#339-357](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L339-L357){: .source-link style="float:right;font-size:0.8em;"}
+[QueryAPI.jl#342-360](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L342-L360){: .source-link style="float:right;font-size:0.8em;"}
 ### function `getMetricsByDimension`
 
 Calls the `metrics-by-dimension` endpoint of the mPulse REST API with the passed in dimension name and filters
@@ -416,9 +404,6 @@ Calls the `metrics-by-dimension` endpoint of the mPulse REST API with the passed
          )
 
 #### Throws
-`ArgumentError`
-:   If the `query_type` is not recognized
-
 [`mPulseAPIAuthException`](exceptions.md#datatype-mpulseapiauthexception)
 :   If the `token` is invalid or has expired.
 
@@ -450,7 +435,7 @@ julia> mPulseAPI.getMetricsByDimension(token, appID, "browser")
 
 ---
 
-[QueryAPI.jl#403-447](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L403-L447){: .source-link style="float:right;font-size:0.8em;"}
+[QueryAPI.jl#406-450](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L406-L450){: .source-link style="float:right;font-size:0.8em;"}
 ### function `getTimersMetrics`
 
 Calls the `timers-metrics` endpoint of the mPulse REST API with the passed in filters
@@ -478,9 +463,6 @@ Calls the `timers-metrics` endpoint of the mPulse REST API with the passed in fi
          )
 
 #### Throws
-`ArgumentError`
-:   If the `query_type` is not recognized
-
 [`mPulseAPIAuthException`](exceptions.md#datatype-mpulseapiauthexception)
 :   If the `token` is invalid or has expired.
 
@@ -522,7 +504,7 @@ julia> mPulseAPI.getTimersMetrics(token, appID)
 
 ---
 
-[QueryAPI.jl#483-493](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L483-L493){: .source-link style="float:right;font-size:0.8em;"}
+[QueryAPI.jl#486-496](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L486-L496){: .source-link style="float:right;font-size:0.8em;"}
 ### function `getGeoTimers`
 
 Calls the `geography` endpoint of the mPulse REST API with the passed in filters
@@ -550,9 +532,6 @@ Calls the `geography` endpoint of the mPulse REST API with the passed in filters
          )
 
 #### Throws
-`ArgumentError`
-:   If the `query_type` is not recognized
-
 [`mPulseAPIAuthException`](exceptions.md#datatype-mpulseapiauthexception)
 :   If the `token` is invalid or has expired.
 
@@ -585,7 +564,7 @@ julia> geo = mPulseAPI.getGeoTimers(token, appID)
 
 ---
 
-[QueryAPI.jl#559-573](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L559-L573){: .source-link style="float:right;font-size:0.8em;"}
+[QueryAPI.jl#562-576](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L562-L576){: .source-link style="float:right;font-size:0.8em;"}
 ### function `getHistogram`
 
 Calls the `histogram` endpoint of the mPulse REST API with the passed in filters
@@ -613,9 +592,6 @@ Calls the `histogram` endpoint of the mPulse REST API with the passed in filters
          )
 
 #### Throws
-`ArgumentError`
-:   If the `query_type` is not recognized
-
 [`mPulseAPIAuthException`](exceptions.md#datatype-mpulseapiauthexception)
 :   If the `token` is invalid or has expired.
 
@@ -678,7 +654,7 @@ julia> histo["buckets"]
 
 ---
 
-[QueryAPI.jl#593-595](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L593-L595){: .source-link style="float:right;font-size:0.8em;"}
+[QueryAPI.jl#596-598](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L596-L598){: .source-link style="float:right;font-size:0.8em;"}
 ### function `getSessionsOverPageLoadTime`
 
 Calls the `sessions-per-page-load-time` endpoint of the mPulse REST API with the passed in filters
@@ -706,9 +682,6 @@ Calls the `sessions-per-page-load-time` endpoint of the mPulse REST API with the
          )
 
 #### Throws
-`ArgumentError`
-:   If the `query_type` is not recognized
-
 [`mPulseAPIAuthException`](exceptions.md#datatype-mpulseapiauthexception)
 :   If the `token` is invalid or has expired.
 
@@ -739,7 +712,7 @@ julia> mPulseAPI.getSessionsOverPageLoadTime(token, appID)
 
 ---
 
-[QueryAPI.jl#620-644](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L620-L644){: .source-link style="float:right;font-size:0.8em;"}
+[QueryAPI.jl#623-647](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L623-L647){: .source-link style="float:right;font-size:0.8em;"}
 ### function `getMetricOverPageLoadTime`
 
 Calls the `metric-per-page-load-time` endpoint of the mPulse REST API with the passed in filters
@@ -770,9 +743,6 @@ Calls the `metric-per-page-load-time` endpoint of the mPulse REST API with the p
          )
 
 #### Throws
-`ArgumentError`
-:   If the `query_type` is not recognized
-
 [`mPulseAPIAuthException`](exceptions.md#datatype-mpulseapiauthexception)
 :   If the `token` is invalid or has expired.
 
@@ -806,7 +776,7 @@ julia> mPulseAPI.getMetricOverPageLoadTime(token, appID)
 
 ---
 
-[QueryAPI.jl#690-709](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L690-L709){: .source-link style="float:right;font-size:0.8em;"}
+[QueryAPI.jl#693-712](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L693-L712){: .source-link style="float:right;font-size:0.8em;"}
 ### function `getTimerByMinute`
 
 Calls the `by-minute` endpoint of the mPulse REST API with the passed in filters
@@ -841,9 +811,6 @@ Calls the `by-minute` endpoint of the mPulse REST API with the passed in filters
          )
 
 #### Throws
-`ArgumentError`
-:   If the `query_type` is not recognized
-
 [`mPulseAPIAuthException`](exceptions.md#datatype-mpulseapiauthexception)
 :   If the `token` is invalid or has expired.
 
@@ -879,7 +846,7 @@ julia> data = mPulseAPI.getTimerByMinute(token, appID, timer="PageLoad")
 
 ---
 
-[QueryAPI.jl#774-782](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L774-L782){: .source-link style="float:right;font-size:0.8em;"}
+[QueryAPI.jl#777-785](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L777-L785){: .source-link style="float:right;font-size:0.8em;"}
 ### function `mergeMetrics`
 
 Merge multiple similar `DataFrames` into a single `DataFrame`

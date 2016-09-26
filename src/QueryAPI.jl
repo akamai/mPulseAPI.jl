@@ -48,6 +48,9 @@ $(mapfoldl(x -> "   * $x\n", *, mPulseAPI.query_types))
 $(mPulseAPI.readdocs("APIResults-common-optargs"))
 
 #### Throws
+`ArgumentError`
+:   If the `query_type` is not recognized
+
 $(mPulseAPI.readdocs("APIResults-exceptions"))
 
 #### Returns
