@@ -9,7 +9,7 @@
              "dataType"     => Dict(
                  "decimalPlaces"  => "2",
                  "type"           => "<metric type>",
-                 "currencySymbol" => "<symbol if this is a currency type>"
+                 "currencyCode"   => "<ISO 4217 Currency Code if type==Currency>"
              ),
              "colors"       => [<array of color HEX codes>]
          ),
