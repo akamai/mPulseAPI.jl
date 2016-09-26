@@ -20,13 +20,25 @@ summary = mPulseAPI.getSummaryTimers(token, appID)
 @test isa(summary["moe"], Float64)
 
 
+function testDimensionTable(method, first_symbol, first_friendly)
+    println(method)
+
+    x = getfield(mPulseAPI, method)(token, appID)
+
+    @test size(x, 2) == 5
+    @test names(x) == [first_symbol, :t_done_median, :t_done_moe, :t_done_count, :t_done_total_pc]
+
+    x = getfield(mPulseAPI, method)(token, appID, friendly_names=true)
+    @test size(x, 2) == 5
+    @test names(x) == [symbol(first_friendly), symbol("Median Time (ms)"), symbol("MoE (ms)"), symbol("Measurements"), symbol("% of total")]
+end
+
 # Page Groups
-page_groups = mPulseAPI.getPageGroupTimers(token, appID)
+testDimensionTable(:getPageGroupTimers, :page_group, "Page Group")
 
-@test size(page_groups, 2) == 5
-@test names(page_groups) == [:page_group, :t_done_median, :t_done_moe, :t_done_count, :t_done_total_pc]
+# Browsers
+testDimensionTable(:getBrowserTimers, :user_agent, "User Agent")
 
-page_groups = mPulseAPI.getPageGroupTimers(token, appID, friendly_names=true)
+# ABTests
+testDimensionTable(:getABTestTimers, :test_name, "Test Name")
 
-@test size(page_groups, 2) == 5
-@test names(page_groups) == [symbol("Page Group"), symbol("Median Time (ms)"), symbol("MoE (ms)"), symbol("Measurements"), symbol("% of total")]
