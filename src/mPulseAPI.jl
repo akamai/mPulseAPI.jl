@@ -15,7 +15,7 @@ end
 
 module mPulseAPI
 """
-$(readall(joinpath(dirname(dirname(@__FILE__)), "README.md")))
+$(replace(readall(joinpath(dirname(dirname(@__FILE__)), "README.md")), r"\n.*travis-ci\.org.*\n", ""))
 """
 mPulseAPI
 
