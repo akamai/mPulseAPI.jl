@@ -94,14 +94,22 @@ function getAPIResults(token::AbstractString, appID::AbstractString, query_type:
             object = Requests.json(resp)
         end
 
-        if haskey(object, "code") && object["code"] == "MPulseAPIException.InvalidParameter"
-            # Extract the parameter name
-            parameter = lowercase(replace(replace(object["message"], r"^.*?: ", ""), r" .*", ""))
+        if haskey(object, "rs_fault")
+            object = object["rs_fault"]
+        end
 
-            # Extract the parameter value
-            value = replace(object["message"], r".*:", "")
+        if haskey(object, "code")
+            if object["code"] == "ResultsService.InvalidToken"
+                throw(mPulseAPIAuthException(resp))
+            elseif object["code"] == "MPulseAPIException.InvalidParameter"
+                # Extract the parameter name
+                parameter = lowercase(replace(replace(object["message"], r"^.*?: ", ""), r" .*", ""))
 
-            throw(mPulseAPIRequestException(object["message"], object["code"], parameter, value, resp))
+                # Extract the parameter value
+                value = replace(object["message"], r".*:", "")
+
+                throw(mPulseAPIRequestException(object["message"], object["code"], parameter, value, resp))
+            end
         end
 
         throw(mPulseAPIException("Error fetching $(query_type)", resp))
