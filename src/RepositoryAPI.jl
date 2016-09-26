@@ -269,7 +269,7 @@ You can clear the cache for this tenant using [`mPulseAPI.clearTenantCache`](@re
 :    The tenant's ID
 
 `body::XMLElement`
-:    An XML object representing the app's XML definition
+:    An XML object representing the tenant's XML definition or an empty node if you do not have permission to see the full tenant
 
 `parentID::Int64`
 :    The ID of the parent folder that this tenant is in
@@ -281,7 +281,7 @@ You can clear the cache for this tenant using [`mPulseAPI.clearTenantCache`](@re
 :    The folder path that this tenant is in
 
 `description::AbstractString`
-:    The description of this app entered into mPulse
+:    The description of this tenant entered into mPulse
 
 `created::DateTime`
 :    The timestamp when this object was created
@@ -401,9 +401,15 @@ function getRepositoryObject(token::AbstractString, objectType::AbstractString, 
 
 
     for object in object_list
-        # Convert body string to an actual XML root object
-        xdoc = parse_string(object["body"])
-        xroot = root(xdoc)
+        if !isempty(object["body"])
+            # Convert body string to an actual XML root object
+            xdoc = parse_string(object["body"])
+            xroot = root(xdoc)
+        else
+            # LightXML cannot handle empty strings, so just fake it
+            xdoc = XMLDocument()
+            xroot = create_root(xdoc, "")
+        end
 
         object["body"] = xroot
         object["created"] = iso8601ToDateTime(object["created"])

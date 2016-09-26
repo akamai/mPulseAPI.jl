@@ -189,7 +189,7 @@ You can clear the cache for this tenant using [`mPulseAPI.clearTenantCache`](cac
 :    The tenant's ID
 
 `body::XMLElement`
-:    An XML object representing the app's XML definition
+:    An XML object representing the tenant's XML definition or an empty node if you do not have permission to see the full tenant
 
 `parentID::Int64`
 :    The ID of the parent folder that this tenant is in
@@ -201,7 +201,7 @@ You can clear the cache for this tenant using [`mPulseAPI.clearTenantCache`](cac
 :    The folder path that this tenant is in
 
 `description::AbstractString`
-:    The description of this app entered into mPulse
+:    The description of this tenant entered into mPulse
 
 `created::DateTime`
 :    The timestamp when this object was created
@@ -233,7 +233,7 @@ You can clear the cache for this tenant using [`mPulseAPI.clearTenantCache`](cac
     importing them or by prefixing them with the `mPulseAPI.` namespace.
 
 
-[RepositoryAPI.jl#445-480](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L445-L480){: .source-link style="float:right;font-size:0.8em;"}
+[RepositoryAPI.jl#451-486](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L451-L486){: .source-link style="float:right;font-size:0.8em;"}
 ### function `getCustomMetricMap`
 
 Gets a mapping of custom metric names to RedShift field names from domain XML.  This list also includes valid dates.
@@ -275,7 +275,7 @@ Gets a mapping of custom metric names to RedShift field names from domain XML.  
 
 ---
 
-[RepositoryAPI.jl#497-533](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L497-L533){: .source-link style="float:right;font-size:0.8em;"}
+[RepositoryAPI.jl#503-539](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L503-L539){: .source-link style="float:right;font-size:0.8em;"}
 ### function `getCustomTimerMap`
 
 Gets a mapping of custom timer names to RedShift field names from domain XML.  This list also includes valid dates.
@@ -322,7 +322,7 @@ Gets a mapping of custom timer names to RedShift field names from domain XML.  T
 
 ---
 
-[RepositoryAPI.jl#557-581](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L557-L581){: .source-link style="float:right;font-size:0.8em;"}
+[RepositoryAPI.jl#563-587](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L563-L587){: .source-link style="float:right;font-size:0.8em;"}
 ### function `getNodeContent`
 
 Gets the content of a node
