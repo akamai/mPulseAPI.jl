@@ -148,7 +148,7 @@
 <p>The following methods are not exported by default. You may use them by explicitly
 importing them or by prefixing them with the <code>mPulseAPI.</code> namespace.</p>
 </div>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L59-L139" style="float:right;font-size:0.8em;">QueryAPI.jl#59-139</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L59-L147" style="float:right;font-size:0.8em;">QueryAPI.jl#59-147</a></p>
 <h3 id="function-getapiresults">function <code>getAPIResults</code><a class="headerlink" href="#function-getapiresults" title="Permanent link">&para;</a></h3>
 <p>Get API results from the mPulse <a href="http://docs.soasta.com/query-api/">Query API</a></p>
 <p>This method is a generic catch-all that queries the mPulse API and returns results as a Julia data structure matching the JSON structure of the specified API call</p>
@@ -209,7 +209,7 @@ the problem</dd>
 <h4 id="returns">Returns<a class="headerlink" href="#returns" title="Permanent link">&para;</a></h4>
 <p><code>{Any}</code> A Julia representation of the JSON returned by the API call. Convenience wrappers in this library may return more appropriate data structures.</p>
 <hr />
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L188-L190" style="float:right;font-size:0.8em;">QueryAPI.jl#188-190</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L196-L198" style="float:right;font-size:0.8em;">QueryAPI.jl#196-198</a></p>
 <h3 id="function-getsummarytimers">function <code>getSummaryTimers</code><a class="headerlink" href="#function-getsummarytimers" title="Permanent link">&para;</a></h3>
 <p>Calls the <code>summary</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_1">Arguments<a class="headerlink" href="#arguments_1" title="Permanent link">&para;</a></h4>
@@ -272,7 +272,7 @@ Dict{Any,Any} with 5 entries:
 </code></pre>
 
 <hr />
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L214-L228" style="float:right;font-size:0.8em;">QueryAPI.jl#214-228</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L222-L236" style="float:right;font-size:0.8em;">QueryAPI.jl#222-236</a></p>
 <h3 id="function-getpagegrouptimers">function <code>getPageGroupTimers</code><a class="headerlink" href="#function-getpagegrouptimers" title="Permanent link">&para;</a></h3>
 <p>Calls the <code>page-groups</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_2">Arguments<a class="headerlink" href="#arguments_2" title="Permanent link">&para;</a></h4>
@@ -317,7 +317,7 @@ the problem</dd>
 <dt><a href="../exceptions/index.html#datatype-mpulseapirequestexception"><code>mPulseAPIRequestException</code></a></dt>
 <dd>If the API was unhappy with a request parameter</dd>
 <dt><a href="../exceptions/index.html#datatype-mpulseapiresultformatexception"><code>mPulseAPIResultFormatException</code></a></dt>
-<dd>If the API response did had  data in an unexpected data type</dd>
+<dd>If the API response had  data in an unexpected data type</dd>
 </dl>
 <h4 id="returns_2">Returns<a class="headerlink" href="#returns_2" title="Permanent link">&para;</a></h4>
 <p><code>{DataFrame}</code> A Julia <code>DataFrame</code> with the following columns:</p>
@@ -337,7 +337,7 @@ the problem</dd>
 </code></pre>
 
 <hr />
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L252-L266" style="float:right;font-size:0.8em;">QueryAPI.jl#252-266</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L260-L274" style="float:right;font-size:0.8em;">QueryAPI.jl#260-274</a></p>
 <h3 id="function-getbrowsertimers">function <code>getBrowserTimers</code><a class="headerlink" href="#function-getbrowsertimers" title="Permanent link">&para;</a></h3>
 <p>Calls the <code>browsers</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_3">Arguments<a class="headerlink" href="#arguments_3" title="Permanent link">&para;</a></h4>
@@ -382,7 +382,7 @@ the problem</dd>
 <dt><a href="../exceptions/index.html#datatype-mpulseapirequestexception"><code>mPulseAPIRequestException</code></a></dt>
 <dd>If the API was unhappy with a request parameter</dd>
 <dt><a href="../exceptions/index.html#datatype-mpulseapiresultformatexception"><code>mPulseAPIResultFormatException</code></a></dt>
-<dd>If the API response did had  data in an unexpected data type</dd>
+<dd>If the API response had  data in an unexpected data type</dd>
 </dl>
 <h4 id="returns_3">Returns<a class="headerlink" href="#returns_3" title="Permanent link">&para;</a></h4>
 <p><code>{DataFrame}</code> A Julia <code>DataFrame</code> with the following columns:</p>
@@ -402,7 +402,7 @@ the problem</dd>
 </code></pre>
 
 <hr />
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L290-L304" style="float:right;font-size:0.8em;">QueryAPI.jl#290-304</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L298-L312" style="float:right;font-size:0.8em;">QueryAPI.jl#298-312</a></p>
 <h3 id="function-getabtesttimers">function <code>getABTestTimers</code><a class="headerlink" href="#function-getabtesttimers" title="Permanent link">&para;</a></h3>
 <p>Calls the <code>ab-tests</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_4">Arguments<a class="headerlink" href="#arguments_4" title="Permanent link">&para;</a></h4>
@@ -447,7 +447,7 @@ the problem</dd>
 <dt><a href="../exceptions/index.html#datatype-mpulseapirequestexception"><code>mPulseAPIRequestException</code></a></dt>
 <dd>If the API was unhappy with a request parameter</dd>
 <dt><a href="../exceptions/index.html#datatype-mpulseapiresultformatexception"><code>mPulseAPIResultFormatException</code></a></dt>
-<dd>If the API response did had  data in an unexpected data type</dd>
+<dd>If the API response had  data in an unexpected data type</dd>
 </dl>
 <h4 id="returns_4">Returns<a class="headerlink" href="#returns_4" title="Permanent link">&para;</a></h4>
 <p><code>{DataFrame}</code> A Julia <code>DataFrame</code> with the following columns:</p>
@@ -467,7 +467,7 @@ the problem</dd>
 </code></pre>
 
 <hr />
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L342-L360" style="float:right;font-size:0.8em;">QueryAPI.jl#342-360</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L350-L368" style="float:right;font-size:0.8em;">QueryAPI.jl#350-368</a></p>
 <h3 id="function-getmetricsbydimension">function <code>getMetricsByDimension</code><a class="headerlink" href="#function-getmetricsbydimension" title="Permanent link">&para;</a></h3>
 <p>Calls the <code>metrics-by-dimension</code> endpoint of the mPulse REST API with the passed in dimension name and filters</p>
 <h4 id="arguments_5">Arguments<a class="headerlink" href="#arguments_5" title="Permanent link">&para;</a></h4>
@@ -506,7 +506,7 @@ the problem</dd>
 <dt><a href="../exceptions/index.html#datatype-mpulseapirequestexception"><code>mPulseAPIRequestException</code></a></dt>
 <dd>If the API was unhappy with a request parameter</dd>
 <dt><a href="../exceptions/index.html#datatype-mpulseapiresultformatexception"><code>mPulseAPIResultFormatException</code></a></dt>
-<dd>If the API response did had  data in an unexpected data type</dd>
+<dd>If the API response had  data in an unexpected data type</dd>
 </dl>
 <h4 id="returns_5">Returns<a class="headerlink" href="#returns_5" title="Permanent link">&para;</a></h4>
 <p><code>{DataFrame}</code> A Julia <code>DataFrame</code> with the following columns: <code>:&lt;dimension&gt;</code>, <code>:&lt;CustomMetric Name&gt;</code>...</p>
@@ -523,7 +523,7 @@ the problem</dd>
 </code></pre>
 
 <hr />
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L406-L450" style="float:right;font-size:0.8em;">QueryAPI.jl#406-450</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L414-L458" style="float:right;font-size:0.8em;">QueryAPI.jl#414-458</a></p>
 <h3 id="function-gettimersmetrics">function <code>getTimersMetrics</code><a class="headerlink" href="#function-gettimersmetrics" title="Permanent link">&para;</a></h3>
 <p>Calls the <code>timers-metrics</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_6">Arguments<a class="headerlink" href="#arguments_6" title="Permanent link">&para;</a></h4>
@@ -587,7 +587,7 @@ For example, for Last24Hours, there will be 1440 entries representing each minut
 </code></pre>
 
 <hr />
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L486-L496" style="float:right;font-size:0.8em;">QueryAPI.jl#486-496</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L494-L504" style="float:right;font-size:0.8em;">QueryAPI.jl#494-504</a></p>
 <h3 id="function-getgeotimers">function <code>getGeoTimers</code><a class="headerlink" href="#function-getgeotimers" title="Permanent link">&para;</a></h3>
 <p>Calls the <code>geography</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_7">Arguments<a class="headerlink" href="#arguments_7" title="Permanent link">&para;</a></h4>
@@ -624,7 +624,7 @@ the problem</dd>
 <dt><a href="../exceptions/index.html#datatype-mpulseapirequestexception"><code>mPulseAPIRequestException</code></a></dt>
 <dd>If the API was unhappy with a request parameter</dd>
 <dt><a href="../exceptions/index.html#datatype-mpulseapiresultformatexception"><code>mPulseAPIResultFormatException</code></a></dt>
-<dd>If the API response did had  data in an unexpected data type</dd>
+<dd>If the API response had  data in an unexpected data type</dd>
 </dl>
 <h4 id="returns_7">Returns<a class="headerlink" href="#returns_7" title="Permanent link">&para;</a></h4>
 <p><code>{DataFrame}</code> A Julia <code>DataFrame</code> with the following columns: <code>:country</code>, <code>:timerID</code>, <code>:timerN</code>, <code>:timerMedian</code>, <code>:timerMOE</code></p>
@@ -642,7 +642,7 @@ the problem</dd>
 </code></pre>
 
 <hr />
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L562-L576" style="float:right;font-size:0.8em;">QueryAPI.jl#562-576</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L570-L584" style="float:right;font-size:0.8em;">QueryAPI.jl#570-584</a></p>
 <h3 id="function-gethistogram">function <code>getHistogram</code><a class="headerlink" href="#function-gethistogram" title="Permanent link">&para;</a></h3>
 <p>Calls the <code>histogram</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_8">Arguments<a class="headerlink" href="#arguments_8" title="Permanent link">&para;</a></h4>
@@ -679,7 +679,7 @@ the problem</dd>
 <dt><a href="../exceptions/index.html#datatype-mpulseapirequestexception"><code>mPulseAPIRequestException</code></a></dt>
 <dd>If the API was unhappy with a request parameter</dd>
 <dt><a href="../exceptions/index.html#datatype-mpulseapiresultformatexception"><code>mPulseAPIResultFormatException</code></a></dt>
-<dd>If the API response did had a missing <code>series</code> element or data in an unexpected data type</dd>
+<dd>If the API response had a missing <code>series</code> element or data in an unexpected data type</dd>
 </dl>
 <h4 id="returns_8">Returns<a class="headerlink" href="#returns_8" title="Permanent link">&para;</a></h4>
 <p><code>{Dict}</code> A Julia <code>Dict</code> with the following string keys:</p>
@@ -722,7 +722,7 @@ Dict{AbstractString,Any} with 4 entries:
 </code></pre>
 
 <hr />
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L596-L598" style="float:right;font-size:0.8em;">QueryAPI.jl#596-598</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L604-L606" style="float:right;font-size:0.8em;">QueryAPI.jl#604-606</a></p>
 <h3 id="function-getsessionsoverpageloadtime">function <code>getSessionsOverPageLoadTime</code><a class="headerlink" href="#function-getsessionsoverpageloadtime" title="Permanent link">&para;</a></h3>
 <p>Calls the <code>sessions-per-page-load-time</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_9">Arguments<a class="headerlink" href="#arguments_9" title="Permanent link">&para;</a></h4>
@@ -776,7 +776,7 @@ the problem</dd>
 </code></pre>
 
 <hr />
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L623-L647" style="float:right;font-size:0.8em;">QueryAPI.jl#623-647</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L631-L655" style="float:right;font-size:0.8em;">QueryAPI.jl#631-655</a></p>
 <h3 id="function-getmetricoverpageloadtime">function <code>getMetricOverPageLoadTime</code><a class="headerlink" href="#function-getmetricoverpageloadtime" title="Permanent link">&para;</a></h3>
 <p>Calls the <code>metric-per-page-load-time</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_10">Arguments<a class="headerlink" href="#arguments_10" title="Permanent link">&para;</a></h4>
@@ -815,7 +815,7 @@ the problem</dd>
 <dt><a href="../exceptions/index.html#datatype-mpulseapirequestexception"><code>mPulseAPIRequestException</code></a></dt>
 <dd>If the API was unhappy with a metric</dd>
 <dt><a href="../exceptions/index.html#datatype-mpulseapiresultformatexception"><code>mPulseAPIResultFormatException</code></a></dt>
-<dd>If the API response did had a missing <code>series</code> element or data in an unexpected data type</dd>
+<dd>If the API response had a missing <code>series</code> element or data in an unexpected data type</dd>
 </dl>
 <h4 id="returns_10">Returns<a class="headerlink" href="#returns_10" title="Permanent link">&para;</a></h4>
 <p><code>{DataFrame}</code> A julia <code>DataFrame</code> mapping the Metric to a load time bucket:</p>
@@ -834,7 +834,7 @@ the problem</dd>
 </code></pre>
 
 <hr />
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L693-L712" style="float:right;font-size:0.8em;">QueryAPI.jl#693-712</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L701-L720" style="float:right;font-size:0.8em;">QueryAPI.jl#701-720</a></p>
 <h3 id="function-gettimerbyminute">function <code>getTimerByMinute</code><a class="headerlink" href="#function-gettimerbyminute" title="Permanent link">&para;</a></h3>
 <p>Calls the <code>by-minute</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_11">Arguments<a class="headerlink" href="#arguments_11" title="Permanent link">&para;</a></h4>
@@ -877,7 +877,7 @@ the problem</dd>
 <dt><a href="../exceptions/index.html#datatype-mpulseapirequestexception"><code>mPulseAPIRequestException</code></a></dt>
 <dd>If the API was unhappy with a timer</dd>
 <dt><a href="../exceptions/index.html#datatype-mpulseapiresultformatexception"><code>mPulseAPIResultFormatException</code></a></dt>
-<dd>If the API response did had a missing <code>series</code> element or data in an unexpected data type</dd>
+<dd>If the API response had a missing <code>series</code> element or data in an unexpected data type</dd>
 </dl>
 <h4 id="returns_11">Returns<a class="headerlink" href="#returns_11" title="Permanent link">&para;</a></h4>
 <p><code>{DataFrame{</code> A julia <code>DataFrame</code> containing timeseries data for the median value of the timer and its margin of error.
@@ -898,7 +898,7 @@ The fields are: <code>:timestamp</code> in milliseconds since the UNIX epoch, <c
 </code></pre>
 
 <hr />
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L777-L785" style="float:right;font-size:0.8em;">QueryAPI.jl#777-785</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L785-L793" style="float:right;font-size:0.8em;">QueryAPI.jl#785-793</a></p>
 <h3 id="function-mergemetrics">function <code>mergeMetrics</code><a class="headerlink" href="#function-mergemetrics" title="Permanent link">&para;</a></h3>
 <p>Merge multiple similar <code>DataFrames</code> into a single <code>DataFrame</code></p>
 <p>Use this method to merge the results from multiple calls to <code>getMetricOverPageLoadTime()</code> and <code>getSessionsOverPageLoadTime()</code>.
