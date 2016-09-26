@@ -94,7 +94,7 @@ The `domain` `Dict` has the following fields:
      
           Dict(
               <metric name> => Dict(
-                  "index"        => <index>,                          # Numeric index
+                  "index"        => <index>,                      # Numeric index
                   "fieldname"    => "custom_metrics_<index>",     # Field name in dswb tables
                   "lastModified" => <lastModifiedDate>,
                   "description"  => "<description>",
@@ -252,7 +252,7 @@ Gets a mapping of custom metric names to RedShift field names from domain XML.  
 
      Dict(
          <metric name> => Dict(
-             "index"        => <index>,                          # Numeric index
+             "index"        => <index>,                      # Numeric index
              "fieldname"    => "custom_metrics_<index>",     # Field name in dswb tables
              "lastModified" => <lastModifiedDate>,
              "description"  => "<description>",
