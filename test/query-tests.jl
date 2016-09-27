@@ -22,6 +22,7 @@ summary = mPulseAPI.getSummaryTimers(token, appID)
 
 
 function testDimensionTable(method, first_symbol, first_friendly)
+    local x
     try
         x = getfield(mPulseAPI, method)(token, appID)
     
@@ -33,6 +34,8 @@ function testDimensionTable(method, first_symbol, first_friendly)
         @test names(x) == [symbol(first_friendly), symbol("Median Time (ms)"), symbol("MoE (ms)"), symbol("Measurements"), symbol("% of total")]
     catch ex
         println("mPulseAPI.$method")
+        show(x)
+        println()
         rethrow(ex)
     end
 end
@@ -49,6 +52,7 @@ testDimensionTable(:getABTestTimers, :test_name, "Test Name")
 # MetricsByDimension
 
 for dimension in ["browser", "page_group", "country", "bw_block", "ab_test"]
+    local metrics
     try
         metrics = mPulseAPI.getMetricsByDimension(token, appID, dimension)
     
@@ -61,6 +65,8 @@ for dimension in ["browser", "page_group", "country", "bw_block", "ab_test"]
         end
     catch ex
         println("mPulseAPI.getMetricsByTimension:$dimension")
+        show(metrics)
+        println()
         rethrow(ex)
     end
 end
