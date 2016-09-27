@@ -467,7 +467,7 @@ the problem</dd>
 </code></pre>
 
 <hr />
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L350-L368" style="float:right;font-size:0.8em;">QueryAPI.jl#350-368</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L359-L377" style="float:right;font-size:0.8em;">QueryAPI.jl#359-377</a></p>
 <h3 id="function-getmetricsbydimension">function <code>getMetricsByDimension</code><a class="headerlink" href="#function-getmetricsbydimension" title="Permanent link">&para;</a></h3>
 <p>Calls the <code>metrics-by-dimension</code> endpoint of the mPulse REST API with the passed in dimension name and filters</p>
 <h4 id="arguments_5">Arguments<a class="headerlink" href="#arguments_5" title="Permanent link">&para;</a></h4>
@@ -478,7 +478,18 @@ the problem</dd>
 <dd>The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
  <a class="x-ref" href="../RepositoryAPI/index.html#function-getrepositorydomain"><code>mPulseAPI.getRepositoryDomain</code></a> to fetch a domain and then inspect <code>domain["attributes"]["appID"]</code></dd>
 <dt><code>dimension::AbstractString</code></dt>
-<dd>The dimension to split metrics by.  The response contains one row for each value of this dimension</dd>
+<dd>
+<p>The dimension to split metrics by.  The response contains one row for each value of this dimension.  The following dimensions are supported:</p>
+<ul>
+<li>page_group</li>
+<li>browser</li>
+<li>country</li>
+<li>bw_block</li>
+<li>ab_test</li>
+</ul>
+<p>See <a href="http://docs.soasta.com/query-api/#metrics-by-dimension-parameters">http://docs.soasta.com/query-api/#metrics-by-dimension-parameters</a> for
+ an up-to-date list.</p>
+</dd>
 </dl>
 <h4 id="optional-arguments_5">Optional Arguments<a class="headerlink" href="#optional-arguments_5" title="Permanent link">&para;</a></h4>
 <dl>
@@ -523,7 +534,7 @@ the problem</dd>
 </code></pre>
 
 <hr />
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L414-L458" style="float:right;font-size:0.8em;">QueryAPI.jl#414-458</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L423-L467" style="float:right;font-size:0.8em;">QueryAPI.jl#423-467</a></p>
 <h3 id="function-gettimersmetrics">function <code>getTimersMetrics</code><a class="headerlink" href="#function-gettimersmetrics" title="Permanent link">&para;</a></h3>
 <p>Calls the <code>timers-metrics</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_6">Arguments<a class="headerlink" href="#arguments_6" title="Permanent link">&para;</a></h4>
@@ -587,7 +598,7 @@ For example, for Last24Hours, there will be 1440 entries representing each minut
 </code></pre>
 
 <hr />
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L494-L504" style="float:right;font-size:0.8em;">QueryAPI.jl#494-504</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L503-L513" style="float:right;font-size:0.8em;">QueryAPI.jl#503-513</a></p>
 <h3 id="function-getgeotimers">function <code>getGeoTimers</code><a class="headerlink" href="#function-getgeotimers" title="Permanent link">&para;</a></h3>
 <p>Calls the <code>geography</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_7">Arguments<a class="headerlink" href="#arguments_7" title="Permanent link">&para;</a></h4>
@@ -642,7 +653,7 @@ the problem</dd>
 </code></pre>
 
 <hr />
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L570-L584" style="float:right;font-size:0.8em;">QueryAPI.jl#570-584</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L579-L593" style="float:right;font-size:0.8em;">QueryAPI.jl#579-593</a></p>
 <h3 id="function-gethistogram">function <code>getHistogram</code><a class="headerlink" href="#function-gethistogram" title="Permanent link">&para;</a></h3>
 <p>Calls the <code>histogram</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_8">Arguments<a class="headerlink" href="#arguments_8" title="Permanent link">&para;</a></h4>
@@ -722,7 +733,7 @@ Dict{AbstractString,Any} with 4 entries:
 </code></pre>
 
 <hr />
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L604-L606" style="float:right;font-size:0.8em;">QueryAPI.jl#604-606</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L613-L615" style="float:right;font-size:0.8em;">QueryAPI.jl#613-615</a></p>
 <h3 id="function-getsessionsoverpageloadtime">function <code>getSessionsOverPageLoadTime</code><a class="headerlink" href="#function-getsessionsoverpageloadtime" title="Permanent link">&para;</a></h3>
 <p>Calls the <code>sessions-per-page-load-time</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_9">Arguments<a class="headerlink" href="#arguments_9" title="Permanent link">&para;</a></h4>
@@ -776,7 +787,7 @@ the problem</dd>
 </code></pre>
 
 <hr />
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L631-L655" style="float:right;font-size:0.8em;">QueryAPI.jl#631-655</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L640-L664" style="float:right;font-size:0.8em;">QueryAPI.jl#640-664</a></p>
 <h3 id="function-getmetricoverpageloadtime">function <code>getMetricOverPageLoadTime</code><a class="headerlink" href="#function-getmetricoverpageloadtime" title="Permanent link">&para;</a></h3>
 <p>Calls the <code>metric-per-page-load-time</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_10">Arguments<a class="headerlink" href="#arguments_10" title="Permanent link">&para;</a></h4>
@@ -834,7 +845,7 @@ the problem</dd>
 </code></pre>
 
 <hr />
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L701-L720" style="float:right;font-size:0.8em;">QueryAPI.jl#701-720</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L710-L729" style="float:right;font-size:0.8em;">QueryAPI.jl#710-729</a></p>
 <h3 id="function-gettimerbyminute">function <code>getTimerByMinute</code><a class="headerlink" href="#function-gettimerbyminute" title="Permanent link">&para;</a></h3>
 <p>Calls the <code>by-minute</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_11">Arguments<a class="headerlink" href="#arguments_11" title="Permanent link">&para;</a></h4>
@@ -898,7 +909,7 @@ The fields are: <code>:timestamp</code> in milliseconds since the UNIX epoch, <c
 </code></pre>
 
 <hr />
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L785-L793" style="float:right;font-size:0.8em;">QueryAPI.jl#785-793</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L794-L802" style="float:right;font-size:0.8em;">QueryAPI.jl#794-802</a></p>
 <h3 id="function-mergemetrics">function <code>mergeMetrics</code><a class="headerlink" href="#function-mergemetrics" title="Permanent link">&para;</a></h3>
 <p>Merge multiple similar <code>DataFrames</code> into a single <code>DataFrame</code></p>
 <p>Use this method to merge the results from multiple calls to <code>getMetricOverPageLoadTime()</code> and <code>getSessionsOverPageLoadTime()</code>.
