@@ -1,10 +1,3 @@
-mPulseAPIToken  = ENV["mPulseAPIToken"]
-mPulseAPITenant = ENV["mPulseAPITenant"]
-
-# Check environment
-@test !isempty(mPulseAPIToken)
-@test !isempty(mPulseAPITenant)
-
 # Try getting token
 token = getRepositoryToken(mPulseAPITenant, mPulseAPIToken)
 @test !isempty(token)

@@ -1,6 +1,3 @@
-mPulseAPIToken  = ENV["mPulseAPIToken"]
-mPulseAPITenant = ENV["mPulseAPITenant"]
-
 token  = getRepositoryToken(mPulseAPITenant, mPulseAPIToken)
 domain = getRepositoryDomain(token, appName="mPulse Demo")
 appID  = domain["attributes"]["appID"]
