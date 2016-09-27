@@ -1,6 +1,19 @@
 # Query API
 
 
+* [getAPIResults](QueryAPI.md#function-getapiresults)
+* [getSummaryTimers](QueryAPI.md#function-getsummarytimers)
+* [getPageGroupTimers](QueryAPI.md#function-getpagegrouptimers)
+* [getBrowserTimers](QueryAPI.md#function-getbrowsertimers)
+* [getABTestTimers](QueryAPI.md#function-getabtesttimers)
+* [getMetricsByDimension](QueryAPI.md#function-getmetricsbydimension)
+* [getTimersMetrics](QueryAPI.md#function-gettimersmetrics)
+* [getGeoTimers](QueryAPI.md#function-getgeotimers)
+* [getHistogram](QueryAPI.md#function-gethistogram)
+* [getSessionsOverPageLoadTime](QueryAPI.md#function-getsessionsoverpageloadtime)
+* [getMetricOverPageLoadTime](QueryAPI.md#function-getmetricoverpageloadtime)
+* [getTimerByMinute](QueryAPI.md#function-gettimerbyminute)
+* [mergeMetrics](QueryAPI.md#function-mergemetrics)
 ## Namespaced Functions
  
 !!! note

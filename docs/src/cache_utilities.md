@@ -1,6 +1,9 @@
 # Internal Cache Utilities
 
 
+* [clearDomainCache](cache_utilities.md#function-cleardomaincache)
+* [clearTenantCache](cache_utilities.md#function-cleartenantcache)
+* [clearTokenCache](cache_utilities.md#function-cleartokencache)
 ## Namespaced Functions
  
 !!! note

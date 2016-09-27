@@ -1,6 +1,12 @@
 # Repository API
 
 
+* [getRepositoryToken](RepositoryAPI.md#function-getrepositorytoken)
+* [getRepositoryDomain](RepositoryAPI.md#function-getrepositorydomain)
+* [getRepositoryTenant](RepositoryAPI.md#function-getrepositorytenant)
+* [getCustomMetricMap](RepositoryAPI.md#function-getcustommetricmap)
+* [getCustomTimerMap](RepositoryAPI.md#function-getcustomtimermap)
+* [getNodeContent](RepositoryAPI.md#function-getnodecontent)
 ## Exported Functions
 [RepositoryAPI.jl#56-100](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L56-L100){: .source-link style="float:right;font-size:0.8em;"}
 ### function `getRepositoryToken`

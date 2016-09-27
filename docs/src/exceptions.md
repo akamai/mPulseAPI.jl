@@ -1,6 +1,10 @@
 # Exceptions
 
 
+* [mPulseAPIException](exceptions.md#datatype-mpulseapiexception)
+* [mPulseAPIAuthException](exceptions.md#datatype-mpulseapiauthexception)
+* [mPulseAPIRequestException](exceptions.md#datatype-mpulseapirequestexception)
+* [mPulseAPIResultFormatException](exceptions.md#datatype-mpulseapiresultformatexception)
 ## Exported Types
 [exceptions.jl#20-23](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/exceptions.jl#L20-L23){: .source-link style="float:right;font-size:0.8em;"}
 ### datatype `mPulseAPIException`

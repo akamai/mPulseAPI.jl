@@ -204,11 +204,18 @@ cd(dirname(@__FILE__)) do
 
                     """)
 
+                local file_symbs = filter(x -> x[:file] == (page.name == "index" ? mod : page.name) * ".jl", symbols)
+                if page.name != "index"
+                    for s in file_symbs
+                        println(f, "* [$(s[:name])]($(refids[s[:name]]))")
+                    end
+                end
+
 
                 for (exported, ex_label) in exps
                     for (typ, ty_label) in labels
 
-                        symbs = filter(x -> x[:file] == (page.name == "index" ? mod : page.name) * ".jl" && x[:exported] == exported && x[:type] == typ, symbols)
+                        local symbs = filter(x -> x[:exported] == exported && x[:type] == typ, file_symbs)
 
                         if length(symbs) > 0
                             !isempty(ty_label) && println(f, "## $ex_label $(ty_label)s")
