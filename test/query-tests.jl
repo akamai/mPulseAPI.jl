@@ -53,11 +53,13 @@ for dimension in ["browser", "page_group", "country", "bw_block", "ab_test"]
     try
         metrics = mPulseAPI.getMetricsByDimension(token, appID, dimension)
     
+        @test size(metrics, 2) == 1 + length(domain["custom_metrics"])
+        @test sort(names(metrics)) == sort(map(symbol, [ dimension; collect(keys(domain["custom_metrics"])) ]))
+
+        # Bandwidth testing is disabled for the mPulse Demo app, so we should have 0 rows for this dimension
         if dimension == "bw_block"
-            @test size(metrics) == (0, 0)
+            @test size(metrics, 1) == 0
         else
-            @test size(metrics, 2) == 1 + length(domain["custom_metrics"])
-            @test sort(names(metrics)) == sort(map(symbol, [ dimension; collect(keys(domain["custom_metrics"])) ]))
             @test size(metrics, 1) > 0
         end
     catch ex

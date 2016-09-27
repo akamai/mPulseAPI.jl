@@ -342,7 +342,6 @@ $(mPulseAPI.readdocs("CleanSeriesSeries-exceptions", [""]))
 
 #### Returns
 `{DataFrame}` A Julia `DataFrame` with the following columns: `:<dimension>`, `:<CustomMetric Name>`...
-if the call was successful, or an empty `DataFrame` if there were no results to be returned.
 
 ```julia
 julia> mPulseAPI.getMetricsByDimension(token, appID, "browser")
@@ -362,8 +361,24 @@ function getMetricsByDimension(token::AbstractString, appID::AbstractString, dim
 
     results = getAPIResults(token, appID, "metrics-by-dimension", filters=filters)
 
-    if length(results) == 0 || results["data"] == nothing
-        return DataFrame()
+    local df
+
+    if length(results) == 0
+        results = Dict("columnNames" => [], "data" => [])
+    end
+
+    if results["data"] == nothing
+        results["data"] = []
+    end
+
+    if length(results["columnNames"]) == 0 || results["columnNames"][2] == nothing || startswith(results["columnNames"][2], "CustomMetric")
+        # The API returned bad columns or no results.  Let's try our best to return a consistent albeit empty DataFrame
+
+        domain = getRepositoryDomain(token, appID=appID)
+
+        custom_metrics = sort( collect(keys(domain["custom_metrics"])), by = k -> domain["custom_metrics"][k]["index"] )
+
+        results["columnNames"] = [dimension; custom_metrics]
     end
 
     df = resultsToDataFrame(results["columnNames"], :metrics, results["data"])
