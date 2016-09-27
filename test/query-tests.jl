@@ -66,7 +66,7 @@ for dimension in ["browser", "page_group", "country", "bw_block", "ab_test"]
             @test size(metrics) == (0, 0)
         else
             @test size(metrics, 2) == 1 + length(domain["custom_metrics"])
-            @test names(metrics) == map(symbol, [ dimension; sort(collect(keys(domain["custom_metrics"])), by = k -> domain["custom_metrics"][k]["index"] ) ])
+            @test sort(names(metrics)) == sort(map(symbol, [ dimension; collect(keys(domain["custom_metrics"])) ]))
         end
     end
 end
