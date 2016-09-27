@@ -323,7 +323,7 @@ $(mPulseAPI.readdocs("APIResults-common-args"))
 #### Optional Arguments
 $(mPulseAPI.readdocs("APIResults-common-optargs"))
 
-$(mPulseAPI.readdocs("friendly-names", ["Test Name", "test_name"]))
+$(mPulseAPI.readdocs("friendly-names", ["Country", "country"]))
 
 #### Throws
 $(mPulseAPI.readdocs("APIResults-exceptions"))
@@ -340,7 +340,7 @@ function getGeoTimers(token::AbstractString, appID::AbstractString; filters::Dic
         return DataFrame()
     end
 
-    df = resultsToDataFrame( Symbol[:country, :timerMedian, :timerMOE, :timerN], :geo, results["data"] )
+    df = resultsToDataFrame( Symbol[:country, :timerMedian, :timerMOE, :timerN], :primary, results["data"] )
 
     df[:t_done_total_pc] = df[:timerN] * 100 / sum(df[:timerN])
 
@@ -839,12 +839,6 @@ const df_types_array = Dict(
                             :primary => Type[AbstractString, Int, Float64, Real, Float64],
 
                             :metrics => Type[AbstractString, Real],
-
-                        # Country == AbstractString
-                        # Median == Int
-                        # MoE == Float64 (see above)
-                        # timerN == Real; (See above)
-                            :geo     => Type[AbstractString, Int, Float64, Real],
 
                             :hist    => Type[Real]
 

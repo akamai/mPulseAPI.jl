@@ -418,11 +418,11 @@ Calls the `geography` endpoint of the mPulse REST API with the passed in filters
 
      Human friendly column names are:
 
-     `Test Name`, `Median Time (ms)`, `MoE (ms)`, `Measurements`, `% of total`
+     `Country`, `Median Time (ms)`, `MoE (ms)`, `Measurements`, `% of total`
 
      Developer friendly column names are:
 
-     `:test_name`, `:t_done_median`, `:t_done_moe`, `:t_done_count`, `:t_done_total_pc`
+     `:country`, `:t_done_median`, `:t_done_moe`, `:t_done_count`, `:t_done_total_pc`
 
 
 
