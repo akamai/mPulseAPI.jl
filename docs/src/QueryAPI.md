@@ -814,7 +814,7 @@ julia> mPulseAPI.getMetricOverPageLoadTime(token, appID)
 
 ---
 
-[QueryAPI.jl#722-741](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L722-L741){: .source-link style="float:right;font-size:0.8em;"}
+[QueryAPI.jl#731-763](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L731-L763){: .source-link style="float:right;font-size:0.8em;"}
 ### function `getTimerByMinute`
 
 Calls the `by-minute` endpoint of the mPulse REST API with the passed in filters
@@ -830,10 +830,17 @@ Calls the `by-minute` endpoint of the mPulse REST API with the passed in filters
 #### Optional Arguments
 `timer::AbstractString`
 :    The name of the timer whose data we want.  If not specified, defaults to `PageLoad`.  Other possible
-     values are TCP, DNS, SSL, etc.  See the output of `mPulseAPI.getTimersMetrics()` for a full list.
-     Note that custom timers need to be named `CustomTimer0`, `CustomTimer1`, etc.  Use `mPulseAPI.getRepositoryDomain()`
-     to get a domain, and then inspect `domain["custom_timers"]["<timer name>"]["mpulseapiname"]` to get an
-     appropriate name for this method.
+     values are:
+
+     * PageLoad
+     * DNS
+     * TCP
+     * SSL
+     * FirstByte
+     * DomLoad
+     * DomReady
+     * FirstLastByte
+     * <all custom timers>
 
 `filters::Dict`
 :    A dict of filters to pass to the mPulse Query API. For example `Dict("page-group" => "foo-bar")`
@@ -884,7 +891,7 @@ julia> data = mPulseAPI.getTimerByMinute(token, appID, timer="PageLoad")
 
 ---
 
-[QueryAPI.jl#806-814](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L806-L814){: .source-link style="float:right;font-size:0.8em;"}
+[QueryAPI.jl#828-836](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L828-L836){: .source-link style="float:right;font-size:0.8em;"}
 ### function `mergeMetrics`
 
 Merge multiple similar `DataFrames` into a single `DataFrame`

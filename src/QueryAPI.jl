@@ -675,7 +675,16 @@ function getMetricOverPageLoadTime(token::AbstractString, appID::AbstractString;
     return df
 end
 
-
+const supported_timers = [
+        "PageLoad",
+        "DNS",
+        "TCP",
+        "SSL",
+        "FirstByte",
+        "DomLoad",
+        "DomReady",
+        "FirstLastByte"
+]
 
 
 """
@@ -687,10 +696,10 @@ $(mPulseAPI.readdocs("APIResults-common-args"))
 #### Optional Arguments
 `timer::AbstractString`
 :    The name of the timer whose data we want.  If not specified, defaults to `PageLoad`.  Other possible
-     values are TCP, DNS, SSL, etc.  See the output of `mPulseAPI.getTimersMetrics()` for a full list.
-     Note that custom timers need to be named `CustomTimer0`, `CustomTimer1`, etc.  Use `mPulseAPI.getRepositoryDomain()`
-     to get a domain, and then inspect `domain["custom_timers"]["<timer name>"]["mpulseapiname"]` to get an
-     appropriate name for this method.
+     values are:
+
+$(join(map(x -> "     * $x", mPulseAPI.supported_timers), "\n"))
+     * <all custom timers>
 
 $(mPulseAPI.readdocs("APIResults-common-optargs"))
 
@@ -720,10 +729,23 @@ julia> data = mPulseAPI.getTimerByMinute(token, appID, timer="PageLoad")
 ```
 """
 function getTimerByMinute(token::AbstractString, appID::AbstractString; filters::Dict=Dict(), timer::AbstractString="")
+    local orig_timer = timer
+
+    if timer != "" && !startswith(timer, "CustomTimer") && timer ∉ supported_timers
+        # Check if this is a known custom timer, and if it is, replace with CustomTimer<index>
+        domain = getRepositoryDomain(token, appID=appID)
+
+        if haskey(domain["custom_timers"], timer)
+            timer = domain["custom_timers"][timer]["mpulseapiname"]
+        else
+            throw(mPulseAPIRequestException("$timer is not a valid timer name", "MPulseAPIException.InvalidParameter", "timer", timer, nothing))
+        end
+    end
+
     if timer != ""
         filters["timer"] = timer
     end
-    timer = (haskey(filters, "timer") && filters["timer"] != "") ? filters["timer"] : timer != "" ? timer : "PageLoad"
+    timer = orig_timer != "" ? orig_timer : (haskey(filters, "timer") && filters["timer"] != "") ? filters["timer"] : "PageLoad"
 
     results = getAPIResults(token, appID, "by-minute", filters=filters)
 
