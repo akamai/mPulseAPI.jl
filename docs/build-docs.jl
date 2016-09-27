@@ -40,6 +40,7 @@ const mkdocs_config = Dict(
     :site_name => "$(mod).jl Documentation",
     :site_url  => "https://SOASTA.github.com/$(mod).jl/",
     :repo_url  => "https://github.com/SOASTA/$(mod).jl/",
+    :site_favicon     => "favicon.ico",
     :site_description => "Communicate with the mPulse Query & Repository REST APIs to fetch information about tenants and apps.",
     :copyright => "SOASTA, Inc.",
     :docs_dir  => "src",
