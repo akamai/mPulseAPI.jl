@@ -72,3 +72,16 @@ for dimension in ["browser", "page_group", "country", "bw_block", "ab_test"]
 end
 
 @test_throws mPulseAPIRequestException mPulseAPI.getMetricsByDimension(token, appID, "some-fake-dimension")
+
+
+# TimersMetrics
+tm = mPulseAPI.getTimersMetrics(token, appID)
+
+fixed_cols = [:Beacons, :PageLoad, :Sessions, :BounceRate, :DNS, :TCP, :SSL, :FirstByte, :DomLoad, :DomReady, :FirstLastByte]
+varia_cols = map(symbol, [collect(keys(domain["custom_timers"])); collect(keys(domain["custom_metrics"]))])
+
+@test size(tm, 2) == length(fixed_cols ∪ varia_cols)
+
+@test sort(names(tm)) == sort(fixed_cols ∪ varia_cols)
+
+@test size(tm, 1) == 1441
