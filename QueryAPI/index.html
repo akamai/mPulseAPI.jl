@@ -149,9 +149,9 @@
 <li><a href="index.html#function-getpagegrouptimers">getPageGroupTimers</a></li>
 <li><a href="index.html#function-getbrowsertimers">getBrowserTimers</a></li>
 <li><a href="index.html#function-getabtesttimers">getABTestTimers</a></li>
+<li><a href="index.html#function-getgeotimers">getGeoTimers</a></li>
 <li><a href="index.html#function-getmetricsbydimension">getMetricsByDimension</a></li>
 <li><a href="index.html#function-gettimersmetrics">getTimersMetrics</a></li>
-<li><a href="index.html#function-getgeotimers">getGeoTimers</a></li>
 <li><a href="index.html#function-gethistogram">getHistogram</a></li>
 <li><a href="index.html#function-getsessionsoverpageloadtime">getSessionsOverPageLoadTime</a></li>
 <li><a href="index.html#function-getmetricoverpageloadtime">getMetricOverPageLoadTime</a></li>
@@ -467,10 +467,10 @@ the problem</dd>
 </dl>
 <h4 id="returns_4">Returns<a class="headerlink" href="#returns_4" title="Permanent link">&para;</a></h4>
 <p><code>{DataFrame}</code> A Julia <code>DataFrame</code> with the following columns:</p>
-<p><code>test_ame</code>, <code>t_done_median</code>, <code>t_done_moe</code>, <code>t_done_count</code>, and <code>t_done_total_pc</code></p>
+<p><code>test_name</code>, <code>t_done_median</code>, <code>t_done_moe</code>, <code>t_done_count</code>, and <code>t_done_total_pc</code></p>
 <pre><code class="julia">julia&gt; pgroups = mPulseAPI.getABTestTimers(token, appID)
 69x5 DataFrames.DataFrame
-| Row | test_ame                    | t_done_median    | t_done_moe | t_done_count | t_done_total_pc |
+| Row | test_name                   | t_done_median    | t_done_moe | t_done_count | t_done_total_pc |
 |-----|-----------------------------|------------------|------------|--------------|-----------------|
 | 1   | (No Value)                  | 3090             | 40.6601    | 49904        | 46.3069         |
 | 2   | Test-A                      | 2557             | 51.7651    | 17779        | 16.4975         |
@@ -483,10 +483,75 @@ the problem</dd>
 </code></pre>
 
 <hr />
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L359-L393" style="float:right;font-size:0.8em;">QueryAPI.jl#359-393</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L336-L354" style="float:right;font-size:0.8em;">QueryAPI.jl#336-354</a></p>
+<h3 id="function-getgeotimers">function <code>getGeoTimers</code><a class="headerlink" href="#function-getgeotimers" title="Permanent link">&para;</a></h3>
+<p>Calls the <code>geography</code> endpoint of the mPulse REST API with the passed in filters</p>
+<h4 id="arguments_5">Arguments<a class="headerlink" href="#arguments_5" title="Permanent link">&para;</a></h4>
+<dl>
+<dt><code>token::AbstractString</code></dt>
+<dd>The Repository authentication token fetched by calling <a class="x-ref" href="../RepositoryAPI/index.html#function-getrepositorytoken"><code>mPulseAPI.getRepositoryToken</code></a></dd>
+<dt><code>appID::AbstractString</code></dt>
+<dd>The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
+ <a class="x-ref" href="../RepositoryAPI/index.html#function-getrepositorydomain"><code>mPulseAPI.getRepositoryDomain</code></a> to fetch a domain and then inspect <code>domain["attributes"]["appID"]</code></dd>
+</dl>
+<h4 id="optional-arguments_5">Optional Arguments<a class="headerlink" href="#optional-arguments_5" title="Permanent link">&para;</a></h4>
+<dl>
+<dt><code>filters::Dict</code></dt>
+<dd>
+<p>A dict of filters to pass to the mPulse Query API. For example <code>Dict("page-group" =&gt; "foo-bar")</code>
+ will filter results to the <code>foo-bar</code> <code>page-group</code>.  The resulting filters will be a merge of
+ what is passed in and the default values with whatever is passed in taking precedence.</p>
+<p>The default filters are:</p>
+<pre><code> Dict(
+     "date-comparator" =&gt; "Last24Hours",
+     "format" =&gt; "json",
+     "series-format" =&gt; "json"
+ )
+</code></pre>
+</dd>
+<dt><code>friendly_names::Bool=false</code></dt>
+<dd>
+<p>Specify whether column names in the <code>DataFrame</code> should be human friendly or developer friendly (default)</p>
+<p>Human friendly column names are:</p>
+<p><code>Test Name</code>, <code>Median Time (ms)</code>, <code>MoE (ms)</code>, <code>Measurements</code>, <code>% of total</code></p>
+<p>Developer friendly column names are:</p>
+<p><code>:test_name</code>, <code>:t_done_median</code>, <code>:t_done_moe</code>, <code>:t_done_count</code>, <code>:t_done_total_pc</code></p>
+</dd>
+</dl>
+<h4 id="throws_5">Throws<a class="headerlink" href="#throws_5" title="Permanent link">&para;</a></h4>
+<dl>
+<dt><a href="../exceptions/index.html#datatype-mpulseapiauthexception"><code>mPulseAPIAuthException</code></a></dt>
+<dd>If the <code>token</code> is invalid or has expired.</dd>
+<dt><a href="../exceptions/index.html#datatype-mpulseapiexception"><code>mPulseAPIException</code></a></dt>
+<dd>If the API returned a non-200 status.  Inspect <code>mPulseAPIException.response</code> for details about
+the problem</dd>
+<dt><a href="../exceptions/index.html#datatype-mpulseapirequestexception"><code>mPulseAPIRequestException</code></a></dt>
+<dd>If the API was unhappy with a request parameter</dd>
+<dt><a href="../exceptions/index.html#datatype-mpulseapiresultformatexception"><code>mPulseAPIResultFormatException</code></a></dt>
+<dd>If the API response had  data in an unexpected data type</dd>
+</dl>
+<h4 id="returns_5">Returns<a class="headerlink" href="#returns_5" title="Permanent link">&para;</a></h4>
+<p><code>{DataFrame}</code> A Julia <code>DataFrame</code> with the following columns:</p>
+<p><code>country</code>, <code>t_done_median</code>, <code>t_done_moe</code>, <code>t_done_count</code>, and <code>t_done_total_pc</code></p>
+<pre><code class="julia">julia&gt; pgroups = mPulseAPI.getCountryTimers(token, appID)
+69x5 DataFrames.DataFrame
+| Row | country                     | t_done_median    | t_done_moe | t_done_count | t_done_total_pc |
+|-----|-----------------------------|------------------|------------|--------------|-----------------|
+| 1   | US                          | 3090             | 40.6601    | 49904        | 46.3069         |
+| 2   | CA                          | 2557             | 51.7651    | 17779        | 16.4975         |
+| 3   | MX                          | 4587             | 88.988     | 7248         | 6.72556         |
+| 4   | PH                          | 3463             | 120.895    | 6885         | 6.38872         |
+| 5   | AU                          | 3276             | 116.507    | 6688         | 6.20592         |
+| 6   | KR                          | 3292             | 165.514    | 2949         | 2.73643         |
+| 7   | PE                          | 2875             | 169.091    | 2386         | 2.21402         |
+
+</code></pre>
+
+<hr />
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L401-L435" style="float:right;font-size:0.8em;">QueryAPI.jl#401-435</a></p>
 <h3 id="function-getmetricsbydimension">function <code>getMetricsByDimension</code><a class="headerlink" href="#function-getmetricsbydimension" title="Permanent link">&para;</a></h3>
 <p>Calls the <code>metrics-by-dimension</code> endpoint of the mPulse REST API with the passed in dimension name and filters</p>
-<h4 id="arguments_5">Arguments<a class="headerlink" href="#arguments_5" title="Permanent link">&para;</a></h4>
+<h4 id="arguments_6">Arguments<a class="headerlink" href="#arguments_6" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>token::AbstractString</code></dt>
 <dd>The Repository authentication token fetched by calling <a class="x-ref" href="../RepositoryAPI/index.html#function-getrepositorytoken"><code>mPulseAPI.getRepositoryToken</code></a></dd>
@@ -506,60 +571,6 @@ the problem</dd>
 <p>See <a href="http://docs.soasta.com/query-api/#metrics-by-dimension-parameters">http://docs.soasta.com/query-api/#metrics-by-dimension-parameters</a> for
  an up-to-date list.</p>
 </dd>
-</dl>
-<h4 id="optional-arguments_5">Optional Arguments<a class="headerlink" href="#optional-arguments_5" title="Permanent link">&para;</a></h4>
-<dl>
-<dt><code>filters::Dict</code></dt>
-<dd>
-<p>A dict of filters to pass to the mPulse Query API. For example <code>Dict("page-group" =&gt; "foo-bar")</code>
- will filter results to the <code>foo-bar</code> <code>page-group</code>.  The resulting filters will be a merge of
- what is passed in and the default values with whatever is passed in taking precedence.</p>
-<p>The default filters are:</p>
-<pre><code> Dict(
-     "date-comparator" =&gt; "Last24Hours",
-     "format" =&gt; "json",
-     "series-format" =&gt; "json"
- )
-</code></pre>
-</dd>
-</dl>
-<h4 id="throws_5">Throws<a class="headerlink" href="#throws_5" title="Permanent link">&para;</a></h4>
-<dl>
-<dt><a href="../exceptions/index.html#datatype-mpulseapiauthexception"><code>mPulseAPIAuthException</code></a></dt>
-<dd>If the <code>token</code> is invalid or has expired.</dd>
-<dt><a href="../exceptions/index.html#datatype-mpulseapiexception"><code>mPulseAPIException</code></a></dt>
-<dd>If the API returned a non-200 status.  Inspect <code>mPulseAPIException.response</code> for details about
-the problem</dd>
-<dt><a href="../exceptions/index.html#datatype-mpulseapirequestexception"><code>mPulseAPIRequestException</code></a></dt>
-<dd>If the API was unhappy with a request parameter</dd>
-<dt><a href="../exceptions/index.html#datatype-mpulseapiresultformatexception"><code>mPulseAPIResultFormatException</code></a></dt>
-<dd>If the API response had  data in an unexpected data type</dd>
-</dl>
-<h4 id="returns_5">Returns<a class="headerlink" href="#returns_5" title="Permanent link">&para;</a></h4>
-<p><code>{DataFrame}</code> A Julia <code>DataFrame</code> with the following columns: <code>:&lt;dimension&gt;</code>, <code>:&lt;CustomMetric Name&gt;</code>...</p>
-<pre><code class="julia">julia&gt; mPulseAPI.getMetricsByDimension(token, appID, &quot;browser&quot;)
-243x4 DataFrames.DataFrame
-| Row | browser                          | Conversion | OrderTotal | ServerDown  |
-|-----|----------------------------------|------------|------------|-------------|
-| 1   | &quot;Mobile Safari/9&quot;                | 1.381      | 1.62854e7  | 0.000994956 |
-| 2   | &quot;Chrome/50&quot;                      | 1.98411    | 3.13401e7  | 0.0050615   |
-| 3   | &quot;Safari/9&quot;                       | 3.08288    | 2.10698e7  | 0.00561545  |
-| 4   | &quot;Firefox/46&quot;                     | 1.90974    | 8569362    | 0.00462406  |
-| 5   | &quot;Mobile Safari/8&quot;                | 2.38545    | 2295848    | 0.0         |
-| 6   | &quot;Chrome/49&quot;                      | 2.22828    | 4394331    | 0.0         |
-</code></pre>
-
-<hr />
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L439-L483" style="float:right;font-size:0.8em;">QueryAPI.jl#439-483</a></p>
-<h3 id="function-gettimersmetrics">function <code>getTimersMetrics</code><a class="headerlink" href="#function-gettimersmetrics" title="Permanent link">&para;</a></h3>
-<p>Calls the <code>timers-metrics</code> endpoint of the mPulse REST API with the passed in filters</p>
-<h4 id="arguments_6">Arguments<a class="headerlink" href="#arguments_6" title="Permanent link">&para;</a></h4>
-<dl>
-<dt><code>token::AbstractString</code></dt>
-<dd>The Repository authentication token fetched by calling <a class="x-ref" href="../RepositoryAPI/index.html#function-getrepositorytoken"><code>mPulseAPI.getRepositoryToken</code></a></dd>
-<dt><code>appID::AbstractString</code></dt>
-<dd>The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
- <a class="x-ref" href="../RepositoryAPI/index.html#function-getrepositorydomain"><code>mPulseAPI.getRepositoryDomain</code></a> to fetch a domain and then inspect <code>domain["attributes"]["appID"]</code></dd>
 </dl>
 <h4 id="optional-arguments_6">Optional Arguments<a class="headerlink" href="#optional-arguments_6" title="Permanent link">&para;</a></h4>
 <dl>
@@ -586,37 +597,27 @@ the problem</dd>
 the problem</dd>
 <dt><a href="../exceptions/index.html#datatype-mpulseapirequestexception"><code>mPulseAPIRequestException</code></a></dt>
 <dd>If the API was unhappy with a request parameter</dd>
-<dt><code>Exception</code></dt>
-<dd>If there was an unexpected type error parsing response values</dd>
+<dt><a href="../exceptions/index.html#datatype-mpulseapiresultformatexception"><code>mPulseAPIResultFormatException</code></a></dt>
+<dd>If the API response had  data in an unexpected data type</dd>
 </dl>
 <h4 id="returns_6">Returns<a class="headerlink" href="#returns_6" title="Permanent link">&para;</a></h4>
-<p><code>{DataFrame}</code> A <code>DataFrame</code> with one column for each timer and metric.  Known columns include:</p>
-<ul>
-<li><code>:Beacons</code> and <code>:PageLoad</code> will always be present.</li>
-<li><code>:Sessions</code> and <code>:BounceRate</code> will be present if session tracking is enabled (on by default)</li>
-<li><code>:DNS</code>, <code>:TCP</code>, <code>:SSL</code>, <code>:FirstByte</code>, <code>:DomLoad</code>, <code>:DomReady</code> and <code>:FirstLastByte</code> will be present if NavigationTiming is available (almost always available)</li>
-<li>Custom Timers &amp; Custom Metrics are included if defined and if they have data for the selected time period</li>
-</ul>
-<p>The last row in the DataFrame is the latest value of the timer or metric.  All preceding rows are historic values over the time period broken down by a predefined time unit.
-For example, for Last24Hours, there will be 1440 entries representing each minute in the 24 hour period.</p>
-<pre><code class="julia">julia&gt; mPulseAPI.getTimersMetrics(token, appID)
-1441x16 DataFrames.DataFrame
-| Row  | PageLoad | DNS | DomLoad | DomReady | FirstByte | SSL | FirstLastByte | TCP | DOM Interactive | Sessions | BounceRate | Conversion | OrderTotal | Beacons |
-|------|----------|-----|---------|----------|-----------|-----|---------------|-----|-----------------|----------|------------|------------|------------|---------|
-| 1    | 3442     │ 46  │ 805     │ 3345     │ 732       │ 59  │ 2468          │ 36  │ 1696            │ 353      │ 34         │ 0.566572   │ 58652.0    │ 1808    │
-| 2    | 3308     | 45  | 758     | 3173     | 705       | 56  | 2351          | 32  | 1620            | 331      | 30         | 2.1148     | 266219.0   | 1767    |
-| 3    | 3412     | 38  | 794     | 3287     | 726       | 69  | 2360          | 31  | 1707            | 346      | 29         | 1.44509    | 209205.0   | 1806    |
-| 4    | 3368     | 40  | 775     | 3250     | 701       | 51  | 2500          | 34  | 1670            | 354      | 32         | 2.25989    | 47354.0    | 1850    |
-| 5    | 3346     | 37  | 754     | 3222     | 691       | 61  | 2516          | 31  | 1624            | 326      | 30         | 2.76074    | 132915.0   | 1742    |
-| 6    | 3162     | 36  | 729     | 3040     | 665       | 86  | 2283          | 30  | 1611            | 382      | 28         | 1.57068    | 117284.0   | 1803    |
-| 7    | 3453     | 39  | 862     | 3320     | 787       | 64  | 2471          | 32  | 1772            | 356      | 33         | 2.52809    | 108045.0   | 1727    |
-| 8    | 3593     | 46  | 1028    | 3491     | 889       | 92  | 2495          | 33  | 1952            | 314      | 33         | 1.27389    | 150020.0   | 1715    |
+<p><code>{DataFrame}</code> A Julia <code>DataFrame</code> with the following columns: <code>:&lt;dimension&gt;</code>, <code>:&lt;CustomMetric Name&gt;</code>...</p>
+<pre><code class="julia">julia&gt; mPulseAPI.getMetricsByDimension(token, appID, &quot;browser&quot;)
+243x4 DataFrames.DataFrame
+| Row | browser                          | Conversion | OrderTotal | ServerDown  |
+|-----|----------------------------------|------------|------------|-------------|
+| 1   | &quot;Mobile Safari/9&quot;                | 1.381      | 1.62854e7  | 0.000994956 |
+| 2   | &quot;Chrome/50&quot;                      | 1.98411    | 3.13401e7  | 0.0050615   |
+| 3   | &quot;Safari/9&quot;                       | 3.08288    | 2.10698e7  | 0.00561545  |
+| 4   | &quot;Firefox/46&quot;                     | 1.90974    | 8569362    | 0.00462406  |
+| 5   | &quot;Mobile Safari/8&quot;                | 2.38545    | 2295848    | 0.0         |
+| 6   | &quot;Chrome/49&quot;                      | 2.22828    | 4394331    | 0.0         |
 </code></pre>
 
 <hr />
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L519-L529" style="float:right;font-size:0.8em;">QueryAPI.jl#519-529</a></p>
-<h3 id="function-getgeotimers">function <code>getGeoTimers</code><a class="headerlink" href="#function-getgeotimers" title="Permanent link">&para;</a></h3>
-<p>Calls the <code>geography</code> endpoint of the mPulse REST API with the passed in filters</p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L481-L525" style="float:right;font-size:0.8em;">QueryAPI.jl#481-525</a></p>
+<h3 id="function-gettimersmetrics">function <code>getTimersMetrics</code><a class="headerlink" href="#function-gettimersmetrics" title="Permanent link">&para;</a></h3>
+<p>Calls the <code>timers-metrics</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_7">Arguments<a class="headerlink" href="#arguments_7" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>token::AbstractString</code></dt>
@@ -650,26 +651,35 @@ For example, for Last24Hours, there will be 1440 entries representing each minut
 the problem</dd>
 <dt><a href="../exceptions/index.html#datatype-mpulseapirequestexception"><code>mPulseAPIRequestException</code></a></dt>
 <dd>If the API was unhappy with a request parameter</dd>
-<dt><a href="../exceptions/index.html#datatype-mpulseapiresultformatexception"><code>mPulseAPIResultFormatException</code></a></dt>
-<dd>If the API response had  data in an unexpected data type</dd>
+<dt><code>Exception</code></dt>
+<dd>If there was an unexpected type error parsing response values</dd>
 </dl>
 <h4 id="returns_7">Returns<a class="headerlink" href="#returns_7" title="Permanent link">&para;</a></h4>
-<p><code>{DataFrame}</code> A Julia <code>DataFrame</code> with the following columns: <code>:country</code>, <code>:timerID</code>, <code>:timerN</code>, <code>:timerMedian</code>, <code>:timerMOE</code></p>
-<pre><code class="julia">julia&gt; geo = mPulseAPI.getGeoTimers(token, appID)
-147x5 DataFrames.DataFrame
-│ Row │ country │ timerID    │ timerN │ timerMedian │ timerMOE │
-│-----│---------│------------│--------│-------------│----------│
-│ 1   │ &quot;A1&quot;    │ &quot;PageLoad&quot; │ 25     │ 4600.0      │ 1471.03  │
-│ 2   │ &quot;AD&quot;    │ &quot;PageLoad&quot; │ 1      │ 23649.0     │ 0.0      │
-│ 3   │ &quot;AE&quot;    │ &quot;PageLoad&quot; │ 210    │ 8850.0      │ 302.937  │
-│ 4   │ &quot;AF&quot;    │ &quot;PageLoad&quot; │ 17     │ 9599.0      │ 4313.33  │
-│ 5   │ &quot;AG&quot;    │ &quot;PageLoad&quot; │ 8      │ 6299.0      │ 4004.22  │
-│ 6   │ &quot;AI&quot;    │ &quot;PageLoad&quot; │ 1      │ 16147.0     │ 0.0      │
-│ 7   │ &quot;AL&quot;    │ &quot;PageLoad&quot; │ 6      │ 8699.0      │ 4190.46  │
+<p><code>{DataFrame}</code> A <code>DataFrame</code> with one column for each timer and metric.  Known columns include:</p>
+<ul>
+<li><code>:Beacons</code> and <code>:PageLoad</code> will always be present.</li>
+<li><code>:Sessions</code> and <code>:BounceRate</code> will be present if session tracking is enabled (on by default)</li>
+<li><code>:DNS</code>, <code>:TCP</code>, <code>:SSL</code>, <code>:FirstByte</code>, <code>:DomLoad</code>, <code>:DomReady</code> and <code>:FirstLastByte</code> will be present if NavigationTiming is available (almost always available)</li>
+<li>Custom Timers &amp; Custom Metrics are included if defined and if they have data for the selected time period</li>
+</ul>
+<p>The last row in the DataFrame is the latest value of the timer or metric.  All preceding rows are historic values over the time period broken down by a predefined time unit.
+For example, for Last24Hours, there will be 1440 entries representing each minute in the 24 hour period.</p>
+<pre><code class="julia">julia&gt; mPulseAPI.getTimersMetrics(token, appID)
+1441x16 DataFrames.DataFrame
+| Row  | PageLoad | DNS | DomLoad | DomReady | FirstByte | SSL | FirstLastByte | TCP | DOM Interactive | Sessions | BounceRate | Conversion | OrderTotal | Beacons |
+|------|----------|-----|---------|----------|-----------|-----|---------------|-----|-----------------|----------|------------|------------|------------|---------|
+| 1    | 3442     │ 46  │ 805     │ 3345     │ 732       │ 59  │ 2468          │ 36  │ 1696            │ 353      │ 34         │ 0.566572   │ 58652.0    │ 1808    │
+| 2    | 3308     | 45  | 758     | 3173     | 705       | 56  | 2351          | 32  | 1620            | 331      | 30         | 2.1148     | 266219.0   | 1767    |
+| 3    | 3412     | 38  | 794     | 3287     | 726       | 69  | 2360          | 31  | 1707            | 346      | 29         | 1.44509    | 209205.0   | 1806    |
+| 4    | 3368     | 40  | 775     | 3250     | 701       | 51  | 2500          | 34  | 1670            | 354      | 32         | 2.25989    | 47354.0    | 1850    |
+| 5    | 3346     | 37  | 754     | 3222     | 691       | 61  | 2516          | 31  | 1624            | 326      | 30         | 2.76074    | 132915.0   | 1742    |
+| 6    | 3162     | 36  | 729     | 3040     | 665       | 86  | 2283          | 30  | 1611            | 382      | 28         | 1.57068    | 117284.0   | 1803    |
+| 7    | 3453     | 39  | 862     | 3320     | 787       | 64  | 2471          | 32  | 1772            | 356      | 33         | 2.52809    | 108045.0   | 1727    |
+| 8    | 3593     | 46  | 1028    | 3491     | 889       | 92  | 2495          | 33  | 1952            | 314      | 33         | 1.27389    | 150020.0   | 1715    |
 </code></pre>
 
 <hr />
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L595-L609" style="float:right;font-size:0.8em;">QueryAPI.jl#595-609</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L591-L605" style="float:right;font-size:0.8em;">QueryAPI.jl#591-605</a></p>
 <h3 id="function-gethistogram">function <code>getHistogram</code><a class="headerlink" href="#function-gethistogram" title="Permanent link">&para;</a></h3>
 <p>Calls the <code>histogram</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_8">Arguments<a class="headerlink" href="#arguments_8" title="Permanent link">&para;</a></h4>
@@ -749,7 +759,7 @@ Dict{AbstractString,Any} with 4 entries:
 </code></pre>
 
 <hr />
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L629-L631" style="float:right;font-size:0.8em;">QueryAPI.jl#629-631</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L625-L627" style="float:right;font-size:0.8em;">QueryAPI.jl#625-627</a></p>
 <h3 id="function-getsessionsoverpageloadtime">function <code>getSessionsOverPageLoadTime</code><a class="headerlink" href="#function-getsessionsoverpageloadtime" title="Permanent link">&para;</a></h3>
 <p>Calls the <code>sessions-per-page-load-time</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_9">Arguments<a class="headerlink" href="#arguments_9" title="Permanent link">&para;</a></h4>
@@ -803,7 +813,7 @@ the problem</dd>
 </code></pre>
 
 <hr />
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L656-L680" style="float:right;font-size:0.8em;">QueryAPI.jl#656-680</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L652-L676" style="float:right;font-size:0.8em;">QueryAPI.jl#652-676</a></p>
 <h3 id="function-getmetricoverpageloadtime">function <code>getMetricOverPageLoadTime</code><a class="headerlink" href="#function-getmetricoverpageloadtime" title="Permanent link">&para;</a></h3>
 <p>Calls the <code>metric-per-page-load-time</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_10">Arguments<a class="headerlink" href="#arguments_10" title="Permanent link">&para;</a></h4>
@@ -861,7 +871,7 @@ the problem</dd>
 </code></pre>
 
 <hr />
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L726-L745" style="float:right;font-size:0.8em;">QueryAPI.jl#726-745</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L722-L741" style="float:right;font-size:0.8em;">QueryAPI.jl#722-741</a></p>
 <h3 id="function-gettimerbyminute">function <code>getTimerByMinute</code><a class="headerlink" href="#function-gettimerbyminute" title="Permanent link">&para;</a></h3>
 <p>Calls the <code>by-minute</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_11">Arguments<a class="headerlink" href="#arguments_11" title="Permanent link">&para;</a></h4>
@@ -925,7 +935,7 @@ The fields are: <code>:timestamp</code> in milliseconds since the UNIX epoch, <c
 </code></pre>
 
 <hr />
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L810-L818" style="float:right;font-size:0.8em;">QueryAPI.jl#810-818</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L806-L814" style="float:right;font-size:0.8em;">QueryAPI.jl#806-814</a></p>
 <h3 id="function-mergemetrics">function <code>mergeMetrics</code><a class="headerlink" href="#function-mergemetrics" title="Permanent link">&para;</a></h3>
 <p>Merge multiple similar <code>DataFrames</code> into a single <code>DataFrame</code></p>
 <p>Use this method to merge the results from multiple calls to <code>getMetricOverPageLoadTime()</code> and <code>getSessionsOverPageLoadTime()</code>.
