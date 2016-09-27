@@ -293,7 +293,7 @@ $(mPulseAPI.readdocs("APIResults-exceptions"))
 $(mPulseAPI.readdocs("CleanSeriesSeries-exceptions", [""]))
 
 #### Returns
-$(mPulseAPI.readdocs("friendly-names-df", ["test_ame", "ABTest", "(No Value)", "Test-A", "Test-B", "BlueHead", "Campaign-XXX", "Old-Site", "Slow-SRP"]))
+$(mPulseAPI.readdocs("friendly-names-df", ["test_name", "ABTest", "(No Value)", "Test-A", "Test-B", "BlueHead", "Campaign-XXX", "Old-Site", "Slow-SRP"]))
 """
 function getABTestTimers(token::AbstractString, appID::AbstractString; filters::Dict=Dict(), friendly_names::Bool=false)
     results = getAPIResults(token, appID, "ab-tests", filters=filters)
@@ -306,6 +306,48 @@ function getABTestTimers(token::AbstractString, appID::AbstractString; filters::
 
     if !friendly_names && size(df, 1) > 0
         names!(df, [:test_name, :t_done_median, :t_done_moe, :t_done_count, :t_done_total_pc])
+    end
+
+    return df
+end
+
+
+
+
+"""
+Calls the `geography` endpoint of the mPulse REST API with the passed in filters
+
+#### Arguments
+$(mPulseAPI.readdocs("APIResults-common-args"))
+
+#### Optional Arguments
+$(mPulseAPI.readdocs("APIResults-common-optargs"))
+
+$(mPulseAPI.readdocs("friendly-names", ["Test Name", "test_name"]))
+
+#### Throws
+$(mPulseAPI.readdocs("APIResults-exceptions"))
+
+$(mPulseAPI.readdocs("CleanSeriesSeries-exceptions", [""]))
+
+#### Returns
+$(mPulseAPI.readdocs("friendly-names-df", ["country", "Country", "US", "CA", "MX", "PH", "AU", "KR", "PE"]))
+"""
+function getGeoTimers(token::AbstractString, appID::AbstractString; filters::Dict=Dict(), friendly_names::Bool=false)
+    results = getAPIResults(token, appID, "geography", filters=filters)
+
+    if length(results) == 0
+        return DataFrame()
+    end
+
+    df = resultsToDataFrame( Symbol[:country, :timerMedian, :timerMOE, :timerN], :geo, results["data"] )
+
+    df[:t_done_total_pc] = df[:timerN] * 100 / sum(df[:timerN])
+
+    if friendly_names
+        names!(df, [:Country, symbol("Median Time (ms)"), symbol("MoE (ms)"), symbol("Measurements"), symbol("% of total")])
+    else
+        names!(df, [:country, :t_done_median, :t_done_moe, :t_done_count, :t_done_total_pc])
     end
 
     return df
@@ -478,52 +520,6 @@ function getTimersMetrics(token::AbstractString, appID::AbstractString; filters:
     for name in nulls
         df[name] = fill(NA, len)
     end
-
-    return df
-end
-
-
-
-
-"""
-Calls the `geography` endpoint of the mPulse REST API with the passed in filters
-
-#### Arguments
-$(mPulseAPI.readdocs("APIResults-common-args"))
-
-#### Optional Arguments
-$(mPulseAPI.readdocs("APIResults-common-optargs"))
-
-#### Throws
-$(mPulseAPI.readdocs("APIResults-exceptions"))
-
-$(mPulseAPI.readdocs("CleanSeriesSeries-exceptions", [""]))
-
-#### Returns
-`{DataFrame}` A Julia `DataFrame` with the following columns: `:country`, `:timerID`, `:timerN`, `:timerMedian`, `:timerMOE`
-
-```julia
-julia> geo = mPulseAPI.getGeoTimers(token, appID)
-147x5 DataFrames.DataFrame
-│ Row │ country │ timerID    │ timerN │ timerMedian │ timerMOE │
-│-----│---------│------------│--------│-------------│----------│
-│ 1   │ "A1"    │ "PageLoad" │ 25     │ 4600.0      │ 1471.03  │
-│ 2   │ "AD"    │ "PageLoad" │ 1      │ 23649.0     │ 0.0      │
-│ 3   │ "AE"    │ "PageLoad" │ 210    │ 8850.0      │ 302.937  │
-│ 4   │ "AF"    │ "PageLoad" │ 17     │ 9599.0      │ 4313.33  │
-│ 5   │ "AG"    │ "PageLoad" │ 8      │ 6299.0      │ 4004.22  │
-│ 6   │ "AI"    │ "PageLoad" │ 1      │ 16147.0     │ 0.0      │
-│ 7   │ "AL"    │ "PageLoad" │ 6      │ 8699.0      │ 4190.46  │
-```
-"""
-function getGeoTimers(token::AbstractString, appID::AbstractString; filters::Dict=Dict())
-    results = getAPIResults(token, appID, "geography", filters=filters)
-
-    if length(results) == 0
-        return DataFrame()
-    end
-
-    df = resultsToDataFrame( Symbol[:country, :timerID, :timerN, :timerMedian, :timerMOE], :geo, results["data"] )
 
     return df
 end
@@ -844,11 +840,11 @@ const df_types_array = Dict(
 
                             :metrics => Type[AbstractString, Real],
 
-                        # Country & TimerID == AbstractString
-                        # timerN == Real; (See above)
+                        # Country == AbstractString
                         # Median == Int
                         # MoE == Float64 (see above)
-                            :geo     => Type[AbstractString, AbstractString, Real, Int, Float64],
+                        # timerN == Real; (See above)
+                            :geo     => Type[AbstractString, Int, Float64, Real],
 
                             :hist    => Type[Real]
 

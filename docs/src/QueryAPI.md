@@ -6,9 +6,9 @@
 * [getPageGroupTimers](QueryAPI.md#function-getpagegrouptimers)
 * [getBrowserTimers](QueryAPI.md#function-getbrowsertimers)
 * [getABTestTimers](QueryAPI.md#function-getabtesttimers)
+* [getGeoTimers](QueryAPI.md#function-getgeotimers)
 * [getMetricsByDimension](QueryAPI.md#function-getmetricsbydimension)
 * [getTimersMetrics](QueryAPI.md#function-gettimersmetrics)
-* [getGeoTimers](QueryAPI.md#function-getgeotimers)
 * [getHistogram](QueryAPI.md#function-gethistogram)
 * [getSessionsOverPageLoadTime](QueryAPI.md#function-getsessionsoverpageloadtime)
 * [getMetricOverPageLoadTime](QueryAPI.md#function-getmetricoverpageloadtime)
@@ -367,12 +367,12 @@ Calls the `ab-tests` endpoint of the mPulse REST API with the passed in filters
 #### Returns
 `{DataFrame}` A Julia `DataFrame` with the following columns:
 
-`test_ame`, `t_done_median`, `t_done_moe`, `t_done_count`, and `t_done_total_pc`
+`test_name`, `t_done_median`, `t_done_moe`, `t_done_count`, and `t_done_total_pc`
 
 ```julia
 julia> pgroups = mPulseAPI.getABTestTimers(token, appID)
 69x5 DataFrames.DataFrame
-| Row | test_ame                    | t_done_median    | t_done_moe | t_done_count | t_done_total_pc |
+| Row | test_name                   | t_done_median    | t_done_moe | t_done_count | t_done_total_pc |
 |-----|-----------------------------|------------------|------------|--------------|-----------------|
 | 1   | (No Value)                  | 3090             | 40.6601    | 49904        | 46.3069         |
 | 2   | Test-A                      | 2557             | 51.7651    | 17779        | 16.4975         |
@@ -386,7 +386,83 @@ julia> pgroups = mPulseAPI.getABTestTimers(token, appID)
 
 ---
 
-[QueryAPI.jl#359-393](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L359-L393){: .source-link style="float:right;font-size:0.8em;"}
+[QueryAPI.jl#336-354](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L336-L354){: .source-link style="float:right;font-size:0.8em;"}
+### function `getGeoTimers`
+
+Calls the `geography` endpoint of the mPulse REST API with the passed in filters
+
+#### Arguments
+`token::AbstractString`
+:    The Repository authentication token fetched by calling [`mPulseAPI.getRepositoryToken`](RepositoryAPI.md#function-getrepositorytoken){: .x-ref}
+
+`appID::AbstractString`
+:    The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
+     [`mPulseAPI.getRepositoryDomain`](RepositoryAPI.md#function-getrepositorydomain){: .x-ref} to fetch a domain and then inspect `domain["attributes"]["appID"]`
+
+#### Optional Arguments
+`filters::Dict`
+:    A dict of filters to pass to the mPulse Query API. For example `Dict("page-group" => "foo-bar")`
+     will filter results to the `foo-bar` `page-group`.  The resulting filters will be a merge of
+     what is passed in and the default values with whatever is passed in taking precedence.
+
+     The default filters are:
+
+         Dict(
+             "date-comparator" => "Last24Hours",
+             "format" => "json",
+             "series-format" => "json"
+         )
+
+`friendly_names::Bool=false`
+:    Specify whether column names in the `DataFrame` should be human friendly or developer friendly (default)
+
+     Human friendly column names are:
+
+     `Test Name`, `Median Time (ms)`, `MoE (ms)`, `Measurements`, `% of total`
+
+     Developer friendly column names are:
+
+     `:test_name`, `:t_done_median`, `:t_done_moe`, `:t_done_count`, `:t_done_total_pc`
+
+
+
+#### Throws
+[`mPulseAPIAuthException`](exceptions.md#datatype-mpulseapiauthexception)
+:   If the `token` is invalid or has expired.
+
+[`mPulseAPIException`](exceptions.md#datatype-mpulseapiexception)
+:   If the API returned a non-200 status.  Inspect `mPulseAPIException.response` for details about
+    the problem
+
+[`mPulseAPIRequestException`](exceptions.md#datatype-mpulseapirequestexception)
+:   If the API was unhappy with a request parameter
+
+[`mPulseAPIResultFormatException`](exceptions.md#datatype-mpulseapiresultformatexception)
+:    If the API response had  data in an unexpected data type
+
+#### Returns
+`{DataFrame}` A Julia `DataFrame` with the following columns:
+
+`country`, `t_done_median`, `t_done_moe`, `t_done_count`, and `t_done_total_pc`
+
+```julia
+julia> pgroups = mPulseAPI.getCountryTimers(token, appID)
+69x5 DataFrames.DataFrame
+| Row | country                     | t_done_median    | t_done_moe | t_done_count | t_done_total_pc |
+|-----|-----------------------------|------------------|------------|--------------|-----------------|
+| 1   | US                          | 3090             | 40.6601    | 49904        | 46.3069         |
+| 2   | CA                          | 2557             | 51.7651    | 17779        | 16.4975         |
+| 3   | MX                          | 4587             | 88.988     | 7248         | 6.72556         |
+| 4   | PH                          | 3463             | 120.895    | 6885         | 6.38872         |
+| 5   | AU                          | 3276             | 116.507    | 6688         | 6.20592         |
+| 6   | KR                          | 3292             | 165.514    | 2949         | 2.73643         |
+| 7   | PE                          | 2875             | 169.091    | 2386         | 2.21402         |
+
+```
+
+---
+
+[QueryAPI.jl#401-435](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L401-L435){: .source-link style="float:right;font-size:0.8em;"}
 ### function `getMetricsByDimension`
 
 Calls the `metrics-by-dimension` endpoint of the mPulse REST API with the passed in dimension name and filters
@@ -457,7 +533,7 @@ julia> mPulseAPI.getMetricsByDimension(token, appID, "browser")
 
 ---
 
-[QueryAPI.jl#439-483](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L439-L483){: .source-link style="float:right;font-size:0.8em;"}
+[QueryAPI.jl#481-525](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L481-L525){: .source-link style="float:right;font-size:0.8em;"}
 ### function `getTimersMetrics`
 
 Calls the `timers-metrics` endpoint of the mPulse REST API with the passed in filters
@@ -526,67 +602,7 @@ julia> mPulseAPI.getTimersMetrics(token, appID)
 
 ---
 
-[QueryAPI.jl#519-529](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L519-L529){: .source-link style="float:right;font-size:0.8em;"}
-### function `getGeoTimers`
-
-Calls the `geography` endpoint of the mPulse REST API with the passed in filters
-
-#### Arguments
-`token::AbstractString`
-:    The Repository authentication token fetched by calling [`mPulseAPI.getRepositoryToken`](RepositoryAPI.md#function-getrepositorytoken){: .x-ref}
-
-`appID::AbstractString`
-:    The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
-     [`mPulseAPI.getRepositoryDomain`](RepositoryAPI.md#function-getrepositorydomain){: .x-ref} to fetch a domain and then inspect `domain["attributes"]["appID"]`
-
-#### Optional Arguments
-`filters::Dict`
-:    A dict of filters to pass to the mPulse Query API. For example `Dict("page-group" => "foo-bar")`
-     will filter results to the `foo-bar` `page-group`.  The resulting filters will be a merge of
-     what is passed in and the default values with whatever is passed in taking precedence.
-
-     The default filters are:
-
-         Dict(
-             "date-comparator" => "Last24Hours",
-             "format" => "json",
-             "series-format" => "json"
-         )
-
-#### Throws
-[`mPulseAPIAuthException`](exceptions.md#datatype-mpulseapiauthexception)
-:   If the `token` is invalid or has expired.
-
-[`mPulseAPIException`](exceptions.md#datatype-mpulseapiexception)
-:   If the API returned a non-200 status.  Inspect `mPulseAPIException.response` for details about
-    the problem
-
-[`mPulseAPIRequestException`](exceptions.md#datatype-mpulseapirequestexception)
-:   If the API was unhappy with a request parameter
-
-[`mPulseAPIResultFormatException`](exceptions.md#datatype-mpulseapiresultformatexception)
-:    If the API response had  data in an unexpected data type
-
-#### Returns
-`{DataFrame}` A Julia `DataFrame` with the following columns: `:country`, `:timerID`, `:timerN`, `:timerMedian`, `:timerMOE`
-
-```julia
-julia> geo = mPulseAPI.getGeoTimers(token, appID)
-147x5 DataFrames.DataFrame
-│ Row │ country │ timerID    │ timerN │ timerMedian │ timerMOE │
-│-----│---------│------------│--------│-------------│----------│
-│ 1   │ "A1"    │ "PageLoad" │ 25     │ 4600.0      │ 1471.03  │
-│ 2   │ "AD"    │ "PageLoad" │ 1      │ 23649.0     │ 0.0      │
-│ 3   │ "AE"    │ "PageLoad" │ 210    │ 8850.0      │ 302.937  │
-│ 4   │ "AF"    │ "PageLoad" │ 17     │ 9599.0      │ 4313.33  │
-│ 5   │ "AG"    │ "PageLoad" │ 8      │ 6299.0      │ 4004.22  │
-│ 6   │ "AI"    │ "PageLoad" │ 1      │ 16147.0     │ 0.0      │
-│ 7   │ "AL"    │ "PageLoad" │ 6      │ 8699.0      │ 4190.46  │
-```
-
----
-
-[QueryAPI.jl#595-609](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L595-L609){: .source-link style="float:right;font-size:0.8em;"}
+[QueryAPI.jl#591-605](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L591-L605){: .source-link style="float:right;font-size:0.8em;"}
 ### function `getHistogram`
 
 Calls the `histogram` endpoint of the mPulse REST API with the passed in filters
@@ -676,7 +692,7 @@ julia> histo["buckets"]
 
 ---
 
-[QueryAPI.jl#629-631](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L629-L631){: .source-link style="float:right;font-size:0.8em;"}
+[QueryAPI.jl#625-627](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L625-L627){: .source-link style="float:right;font-size:0.8em;"}
 ### function `getSessionsOverPageLoadTime`
 
 Calls the `sessions-per-page-load-time` endpoint of the mPulse REST API with the passed in filters
@@ -734,7 +750,7 @@ julia> mPulseAPI.getSessionsOverPageLoadTime(token, appID)
 
 ---
 
-[QueryAPI.jl#656-680](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L656-L680){: .source-link style="float:right;font-size:0.8em;"}
+[QueryAPI.jl#652-676](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L652-L676){: .source-link style="float:right;font-size:0.8em;"}
 ### function `getMetricOverPageLoadTime`
 
 Calls the `metric-per-page-load-time` endpoint of the mPulse REST API with the passed in filters
@@ -798,7 +814,7 @@ julia> mPulseAPI.getMetricOverPageLoadTime(token, appID)
 
 ---
 
-[QueryAPI.jl#726-745](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L726-L745){: .source-link style="float:right;font-size:0.8em;"}
+[QueryAPI.jl#722-741](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L722-L741){: .source-link style="float:right;font-size:0.8em;"}
 ### function `getTimerByMinute`
 
 Calls the `by-minute` endpoint of the mPulse REST API with the passed in filters
@@ -868,7 +884,7 @@ julia> data = mPulseAPI.getTimerByMinute(token, appID, timer="PageLoad")
 
 ---
 
-[QueryAPI.jl#810-818](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L810-L818){: .source-link style="float:right;font-size:0.8em;"}
+[QueryAPI.jl#806-814](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L806-L814){: .source-link style="float:right;font-size:0.8em;"}
 ### function `mergeMetrics`
 
 Merge multiple similar `DataFrames` into a single `DataFrame`

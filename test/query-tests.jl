@@ -46,6 +46,9 @@ testDimensionTable(:getBrowserTimers, :user_agent, "User Agent")
 # ABTests
 testDimensionTable(:getABTestTimers, :test_name, "Test Name")
 
+# Geo
+testDimensionTable(:getGeoTimers, :country, "Country")
+
 # MetricsByDimension
 
 for dimension in ["browser", "page_group", "country", "bw_block", "ab_test"]
