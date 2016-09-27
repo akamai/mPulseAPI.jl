@@ -342,6 +342,7 @@ $(mPulseAPI.readdocs("CleanSeriesSeries-exceptions", [""]))
 
 #### Returns
 `{DataFrame}` A Julia `DataFrame` with the following columns: `:<dimension>`, `:<CustomMetric Name>`...
+if the call was successful, or an empty `DataFrame` if there were no results to be returned.
 
 ```julia
 julia> mPulseAPI.getMetricsByDimension(token, appID, "browser")
@@ -361,7 +362,7 @@ function getMetricsByDimension(token::AbstractString, appID::AbstractString, dim
 
     results = getAPIResults(token, appID, "metrics-by-dimension", filters=filters)
 
-    if length(results) == 0
+    if length(results) == 0 || results["data"] == nothing
         return DataFrame()
     end
 

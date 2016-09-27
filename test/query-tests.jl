@@ -6,7 +6,8 @@ domain = getRepositoryDomain(token, appName="mPulse Demo")
 appID  = domain["attributes"]["appID"]
 
 # Summary
-@test_throws mPulseAPIAuthException mPulseAPI.getSummaryTimers("invalid-token", appID)
+# We need to add a random string to the appID to cache bust API results from the previous test
+@test_throws mPulseAPIAuthException mPulseAPI.getSummaryTimers("invalid-token", appID * "-" * base(16, round(Int, rand()*100000), 5))
 @test_throws mPulseAPIRequestException mPulseAPI.getSummaryTimers(token, appID, filters = Dict("invalid-token" => "foo"))
 
 summary = mPulseAPI.getSummaryTimers(token, appID)
@@ -20,17 +21,30 @@ summary = mPulseAPI.getSummaryTimers(token, appID)
 @test isa(summary["moe"], Float64)
 
 
+function getCustomHandler(method::AbstractString)
+    return function custom_handler(r)
+        if isa(r, Test.Success)
+            return
+        elseif isa(r, Test.Failure)
+            error("Error on $(method): $(r.expr)")
+        else
+            println("Error on $(method)")
+            rethrow(r)
+        end
+    end
+end
+
 function testDimensionTable(method, first_symbol, first_friendly)
-    println(method)
-
-    x = getfield(mPulseAPI, method)(token, appID)
-
-    @test size(x, 2) == 5
-    @test names(x) == [first_symbol, :t_done_median, :t_done_moe, :t_done_count, :t_done_total_pc]
-
-    x = getfield(mPulseAPI, method)(token, appID, friendly_names=true)
-    @test size(x, 2) == 5
-    @test names(x) == [symbol(first_friendly), symbol("Median Time (ms)"), symbol("MoE (ms)"), symbol("Measurements"), symbol("% of total")]
+    Test.with_handler(getCustomHandler("mPulseAPI.$method")) do
+        x = getfield(mPulseAPI, method)(token, appID)
+    
+        @test size(x, 2) == 5
+        @test names(x) == [first_symbol, :t_done_median, :t_done_moe, :t_done_count, :t_done_total_pc]
+    
+        x = getfield(mPulseAPI, method)(token, appID, friendly_names=true)
+        @test size(x, 2) == 5
+        @test names(x) == [symbol(first_friendly), symbol("Median Time (ms)"), symbol("MoE (ms)"), symbol("Measurements"), symbol("% of total")]
+    end
 end
 
 # Page Groups
@@ -42,3 +56,19 @@ testDimensionTable(:getBrowserTimers, :user_agent, "User Agent")
 # ABTests
 testDimensionTable(:getABTestTimers, :test_name, "Test Name")
 
+# MetricsByDimension
+
+for dimension in ["browser", "page_group", "country", "bw_block", "ab_test"]
+    Test.with_handler(getCustomHandler("mPulseAPI.getMetricsByTimension:$dimension")) do
+        metrics = mPulseAPI.getMetricsByDimension(token, appID, dimension)
+    
+        if dimension == "bw_block"
+            @test size(metrics) == (0, 0)
+        else
+            @test size(metrics, 2) == 1 + length(domain["custom_metrics"])
+            @test names(metrics) == map(symbol, [ dimension; sort(collect(keys(domain["custom_metrics"])), by = k -> domain["custom_metrics"][k]["index"] ) ])
+        end
+    end
+end
+
+@test_throws mPulseAPIRequestException mPulseAPI.getMetricsByDimension(token, appID, "some-fake-dimension")
