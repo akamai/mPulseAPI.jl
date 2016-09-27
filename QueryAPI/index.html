@@ -871,7 +871,7 @@ the problem</dd>
 </code></pre>
 
 <hr />
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L722-L741" style="float:right;font-size:0.8em;">QueryAPI.jl#722-741</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L731-L763" style="float:right;font-size:0.8em;">QueryAPI.jl#731-763</a></p>
 <h3 id="function-gettimerbyminute">function <code>getTimerByMinute</code><a class="headerlink" href="#function-gettimerbyminute" title="Permanent link">&para;</a></h3>
 <p>Calls the <code>by-minute</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_11">Arguments<a class="headerlink" href="#arguments_11" title="Permanent link">&para;</a></h4>
@@ -885,11 +885,21 @@ the problem</dd>
 <h4 id="optional-arguments_11">Optional Arguments<a class="headerlink" href="#optional-arguments_11" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>timer::AbstractString</code></dt>
-<dd>The name of the timer whose data we want.  If not specified, defaults to <code>PageLoad</code>.  Other possible
- values are TCP, DNS, SSL, etc.  See the output of <code>mPulseAPI.getTimersMetrics()</code> for a full list.
- Note that custom timers need to be named <code>CustomTimer0</code>, <code>CustomTimer1</code>, etc.  Use <code>mPulseAPI.getRepositoryDomain()</code>
- to get a domain, and then inspect <code>domain["custom_timers"]["&lt;timer name&gt;"]["mpulseapiname"]</code> to get an
- appropriate name for this method.</dd>
+<dd>
+<p>The name of the timer whose data we want.  If not specified, defaults to <code>PageLoad</code>.  Other possible
+ values are:</p>
+<ul>
+<li>PageLoad</li>
+<li>DNS</li>
+<li>TCP</li>
+<li>SSL</li>
+<li>FirstByte</li>
+<li>DomLoad</li>
+<li>DomReady</li>
+<li>FirstLastByte</li>
+<li><all custom timers></li>
+</ul>
+</dd>
 <dt><code>filters::Dict</code></dt>
 <dd>
 <p>A dict of filters to pass to the mPulse Query API. For example <code>Dict("page-group" =&gt; "foo-bar")</code>
@@ -935,7 +945,7 @@ The fields are: <code>:timestamp</code> in milliseconds since the UNIX epoch, <c
 </code></pre>
 
 <hr />
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L806-L814" style="float:right;font-size:0.8em;">QueryAPI.jl#806-814</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L828-L836" style="float:right;font-size:0.8em;">QueryAPI.jl#828-836</a></p>
 <h3 id="function-mergemetrics">function <code>mergeMetrics</code><a class="headerlink" href="#function-mergemetrics" title="Permanent link">&para;</a></h3>
 <p>Merge multiple similar <code>DataFrames</code> into a single <code>DataFrame</code></p>
 <p>Use this method to merge the results from multiple calls to <code>getMetricOverPageLoadTime()</code> and <code>getSessionsOverPageLoadTime()</code>.
