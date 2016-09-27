@@ -21,21 +21,8 @@ summary = mPulseAPI.getSummaryTimers(token, appID)
 @test isa(summary["moe"], Float64)
 
 
-function getCustomHandler(method::AbstractString)
-    return function custom_handler(r)
-        if isa(r, Test.Success)
-            return
-        elseif isa(r, Test.Failure)
-            error("Error on $(method): $(r.expr)")
-        else
-            println("Error on $(method)")
-            rethrow(r)
-        end
-    end
-end
-
 function testDimensionTable(method, first_symbol, first_friendly)
-    Test.with_handler(getCustomHandler("mPulseAPI.$method")) do
+    try
         x = getfield(mPulseAPI, method)(token, appID)
     
         @test size(x, 2) == 5
@@ -44,6 +31,9 @@ function testDimensionTable(method, first_symbol, first_friendly)
         x = getfield(mPulseAPI, method)(token, appID, friendly_names=true)
         @test size(x, 2) == 5
         @test names(x) == [symbol(first_friendly), symbol("Median Time (ms)"), symbol("MoE (ms)"), symbol("Measurements"), symbol("% of total")]
+    catch ex
+        println("mPulseAPI.$method")
+        rethrow(ex)
     end
 end
 
@@ -59,7 +49,7 @@ testDimensionTable(:getABTestTimers, :test_name, "Test Name")
 # MetricsByDimension
 
 for dimension in ["browser", "page_group", "country", "bw_block", "ab_test"]
-    Test.with_handler(getCustomHandler("mPulseAPI.getMetricsByTimension:$dimension")) do
+    try
         metrics = mPulseAPI.getMetricsByDimension(token, appID, dimension)
     
         if dimension == "bw_block"
@@ -67,7 +57,11 @@ for dimension in ["browser", "page_group", "country", "bw_block", "ab_test"]
         else
             @test size(metrics, 2) == 1 + length(domain["custom_metrics"])
             @test sort(names(metrics)) == sort(map(symbol, [ dimension; collect(keys(domain["custom_metrics"])) ]))
+            @test size(metrics, 1) > 0
         end
+    catch ex
+        println("mPulseAPI.getMetricsByTimension:$dimension")
+        rethrow(ex)
     end
 end
 
