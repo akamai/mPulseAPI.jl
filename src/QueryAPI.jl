@@ -321,7 +321,16 @@ Calls the `metrics-by-dimension` endpoint of the mPulse REST API with the passed
 $(mPulseAPI.readdocs("APIResults-common-args"))
 
 `dimension::AbstractString`
-:    The dimension to split metrics by.  The response contains one row for each value of this dimension
+:    The dimension to split metrics by.  The response contains one row for each value of this dimension.  The following dimensions are supported:
+
+     * page_group
+     * browser
+     * country
+     * bw_block
+     * ab_test
+
+     See [http://docs.soasta.com/query-api/#metrics-by-dimension-parameters](http://docs.soasta.com/query-api/#metrics-by-dimension-parameters) for
+     an up-to-date list.
 
 #### Optional Arguments
 $(mPulseAPI.readdocs("APIResults-common-optargs"))
