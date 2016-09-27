@@ -1,3 +1,5 @@
+using DataFrames
+
 token  = getRepositoryToken(mPulseAPITenant, mPulseAPIToken)
 domain = getRepositoryDomain(token, appName="mPulse Demo")
 appID  = domain["attributes"]["appID"]
@@ -87,3 +89,20 @@ varia_cols = map(symbol, [collect(keys(domain["custom_timers"])); collect(keys(d
 @test sort(names(tm)) == sort(fixed_cols ∪ varia_cols)
 
 @test size(tm, 1) == 1441
+
+
+# Histogram
+
+hgm = mPulseAPI.getHistogram(token, appID)
+
+@test length(hgm) == 4
+@test isa(hgm["median"], Int)
+@test isa(hgm["p95"], Int)
+@test isa(hgm["p98"], Int)
+@test isa(hgm["buckets"], DataFrame)
+
+@test size(hgm["buckets"], 2) == 3
+@test names(hgm["buckets"]) == [:bucket_start, :bucket_end, :element_count]
+for col in names(hgm["buckets"])
+    @test isa(hgm["buckets"][col], DataArrays.DataArray{Real,1})
+end
