@@ -620,7 +620,7 @@ $(mPulseAPI.readdocs("APIResults-common-optargs"))
 $(mPulseAPI.readdocs("APIResults-exceptions"))
 
 #### Returns
-$(mPulseAPI.readdocs("MetricOverLoadTime-return-format", ["Sessions", "Sessions  "]))
+$(mPulseAPI.readdocs("MetricOverLoadTime-return-format", ["Sessions", "Sessions", 72, 36, 30, 66, 464, 749, 709, 1246]))
 """
 function getSessionsOverPageLoadTime(token::AbstractString, appID::AbstractString; filters::Dict=Dict())
     return getMetricOverPageLoadTime(token, appID, filters=filters, metric="Sessions")
@@ -637,7 +637,7 @@ $(mPulseAPI.readdocs("APIResults-common-args"))
 
 #### Optional Arguments
 `metric::AbstractString`
-:    The metric name whose data we want.  If not specified, defaults to `BounceRate`
+:    The name of the metric that we want data for.  If not specified, defaults to `BounceRate`
 
 $(mPulseAPI.readdocs("APIResults-common-optargs"))
 
@@ -647,7 +647,7 @@ $(mPulseAPI.readdocs("APIResults-exceptions", ["metric"]))
 $(mPulseAPI.readdocs("CleanSeriesSeries-exceptions"))
 
 #### Returns
-$(mPulseAPI.readdocs("MetricOverLoadTime-return-format", ["Metric", "BounceRate"]))
+$(mPulseAPI.readdocs("MetricOverLoadTime-return-format", ["Metric", "BounceRate", "NA", 100.0, 68.57, 12.65, 71.08, 14.51, 20.83, 24.58]))
 """
 function getMetricOverPageLoadTime(token::AbstractString, appID::AbstractString; filters::Dict=Dict(), metric::AbstractString="")
     if metric != ""

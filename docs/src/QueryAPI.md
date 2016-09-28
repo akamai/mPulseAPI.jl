@@ -738,14 +738,16 @@ julia> mPulseAPI.getSessionsOverPageLoadTime(token, appID)
 60x2 DataFrames.DataFrame
 | Row | t_done | Sessions   |
 |-----|--------|------------|
-| 1   | 8      | 50.0       |
-| 2   | 9      | 100.0      |
-| 3   | 10     | 100.0      |
-| 4   | 12     | 100.0      |
-| 5   | 16     | 100.0      |
-| 6   | 18     | 100.0      |
-| 7   | 22     | 100.0      |
-| 8   | 26     | 100.0      |
+| 1   | 210    | 72         |
+| 2   | 300    | 36         |
+| 3   | 400    | 72         |
+| 4   | 500    | 30         |
+| 5   | 550    | 66         |
+| 6   | 600    | 464        |
+| 7   | 700    | 30         |
+| 8   | 800    | 749        |
+| 9   | 900    | 709        |
+| 10  | 1050   | 1246       |
 ```
 
 ---
@@ -765,7 +767,7 @@ Calls the `metric-per-page-load-time` endpoint of the mPulse REST API with the p
 
 #### Optional Arguments
 `metric::AbstractString`
-:    The metric name whose data we want.  If not specified, defaults to `BounceRate`
+:    The name of the metric that we want data for.  If not specified, defaults to `BounceRate`
 
 `filters::Dict`
 :    A dict of filters to pass to the mPulse Query API. For example `Dict("page-group" => "foo-bar")`
@@ -802,14 +804,16 @@ julia> mPulseAPI.getMetricOverPageLoadTime(token, appID)
 60x2 DataFrames.DataFrame
 | Row | t_done | BounceRate |
 |-----|--------|------------|
-| 1   | 8      | 50.0       |
-| 2   | 9      | 100.0      |
-| 3   | 10     | 100.0      |
-| 4   | 12     | 100.0      |
-| 5   | 16     | 100.0      |
-| 6   | 18     | 100.0      |
-| 7   | 22     | 100.0      |
-| 8   | 26     | 100.0      |
+| 1   | 210    | NA         |
+| 2   | 300    | 100.0      |
+| 3   | 400    | NA         |
+| 4   | 500    | 68.57      |
+| 5   | 550    | 12.65      |
+| 6   | 600    | 71.08      |
+| 7   | 700    | 68.57      |
+| 8   | 800    | 14.51      |
+| 9   | 900    | 20.83      |
+| 10  | 1050   | 24.58      |
 ```
 
 ---
