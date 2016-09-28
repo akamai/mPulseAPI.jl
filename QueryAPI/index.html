@@ -901,7 +901,7 @@ the problem</dd>
 <li>DomLoad</li>
 <li>DomReady</li>
 <li>FirstLastByte</li>
-<li><all custom timers></li>
+<li>&lt;all custom timers&gt;</li>
 </ul>
 </dd>
 <dt><code>filters::Dict</code></dt>
@@ -931,7 +931,7 @@ the problem</dd>
 <dd>If the API response had a missing <code>series</code> element or data in an unexpected data type</dd>
 </dl>
 <h4 id="returns_11">Returns<a class="headerlink" href="#returns_11" title="Permanent link">&para;</a></h4>
-<p><code>{DataFrame{</code> A julia <code>DataFrame</code> containing timeseries data for the median value of the timer and its margin of error.
+<p><code>{DataFrame}</code> A julia <code>DataFrame</code> containing timeseries data for the median value of the timer and its margin of error.
 The fields are: <code>:timestamp</code> in milliseconds since the UNIX epoch, <code>:&lt;TimerName&gt;</code> in milliseconds and <code>:moe</code> in milliseconds.</p>
 <pre><code class="julia">julia&gt; data = mPulseAPI.getTimerByMinute(token, appID, timer=&quot;PageLoad&quot;)
 1440x3 DataFrames.DataFrame
