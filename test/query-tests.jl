@@ -153,10 +153,19 @@ merged_frame = mPulseAPI.mergeMetrics(metric_frames...)
 
 # TimerByMinute
 for timer in mPulseAPI.supported_timers ∪ collect(keys(domain["custom_timers"]))
-    tbm = mPulseAPI.getTimerByMinute(token, appID, timer=timer)
+    local tbm
+    try
+        tbm = mPulseAPI.getTimerByMinute(token, appID, timer=timer)
 
-    @test size(tbm) == (1440, 3)
-    @test names(tbm) == [:timestamp, symbol(timer), :moe]
+        @test size(tbm) == (1440, 3)
+        @test names(tbm) == [:timestamp, symbol(timer), :moe]
+    catch ex
+        warn("mPulseAPI.getTimerByMinute($timer)")
+        show(tbm)
+        println()
+
+        rethrow(ex)
+    end
 end
 
 @test_throws mPulseAPIRequestException mPulseAPI.getTimerByMinute(token, appID, timer="Some-Bad-Timer")
