@@ -1,8 +1,8 @@
 # mPulseAPI
 
 
-[mPulseAPI.jl#16](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/mPulseAPI.jl#L16-L16){: .source-link style="float:right;font-size:0.8em;"}
 ## module `mPulseAPI`
+[mPulseAPI.jl#16](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/mPulseAPI.jl#L16-L16){: .source-link}
 
 Communicate with the mPulse Query & Repository REST APIs to fetch information about tenants and apps.
 

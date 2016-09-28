@@ -41,6 +41,7 @@ const mkdocs_config = Dict(
     :site_url  => "https://SOASTA.github.com/$(mod).jl/",
     :repo_url  => "https://github.com/SOASTA/$(mod).jl/",
     :site_favicon     => "favicon.ico",
+    :extra_css => ["css/mkdocs.css"],
     :site_description => "Communicate with the mPulse Query & Repository REST APIs to fetch information about tenants and apps.",
     :copyright => "SOASTA, Inc.",
     :docs_dir  => "src",
@@ -229,8 +230,8 @@ cd(dirname(@__FILE__)) do
 
                             for s in symbs
                                 println(f, """
-                                    [$(s[:file])#$(s[:line])$(s[:endline] != s[:line] ? "-$(s[:endline])" : "")]($(mkdocs_config[:repo_url])tree/master/src/$(s[:file])#L$(s[:line])-L$(s[:endline])){: .source-link style="float:right;font-size:0.8em;"}
                                     ##$(typ == Module ? "" : "#") $(lowercase(string(s[:type]))) `$(s[:name])`
+                                    [$(s[:file])#$(s[:line])$(s[:endline] != s[:line] ? "-$(s[:endline])" : "")]($(mkdocs_config[:repo_url])tree/master/src/$(s[:file])#L$(s[:line])-L$(s[:endline])){: .source-link}
                                     """)
 
                                 # Replace references with links to actual functions

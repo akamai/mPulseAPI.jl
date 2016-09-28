@@ -6,8 +6,8 @@
 * [mPulseAPIRequestException](exceptions.md#datatype-mpulseapirequestexception)
 * [mPulseAPIResultFormatException](exceptions.md#datatype-mpulseapiresultformatexception)
 ## Exported Types
-[exceptions.jl#20-23](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/exceptions.jl#L20-L23){: .source-link style="float:right;font-size:0.8em;"}
 ### datatype `mPulseAPIException`
+[exceptions.jl#20-23](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/exceptions.jl#L20-L23){: .source-link}
 
 Thrown when the REST API has a problem and returns something other than a 2xx response.
 
@@ -21,8 +21,8 @@ Thrown when the REST API has a problem and returns something other than a 2xx re
 
 ---
 
-[exceptions.jl#33-35](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/exceptions.jl#L33-L35){: .source-link style="float:right;font-size:0.8em;"}
 ### datatype `mPulseAPIAuthException`
+[exceptions.jl#33-35](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/exceptions.jl#L33-L35){: .source-link}
 
 Thrown when the token used to authenticate with the REST API is invalid or has expired
 
@@ -33,8 +33,8 @@ Thrown when the token used to authenticate with the REST API is invalid or has e
 
 ---
 
-[exceptions.jl#57-63](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/exceptions.jl#L57-L63){: .source-link style="float:right;font-size:0.8em;"}
 ### datatype `mPulseAPIRequestException`
+[exceptions.jl#57-63](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/exceptions.jl#L57-L63){: .source-link}
 
 Thrown when a request parameter is invalid
 
@@ -57,8 +57,8 @@ Thrown when a request parameter is invalid
 
 ---
 
-[exceptions.jl#76-79](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/exceptions.jl#L76-L79){: .source-link style="float:right;font-size:0.8em;"}
 ### datatype `mPulseAPIResultFormatException`
+[exceptions.jl#76-79](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/exceptions.jl#L76-L79){: .source-link}
 
 Thrown when the result returned by an API call was not in the expected format
 
