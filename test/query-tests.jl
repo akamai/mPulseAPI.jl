@@ -127,20 +127,19 @@ for tuple in metrics
     
         @test size(x, 2) == 2
         @test names(x) == [:t_done, tuple[2]]
-        @test size(x, 1) > 0
 
-        # This test will fail when Bug 108727 is fixed so we'll get alerted about that
-        @test length(tuple) < 3 || tuple[3] != "OrderTotal"
+        if length(tuple) == 3 && tuple[3] == "OrderTotal"
+            # This test will fail when Bug 108727 is fixed so we'll get alerted about that
+            @test size(x, 1) == 0
+        else
+            @test size(x, 1) > 0
+        end
     catch ex
         warn("mPulseAPI.$(tuple[1])", length(tuple) == 3 ? ":$(tuple[3])" : "")
         show(x)
         println()
 
-        if length(tuple) == 3 && tuple[3] == "OrderTotal" && endswith(ex.msg, " size(x,1) > 0")
-            warn("Due to upstream API bug 108727 " * ex.msg)
-        else
-            rethrow(ex)
-        end
+        rethrow(ex)
     end
 end
 
