@@ -228,7 +228,7 @@ function getPageGroupTimers(token::AbstractString, appID::AbstractString; filter
 
     df = resultsToDataFrame(results["columnNames"], :primary, results["data"])
 
-    if !friendly_names && size(df, 1) > 0
+    if !friendly_names
         names!(df, [:page_group, :t_done_median, :t_done_moe, :t_done_count, :t_done_total_pc])
     end
 
@@ -266,7 +266,7 @@ function getBrowserTimers(token::AbstractString, appID::AbstractString; filters:
 
     df = resultsToDataFrame(results["columnNames"], :primary, results["data"])
 
-    if !friendly_names && size(df, 1) > 0
+    if !friendly_names
         names!(df, [:user_agent, :t_done_median, :t_done_moe, :t_done_count, :t_done_total_pc])
     end
 
@@ -304,7 +304,7 @@ function getABTestTimers(token::AbstractString, appID::AbstractString; filters::
 
     df = resultsToDataFrame(results["columnNames"], :primary, results["data"])
 
-    if !friendly_names && size(df, 1) > 0
+    if !friendly_names
         names!(df, [:test_name, :t_done_median, :t_done_moe, :t_done_count, :t_done_total_pc])
     end
 
@@ -425,11 +425,9 @@ function getMetricsByDimension(token::AbstractString, appID::AbstractString, dim
 
     df = resultsToDataFrame(results["columnNames"], :metrics, results["data"])
 
-    if size(df, 1) > 0
-        ns = names(df)
-        ns[1] = symbol(dimension)
-        names!(df, ns)
-    end
+    ns = names(df)
+    ns[1] = symbol(dimension)
+    names!(df, ns)
 
     return df
 end
@@ -515,11 +513,7 @@ function getTimersMetrics(token::AbstractString, appID::AbstractString; filters:
         df[name] = history
     end
 
-    len = size(df, 1)
-
-    for name in nulls
-        df[name] = fill(NA, len)
-    end
+    df[nulls] = NA
 
     return df
 end
@@ -594,7 +588,7 @@ function getHistogram(token::AbstractString, appID::AbstractString; filters::Dic
     results = cleanSeriesSeries(results)
 
     results["buckets"] = resultsToDataFrame( Symbol[:s, :e, :c], :hist, results["aPoints"] )
-    size(results["buckets"], 1) > 0 && names!(results["buckets"], [ :bucket_start, :bucket_end, :element_count ])
+    names!(results["buckets"], [ :bucket_start, :bucket_end, :element_count ])
 
     delete!(results, "name")
     delete!(results, "aPoints")
@@ -670,7 +664,7 @@ function getMetricOverPageLoadTime(token::AbstractString, appID::AbstractString;
 
     df = resultsToDataFrame( Symbol[:x, :y], :hist, results["aPoints"] )
 
-    size(df, 1) > 0 && names!(df, [ :t_done, symbol(metric) ])
+    names!(df, [ :t_done, symbol(metric) ])
 
     return df
 end
@@ -753,10 +747,12 @@ function getTimerByMinute(token::AbstractString, appID::AbstractString; filters:
 
     df = resultsToDataFrame( Symbol[:x, :y], :hist, results["aPoints"] )
 
+    names!(df, [ :timestamp, symbol(timer)])
+
     if size(df, 1) > 0
         df[:moe] = DataArray{Int}(map(p -> round(Int, 1000*JSON.parse(p["userdata"])["value"]), results["aPoints"]))
-
-        names!(df, [ :timestamp, symbol(timer), :moe ])
+    else
+        df[:moe] = DataArray{Int}([])
     end
 
     return df
