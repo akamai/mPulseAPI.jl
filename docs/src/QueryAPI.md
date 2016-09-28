@@ -844,7 +844,7 @@ Calls the `by-minute` endpoint of the mPulse REST API with the passed in filters
      * DomLoad
      * DomReady
      * FirstLastByte
-     * <all custom timers>
+     * &lt;all custom timers&gt;
 
 `filters::Dict`
 :    A dict of filters to pass to the mPulse Query API. For example `Dict("page-group" => "foo-bar")`
@@ -874,7 +874,7 @@ Calls the `by-minute` endpoint of the mPulse REST API with the passed in filters
 :    If the API response had a missing `series` element or data in an unexpected data type
 
 #### Returns
-`{DataFrame{` A julia `DataFrame` containing timeseries data for the median value of the timer and its margin of error.
+`{DataFrame}` A julia `DataFrame` containing timeseries data for the median value of the timer and its margin of error.
 The fields are: `:timestamp` in milliseconds since the UNIX epoch, `:<TimerName>` in milliseconds and `:moe` in milliseconds.
 
 ```julia

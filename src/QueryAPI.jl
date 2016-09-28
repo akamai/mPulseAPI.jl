@@ -693,7 +693,7 @@ $(mPulseAPI.readdocs("APIResults-common-args"))
      values are:
 
 $(join(map(x -> "     * $x", mPulseAPI.supported_timers), "\n"))
-     * <all custom timers>
+     * &lt;all custom timers&gt;
 
 $(mPulseAPI.readdocs("APIResults-common-optargs"))
 
@@ -703,7 +703,7 @@ $(mPulseAPI.readdocs("APIResults-exceptions", ["timer"]))
 $(mPulseAPI.readdocs("CleanSeriesSeries-exceptions"))
 
 #### Returns
-`{DataFrame{` A julia `DataFrame` containing timeseries data for the median value of the timer and its margin of error.
+`{DataFrame}` A julia `DataFrame` containing timeseries data for the median value of the timer and its margin of error.
 The fields are: `:timestamp` in milliseconds since the UNIX epoch, `:<TimerName>` in milliseconds and `:moe` in milliseconds.
 
 ```julia
