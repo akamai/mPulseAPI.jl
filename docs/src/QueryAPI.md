@@ -462,7 +462,7 @@ julia> pgroups = mPulseAPI.getCountryTimers(token, appID)
 
 ---
 
-[QueryAPI.jl#401-435](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L401-L435){: .source-link style="float:right;font-size:0.8em;"}
+[QueryAPI.jl#401-433](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L401-L433){: .source-link style="float:right;font-size:0.8em;"}
 ### function `getMetricsByDimension`
 
 Calls the `metrics-by-dimension` endpoint of the mPulse REST API with the passed in dimension name and filters
@@ -533,7 +533,7 @@ julia> mPulseAPI.getMetricsByDimension(token, appID, "browser")
 
 ---
 
-[QueryAPI.jl#481-525](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L481-L525){: .source-link style="float:right;font-size:0.8em;"}
+[QueryAPI.jl#479-519](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L479-L519){: .source-link style="float:right;font-size:0.8em;"}
 ### function `getTimersMetrics`
 
 Calls the `timers-metrics` endpoint of the mPulse REST API with the passed in filters
@@ -602,7 +602,7 @@ julia> mPulseAPI.getTimersMetrics(token, appID)
 
 ---
 
-[QueryAPI.jl#591-605](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L591-L605){: .source-link style="float:right;font-size:0.8em;"}
+[QueryAPI.jl#585-599](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L585-L599){: .source-link style="float:right;font-size:0.8em;"}
 ### function `getHistogram`
 
 Calls the `histogram` endpoint of the mPulse REST API with the passed in filters
@@ -692,7 +692,7 @@ julia> histo["buckets"]
 
 ---
 
-[QueryAPI.jl#625-627](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L625-L627){: .source-link style="float:right;font-size:0.8em;"}
+[QueryAPI.jl#619-621](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L619-L621){: .source-link style="float:right;font-size:0.8em;"}
 ### function `getSessionsOverPageLoadTime`
 
 Calls the `sessions-per-page-load-time` endpoint of the mPulse REST API with the passed in filters
@@ -752,7 +752,7 @@ julia> mPulseAPI.getSessionsOverPageLoadTime(token, appID)
 
 ---
 
-[QueryAPI.jl#652-676](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L652-L676){: .source-link style="float:right;font-size:0.8em;"}
+[QueryAPI.jl#646-670](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L646-L670){: .source-link style="float:right;font-size:0.8em;"}
 ### function `getMetricOverPageLoadTime`
 
 Calls the `metric-per-page-load-time` endpoint of the mPulse REST API with the passed in filters
@@ -818,7 +818,7 @@ julia> mPulseAPI.getMetricOverPageLoadTime(token, appID)
 
 ---
 
-[QueryAPI.jl#731-763](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L731-L763){: .source-link style="float:right;font-size:0.8em;"}
+[QueryAPI.jl#725-759](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L725-L759){: .source-link style="float:right;font-size:0.8em;"}
 ### function `getTimerByMinute`
 
 Calls the `by-minute` endpoint of the mPulse REST API with the passed in filters
@@ -895,7 +895,7 @@ julia> data = mPulseAPI.getTimerByMinute(token, appID, timer="PageLoad")
 
 ---
 
-[QueryAPI.jl#828-836](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L828-L836){: .source-link style="float:right;font-size:0.8em;"}
+[QueryAPI.jl#824-832](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L824-L832){: .source-link style="float:right;font-size:0.8em;"}
 ### function `mergeMetrics`
 
 Merge multiple similar `DataFrames` into a single `DataFrame`

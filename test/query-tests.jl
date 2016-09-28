@@ -32,7 +32,7 @@ function testDimensionTable(method, first_symbol, first_friendly)
         @test size(x, 2) == 5
         @test names(x) == [symbol(first_friendly), symbol("Median Time (ms)"), symbol("MoE (ms)"), symbol("Measurements"), symbol("% of total")]
     catch ex
-        println("mPulseAPI.$method")
+        warn("mPulseAPI.$method")
         show(x)
         println()
         rethrow(ex)
@@ -68,7 +68,7 @@ for dimension in ["browser", "page_group", "country", "bw_block", "ab_test"]
             @test size(metrics, 1) > 0
         end
     catch ex
-        println("mPulseAPI.getMetricsByTimension:$dimension")
+        warn("mPulseAPI.getMetricsByTimension:$dimension")
         show(metrics)
         println()
         rethrow(ex)
@@ -106,3 +106,58 @@ hgm = mPulseAPI.getHistogram(token, appID)
 for col in names(hgm["buckets"])
     @test isa(hgm["buckets"][col], DataArrays.DataArray{Real,1})
 end
+
+
+# Sessions/Metrics OverPageLoadTime
+metric_frames = []
+metrics = [
+    (:getSessionsOverPageLoadTime, :Sessions),
+    (:getMetricOverPageLoadTime, :BounceRate)
+] ∪ map(m -> (:getMetricOverPageLoadTime, symbol(m), m), collect(keys(domain["custom_metrics"])))
+for tuple in metrics
+    local x
+    try
+        if length(tuple) == 3
+            x = getfield(mPulseAPI, tuple[1])(token, appID, metric=tuple[3])
+        else
+            x = getfield(mPulseAPI, tuple[1])(token, appID)
+        end
+
+        push!(metric_frames, x)
+    
+        @test size(x, 2) == 2
+        @test names(x) == [:t_done, tuple[2]]
+        @test size(x, 1) > 0
+
+        # This test will fail when Bug 108727 is fixed so we'll get alerted about that
+        @test length(tuple) < 3 || tuple[3] != "OrderTotal"
+    catch ex
+        warn("mPulseAPI.$(tuple[1])", length(tuple) == 3 ? ":$(tuple[3])" : "")
+        show(x)
+        println()
+
+        if length(tuple) == 3 && tuple[3] == "OrderTotal" && endswith(ex.msg, " size(x,1) > 0")
+            warn("Due to upstream API bug 108727 " * ex.msg)
+        else
+            rethrow(ex)
+        end
+    end
+end
+
+# MergeMetrics
+merged_frame = mPulseAPI.mergeMetrics(metric_frames...)
+
+@test size(merged_frame, 2) == 3 + length(domain["custom_metrics"])
+@test names(merged_frame) == [:t_done, :Sessions, :BounceRate] ∪ map(symbol, collect(keys(domain["custom_metrics"])))
+@test size(merged_frame, 1) > 0
+
+
+# TimerByMinute
+for timer in mPulseAPI.supported_timers ∪ collect(keys(domain["custom_timers"]))
+    tbm = mPulseAPI.getTimerByMinute(token, appID, timer=timer)
+
+    @test size(tbm) == (1440, 3)
+    @test names(tbm) == [:timestamp, symbol(timer), :moe]
+end
+
+@test_throws mPulseAPIRequestException mPulseAPI.getTimerByMinute(token, appID, timer="Some-Bad-Timer")
