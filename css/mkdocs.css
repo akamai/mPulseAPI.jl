@@ -1,0 +1,15 @@
+.rst-content .section ul li > p+ul, li > p+ul {
+    margin-bottom: 12px;
+    margin-top: -10px;
+}
+
+a.source-link {
+    float: right;
+    font-size: 0.8em;
+    margin-top: -3em;
+}
+
+a.x-ref:after {
+    content:" \1F517";
+    font-size: 0.75em;
+}

@@ -20,6 +20,7 @@
   <link rel="stylesheet" href="../css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
   <link rel="stylesheet" href="../css/highlight.css">
+  <link href="../css/mkdocs.css" rel="stylesheet">
 
   
   <script>
@@ -154,15 +155,15 @@
 <p>The following methods are not exported by default. You may use them by explicitly
 importing them or by prefixing them with the <code>mPulseAPI.</code> namespace.</p>
 </div>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/cache_utilities.jl#L87-L137" style="float:right;font-size:0.8em;">cache_utilities.jl#87-137</a></p>
 <h3 id="function-cleardomaincache">function <code>clearDomainCache</code><a class="headerlink" href="#function-cleardomaincache" title="Permanent link">&para;</a></h3>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/cache_utilities.jl#L87-L137">cache_utilities.jl#87-137</a></p>
 <p>Expire an entry from the domain cache.  Use this if the domain has changed.</p>
 <h4 id="optional-arguments">Optional Arguments<a class="headerlink" href="#optional-arguments" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>domainID::Int64</code></dt>
 <dd>The ID of the domain to expire.</dd>
 <dt><code>appID::AbstractString</code></dt>
-<dd>The App ID (formerly known as API key) associated with the domain.  This can be got from the mPulse domain configuration dialog.</dd>
+<dd>The App ID (formerly known as API key) associated with the domain.  This is available from the mPulse domain configuration dialog.</dd>
 <dt><code>appName::AbstractString</code></dt>
 <dd>The App name in mPulse.  This can be got from the mPulse domain configuration dialog.</dd>
 </dl>
@@ -174,8 +175,8 @@ importing them or by prefixing them with the <code>mPulseAPI.</code> namespace.<
 <dd>if the entry was not in cache</dd>
 </dl>
 <hr />
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/cache_utilities.jl#L108-L137" style="float:right;font-size:0.8em;">cache_utilities.jl#108-137</a></p>
 <h3 id="function-cleartenantcache">function <code>clearTenantCache</code><a class="headerlink" href="#function-cleartenantcache" title="Permanent link">&para;</a></h3>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/cache_utilities.jl#L108-L137">cache_utilities.jl#108-137</a></p>
 <p>Expire an entry from the tenant cache.  Use this if the tenant has changed.</p>
 <h4 id="optional-arguments_1">Optional Arguments<a class="headerlink" href="#optional-arguments_1" title="Permanent link">&para;</a></h4>
 <dl>
@@ -192,8 +193,8 @@ importing them or by prefixing them with the <code>mPulseAPI.</code> namespace.<
 <dd>if the entry was not in cache</dd>
 </dl>
 <hr />
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/cache_utilities.jl#L127-L137" style="float:right;font-size:0.8em;">cache_utilities.jl#127-137</a></p>
 <h3 id="function-cleartokencache">function <code>clearTokenCache</code><a class="headerlink" href="#function-cleartokencache" title="Permanent link">&para;</a></h3>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/cache_utilities.jl#L127-L137">cache_utilities.jl#127-137</a></p>
 <p>Expire an entry from the token cache.  Use this if the token associated with this tenant is no longer valid.</p>
 <h4 id="arguments">Arguments<a class="headerlink" href="#arguments" title="Permanent link">&para;</a></h4>
 <dl>
