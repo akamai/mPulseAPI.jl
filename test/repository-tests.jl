@@ -4,32 +4,43 @@ token = getRepositoryToken(mPulseAPITenant, mPulseAPIToken)
 
 # Get all domains
 domains = getRepositoryDomain(token)
-@test length(domains) == 1
+@test length(domains) == 2
+
+domainNames = map(d -> d["name"], domains)
+@test "mPulse Demo" ∈ domainNames
+@test "mPulseAPI Test" ∈ domainNames
 
 # Get a specific domain
-appID = domains[1]["attributes"]["appID"]
+appID = filter(d -> d["name"] == "mPulseAPI Test", domains)[1]["attributes"]["appID"]
 @test !isempty(appID)
 
 domain = getRepositoryDomain(token, appID=appID)
 @test !isempty(domain)
 
 # Check domain parameters
-@test domain["name"] == "mPulse Demo"
+@test domain["name"] == "mPulseAPI Test"
 @test domain["attributes"]["appID"] == appID
 @test domain["resource_timing"]
 
 # Check custom metrics
 @test isa(domain["custom_metrics"], Dict)
-@test length(domain["custom_metrics"]) == 2
+@test length(domain["custom_metrics"]) == 3
 
 @test haskey(domain["custom_metrics"], "Conversion")
 @test haskey(domain["custom_metrics"], "OrderTotal")
+@test haskey(domain["custom_metrics"], "Revenue GBP")
 
 @test domain["custom_metrics"]["Conversion"]["index"] == 0
 @test domain["custom_metrics"]["Conversion"]["fieldname"] == "custom_metrics_0"
 @test domain["custom_metrics"]["Conversion"]["dataType"]["type"] == "Percentage"
 
-# CustomMetric1 does not exist
+@test domain["custom_metrics"]["Revenue GBP"]["index"] == 1
+@test domain["custom_metrics"]["Revenue GBP"]["fieldname"] == "custom_metrics_1"
+@test domain["custom_metrics"]["Revenue GBP"]["dataType"]["type"] == "Currency"
+@test domain["custom_metrics"]["Revenue GBP"]["dataType"]["currencyCode"] == "GBP"
+@test domain["custom_metrics"]["Revenue GBP"]["dataType"]["currencySymbol"] == "£"
+@test domain["custom_metrics"]["Revenue GBP"]["dataType"]["decimalPlaces"] == "2"
+
 # CustomMetric2 is inactive
 
 @test domain["custom_metrics"]["OrderTotal"]["index"] == 3
