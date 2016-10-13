@@ -381,7 +381,9 @@ function getRepositoryObject(token::AbstractString, objectType::AbstractString, 
         throw(mPulseAPIException("Error fetching $(objectType) $(debugID)", repositoryJSON))
     end
 
-    object = Requests.json(repositoryJSON)
+    # Do not use Requests.json as that expects UTF-8 data, and mPulse API's response is ISO-8859-1
+    json = join(map(Char, repositoryJSON.data))
+    object = JSON.parse(json)
 
     # If calling by a searchKey other than ID, the return value will be a Dict with a single key="objects"
     # and value set to an array of domain objects.
