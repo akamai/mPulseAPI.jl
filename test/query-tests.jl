@@ -157,7 +157,7 @@ for timer in mPulseAPI.supported_timers ∪ collect(keys(domain["custom_timers"]
     try
         tbm = mPulseAPI.getTimerByMinute(token, appID, timer=timer)
 
-        @test size(tbm) == (1440, 3)
+        @test size(tbm) == (1440, 3) || size(tbm) == (1439, 3)      # The mPulse API will sometimes not return the last minute of the day
         @test names(tbm) == [:timestamp, symbol(timer), :moe]
     catch ex
         warn("mPulseAPI.getTimerByMinute($timer)")
