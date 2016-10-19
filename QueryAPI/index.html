@@ -166,7 +166,7 @@
 importing them or by prefixing them with the <code>mPulseAPI.</code> namespace.</p>
 </div>
 <h3 id="function-getapiresults">function <code>getAPIResults</code><a class="headerlink" href="#function-getapiresults" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L59-L147">QueryAPI.jl#59-147</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L59-L151">QueryAPI.jl#59-151</a></p>
 <p>Get API results from the mPulse <a href="http://docs.soasta.com/query-api/">Query API</a></p>
 <p>This method is a generic catch-all that queries the mPulse API and returns results as a Julia data structure matching the JSON structure of the specified API call</p>
 <h4 id="arguments">Arguments<a class="headerlink" href="#arguments" title="Permanent link">&para;</a></h4>
@@ -205,8 +205,15 @@ importing them or by prefixing them with the <code>mPulseAPI.</code> namespace.<
 <p>The default filters are:</p>
 <pre><code> Dict(
      "date-comparator" =&gt; "Last24Hours",
-     "format" =&gt; "json",
-     "series-format" =&gt; "json"
+ )
+</code></pre>
+<p>The <code>date-start</code> and <code>date-end</code> filters accept a <code>DateTime</code> object while the <code>date</code> filter
+ accepts a <code>Date</code> object.</p>
+<p>If you'd like to use a <code>ZonedDateTime</code>, pass in its <code>utc_datetime</code> field:</p>
+<pre><code> filters = Dict(
+     "date-comparator" =&gt; "Between",
+     "date-start"      =&gt; ZonedDateTime(2016, 10, 19, 4, 30, TimeZone("America/New_York")).utc_datetime,
+     "date-end"        =&gt; DateTime(2016, 10, 19, 16, 30)
  )
 </code></pre>
 </dd>
@@ -227,7 +234,7 @@ the problem</dd>
 <p><code>{Any}</code> A Julia representation of the JSON returned by the API call. Convenience wrappers in this library may return more appropriate data structures.</p>
 <hr />
 <h3 id="function-getsummarytimers">function <code>getSummaryTimers</code><a class="headerlink" href="#function-getsummarytimers" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L196-L198">QueryAPI.jl#196-198</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L200-L202">QueryAPI.jl#200-202</a></p>
 <p>Calls the <code>summary</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_1">Arguments<a class="headerlink" href="#arguments_1" title="Permanent link">&para;</a></h4>
 <dl>
@@ -247,8 +254,15 @@ the problem</dd>
 <p>The default filters are:</p>
 <pre><code> Dict(
      "date-comparator" =&gt; "Last24Hours",
-     "format" =&gt; "json",
-     "series-format" =&gt; "json"
+ )
+</code></pre>
+<p>The <code>date-start</code> and <code>date-end</code> filters accept a <code>DateTime</code> object while the <code>date</code> filter
+ accepts a <code>Date</code> object.</p>
+<p>If you'd like to use a <code>ZonedDateTime</code>, pass in its <code>utc_datetime</code> field:</p>
+<pre><code> filters = Dict(
+     "date-comparator" =&gt; "Between",
+     "date-start"      =&gt; ZonedDateTime(2016, 10, 19, 4, 30, TimeZone("America/New_York")).utc_datetime,
+     "date-end"        =&gt; DateTime(2016, 10, 19, 16, 30)
  )
 </code></pre>
 </dd>
@@ -290,7 +304,7 @@ Dict{Any,Any} with 5 entries:
 
 <hr />
 <h3 id="function-getpagegrouptimers">function <code>getPageGroupTimers</code><a class="headerlink" href="#function-getpagegrouptimers" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L222-L236">QueryAPI.jl#222-236</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L226-L240">QueryAPI.jl#226-240</a></p>
 <p>Calls the <code>page-groups</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_2">Arguments<a class="headerlink" href="#arguments_2" title="Permanent link">&para;</a></h4>
 <dl>
@@ -310,8 +324,15 @@ Dict{Any,Any} with 5 entries:
 <p>The default filters are:</p>
 <pre><code> Dict(
      "date-comparator" =&gt; "Last24Hours",
-     "format" =&gt; "json",
-     "series-format" =&gt; "json"
+ )
+</code></pre>
+<p>The <code>date-start</code> and <code>date-end</code> filters accept a <code>DateTime</code> object while the <code>date</code> filter
+ accepts a <code>Date</code> object.</p>
+<p>If you'd like to use a <code>ZonedDateTime</code>, pass in its <code>utc_datetime</code> field:</p>
+<pre><code> filters = Dict(
+     "date-comparator" =&gt; "Between",
+     "date-start"      =&gt; ZonedDateTime(2016, 10, 19, 4, 30, TimeZone("America/New_York")).utc_datetime,
+     "date-end"        =&gt; DateTime(2016, 10, 19, 16, 30)
  )
 </code></pre>
 </dd>
@@ -355,7 +376,7 @@ the problem</dd>
 
 <hr />
 <h3 id="function-getbrowsertimers">function <code>getBrowserTimers</code><a class="headerlink" href="#function-getbrowsertimers" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L260-L274">QueryAPI.jl#260-274</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L264-L278">QueryAPI.jl#264-278</a></p>
 <p>Calls the <code>browsers</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_3">Arguments<a class="headerlink" href="#arguments_3" title="Permanent link">&para;</a></h4>
 <dl>
@@ -375,8 +396,15 @@ the problem</dd>
 <p>The default filters are:</p>
 <pre><code> Dict(
      "date-comparator" =&gt; "Last24Hours",
-     "format" =&gt; "json",
-     "series-format" =&gt; "json"
+ )
+</code></pre>
+<p>The <code>date-start</code> and <code>date-end</code> filters accept a <code>DateTime</code> object while the <code>date</code> filter
+ accepts a <code>Date</code> object.</p>
+<p>If you'd like to use a <code>ZonedDateTime</code>, pass in its <code>utc_datetime</code> field:</p>
+<pre><code> filters = Dict(
+     "date-comparator" =&gt; "Between",
+     "date-start"      =&gt; ZonedDateTime(2016, 10, 19, 4, 30, TimeZone("America/New_York")).utc_datetime,
+     "date-end"        =&gt; DateTime(2016, 10, 19, 16, 30)
  )
 </code></pre>
 </dd>
@@ -420,7 +448,7 @@ the problem</dd>
 
 <hr />
 <h3 id="function-getabtesttimers">function <code>getABTestTimers</code><a class="headerlink" href="#function-getabtesttimers" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L298-L312">QueryAPI.jl#298-312</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L302-L316">QueryAPI.jl#302-316</a></p>
 <p>Calls the <code>ab-tests</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_4">Arguments<a class="headerlink" href="#arguments_4" title="Permanent link">&para;</a></h4>
 <dl>
@@ -440,8 +468,15 @@ the problem</dd>
 <p>The default filters are:</p>
 <pre><code> Dict(
      "date-comparator" =&gt; "Last24Hours",
-     "format" =&gt; "json",
-     "series-format" =&gt; "json"
+ )
+</code></pre>
+<p>The <code>date-start</code> and <code>date-end</code> filters accept a <code>DateTime</code> object while the <code>date</code> filter
+ accepts a <code>Date</code> object.</p>
+<p>If you'd like to use a <code>ZonedDateTime</code>, pass in its <code>utc_datetime</code> field:</p>
+<pre><code> filters = Dict(
+     "date-comparator" =&gt; "Between",
+     "date-start"      =&gt; ZonedDateTime(2016, 10, 19, 4, 30, TimeZone("America/New_York")).utc_datetime,
+     "date-end"        =&gt; DateTime(2016, 10, 19, 16, 30)
  )
 </code></pre>
 </dd>
@@ -485,7 +520,7 @@ the problem</dd>
 
 <hr />
 <h3 id="function-getgeotimers">function <code>getGeoTimers</code><a class="headerlink" href="#function-getgeotimers" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L336-L354">QueryAPI.jl#336-354</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L340-L358">QueryAPI.jl#340-358</a></p>
 <p>Calls the <code>geography</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_5">Arguments<a class="headerlink" href="#arguments_5" title="Permanent link">&para;</a></h4>
 <dl>
@@ -505,8 +540,15 @@ the problem</dd>
 <p>The default filters are:</p>
 <pre><code> Dict(
      "date-comparator" =&gt; "Last24Hours",
-     "format" =&gt; "json",
-     "series-format" =&gt; "json"
+ )
+</code></pre>
+<p>The <code>date-start</code> and <code>date-end</code> filters accept a <code>DateTime</code> object while the <code>date</code> filter
+ accepts a <code>Date</code> object.</p>
+<p>If you'd like to use a <code>ZonedDateTime</code>, pass in its <code>utc_datetime</code> field:</p>
+<pre><code> filters = Dict(
+     "date-comparator" =&gt; "Between",
+     "date-start"      =&gt; ZonedDateTime(2016, 10, 19, 4, 30, TimeZone("America/New_York")).utc_datetime,
+     "date-end"        =&gt; DateTime(2016, 10, 19, 16, 30)
  )
 </code></pre>
 </dd>
@@ -550,7 +592,7 @@ the problem</dd>
 
 <hr />
 <h3 id="function-getmetricsbydimension">function <code>getMetricsByDimension</code><a class="headerlink" href="#function-getmetricsbydimension" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L401-L433">QueryAPI.jl#401-433</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L405-L437">QueryAPI.jl#405-437</a></p>
 <p>Calls the <code>metrics-by-dimension</code> endpoint of the mPulse REST API with the passed in dimension name and filters</p>
 <h4 id="arguments_6">Arguments<a class="headerlink" href="#arguments_6" title="Permanent link">&para;</a></h4>
 <dl>
@@ -583,8 +625,15 @@ the problem</dd>
 <p>The default filters are:</p>
 <pre><code> Dict(
      "date-comparator" =&gt; "Last24Hours",
-     "format" =&gt; "json",
-     "series-format" =&gt; "json"
+ )
+</code></pre>
+<p>The <code>date-start</code> and <code>date-end</code> filters accept a <code>DateTime</code> object while the <code>date</code> filter
+ accepts a <code>Date</code> object.</p>
+<p>If you'd like to use a <code>ZonedDateTime</code>, pass in its <code>utc_datetime</code> field:</p>
+<pre><code> filters = Dict(
+     "date-comparator" =&gt; "Between",
+     "date-start"      =&gt; ZonedDateTime(2016, 10, 19, 4, 30, TimeZone("America/New_York")).utc_datetime,
+     "date-end"        =&gt; DateTime(2016, 10, 19, 16, 30)
  )
 </code></pre>
 </dd>
@@ -617,7 +666,7 @@ the problem</dd>
 
 <hr />
 <h3 id="function-gettimersmetrics">function <code>getTimersMetrics</code><a class="headerlink" href="#function-gettimersmetrics" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L479-L519">QueryAPI.jl#479-519</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L483-L523">QueryAPI.jl#483-523</a></p>
 <p>Calls the <code>timers-metrics</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_7">Arguments<a class="headerlink" href="#arguments_7" title="Permanent link">&para;</a></h4>
 <dl>
@@ -637,8 +686,15 @@ the problem</dd>
 <p>The default filters are:</p>
 <pre><code> Dict(
      "date-comparator" =&gt; "Last24Hours",
-     "format" =&gt; "json",
-     "series-format" =&gt; "json"
+ )
+</code></pre>
+<p>The <code>date-start</code> and <code>date-end</code> filters accept a <code>DateTime</code> object while the <code>date</code> filter
+ accepts a <code>Date</code> object.</p>
+<p>If you'd like to use a <code>ZonedDateTime</code>, pass in its <code>utc_datetime</code> field:</p>
+<pre><code> filters = Dict(
+     "date-comparator" =&gt; "Between",
+     "date-start"      =&gt; ZonedDateTime(2016, 10, 19, 4, 30, TimeZone("America/New_York")).utc_datetime,
+     "date-end"        =&gt; DateTime(2016, 10, 19, 16, 30)
  )
 </code></pre>
 </dd>
@@ -681,7 +737,7 @@ For example, for Last24Hours, there will be 1440 entries representing each minut
 
 <hr />
 <h3 id="function-gethistogram">function <code>getHistogram</code><a class="headerlink" href="#function-gethistogram" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L585-L599">QueryAPI.jl#585-599</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L589-L603">QueryAPI.jl#589-603</a></p>
 <p>Calls the <code>histogram</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_8">Arguments<a class="headerlink" href="#arguments_8" title="Permanent link">&para;</a></h4>
 <dl>
@@ -701,8 +757,15 @@ For example, for Last24Hours, there will be 1440 entries representing each minut
 <p>The default filters are:</p>
 <pre><code> Dict(
      "date-comparator" =&gt; "Last24Hours",
-     "format" =&gt; "json",
-     "series-format" =&gt; "json"
+ )
+</code></pre>
+<p>The <code>date-start</code> and <code>date-end</code> filters accept a <code>DateTime</code> object while the <code>date</code> filter
+ accepts a <code>Date</code> object.</p>
+<p>If you'd like to use a <code>ZonedDateTime</code>, pass in its <code>utc_datetime</code> field:</p>
+<pre><code> filters = Dict(
+     "date-comparator" =&gt; "Between",
+     "date-start"      =&gt; ZonedDateTime(2016, 10, 19, 4, 30, TimeZone("America/New_York")).utc_datetime,
+     "date-end"        =&gt; DateTime(2016, 10, 19, 16, 30)
  )
 </code></pre>
 </dd>
@@ -761,7 +824,7 @@ Dict{AbstractString,Any} with 4 entries:
 
 <hr />
 <h3 id="function-getsessionsoverpageloadtime">function <code>getSessionsOverPageLoadTime</code><a class="headerlink" href="#function-getsessionsoverpageloadtime" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L619-L621">QueryAPI.jl#619-621</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L623-L625">QueryAPI.jl#623-625</a></p>
 <p>Calls the <code>sessions-per-page-load-time</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_9">Arguments<a class="headerlink" href="#arguments_9" title="Permanent link">&para;</a></h4>
 <dl>
@@ -781,8 +844,15 @@ Dict{AbstractString,Any} with 4 entries:
 <p>The default filters are:</p>
 <pre><code> Dict(
      "date-comparator" =&gt; "Last24Hours",
-     "format" =&gt; "json",
-     "series-format" =&gt; "json"
+ )
+</code></pre>
+<p>The <code>date-start</code> and <code>date-end</code> filters accept a <code>DateTime</code> object while the <code>date</code> filter
+ accepts a <code>Date</code> object.</p>
+<p>If you'd like to use a <code>ZonedDateTime</code>, pass in its <code>utc_datetime</code> field:</p>
+<pre><code> filters = Dict(
+     "date-comparator" =&gt; "Between",
+     "date-start"      =&gt; ZonedDateTime(2016, 10, 19, 4, 30, TimeZone("America/New_York")).utc_datetime,
+     "date-end"        =&gt; DateTime(2016, 10, 19, 16, 30)
  )
 </code></pre>
 </dd>
@@ -817,7 +887,7 @@ the problem</dd>
 
 <hr />
 <h3 id="function-getmetricoverpageloadtime">function <code>getMetricOverPageLoadTime</code><a class="headerlink" href="#function-getmetricoverpageloadtime" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L646-L670">QueryAPI.jl#646-670</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L650-L674">QueryAPI.jl#650-674</a></p>
 <p>Calls the <code>metric-per-page-load-time</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_10">Arguments<a class="headerlink" href="#arguments_10" title="Permanent link">&para;</a></h4>
 <dl>
@@ -839,8 +909,15 @@ the problem</dd>
 <p>The default filters are:</p>
 <pre><code> Dict(
      "date-comparator" =&gt; "Last24Hours",
-     "format" =&gt; "json",
-     "series-format" =&gt; "json"
+ )
+</code></pre>
+<p>The <code>date-start</code> and <code>date-end</code> filters accept a <code>DateTime</code> object while the <code>date</code> filter
+ accepts a <code>Date</code> object.</p>
+<p>If you'd like to use a <code>ZonedDateTime</code>, pass in its <code>utc_datetime</code> field:</p>
+<pre><code> filters = Dict(
+     "date-comparator" =&gt; "Between",
+     "date-start"      =&gt; ZonedDateTime(2016, 10, 19, 4, 30, TimeZone("America/New_York")).utc_datetime,
+     "date-end"        =&gt; DateTime(2016, 10, 19, 16, 30)
  )
 </code></pre>
 </dd>
@@ -877,7 +954,7 @@ the problem</dd>
 
 <hr />
 <h3 id="function-gettimerbyminute">function <code>getTimerByMinute</code><a class="headerlink" href="#function-gettimerbyminute" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L725-L759">QueryAPI.jl#725-759</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L729-L763">QueryAPI.jl#729-763</a></p>
 <p>Calls the <code>by-minute</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_11">Arguments<a class="headerlink" href="#arguments_11" title="Permanent link">&para;</a></h4>
 <dl>
@@ -913,8 +990,15 @@ the problem</dd>
 <p>The default filters are:</p>
 <pre><code> Dict(
      "date-comparator" =&gt; "Last24Hours",
-     "format" =&gt; "json",
-     "series-format" =&gt; "json"
+ )
+</code></pre>
+<p>The <code>date-start</code> and <code>date-end</code> filters accept a <code>DateTime</code> object while the <code>date</code> filter
+ accepts a <code>Date</code> object.</p>
+<p>If you'd like to use a <code>ZonedDateTime</code>, pass in its <code>utc_datetime</code> field:</p>
+<pre><code> filters = Dict(
+     "date-comparator" =&gt; "Between",
+     "date-start"      =&gt; ZonedDateTime(2016, 10, 19, 4, 30, TimeZone("America/New_York")).utc_datetime,
+     "date-end"        =&gt; DateTime(2016, 10, 19, 16, 30)
  )
 </code></pre>
 </dd>
@@ -951,7 +1035,7 @@ The fields are: <code>:timestamp</code> in milliseconds since the UNIX epoch, <c
 
 <hr />
 <h3 id="function-mergemetrics">function <code>mergeMetrics</code><a class="headerlink" href="#function-mergemetrics" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L824-L832">QueryAPI.jl#824-832</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L828-L836">QueryAPI.jl#828-836</a></p>
 <p>Merge multiple similar <code>DataFrames</code> into a single <code>DataFrame</code></p>
 <p>Use this method to merge the results from multiple calls to <code>getMetricOverPageLoadTime()</code> and <code>getSessionsOverPageLoadTime()</code>.
 All passed in <code>DataFrame</code>s MUST contain a <code>:t_done</code> column.</p>
