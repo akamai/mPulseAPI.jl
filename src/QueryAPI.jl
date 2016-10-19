@@ -72,6 +72,8 @@ function getAPIResults(token::AbstractString, appID::AbstractString, query_type:
     for (k, v) in filters
         if haskey(query, k) && v == ""
             delete!(query, k)
+        elseif isa(v, DateTime)
+            query[k] = string(v, "Z")
         else
             query[k] = v
         end
