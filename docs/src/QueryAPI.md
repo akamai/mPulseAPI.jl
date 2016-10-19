@@ -22,7 +22,7 @@
 
 
 ### function `getAPIResults`
-[QueryAPI.jl#59-147](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L59-L147){: .source-link}
+[QueryAPI.jl#59-151](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L59-L151){: .source-link}
 
 Get API results from the mPulse [Query API](http://docs.soasta.com/query-api/)
 
@@ -63,8 +63,17 @@ This method is a generic catch-all that queries the mPulse API and returns resul
 
          Dict(
              "date-comparator" => "Last24Hours",
-             "format" => "json",
-             "series-format" => "json"
+         )
+
+     The `date-start` and `date-end` filters accept a `DateTime` object while the `date` filter
+     accepts a `Date` object.
+
+     If you'd like to use a `ZonedDateTime`, pass in its `utc_datetime` field:
+
+         filters = Dict(
+             "date-comparator" => "Between",
+             "date-start"      => ZonedDateTime(2016, 10, 19, 4, 30, TimeZone("America/New_York")).utc_datetime,
+             "date-end"        => DateTime(2016, 10, 19, 16, 30)
          )
 
 #### Throws
@@ -87,7 +96,7 @@ This method is a generic catch-all that queries the mPulse API and returns resul
 ---
 
 ### function `getSummaryTimers`
-[QueryAPI.jl#196-198](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L196-L198){: .source-link}
+[QueryAPI.jl#200-202](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L200-L202){: .source-link}
 
 Calls the `summary` endpoint of the mPulse REST API with the passed in filters
 
@@ -109,8 +118,17 @@ Calls the `summary` endpoint of the mPulse REST API with the passed in filters
 
          Dict(
              "date-comparator" => "Last24Hours",
-             "format" => "json",
-             "series-format" => "json"
+         )
+
+     The `date-start` and `date-end` filters accept a `DateTime` object while the `date` filter
+     accepts a `Date` object.
+
+     If you'd like to use a `ZonedDateTime`, pass in its `utc_datetime` field:
+
+         filters = Dict(
+             "date-comparator" => "Between",
+             "date-start"      => ZonedDateTime(2016, 10, 19, 4, 30, TimeZone("America/New_York")).utc_datetime,
+             "date-end"        => DateTime(2016, 10, 19, 16, 30)
          )
 
 #### Throws
@@ -159,7 +177,7 @@ Dict{Any,Any} with 5 entries:
 ---
 
 ### function `getPageGroupTimers`
-[QueryAPI.jl#222-236](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L222-L236){: .source-link}
+[QueryAPI.jl#226-240](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L226-L240){: .source-link}
 
 Calls the `page-groups` endpoint of the mPulse REST API with the passed in filters
 
@@ -181,8 +199,17 @@ Calls the `page-groups` endpoint of the mPulse REST API with the passed in filte
 
          Dict(
              "date-comparator" => "Last24Hours",
-             "format" => "json",
-             "series-format" => "json"
+         )
+
+     The `date-start` and `date-end` filters accept a `DateTime` object while the `date` filter
+     accepts a `Date` object.
+
+     If you'd like to use a `ZonedDateTime`, pass in its `utc_datetime` field:
+
+         filters = Dict(
+             "date-comparator" => "Between",
+             "date-start"      => ZonedDateTime(2016, 10, 19, 4, 30, TimeZone("America/New_York")).utc_datetime,
+             "date-end"        => DateTime(2016, 10, 19, 16, 30)
          )
 
 `friendly_names::Bool=false`
@@ -235,7 +262,7 @@ julia> pgroups = mPulseAPI.getPageGroupTimers(token, appID)
 ---
 
 ### function `getBrowserTimers`
-[QueryAPI.jl#260-274](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L260-L274){: .source-link}
+[QueryAPI.jl#264-278](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L264-L278){: .source-link}
 
 Calls the `browsers` endpoint of the mPulse REST API with the passed in filters
 
@@ -257,8 +284,17 @@ Calls the `browsers` endpoint of the mPulse REST API with the passed in filters
 
          Dict(
              "date-comparator" => "Last24Hours",
-             "format" => "json",
-             "series-format" => "json"
+         )
+
+     The `date-start` and `date-end` filters accept a `DateTime` object while the `date` filter
+     accepts a `Date` object.
+
+     If you'd like to use a `ZonedDateTime`, pass in its `utc_datetime` field:
+
+         filters = Dict(
+             "date-comparator" => "Between",
+             "date-start"      => ZonedDateTime(2016, 10, 19, 4, 30, TimeZone("America/New_York")).utc_datetime,
+             "date-end"        => DateTime(2016, 10, 19, 16, 30)
          )
 
 `friendly_names::Bool=false`
@@ -311,7 +347,7 @@ julia> pgroups = mPulseAPI.getBrowserTimers(token, appID)
 ---
 
 ### function `getABTestTimers`
-[QueryAPI.jl#298-312](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L298-L312){: .source-link}
+[QueryAPI.jl#302-316](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L302-L316){: .source-link}
 
 Calls the `ab-tests` endpoint of the mPulse REST API with the passed in filters
 
@@ -333,8 +369,17 @@ Calls the `ab-tests` endpoint of the mPulse REST API with the passed in filters
 
          Dict(
              "date-comparator" => "Last24Hours",
-             "format" => "json",
-             "series-format" => "json"
+         )
+
+     The `date-start` and `date-end` filters accept a `DateTime` object while the `date` filter
+     accepts a `Date` object.
+
+     If you'd like to use a `ZonedDateTime`, pass in its `utc_datetime` field:
+
+         filters = Dict(
+             "date-comparator" => "Between",
+             "date-start"      => ZonedDateTime(2016, 10, 19, 4, 30, TimeZone("America/New_York")).utc_datetime,
+             "date-end"        => DateTime(2016, 10, 19, 16, 30)
          )
 
 `friendly_names::Bool=false`
@@ -387,7 +432,7 @@ julia> pgroups = mPulseAPI.getABTestTimers(token, appID)
 ---
 
 ### function `getGeoTimers`
-[QueryAPI.jl#336-354](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L336-L354){: .source-link}
+[QueryAPI.jl#340-358](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L340-L358){: .source-link}
 
 Calls the `geography` endpoint of the mPulse REST API with the passed in filters
 
@@ -409,8 +454,17 @@ Calls the `geography` endpoint of the mPulse REST API with the passed in filters
 
          Dict(
              "date-comparator" => "Last24Hours",
-             "format" => "json",
-             "series-format" => "json"
+         )
+
+     The `date-start` and `date-end` filters accept a `DateTime` object while the `date` filter
+     accepts a `Date` object.
+
+     If you'd like to use a `ZonedDateTime`, pass in its `utc_datetime` field:
+
+         filters = Dict(
+             "date-comparator" => "Between",
+             "date-start"      => ZonedDateTime(2016, 10, 19, 4, 30, TimeZone("America/New_York")).utc_datetime,
+             "date-end"        => DateTime(2016, 10, 19, 16, 30)
          )
 
 `friendly_names::Bool=false`
@@ -463,7 +517,7 @@ julia> pgroups = mPulseAPI.getCountryTimers(token, appID)
 ---
 
 ### function `getMetricsByDimension`
-[QueryAPI.jl#401-433](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L401-L433){: .source-link}
+[QueryAPI.jl#405-437](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L405-L437){: .source-link}
 
 Calls the `metrics-by-dimension` endpoint of the mPulse REST API with the passed in dimension name and filters
 
@@ -497,8 +551,17 @@ Calls the `metrics-by-dimension` endpoint of the mPulse REST API with the passed
 
          Dict(
              "date-comparator" => "Last24Hours",
-             "format" => "json",
-             "series-format" => "json"
+         )
+
+     The `date-start` and `date-end` filters accept a `DateTime` object while the `date` filter
+     accepts a `Date` object.
+
+     If you'd like to use a `ZonedDateTime`, pass in its `utc_datetime` field:
+
+         filters = Dict(
+             "date-comparator" => "Between",
+             "date-start"      => ZonedDateTime(2016, 10, 19, 4, 30, TimeZone("America/New_York")).utc_datetime,
+             "date-end"        => DateTime(2016, 10, 19, 16, 30)
          )
 
 #### Throws
@@ -534,7 +597,7 @@ julia> mPulseAPI.getMetricsByDimension(token, appID, "browser")
 ---
 
 ### function `getTimersMetrics`
-[QueryAPI.jl#479-519](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L479-L519){: .source-link}
+[QueryAPI.jl#483-523](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L483-L523){: .source-link}
 
 Calls the `timers-metrics` endpoint of the mPulse REST API with the passed in filters
 
@@ -556,8 +619,17 @@ Calls the `timers-metrics` endpoint of the mPulse REST API with the passed in fi
 
          Dict(
              "date-comparator" => "Last24Hours",
-             "format" => "json",
-             "series-format" => "json"
+         )
+
+     The `date-start` and `date-end` filters accept a `DateTime` object while the `date` filter
+     accepts a `Date` object.
+
+     If you'd like to use a `ZonedDateTime`, pass in its `utc_datetime` field:
+
+         filters = Dict(
+             "date-comparator" => "Between",
+             "date-start"      => ZonedDateTime(2016, 10, 19, 4, 30, TimeZone("America/New_York")).utc_datetime,
+             "date-end"        => DateTime(2016, 10, 19, 16, 30)
          )
 
 #### Throws
@@ -603,7 +675,7 @@ julia> mPulseAPI.getTimersMetrics(token, appID)
 ---
 
 ### function `getHistogram`
-[QueryAPI.jl#585-599](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L585-L599){: .source-link}
+[QueryAPI.jl#589-603](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L589-L603){: .source-link}
 
 Calls the `histogram` endpoint of the mPulse REST API with the passed in filters
 
@@ -625,8 +697,17 @@ Calls the `histogram` endpoint of the mPulse REST API with the passed in filters
 
          Dict(
              "date-comparator" => "Last24Hours",
-             "format" => "json",
-             "series-format" => "json"
+         )
+
+     The `date-start` and `date-end` filters accept a `DateTime` object while the `date` filter
+     accepts a `Date` object.
+
+     If you'd like to use a `ZonedDateTime`, pass in its `utc_datetime` field:
+
+         filters = Dict(
+             "date-comparator" => "Between",
+             "date-start"      => ZonedDateTime(2016, 10, 19, 4, 30, TimeZone("America/New_York")).utc_datetime,
+             "date-end"        => DateTime(2016, 10, 19, 16, 30)
          )
 
 #### Throws
@@ -693,7 +774,7 @@ julia> histo["buckets"]
 ---
 
 ### function `getSessionsOverPageLoadTime`
-[QueryAPI.jl#619-621](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L619-L621){: .source-link}
+[QueryAPI.jl#623-625](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L623-L625){: .source-link}
 
 Calls the `sessions-per-page-load-time` endpoint of the mPulse REST API with the passed in filters
 
@@ -715,8 +796,17 @@ Calls the `sessions-per-page-load-time` endpoint of the mPulse REST API with the
 
          Dict(
              "date-comparator" => "Last24Hours",
-             "format" => "json",
-             "series-format" => "json"
+         )
+
+     The `date-start` and `date-end` filters accept a `DateTime` object while the `date` filter
+     accepts a `Date` object.
+
+     If you'd like to use a `ZonedDateTime`, pass in its `utc_datetime` field:
+
+         filters = Dict(
+             "date-comparator" => "Between",
+             "date-start"      => ZonedDateTime(2016, 10, 19, 4, 30, TimeZone("America/New_York")).utc_datetime,
+             "date-end"        => DateTime(2016, 10, 19, 16, 30)
          )
 
 #### Throws
@@ -753,7 +843,7 @@ julia> mPulseAPI.getSessionsOverPageLoadTime(token, appID)
 ---
 
 ### function `getMetricOverPageLoadTime`
-[QueryAPI.jl#646-670](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L646-L670){: .source-link}
+[QueryAPI.jl#650-674](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L650-L674){: .source-link}
 
 Calls the `metric-per-page-load-time` endpoint of the mPulse REST API with the passed in filters
 
@@ -778,8 +868,17 @@ Calls the `metric-per-page-load-time` endpoint of the mPulse REST API with the p
 
          Dict(
              "date-comparator" => "Last24Hours",
-             "format" => "json",
-             "series-format" => "json"
+         )
+
+     The `date-start` and `date-end` filters accept a `DateTime` object while the `date` filter
+     accepts a `Date` object.
+
+     If you'd like to use a `ZonedDateTime`, pass in its `utc_datetime` field:
+
+         filters = Dict(
+             "date-comparator" => "Between",
+             "date-start"      => ZonedDateTime(2016, 10, 19, 4, 30, TimeZone("America/New_York")).utc_datetime,
+             "date-end"        => DateTime(2016, 10, 19, 16, 30)
          )
 
 #### Throws
@@ -819,7 +918,7 @@ julia> mPulseAPI.getMetricOverPageLoadTime(token, appID)
 ---
 
 ### function `getTimerByMinute`
-[QueryAPI.jl#725-759](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L725-L759){: .source-link}
+[QueryAPI.jl#729-763](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L729-L763){: .source-link}
 
 Calls the `by-minute` endpoint of the mPulse REST API with the passed in filters
 
@@ -855,8 +954,17 @@ Calls the `by-minute` endpoint of the mPulse REST API with the passed in filters
 
          Dict(
              "date-comparator" => "Last24Hours",
-             "format" => "json",
-             "series-format" => "json"
+         )
+
+     The `date-start` and `date-end` filters accept a `DateTime` object while the `date` filter
+     accepts a `Date` object.
+
+     If you'd like to use a `ZonedDateTime`, pass in its `utc_datetime` field:
+
+         filters = Dict(
+             "date-comparator" => "Between",
+             "date-start"      => ZonedDateTime(2016, 10, 19, 4, 30, TimeZone("America/New_York")).utc_datetime,
+             "date-end"        => DateTime(2016, 10, 19, 16, 30)
          )
 
 #### Throws
@@ -896,7 +1004,7 @@ julia> data = mPulseAPI.getTimerByMinute(token, appID, timer="PageLoad")
 ---
 
 ### function `mergeMetrics`
-[QueryAPI.jl#824-832](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L824-L832){: .source-link}
+[QueryAPI.jl#828-836](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L828-L836){: .source-link}
 
 Merge multiple similar `DataFrames` into a single `DataFrame`
 

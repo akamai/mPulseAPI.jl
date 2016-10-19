@@ -7,6 +7,15 @@
 
          Dict(
              "date-comparator" => "Last24Hours",
-             "format" => "json",
-             "series-format" => "json"
+         )
+
+     The `date-start` and `date-end` filters accept a `DateTime` object while the `date` filter
+     accepts a `Date` object.
+
+     If you'd like to use a `ZonedDateTime`, pass in its `utc_datetime` field:
+
+         filters = Dict(
+             "date-comparator" => "Between",
+             "date-start"      => ZonedDateTime(2016, 10, 19, 4, 30, TimeZone("America/New_York")).utc_datetime,
+             "date-end"        => DateTime(2016, 10, 19, 16, 30)
          )
