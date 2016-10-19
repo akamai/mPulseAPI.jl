@@ -240,7 +240,7 @@ You can clear the cache for this tenant using [`mPulseAPI.clearTenantCache`](cac
 
 
 ### function `getCustomMetricMap`
-[RepositoryAPI.jl#451-486](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L451-L486){: .source-link}
+[RepositoryAPI.jl#453-488](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L453-L488){: .source-link}
 
 Gets a mapping of custom metric names to RedShift field names from domain XML.  This list also includes valid dates.
 
@@ -282,7 +282,7 @@ Gets a mapping of custom metric names to RedShift field names from domain XML.  
 ---
 
 ### function `getCustomTimerMap`
-[RepositoryAPI.jl#503-539](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L503-L539){: .source-link}
+[RepositoryAPI.jl#505-541](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L505-L541){: .source-link}
 
 Gets a mapping of custom timer names to RedShift field names from domain XML.  This list also includes valid dates.
 
@@ -329,7 +329,7 @@ Gets a mapping of custom timer names to RedShift field names from domain XML.  T
 ---
 
 ### function `getNodeContent`
-[RepositoryAPI.jl#563-587](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L563-L587){: .source-link}
+[RepositoryAPI.jl#565-589](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L565-L589){: .source-link}
 
 Gets the content of a node
 
