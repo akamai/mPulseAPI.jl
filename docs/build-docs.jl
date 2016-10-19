@@ -114,9 +114,10 @@ function getSymbols(mod::Module; order=[Module, DataType, Function])
 
             if typ == Module
                 endline = line
-                api_doc = findnext(lines, "\"\"\"\n", line+2)
-                if api_doc > 0
-                    api_doc = eval(parse(join(lines[line+1:api_doc], "")))
+                api_doc_start = findnext(lines, "\"\"\"\n", line+1)
+                api_doc_end   = findnext(lines, "\"\"\"\n", api_doc_start+1)
+                if api_doc_end - api_doc_start > 0
+                    api_doc = eval(parse(join(lines[api_doc_start:api_doc_end], "")))
                 end
             else
                 endline = findnext(lines, "end\n", line)
