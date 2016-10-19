@@ -38,7 +38,8 @@ domain = getRepositoryDomain(token, appID=appID)
 @test domain["custom_metrics"]["Revenue GBP"]["fieldname"] == "custom_metrics_1"
 @test domain["custom_metrics"]["Revenue GBP"]["dataType"]["type"] == "Currency"
 @test domain["custom_metrics"]["Revenue GBP"]["dataType"]["currencyCode"] == "GBP"
-@test domain["custom_metrics"]["Revenue GBP"]["dataType"]["currencySymbol"] == "£"
+# Bug in mPulseAPI means that `currencySymbol` will sometimes disappear
+@test !haskey(domain["custom_metrics"]["Revenue GBP"]["dataType"], "currencySymbol") || domain["custom_metrics"]["Revenue GBP"]["dataType"]["currencySymbol"] == "£"
 @test domain["custom_metrics"]["Revenue GBP"]["dataType"]["decimalPlaces"] == "2"
 
 # CustomMetric2 is inactive
