@@ -194,6 +194,19 @@ tenant = getRepositoryTenant(token, name=&quot;&lt;tenant name from mPulse&gt;&q
 </code></pre>
 
 <hr />
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The following methods are not exported by default. You may use them by explicitly
+importing them or by prefixing them with the <code>mPulseAPI.</code> namespace.</p>
+</div>
+<h3 id="function-setendpoints">function <code>setEndpoints</code><a class="headerlink" href="#function-setendpoints" title="Permanent link">&para;</a></h3>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/mPulseAPI.jl#L55-L63">mPulseAPI.jl#55-63</a></p>
+<p>Change the SOASTA API endpoint that we connect to.  The default is <code>https://mpulse.soasta.com/concerto</code></p>
+<h4 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h4>
+<pre><code class="julia">mPulseAPI.setEndpoints(&quot;https://mpulse-alt.soasta.com/concerto&quot;)
+</code></pre>
+
+<hr />
 <h2 id="api-reference">API Reference<a class="headerlink" href="#api-reference" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
@@ -297,5 +310,5 @@ tenant = getRepositoryTenant(token, name=&quot;&lt;tenant name from mPulse&gt;&q
 
 <!--
 MkDocs version : 0.15.3
-Build Date UTC : 2016-10-19 17:10:37.045627
+Build Date UTC : 2016-10-25 20:36:06.821233
 -->
