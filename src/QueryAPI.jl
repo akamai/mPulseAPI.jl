@@ -12,9 +12,6 @@
 
 using DataFrames, JSON, Formatting
 
-const mPulseEndpoint    = "https://mpulse.soasta.com/concerto/mpulse/api/v2/"   # hardcoded for now, will move to a config file later
-
-
 const query_types = [
         "summary",
         "histogram",

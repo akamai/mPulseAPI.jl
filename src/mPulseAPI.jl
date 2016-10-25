@@ -37,6 +37,32 @@ using Requests, LightXML, HttpCommon
 # Tells docgen.jl to document internal methods as well
 const __document_internal = true
 
+const default_SOASTAEndpoint = "https://mpulse.soasta.com/concerto"
+
+function __init__()
+    setEndpoints()
+end
+
+"""
+Change the SOASTA API endpoint that we connect to.  The default is `$(mPulseAPI.default_SOASTAEndpoint)`
+
+#### Example
+
+```julia
+mPulseAPI.setEndpoints("https://mpulse-alt.soasta.com/concerto")
+```
+"""
+function setEndpoints(SOASTAEndpoint::AbstractString = default_SOASTAEndpoint)
+    global mPulseEndpoint     = "$SOASTAEndpoint/mpulse/api/v2/"
+    global RepositoryEndpoint = "$SOASTAEndpoint/services/rest"
+    global RepositoryService  = "$RepositoryEndpoint/RepositoryService/v1"
+    global TokenEndpoint      = "$RepositoryService/Tokens"
+    global ObjectEndpoint     = "$RepositoryService/Objects"
+
+    return (mPulseEndpoint, RepositoryService)
+end
+
+
 # Convenience method because the mPulse API is bad with dates
 function iso8601ToDateTime(date::AbstractString)
     date = replace(date, r"(?:Z|\+[\d:]+)(\s|$)", "")

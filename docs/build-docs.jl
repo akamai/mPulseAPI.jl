@@ -222,7 +222,7 @@ cd(dirname(@__FILE__)) do
                         if length(symbs) > 0
                             !isempty(ty_label) && println(f, "## $ex_label $(ty_label)s")
                 
-                            exported || println(f, """ 
+                            exported || println(f, """
                                 !!! note
                                     The following methods are not exported by default. You may use them by explicitly
                                     importing them or by prefixing them with the `$(mod).` namespace.

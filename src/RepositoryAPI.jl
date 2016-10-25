@@ -15,13 +15,6 @@ export
     getRepositoryTenant,
     getRepositoryDomain
 
-# Module level global cache (to be replaced with redis) TODO
-
-const RepositoryEndpoint = "https://mpulse.soasta.com/concerto/services/rest"   # hardcoded for now, will move to a config file later
-const RepositoryService  = "$RepositoryEndpoint/RepositoryService/v1"
-const TokenEndpoint      = "$RepositoryService/Tokens"
-const ObjectEndpoint     = "$RepositoryService/Objects"
-
 const TokenTimeoutHours = 5
 
 

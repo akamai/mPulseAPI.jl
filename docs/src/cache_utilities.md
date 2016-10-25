@@ -5,7 +5,6 @@
 * [clearTenantCache](cache_utilities.md#function-cleartenantcache)
 * [clearTokenCache](cache_utilities.md#function-cleartokencache)
 ## Namespaced Functions
- 
 !!! note
     The following methods are not exported by default. You may use them by explicitly
     importing them or by prefixing them with the `mPulseAPI.` namespace.

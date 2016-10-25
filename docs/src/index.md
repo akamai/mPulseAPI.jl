@@ -52,6 +52,25 @@ tenant = getRepositoryTenant(token, name="<tenant name from mPulse>")
 
 ---
 
+## Namespaced Functions
+!!! note
+    The following methods are not exported by default. You may use them by explicitly
+    importing them or by prefixing them with the `mPulseAPI.` namespace.
+
+
+### function `setEndpoints`
+[mPulseAPI.jl#55-63](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/mPulseAPI.jl#L55-L63){: .source-link}
+
+Change the SOASTA API endpoint that we connect to.  The default is `https://mpulse.soasta.com/concerto`
+
+#### Example
+
+```julia
+mPulseAPI.setEndpoints("https://mpulse-alt.soasta.com/concerto")
+```
+
+---
+
 ## API Reference
 
 
