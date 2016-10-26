@@ -18,3 +18,5 @@ mPulseAPITenant = ENV["mPulseAPITenant"]
 include("repository-tests.jl")
 
 include("query-tests.jl")
+
+include("zzz_change-url-tests.jl")
