@@ -22,11 +22,14 @@ Thrown when the REST API has a problem and returns something other than a 2xx re
 ---
 
 ### datatype `mPulseAPIAuthException`
-[exceptions.jl#33-35](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/exceptions.jl#L33-L35){: .source-link}
+[exceptions.jl#36-41](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/exceptions.jl#L36-L41){: .source-link}
 
 Thrown when the token used to authenticate with the REST API is invalid or has expired
 
 #### Fields
+`msg::AbstractString`
+:    This message is always set to "Error Authenticating with REST API"
+
 `response::Response`
 :    The response object from the REST API call.  You can inspect headers, data, cookies, redirects, and the initiating request.
 
@@ -34,7 +37,7 @@ Thrown when the token used to authenticate with the REST API is invalid or has e
 ---
 
 ### datatype `mPulseAPIRequestException`
-[exceptions.jl#57-63](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/exceptions.jl#L57-L63){: .source-link}
+[exceptions.jl#63-69](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/exceptions.jl#L63-L69){: .source-link}
 
 Thrown when a request parameter is invalid
 
@@ -58,7 +61,7 @@ Thrown when a request parameter is invalid
 ---
 
 ### datatype `mPulseAPIResultFormatException`
-[exceptions.jl#76-79](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/exceptions.jl#L76-L79){: .source-link}
+[exceptions.jl#82-85](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/exceptions.jl#L82-L85){: .source-link}
 
 Thrown when the result returned by an API call was not in the expected format
 
