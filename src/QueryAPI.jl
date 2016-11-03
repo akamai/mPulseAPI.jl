@@ -839,11 +839,15 @@ end
 function cleanSeriesSeries(results::Dict)
     if !isa(results, Dict) || !haskey(results, "series") ||
             !isa(results["series"], Dict) || !haskey(results["series"], "series") ||
-            !isa(results["series"]["series"], Array) || length(results["series"]["series"]) < 1
+            !isa(results["series"]["series"], Array)
         throw(mPulseAPIResultFormatException("API response JSON did not have a `series` element", results))
     end
 
-    results = results["series"]["series"][1]
+    if length(results["series"]["series"]) < 1
+        results = Dict("aPoints" => [])
+    else
+        results = results["series"]["series"][1]
+    end
 
     return results
 end
