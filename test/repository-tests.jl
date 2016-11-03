@@ -71,4 +71,4 @@ tenant = getRepositoryTenant(token, name=mPulseAPITenant)
 
 @test_throws mPulseAPIAuthException getRepositoryToken(mPulseAPITenant, "some-invalid-token")
 
-@test_throws mPulseAPIAuthException getRepositoryDomain("some-invalid-token", appID=appID)
+@test_throws mPulseAPIAuthException getRepositoryDomain("some-invalid-token", appID=appID * "-" * base(16, round(Int, rand()*100000), 5))
