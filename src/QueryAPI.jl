@@ -751,7 +751,7 @@ function getTimerByMinute(token::AbstractString, appID::AbstractString; filters:
     names!(df, [ :timestamp, symbol(timer)])
 
     if size(df, 1) > 0
-        df[:moe] = DataArray{Int}(map(p -> round(Int, 1000*JSON.parse(p["userdata"])["value"]), results["aPoints"]))
+        df[:moe] = DataArray{Int}(map(p -> haskey(p, "userdata") ? round(Int, 1000*JSON.parse(p["userdata"])["value"]) : 0, results["aPoints"]))
     else
         df[:moe] = DataArray{Int}([])
     end
