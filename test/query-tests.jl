@@ -91,6 +91,16 @@ varia_cols = map(symbol, [collect(keys(domain["custom_timers"])); collect(keys(d
 @test size(tm, 1) == 1441
 
 
+tm = mPulseAPI.getTimersMetrics(token, appID, filters=Dict("page-group" => ["product-page", "shop-subcategory"]))
+
+fixed_cols = [:Beacons, :PageLoad, :Sessions, :BounceRate, :DNS, :TCP, :SSL, :FirstByte, :DomLoad, :DomReady, :FirstLastByte]
+varia_cols = map(symbol, [collect(keys(domain["custom_timers"])); collect(keys(domain["custom_metrics"]))])
+
+@test size(tm, 2) >= length(fixed_cols)
+
+@test size(tm, 1) == 1441
+
+
 # Histogram
 
 hgm = mPulseAPI.getHistogram(token, appID)

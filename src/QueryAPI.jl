@@ -73,6 +73,8 @@ function getAPIResults(token::AbstractString, appID::AbstractString, query_type:
             query[k] = string(v, "Z")
         elseif k == "date" && isa(v, DateTime) || isa(v, Date)
             query[k] = string(Date(v))
+        elseif isa(v, AbstractArray)
+            query[k] = v
         else
             query[k] = string(v)
         end
