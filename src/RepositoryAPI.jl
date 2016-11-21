@@ -368,14 +368,14 @@ function getRepositoryObject(token::AbstractString, objectType::AbstractString, 
 
 
     # Attempt to fetch object from repository using auth token
-    repositoryJSON = Requests.get(url, headers=Dict("X-Auth-Token" => token), query=query)
+    resp = Requests.get(url, headers=Dict("X-Auth-Token" => token), query=query)
 
-    if statuscode(repositoryJSON) != 200
-        throw(mPulseAPIException("Error fetching $(objectType) $(debugID)", repositoryJSON))
+    if statuscode(resp) != 200
+        throw(mPulseAPIException("Error fetching $(objectType) $(debugID)", resp))
     end
 
     # Do not use Requests.json as that expects UTF-8 data, and mPulse API's response is ISO-8859-1
-    json = join(map(Char, repositoryJSON.data))
+    json = join(map(Char, resp.data))
     object = JSON.parse(json)
 
     # If calling by a searchKey other than ID, the return value will be a Dict with a single key="objects"
@@ -388,10 +388,10 @@ function getRepositoryObject(token::AbstractString, objectType::AbstractString, 
     end
 
     if length(object_list) == 0
-        throw(mPulseAPIException("An object matching $debugID was not returned", repositoryJSON))
+        throw(mPulseAPIException("An object matching $debugID was not returned", resp))
     # If caller has passed in a filter key, then we should only get a single object
     elseif isKeySet && length(object_list) > 1
-        throw(mPulseAPIException("Found too many matching objects with IDs=($(map(d->d["id"], object_list)))", repositoryJSON))
+        throw(mPulseAPIException("Found too many matching objects with IDs=($(map(d->d["id"], object_list)))", resp))
     end
 
 
