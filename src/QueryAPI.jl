@@ -491,6 +491,12 @@ function getTimersMetrics(token::AbstractString, appID::AbstractString; filters:
         name   = symbol(element["id"])
         latest = element["latest"]
 
+	local i=0
+	while name ∈ names(df) ∪ nulls
+		i += 1
+		name = symbol(element["id"], "__", i)
+	end
+
         if latest == 0 && (!haskey(element, "history") || length(element["history"]) == 0)
             push!(nulls, name)
             continue
