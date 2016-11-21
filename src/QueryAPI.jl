@@ -118,6 +118,10 @@ function getAPIResults(token::AbstractString, appID::AbstractString, query_type:
 
     # Do not use Requests.json as that expects UTF-8 data, and mPulse API's response is ISO-8859-1
     json = join(map(Char, resp.data))
+
+    # Remove double quotes around negative numbers (Bug 110740)
+    json = replace(json, r"\"(-\d+)\"", s"\1")
+
     try
         object = JSON.parse(json)
     catch ex
