@@ -370,7 +370,9 @@ function getRepositoryObject(token::AbstractString, objectType::AbstractString, 
     # Attempt to fetch object from repository using auth token
     resp = Requests.get(url, headers=Dict("X-Auth-Token" => token), query=query)
 
-    if statuscode(resp) != 200
+    if statuscode(resp) == 401
+        throw(mPulseAPIAuthException(resp))
+    elseif statuscode(resp) != 200
         throw(mPulseAPIException("Error fetching $(objectType) $(debugID)", resp))
     end
 
