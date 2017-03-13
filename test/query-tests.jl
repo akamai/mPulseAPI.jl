@@ -61,12 +61,7 @@ for dimension in ["browser", "page_group", "country", "bw_block", "ab_test"]
         @test size(metrics, 2) == 1 + length(domain["custom_metrics"])
         @test sort(names(metrics)) == sort(map(symbol, [ dimension; collect(keys(domain["custom_metrics"])) ]))
 
-        # Bandwidth testing is disabled for the mPulse Demo app, so we should have 0 rows for this dimension
-        if dimension == "bw_block"
-            @test size(metrics, 1) == 0
-        else
-            @test size(metrics, 1) > 0
-        end
+        @test size(metrics, 1) > 0
     catch ex
         warn("mPulseAPI.getMetricsByTimension:$dimension")
         show(metrics)
