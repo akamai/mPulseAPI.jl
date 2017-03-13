@@ -133,12 +133,7 @@ for tuple in metrics
         @test size(x, 2) == 2
         @test names(x) == [:t_done, tuple[2]]
 
-        if length(tuple) == 3 && tuple[3] == "OrderTotal"
-            # This test will fail when Bug 108727 is fixed so we'll get alerted about that
-            @test size(x, 1) == 0
-        else
-            @test size(x, 1) > 0
-        end
+        @test size(x, 1) > 0
     catch ex
         warn("mPulseAPI.$(tuple[1])", length(tuple) == 3 ? ":$(tuple[3])" : "")
         show(x)
