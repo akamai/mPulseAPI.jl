@@ -157,7 +157,11 @@ for timer in mPulseAPI.supported_timers ∪ collect(keys(domain["custom_timers"]
     try
         tbm = mPulseAPI.getTimerByMinute(token, appKey, timer=timer)
 
-        @test size(tbm) == (1440, 3) || size(tbm) == (1439, 3)      # The mPulse API will sometimes not return the last minute of the day
+        if timer == "ResourceTimer"
+            @test size(tbm) == (0, 3)                                   # ResourceTimer has no data
+        else
+            @test size(tbm) == (1440, 3) || size(tbm) == (1439, 3)      # The mPulse API will sometimes not return the last minute of the day
+        end
         @test names(tbm) == [:timestamp, symbol(timer), :moe]
     catch ex
         warn("mPulseAPI.getTimerByMinute($timer)")
