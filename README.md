@@ -26,10 +26,10 @@ token = getRepositoryToken("<tenant name>", "<mPulse api token for tenant>")
 # Get a domain by app name
 domain = getRepositoryDomain(token, appName="<app name from mPulse>")
 
-# Get a domain by App ID (formerly known as API key)
-domain = getRepositoryDomain(token, appID="<App ID from mPulse>")
+# Get a domain by App Key (formerly known as API key)
+domain = getRepositoryDomain(token, appKey="<App Key from mPulse>")
 
-domain["attributes"]["appID"]                            # Gets the App ID (formerly known as API key)
+domain["attributes"]["appKey"]                           # Gets the App Key (formerly known as API key)
                                                          # for this app
 domain["custom_metrics"]                                 # Get a Dict of custom metrics
 domain["custom_metrics"]["Conversion Rate"]              # Get mapping for Conversion Rate custom metric

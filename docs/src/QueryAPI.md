@@ -21,7 +21,7 @@
 
 
 ### function `getAPIResults`
-[QueryAPI.jl#56-148](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L56-L148){: .source-link}
+[QueryAPI.jl#56-154](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L56-L154){: .source-link}
 
 Get API results from the mPulse [Query API](http://docs.soasta.com/query-api/)
 
@@ -31,9 +31,9 @@ This method is a generic catch-all that queries the mPulse API and returns resul
 `token::AbstractString`
 :    The Repository authentication token fetched by calling [`mPulseAPI.getRepositoryToken`](RepositoryAPI.md#function-getrepositorytoken){: .x-ref}
 
-`appID::AbstractString`
-:    The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
-     [`mPulseAPI.getRepositoryDomain`](RepositoryAPI.md#function-getrepositorydomain){: .x-ref} to fetch a domain and then inspect `domain["attributes"]["appID"]`
+`appKey::AbstractString`
+:    The App Key (formerly known as API key) for the app to query.  If you don't know the App Key, use
+     [`mPulseAPI.getRepositoryDomain`](RepositoryAPI.md#function-getrepositorydomain){: .x-ref} to fetch a domain and then inspect `domain["attributes"]["appKey"]`
 
 `query_type::AbstractString`
 :    The specific API query to make.  Must be one of the following:
@@ -95,7 +95,7 @@ This method is a generic catch-all that queries the mPulse API and returns resul
 ---
 
 ### function `getSummaryTimers`
-[QueryAPI.jl#197-199](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L197-L199){: .source-link}
+[QueryAPI.jl#203-205](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L203-L205){: .source-link}
 
 Calls the `summary` endpoint of the mPulse REST API with the passed in filters
 
@@ -103,9 +103,9 @@ Calls the `summary` endpoint of the mPulse REST API with the passed in filters
 `token::AbstractString`
 :    The Repository authentication token fetched by calling [`mPulseAPI.getRepositoryToken`](RepositoryAPI.md#function-getrepositorytoken){: .x-ref}
 
-`appID::AbstractString`
-:    The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
-     [`mPulseAPI.getRepositoryDomain`](RepositoryAPI.md#function-getrepositorydomain){: .x-ref} to fetch a domain and then inspect `domain["attributes"]["appID"]`
+`appKey::AbstractString`
+:    The App Key (formerly known as API key) for the app to query.  If you don't know the App Key, use
+     [`mPulseAPI.getRepositoryDomain`](RepositoryAPI.md#function-getrepositorydomain){: .x-ref} to fetch a domain and then inspect `domain["attributes"]["appKey"]`
 
 #### Optional Arguments
 `filters::Dict`
@@ -163,7 +163,7 @@ Calls the `summary` endpoint of the mPulse REST API with the passed in filters
 #### Examples
 
 ```julia
-julia> summary = mPulseAPI.getSummaryTimers(token, appID)
+julia> summary = mPulseAPI.getSummaryTimers(token, appKey)
 
 Dict{Any,Any} with 5 entries:
   "n"      => 356317
@@ -176,7 +176,7 @@ Dict{Any,Any} with 5 entries:
 ---
 
 ### function `getPageGroupTimers`
-[QueryAPI.jl#223-237](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L223-L237){: .source-link}
+[QueryAPI.jl#229-243](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L229-L243){: .source-link}
 
 Calls the `page-groups` endpoint of the mPulse REST API with the passed in filters
 
@@ -184,9 +184,9 @@ Calls the `page-groups` endpoint of the mPulse REST API with the passed in filte
 `token::AbstractString`
 :    The Repository authentication token fetched by calling [`mPulseAPI.getRepositoryToken`](RepositoryAPI.md#function-getrepositorytoken){: .x-ref}
 
-`appID::AbstractString`
-:    The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
-     [`mPulseAPI.getRepositoryDomain`](RepositoryAPI.md#function-getrepositorydomain){: .x-ref} to fetch a domain and then inspect `domain["attributes"]["appID"]`
+`appKey::AbstractString`
+:    The App Key (formerly known as API key) for the app to query.  If you don't know the App Key, use
+     [`mPulseAPI.getRepositoryDomain`](RepositoryAPI.md#function-getrepositorydomain){: .x-ref} to fetch a domain and then inspect `domain["attributes"]["appKey"]`
 
 #### Optional Arguments
 `filters::Dict`
@@ -244,7 +244,7 @@ Calls the `page-groups` endpoint of the mPulse REST API with the passed in filte
 `page_group`, `t_done_median`, `t_done_moe`, `t_done_count`, and `t_done_total_pc`
 
 ```julia
-julia> pgroups = mPulseAPI.getPageGroupTimers(token, appID)
+julia> pgroups = mPulseAPI.getPageGroupTimers(token, appKey)
 69x5 DataFrames.DataFrame
 | Row | page_group                  | t_done_median    | t_done_moe | t_done_count | t_done_total_pc |
 |-----|-----------------------------|------------------|------------|--------------|-----------------|
@@ -261,7 +261,7 @@ julia> pgroups = mPulseAPI.getPageGroupTimers(token, appID)
 ---
 
 ### function `getBrowserTimers`
-[QueryAPI.jl#261-275](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L261-L275){: .source-link}
+[QueryAPI.jl#267-281](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L267-L281){: .source-link}
 
 Calls the `browsers` endpoint of the mPulse REST API with the passed in filters
 
@@ -269,9 +269,9 @@ Calls the `browsers` endpoint of the mPulse REST API with the passed in filters
 `token::AbstractString`
 :    The Repository authentication token fetched by calling [`mPulseAPI.getRepositoryToken`](RepositoryAPI.md#function-getrepositorytoken){: .x-ref}
 
-`appID::AbstractString`
-:    The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
-     [`mPulseAPI.getRepositoryDomain`](RepositoryAPI.md#function-getrepositorydomain){: .x-ref} to fetch a domain and then inspect `domain["attributes"]["appID"]`
+`appKey::AbstractString`
+:    The App Key (formerly known as API key) for the app to query.  If you don't know the App Key, use
+     [`mPulseAPI.getRepositoryDomain`](RepositoryAPI.md#function-getrepositorydomain){: .x-ref} to fetch a domain and then inspect `domain["attributes"]["appKey"]`
 
 #### Optional Arguments
 `filters::Dict`
@@ -329,7 +329,7 @@ Calls the `browsers` endpoint of the mPulse REST API with the passed in filters
 `user_agent`, `t_done_median`, `t_done_moe`, `t_done_count`, and `t_done_total_pc`
 
 ```julia
-julia> pgroups = mPulseAPI.getBrowserTimers(token, appID)
+julia> pgroups = mPulseAPI.getBrowserTimers(token, appKey)
 69x5 DataFrames.DataFrame
 | Row | user_agent                  | t_done_median    | t_done_moe | t_done_count | t_done_total_pc |
 |-----|-----------------------------|------------------|------------|--------------|-----------------|
@@ -346,7 +346,7 @@ julia> pgroups = mPulseAPI.getBrowserTimers(token, appID)
 ---
 
 ### function `getABTestTimers`
-[QueryAPI.jl#299-313](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L299-L313){: .source-link}
+[QueryAPI.jl#305-319](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L305-L319){: .source-link}
 
 Calls the `ab-tests` endpoint of the mPulse REST API with the passed in filters
 
@@ -354,9 +354,9 @@ Calls the `ab-tests` endpoint of the mPulse REST API with the passed in filters
 `token::AbstractString`
 :    The Repository authentication token fetched by calling [`mPulseAPI.getRepositoryToken`](RepositoryAPI.md#function-getrepositorytoken){: .x-ref}
 
-`appID::AbstractString`
-:    The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
-     [`mPulseAPI.getRepositoryDomain`](RepositoryAPI.md#function-getrepositorydomain){: .x-ref} to fetch a domain and then inspect `domain["attributes"]["appID"]`
+`appKey::AbstractString`
+:    The App Key (formerly known as API key) for the app to query.  If you don't know the App Key, use
+     [`mPulseAPI.getRepositoryDomain`](RepositoryAPI.md#function-getrepositorydomain){: .x-ref} to fetch a domain and then inspect `domain["attributes"]["appKey"]`
 
 #### Optional Arguments
 `filters::Dict`
@@ -414,7 +414,7 @@ Calls the `ab-tests` endpoint of the mPulse REST API with the passed in filters
 `test_name`, `t_done_median`, `t_done_moe`, `t_done_count`, and `t_done_total_pc`
 
 ```julia
-julia> pgroups = mPulseAPI.getABTestTimers(token, appID)
+julia> pgroups = mPulseAPI.getABTestTimers(token, appKey)
 69x5 DataFrames.DataFrame
 | Row | test_name                   | t_done_median    | t_done_moe | t_done_count | t_done_total_pc |
 |-----|-----------------------------|------------------|------------|--------------|-----------------|
@@ -431,7 +431,7 @@ julia> pgroups = mPulseAPI.getABTestTimers(token, appID)
 ---
 
 ### function `getGeoTimers`
-[QueryAPI.jl#337-355](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L337-L355){: .source-link}
+[QueryAPI.jl#343-361](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L343-L361){: .source-link}
 
 Calls the `geography` endpoint of the mPulse REST API with the passed in filters
 
@@ -439,9 +439,9 @@ Calls the `geography` endpoint of the mPulse REST API with the passed in filters
 `token::AbstractString`
 :    The Repository authentication token fetched by calling [`mPulseAPI.getRepositoryToken`](RepositoryAPI.md#function-getrepositorytoken){: .x-ref}
 
-`appID::AbstractString`
-:    The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
-     [`mPulseAPI.getRepositoryDomain`](RepositoryAPI.md#function-getrepositorydomain){: .x-ref} to fetch a domain and then inspect `domain["attributes"]["appID"]`
+`appKey::AbstractString`
+:    The App Key (formerly known as API key) for the app to query.  If you don't know the App Key, use
+     [`mPulseAPI.getRepositoryDomain`](RepositoryAPI.md#function-getrepositorydomain){: .x-ref} to fetch a domain and then inspect `domain["attributes"]["appKey"]`
 
 #### Optional Arguments
 `filters::Dict`
@@ -499,7 +499,7 @@ Calls the `geography` endpoint of the mPulse REST API with the passed in filters
 `country`, `t_done_median`, `t_done_moe`, `t_done_count`, and `t_done_total_pc`
 
 ```julia
-julia> pgroups = mPulseAPI.getCountryTimers(token, appID)
+julia> pgroups = mPulseAPI.getCountryTimers(token, appKey)
 69x5 DataFrames.DataFrame
 | Row | country                     | t_done_median    | t_done_moe | t_done_count | t_done_total_pc |
 |-----|-----------------------------|------------------|------------|--------------|-----------------|
@@ -516,7 +516,7 @@ julia> pgroups = mPulseAPI.getCountryTimers(token, appID)
 ---
 
 ### function `getMetricsByDimension`
-[QueryAPI.jl#402-434](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L402-L434){: .source-link}
+[QueryAPI.jl#408-440](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L408-L440){: .source-link}
 
 Calls the `metrics-by-dimension` endpoint of the mPulse REST API with the passed in dimension name and filters
 
@@ -524,9 +524,9 @@ Calls the `metrics-by-dimension` endpoint of the mPulse REST API with the passed
 `token::AbstractString`
 :    The Repository authentication token fetched by calling [`mPulseAPI.getRepositoryToken`](RepositoryAPI.md#function-getrepositorytoken){: .x-ref}
 
-`appID::AbstractString`
-:    The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
-     [`mPulseAPI.getRepositoryDomain`](RepositoryAPI.md#function-getrepositorydomain){: .x-ref} to fetch a domain and then inspect `domain["attributes"]["appID"]`
+`appKey::AbstractString`
+:    The App Key (formerly known as API key) for the app to query.  If you don't know the App Key, use
+     [`mPulseAPI.getRepositoryDomain`](RepositoryAPI.md#function-getrepositorydomain){: .x-ref} to fetch a domain and then inspect `domain["attributes"]["appKey"]`
 
 `dimension::AbstractString`
 :    The dimension to split metrics by.  The response contains one row for each value of this dimension.  The following dimensions are supported:
@@ -581,7 +581,7 @@ Calls the `metrics-by-dimension` endpoint of the mPulse REST API with the passed
 `{DataFrame}` A Julia `DataFrame` with the following columns: `:<dimension>`, `:<CustomMetric Name>`...
 
 ```julia
-julia> mPulseAPI.getMetricsByDimension(token, appID, "browser")
+julia> mPulseAPI.getMetricsByDimension(token, appKey, "browser")
 243x4 DataFrames.DataFrame
 | Row | browser                          | Conversion | OrderTotal | ServerDown  |
 |-----|----------------------------------|------------|------------|-------------|
@@ -596,7 +596,7 @@ julia> mPulseAPI.getMetricsByDimension(token, appID, "browser")
 ---
 
 ### function `getTimersMetrics`
-[QueryAPI.jl#480-520](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L480-L520){: .source-link}
+[QueryAPI.jl#486-532](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L486-L532){: .source-link}
 
 Calls the `timers-metrics` endpoint of the mPulse REST API with the passed in filters
 
@@ -604,9 +604,9 @@ Calls the `timers-metrics` endpoint of the mPulse REST API with the passed in fi
 `token::AbstractString`
 :    The Repository authentication token fetched by calling [`mPulseAPI.getRepositoryToken`](RepositoryAPI.md#function-getrepositorytoken){: .x-ref}
 
-`appID::AbstractString`
-:    The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
-     [`mPulseAPI.getRepositoryDomain`](RepositoryAPI.md#function-getrepositorydomain){: .x-ref} to fetch a domain and then inspect `domain["attributes"]["appID"]`
+`appKey::AbstractString`
+:    The App Key (formerly known as API key) for the app to query.  If you don't know the App Key, use
+     [`mPulseAPI.getRepositoryDomain`](RepositoryAPI.md#function-getrepositorydomain){: .x-ref} to fetch a domain and then inspect `domain["attributes"]["appKey"]`
 
 #### Optional Arguments
 `filters::Dict`
@@ -657,7 +657,7 @@ The last row in the DataFrame is the latest value of the timer or metric.  All p
 For example, for Last24Hours, there will be 1440 entries representing each minute in the 24 hour period.
 
 ```julia
-julia> mPulseAPI.getTimersMetrics(token, appID)
+julia> mPulseAPI.getTimersMetrics(token, appKey)
 1441x16 DataFrames.DataFrame
 | Row  | PageLoad | DNS | DomLoad | DomReady | FirstByte | SSL | FirstLastByte | TCP | DOM Interactive | Sessions | BounceRate | Conversion | OrderTotal | Beacons |
 |------|----------|-----|---------|----------|-----------|-----|---------------|-----|-----------------|----------|------------|------------|------------|---------|
@@ -674,7 +674,7 @@ julia> mPulseAPI.getTimersMetrics(token, appID)
 ---
 
 ### function `getHistogram`
-[QueryAPI.jl#586-600](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L586-L600){: .source-link}
+[QueryAPI.jl#598-612](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L598-L612){: .source-link}
 
 Calls the `histogram` endpoint of the mPulse REST API with the passed in filters
 
@@ -682,9 +682,9 @@ Calls the `histogram` endpoint of the mPulse REST API with the passed in filters
 `token::AbstractString`
 :    The Repository authentication token fetched by calling [`mPulseAPI.getRepositoryToken`](RepositoryAPI.md#function-getrepositorytoken){: .x-ref}
 
-`appID::AbstractString`
-:    The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
-     [`mPulseAPI.getRepositoryDomain`](RepositoryAPI.md#function-getrepositorydomain){: .x-ref} to fetch a domain and then inspect `domain["attributes"]["appID"]`
+`appKey::AbstractString`
+:    The App Key (formerly known as API key) for the app to query.  If you don't know the App Key, use
+     [`mPulseAPI.getRepositoryDomain`](RepositoryAPI.md#function-getrepositorydomain){: .x-ref} to fetch a domain and then inspect `domain["attributes"]["appKey"]`
 
 #### Optional Arguments
 `filters::Dict`
@@ -740,7 +740,7 @@ Calls the `histogram` endpoint of the mPulse REST API with the passed in filters
 
 
 ```julia
-julia> histo = mPulseAPI.getHistogram(token, appID)
+julia> histo = mPulseAPI.getHistogram(token, appKey)
 Dict{AbstractString,Any} with 4 entries:
   "median"  => 3439
   "p95"     => 12843
@@ -773,7 +773,7 @@ julia> histo["buckets"]
 ---
 
 ### function `getSessionsOverPageLoadTime`
-[QueryAPI.jl#620-622](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L620-L622){: .source-link}
+[QueryAPI.jl#632-634](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L632-L634){: .source-link}
 
 Calls the `sessions-per-page-load-time` endpoint of the mPulse REST API with the passed in filters
 
@@ -781,9 +781,9 @@ Calls the `sessions-per-page-load-time` endpoint of the mPulse REST API with the
 `token::AbstractString`
 :    The Repository authentication token fetched by calling [`mPulseAPI.getRepositoryToken`](RepositoryAPI.md#function-getrepositorytoken){: .x-ref}
 
-`appID::AbstractString`
-:    The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
-     [`mPulseAPI.getRepositoryDomain`](RepositoryAPI.md#function-getrepositorydomain){: .x-ref} to fetch a domain and then inspect `domain["attributes"]["appID"]`
+`appKey::AbstractString`
+:    The App Key (formerly known as API key) for the app to query.  If you don't know the App Key, use
+     [`mPulseAPI.getRepositoryDomain`](RepositoryAPI.md#function-getrepositorydomain){: .x-ref} to fetch a domain and then inspect `domain["attributes"]["appKey"]`
 
 #### Optional Arguments
 `filters::Dict`
@@ -823,7 +823,7 @@ Calls the `sessions-per-page-load-time` endpoint of the mPulse REST API with the
 `{DataFrame}` A julia `DataFrame` mapping the Sessions to a load time bucket:
 
 ```julia
-julia> mPulseAPI.getSessionsOverPageLoadTime(token, appID)
+julia> mPulseAPI.getSessionsOverPageLoadTime(token, appKey)
 60x2 DataFrames.DataFrame
 | Row | t_done | Sessions   |
 |-----|--------|------------|
@@ -842,7 +842,7 @@ julia> mPulseAPI.getSessionsOverPageLoadTime(token, appID)
 ---
 
 ### function `getMetricOverPageLoadTime`
-[QueryAPI.jl#647-671](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L647-L671){: .source-link}
+[QueryAPI.jl#659-683](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L659-L683){: .source-link}
 
 Calls the `metric-per-page-load-time` endpoint of the mPulse REST API with the passed in filters
 
@@ -850,9 +850,9 @@ Calls the `metric-per-page-load-time` endpoint of the mPulse REST API with the p
 `token::AbstractString`
 :    The Repository authentication token fetched by calling [`mPulseAPI.getRepositoryToken`](RepositoryAPI.md#function-getrepositorytoken){: .x-ref}
 
-`appID::AbstractString`
-:    The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
-     [`mPulseAPI.getRepositoryDomain`](RepositoryAPI.md#function-getrepositorydomain){: .x-ref} to fetch a domain and then inspect `domain["attributes"]["appID"]`
+`appKey::AbstractString`
+:    The App Key (formerly known as API key) for the app to query.  If you don't know the App Key, use
+     [`mPulseAPI.getRepositoryDomain`](RepositoryAPI.md#function-getrepositorydomain){: .x-ref} to fetch a domain and then inspect `domain["attributes"]["appKey"]`
 
 #### Optional Arguments
 `metric::AbstractString`
@@ -898,7 +898,7 @@ Calls the `metric-per-page-load-time` endpoint of the mPulse REST API with the p
 `{DataFrame}` A julia `DataFrame` mapping the Metric to a load time bucket:
 
 ```julia
-julia> mPulseAPI.getMetricOverPageLoadTime(token, appID)
+julia> mPulseAPI.getMetricOverPageLoadTime(token, appKey)
 60x2 DataFrames.DataFrame
 | Row | t_done | BounceRate |
 |-----|--------|------------|
@@ -917,7 +917,7 @@ julia> mPulseAPI.getMetricOverPageLoadTime(token, appID)
 ---
 
 ### function `getTimerByMinute`
-[QueryAPI.jl#726-760](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L726-L760){: .source-link}
+[QueryAPI.jl#738-772](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L738-L772){: .source-link}
 
 Calls the `by-minute` endpoint of the mPulse REST API with the passed in filters
 
@@ -925,9 +925,9 @@ Calls the `by-minute` endpoint of the mPulse REST API with the passed in filters
 `token::AbstractString`
 :    The Repository authentication token fetched by calling [`mPulseAPI.getRepositoryToken`](RepositoryAPI.md#function-getrepositorytoken){: .x-ref}
 
-`appID::AbstractString`
-:    The App ID (formerly known as API key) for the app to query.  If you don't know the App ID, use
-     [`mPulseAPI.getRepositoryDomain`](RepositoryAPI.md#function-getrepositorydomain){: .x-ref} to fetch a domain and then inspect `domain["attributes"]["appID"]`
+`appKey::AbstractString`
+:    The App Key (formerly known as API key) for the app to query.  If you don't know the App Key, use
+     [`mPulseAPI.getRepositoryDomain`](RepositoryAPI.md#function-getrepositorydomain){: .x-ref} to fetch a domain and then inspect `domain["attributes"]["appKey"]`
 
 #### Optional Arguments
 `timer::AbstractString`
@@ -985,7 +985,7 @@ Calls the `by-minute` endpoint of the mPulse REST API with the passed in filters
 The fields are: `:timestamp` in milliseconds since the UNIX epoch, `:<TimerName>` in milliseconds and `:moe` in milliseconds.
 
 ```julia
-julia> data = mPulseAPI.getTimerByMinute(token, appID, timer="PageLoad")
+julia> data = mPulseAPI.getTimerByMinute(token, appKey, timer="PageLoad")
 1440x3 DataFrames.DataFrame
 | Row  | timestamp     | PageLoad | moe  |
 |------|---------------|----------|------|
@@ -1003,7 +1003,7 @@ julia> data = mPulseAPI.getTimerByMinute(token, appID, timer="PageLoad")
 ---
 
 ### function `mergeMetrics`
-[QueryAPI.jl#825-833](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L825-L833){: .source-link}
+[QueryAPI.jl#837-845](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L837-L845){: .source-link}
 
 Merge multiple similar `DataFrames` into a single `DataFrame`
 
@@ -1034,9 +1034,9 @@ All passed in `DataFrame`s MUST contain a `:t_done` column.
   Since we perform an outer join, rows in any of the DataFrames that do not have a matching `keyField` value found in other DataFrames will be filled with `NA`
 
 ```julia
-julia> sessions   = mPulseAPI.getSessionsOverPageLoadTime(token, appID);
-julia> bouncerate = mPulseAPI.getMetricOverPageLoadTime(token, appID);
-julia> conversion = mPulseAPI.getMetricOverPageLoadTime(token, appID, metric="Conversion");
+julia> sessions   = mPulseAPI.getSessionsOverPageLoadTime(token, appKey);
+julia> bouncerate = mPulseAPI.getMetricOverPageLoadTime(token, appKey);
+julia> conversion = mPulseAPI.getMetricOverPageLoadTime(token, appKey, metric="Conversion");
 
 julia> mPulseAPI.mergeMetrics(sessions, bouncerate, conversion)
 65x4 DataFrames.DataFrame

@@ -11,15 +11,15 @@ domainNames = map(d -> d["name"], domains)
 @test "mPulseAPI Test" ∈ domainNames
 
 # Get a specific domain
-appID = filter(d -> d["name"] == "mPulseAPI Test", domains)[1]["attributes"]["appID"]
-@test !isempty(appID)
+appKey = filter(d -> d["name"] == "mPulseAPI Test", domains)[1]["attributes"]["appKey"]
+@test !isempty(appKey)
 
-domain = getRepositoryDomain(token, appID=appID)
+domain = getRepositoryDomain(token, appKey=appKey)
 @test !isempty(domain)
 
 # Check domain parameters
 @test domain["name"] == "mPulseAPI Test"
-@test domain["attributes"]["appID"] == appID
+@test domain["attributes"]["appKey"] == appKey
 @test domain["resource_timing"]
 
 # Check custom metrics
@@ -71,4 +71,4 @@ tenant = getRepositoryTenant(token, name=mPulseAPITenant)
 
 @test_throws mPulseAPIAuthException getRepositoryToken(mPulseAPITenant, "some-invalid-token")
 
-@test_throws mPulseAPIAuthException getRepositoryDomain("some-invalid-token", appID=appID * "-" * base(16, round(Int, rand()*100000), 5))
+@test_throws mPulseAPIAuthException getRepositoryDomain("some-invalid-token", appKey=appKey * "-" * base(16, round(Int, rand()*100000), 5))

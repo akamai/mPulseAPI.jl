@@ -53,12 +53,12 @@ $(mPulseAPI.readdocs("APIResults-exceptions"))
 #### Returns
 `{Any}` A Julia representation of the JSON returned by the API call. Convenience wrappers in this library may return more appropriate data structures.
 """
-function getAPIResults(token::AbstractString, appID::AbstractString, query_type::AbstractString; filters::Dict=Dict())
+function getAPIResults(token::AbstractString, appKey::AbstractString, query_type::AbstractString; filters::Dict=Dict())
     if query_type ∉ query_types
         throw(ArgumentError("Unrecognized query_type $(query_type)"))
     end
 
-    url = string(mPulseEndpoint, appID, "/", query_type)
+    url = string(mPulseEndpoint, appKey, "/", query_type)
 
     query = Dict{AbstractString, Union{AbstractString, Array}}(
         "date-comparator" => "Last24Hours",
@@ -190,7 +190,7 @@ $(mPulseAPI.readdocs("APIResults-exceptions"))
 #### Examples
 
 ```julia
-julia> summary = mPulseAPI.getSummaryTimers(token, appID)
+julia> summary = mPulseAPI.getSummaryTimers(token, appKey)
 
 Dict{Any,Any} with 5 entries:
   "n"      => 356317
@@ -200,8 +200,8 @@ Dict{Any,Any} with 5 entries:
   "moe"    => 13.93
 ```
 """
-function getSummaryTimers(token::AbstractString, appID::AbstractString; filters::Dict=Dict())
-    return getAPIResults(token, appID, "summary", filters=filters)
+function getSummaryTimers(token::AbstractString, appKey::AbstractString; filters::Dict=Dict())
+    return getAPIResults(token, appKey, "summary", filters=filters)
 end
 
 
@@ -226,8 +226,8 @@ $(mPulseAPI.readdocs("CleanSeriesSeries-exceptions", [""]))
 #### Returns
 $(mPulseAPI.readdocs("friendly-names-df", ["page_group", "PageGroup", "www", "blog", "Search", "SKU", "PLU", "(No Page Group)", "Checkout"]))
 """
-function getPageGroupTimers(token::AbstractString, appID::AbstractString; filters::Dict=Dict(), friendly_names::Bool=false)
-    results = getAPIResults(token, appID, "page-groups", filters=filters)
+function getPageGroupTimers(token::AbstractString, appKey::AbstractString; filters::Dict=Dict(), friendly_names::Bool=false)
+    results = getAPIResults(token, appKey, "page-groups", filters=filters)
 
     if length(results) == 0
         return DataFrame()
@@ -264,8 +264,8 @@ $(mPulseAPI.readdocs("CleanSeriesSeries-exceptions", [""]))
 #### Returns
 $(mPulseAPI.readdocs("friendly-names-df", ["user_agent", "Browser", "Chrome/50", "Safari/9", "Mobile Safari/9", "Firefox/46", "Chrome/49", "IE/11", "Edge/13"]))
 """
-function getBrowserTimers(token::AbstractString, appID::AbstractString; filters::Dict=Dict(), friendly_names::Bool=false)
-    results = getAPIResults(token, appID, "browsers", filters=filters)
+function getBrowserTimers(token::AbstractString, appKey::AbstractString; filters::Dict=Dict(), friendly_names::Bool=false)
+    results = getAPIResults(token, appKey, "browsers", filters=filters)
 
     if length(results) == 0
         return DataFrame()
@@ -302,8 +302,8 @@ $(mPulseAPI.readdocs("CleanSeriesSeries-exceptions", [""]))
 #### Returns
 $(mPulseAPI.readdocs("friendly-names-df", ["test_name", "ABTest", "(No Value)", "Test-A", "Test-B", "BlueHead", "Campaign-XXX", "Old-Site", "Slow-SRP"]))
 """
-function getABTestTimers(token::AbstractString, appID::AbstractString; filters::Dict=Dict(), friendly_names::Bool=false)
-    results = getAPIResults(token, appID, "ab-tests", filters=filters)
+function getABTestTimers(token::AbstractString, appKey::AbstractString; filters::Dict=Dict(), friendly_names::Bool=false)
+    results = getAPIResults(token, appKey, "ab-tests", filters=filters)
 
     if length(results) == 0
         return DataFrame()
@@ -340,8 +340,8 @@ $(mPulseAPI.readdocs("CleanSeriesSeries-exceptions", [""]))
 #### Returns
 $(mPulseAPI.readdocs("friendly-names-df", ["country", "Country", "US", "CA", "MX", "PH", "AU", "KR", "PE"]))
 """
-function getGeoTimers(token::AbstractString, appID::AbstractString; filters::Dict=Dict(), friendly_names::Bool=false)
-    results = getAPIResults(token, appID, "geography", filters=filters)
+function getGeoTimers(token::AbstractString, appKey::AbstractString; filters::Dict=Dict(), friendly_names::Bool=false)
+    results = getAPIResults(token, appKey, "geography", filters=filters)
 
     if length(results) == 0
         return DataFrame()
@@ -393,7 +393,7 @@ $(mPulseAPI.readdocs("CleanSeriesSeries-exceptions", [""]))
 `{DataFrame}` A Julia `DataFrame` with the following columns: `:<dimension>`, `:<CustomMetric Name>`...
 
 ```julia
-julia> mPulseAPI.getMetricsByDimension(token, appID, "browser")
+julia> mPulseAPI.getMetricsByDimension(token, appKey, "browser")
 243x4 DataFrames.DataFrame
 | Row | browser                          | Conversion | OrderTotal | ServerDown  |
 |-----|----------------------------------|------------|------------|-------------|
@@ -405,10 +405,10 @@ julia> mPulseAPI.getMetricsByDimension(token, appID, "browser")
 | 6   | "Chrome/49"                      | 2.22828    | 4394331    | 0.0         |
 ```
 """
-function getMetricsByDimension(token::AbstractString, appID::AbstractString, dimension::AbstractString; filters::Dict=Dict())
+function getMetricsByDimension(token::AbstractString, appKey::AbstractString, dimension::AbstractString; filters::Dict=Dict())
     filters["dimension"] = dimension
 
-    results = getAPIResults(token, appID, "metrics-by-dimension", filters=filters)
+    results = getAPIResults(token, appKey, "metrics-by-dimension", filters=filters)
 
     local df
 
@@ -423,7 +423,7 @@ function getMetricsByDimension(token::AbstractString, appID::AbstractString, dim
     if length(results["columnNames"]) == 0 || results["columnNames"][2] == nothing || startswith(results["columnNames"][2], "CustomMetric")
         # The API returned bad columns or no results.  Let's try our best to return a consistent albeit empty DataFrame
 
-        domain = getRepositoryDomain(token, appID=appID)
+        domain = getRepositoryDomain(token, appKey=appKey)
 
         custom_metrics = sort( collect(keys(domain["custom_metrics"])), by = k -> domain["custom_metrics"][k]["index"] )
 
@@ -469,7 +469,7 @@ The last row in the DataFrame is the latest value of the timer or metric.  All p
 For example, for Last24Hours, there will be 1440 entries representing each minute in the 24 hour period.
 
 ```julia
-julia> mPulseAPI.getTimersMetrics(token, appID)
+julia> mPulseAPI.getTimersMetrics(token, appKey)
 1441x16 DataFrames.DataFrame
 | Row  | PageLoad | DNS | DomLoad | DomReady | FirstByte | SSL | FirstLastByte | TCP | DOM Interactive | Sessions | BounceRate | Conversion | OrderTotal | Beacons |
 |------|----------|-----|---------|----------|-----------|-----|---------------|-----|-----------------|----------|------------|------------|------------|---------|
@@ -483,8 +483,8 @@ julia> mPulseAPI.getTimersMetrics(token, appID)
 | 8    | 3593     | 46  | 1028    | 3491     | 889       | 92  | 2495          | 33  | 1952            | 314      | 33         | 1.27389    | 150020.0   | 1715    |
 ```
 """
-function getTimersMetrics(token::AbstractString, appID::AbstractString; filters::Dict=Dict())
-    results = getAPIResults(token, appID, "timers-metrics", filters=filters)
+function getTimersMetrics(token::AbstractString, appKey::AbstractString; filters::Dict=Dict())
+    results = getAPIResults(token, appKey, "timers-metrics", filters=filters)
 
     df = DataFrame()
     nulls = Symbol[]
@@ -565,7 +565,7 @@ $(mPulseAPI.readdocs("CleanSeriesSeries-exceptions"))
 
 
 ```julia
-julia> histo = mPulseAPI.getHistogram(token, appID)
+julia> histo = mPulseAPI.getHistogram(token, appKey)
 Dict{AbstractString,Any} with 4 entries:
   "median"  => 3439
   "p95"     => 12843
@@ -595,8 +595,8 @@ julia> histo["buckets"]
 | 13  | 14           | 15         | 19            |
 ```
 """
-function getHistogram(token::AbstractString, appID::AbstractString; filters::Dict=Dict())
-    results = getAPIResults(token, appID, "histogram", filters=filters)
+function getHistogram(token::AbstractString, appKey::AbstractString; filters::Dict=Dict())
+    results = getAPIResults(token, appKey, "histogram", filters=filters)
 
     results = cleanSeriesSeries(results)
 
@@ -629,8 +629,8 @@ $(mPulseAPI.readdocs("APIResults-exceptions"))
 #### Returns
 $(mPulseAPI.readdocs("MetricOverLoadTime-return-format", ["Sessions", "Sessions", 72, 36, 30, 66, 464, 749, 709, 1246]))
 """
-function getSessionsOverPageLoadTime(token::AbstractString, appID::AbstractString; filters::Dict=Dict())
-    return getMetricOverPageLoadTime(token, appID, filters=filters, metric="Sessions")
+function getSessionsOverPageLoadTime(token::AbstractString, appKey::AbstractString; filters::Dict=Dict())
+    return getMetricOverPageLoadTime(token, appKey, filters=filters, metric="Sessions")
 end
 
 
@@ -656,7 +656,7 @@ $(mPulseAPI.readdocs("CleanSeriesSeries-exceptions"))
 #### Returns
 $(mPulseAPI.readdocs("MetricOverLoadTime-return-format", ["Metric", "BounceRate", "NA", 100.0, 68.57, 12.65, 71.08, 14.51, 20.83, 24.58]))
 """
-function getMetricOverPageLoadTime(token::AbstractString, appID::AbstractString; filters::Dict=Dict(), metric::AbstractString="")
+function getMetricOverPageLoadTime(token::AbstractString, appKey::AbstractString; filters::Dict=Dict(), metric::AbstractString="")
     if metric != ""
         filters["metric"] = metric
     end
@@ -664,9 +664,9 @@ function getMetricOverPageLoadTime(token::AbstractString, appID::AbstractString;
 
     if metric == "Sessions"
         delete!(filters, "metric")
-        results = getAPIResults(token, appID, "sessions-per-page-load-time", filters=filters)
+        results = getAPIResults(token, appKey, "sessions-per-page-load-time", filters=filters)
     else
-        results = getAPIResults(token, appID, "metric-per-page-load-time", filters=filters)
+        results = getAPIResults(token, appKey, "metric-per-page-load-time", filters=filters)
     end
 
     if isa(results, Dict) && haskey(results, "series") && results["series"] == nothing
@@ -720,7 +720,7 @@ $(mPulseAPI.readdocs("CleanSeriesSeries-exceptions"))
 The fields are: `:timestamp` in milliseconds since the UNIX epoch, `:<TimerName>` in milliseconds and `:moe` in milliseconds.
 
 ```julia
-julia> data = mPulseAPI.getTimerByMinute(token, appID, timer="PageLoad")
+julia> data = mPulseAPI.getTimerByMinute(token, appKey, timer="PageLoad")
 1440x3 DataFrames.DataFrame
 | Row  | timestamp     | PageLoad | moe  |
 |------|---------------|----------|------|
@@ -735,12 +735,12 @@ julia> data = mPulseAPI.getTimerByMinute(token, appID, timer="PageLoad")
 
 ```
 """
-function getTimerByMinute(token::AbstractString, appID::AbstractString; filters::Dict=Dict(), timer::AbstractString="")
+function getTimerByMinute(token::AbstractString, appKey::AbstractString; filters::Dict=Dict(), timer::AbstractString="")
     local orig_timer = timer
 
     if timer != "" && !startswith(timer, "CustomTimer") && timer ∉ supported_timers
         # Check if this is a known custom timer, and if it is, replace with CustomTimer<index>
-        domain = getRepositoryDomain(token, appID=appID)
+        domain = getRepositoryDomain(token, appKey=appKey)
 
         if haskey(domain["custom_timers"], timer)
             timer = domain["custom_timers"][timer]["mpulseapiname"]
@@ -754,7 +754,7 @@ function getTimerByMinute(token::AbstractString, appID::AbstractString; filters:
     end
     timer = orig_timer != "" ? orig_timer : (haskey(filters, "timer") && filters["timer"] != "") ? filters["timer"] : "PageLoad"
 
-    results = getAPIResults(token, appID, "by-minute", filters=filters)
+    results = getAPIResults(token, appKey, "by-minute", filters=filters)
 
     results = cleanSeriesSeries(results)
 
@@ -803,9 +803,9 @@ All passed in `DataFrame`s MUST contain a `:t_done` column.
   Since we perform an outer join, rows in any of the DataFrames that do not have a matching `keyField` value found in other DataFrames will be filled with `NA`
 
 ```julia
-julia> sessions   = mPulseAPI.getSessionsOverPageLoadTime(token, appID);
-julia> bouncerate = mPulseAPI.getMetricOverPageLoadTime(token, appID);
-julia> conversion = mPulseAPI.getMetricOverPageLoadTime(token, appID, metric="Conversion");
+julia> sessions   = mPulseAPI.getSessionsOverPageLoadTime(token, appKey);
+julia> bouncerate = mPulseAPI.getMetricOverPageLoadTime(token, appKey);
+julia> conversion = mPulseAPI.getMetricOverPageLoadTime(token, appKey, metric="Conversion");
 
 julia> mPulseAPI.mergeMetrics(sessions, bouncerate, conversion)
 65x4 DataFrames.DataFrame

@@ -3,7 +3,7 @@
 `{1}`, `t_done_median`, `t_done_moe`, `t_done_count`, and `t_done_total_pc`
 
 ```julia
-julia> pgroups = mPulseAPI.get{2}Timers(token, appID)
+julia> pgroups = mPulseAPI.get{2}Timers(token, appKey)
 69x5 DataFrames.DataFrame
 | Row | {1:27s} | t_done_median    | t_done_moe | t_done_count | t_done_total_pc |
 |-----|-----------------------------|------------------|------------|--------------|-----------------|

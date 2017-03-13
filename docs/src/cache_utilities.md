@@ -19,8 +19,8 @@ Expire an entry from the domain cache.  Use this if the domain has changed.
 `domainID::Int64`
 :    The ID of the domain to expire.
 
-`appID::AbstractString`
-:    The App ID (formerly known as API key) associated with the domain.  This is available from the mPulse domain configuration dialog.
+`appKey::AbstractString`
+:    The App Key (formerly known as API key) associated with the domain.  This is available from the mPulse domain configuration dialog.
 
 `appName::AbstractString`
 :    The App name in mPulse.  This can be got from the mPulse domain configuration dialog.

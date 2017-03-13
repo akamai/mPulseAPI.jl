@@ -39,16 +39,16 @@ location or is logged out of mPulse.  You can clear the cache for this token usi
 ---
 
 ### function `getRepositoryDomain`
-[RepositoryAPI.jl#182-230](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L182-L230){: .source-link}
+[RepositoryAPI.jl#182-235](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L182-L235){: .source-link}
 
 Fetches a Domain object from the mPulse repository
 
-To fetch a single domain, at least one of `domainID`, `appID` or `appName` must be passed in to identify the domain.
+To fetch a single domain, at least one of `domainID`, `appKey` or `appName` must be passed in to identify the domain.
 If none of these are passed in, then all domains that are readable by the specified `token` will be returned as an array.
 
-The domain will be cached in memory for 1 hour, so subsequent calls using a matching `domainID`, `appID` or `appName` return
+The domain will be cached in memory for 1 hour, so subsequent calls using a matching `domainID`, `appKey` or `appName` return
 quickly without calling out to the API.  This can be a problem if the domain changes in the repository.
-You can clear the cache for this domain using [`mPulseAPI.clearDomainCache`](cache_utilities.md#function-cleardomaincache){: .x-ref} and passing in one of `domainID`, `appID` or `appName`.
+You can clear the cache for this domain using [`mPulseAPI.clearDomainCache`](cache_utilities.md#function-cleardomaincache){: .x-ref} and passing in one of `domainID`, `appKey` or `appName`.
 
 #### Arguments
 `token::AbstractString`
@@ -58,14 +58,14 @@ You can clear the cache for this domain using [`mPulseAPI.clearDomainCache`](cac
 `domainID::Int64`
 :    The ID of the domain to fetch.  This is the fastest method, but it can be hard to figure out a domain's ID
 
-`appID::AbstractString`
-:    The App ID (formerly known as API key) associated with the domain.  This is available from the mPulse domain configuration dialog.
+`appKey::AbstractString`
+:    The App Key (formerly known as API key) associated with the domain.  This is available from the mPulse domain configuration dialog.
 
 `appName::AbstractString`
 :    The App name in mPulse. This is available from the mPulse domain configuration dialog.
 
 #### Returns
-`{Dict|Array{Dict}}` If one of `domainID`, `appID` or `appName` are passed in, then a single `domain` object is returned as a `Dict`.
+`{Dict|Array{Dict}}` If one of `domainID`, `appKey` or `appName` are passed in, then a single `domain` object is returned as a `Dict`.
 
 If none of these are passed in, then an array of all domains is returned, each is a `Dict`.
 
@@ -93,7 +93,7 @@ The `domain` `Dict` has the following fields:
 :    The timestamp when this object was created
 
 `attributes::Dict`
-:    A `Dict` of attributes for this app, including its `AppID`
+:    A `Dict` of attributes for this app, including its `AppKey`
 
 `custom_metrics::Dict`
 :    A      `{Dict}` of Custom Metric names mapped to RedShift fieldnames with the following structure:
@@ -152,7 +152,7 @@ The `domain` `Dict` has the following fields:
 
 #### Throws
 `ArgumentError`
-:    if token is empty or domainID, appID and appName are all empty
+:    if token is empty or domainID, appKey and appName are all empty
 
 [`mPulseAPIException`](exceptions.md#datatype-mpulseapiexception)
 :    if API access failed for some reason
@@ -164,7 +164,7 @@ The `domain` `Dict` has the following fields:
 ---
 
 ### function `getRepositoryTenant`
-[RepositoryAPI.jl#300-322](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L300-L322){: .source-link}
+[RepositoryAPI.jl#305-327](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L305-L327){: .source-link}
 
 Fetches a Tenant object from the mPulse repository
 
@@ -239,7 +239,7 @@ You can clear the cache for this tenant using [`mPulseAPI.clearTenantCache`](cac
 
 
 ### function `getCustomMetricMap`
-[RepositoryAPI.jl#446-481](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L446-L481){: .source-link}
+[RepositoryAPI.jl#453-488](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L453-L488){: .source-link}
 
 Gets a mapping of custom metric names to RedShift field names from domain XML.  This list also includes valid dates.
 
@@ -281,7 +281,7 @@ Gets a mapping of custom metric names to RedShift field names from domain XML.  
 ---
 
 ### function `getCustomTimerMap`
-[RepositoryAPI.jl#498-534](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L498-L534){: .source-link}
+[RepositoryAPI.jl#505-541](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L505-L541){: .source-link}
 
 Gets a mapping of custom timer names to RedShift field names from domain XML.  This list also includes valid dates.
 
@@ -328,7 +328,7 @@ Gets a mapping of custom timer names to RedShift field names from domain XML.  T
 ---
 
 ### function `getNodeContent`
-[RepositoryAPI.jl#558-582](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L558-L582){: .source-link}
+[RepositoryAPI.jl#565-589](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L565-L589){: .source-link}
 
 Gets the content of a node
 

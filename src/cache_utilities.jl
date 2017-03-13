@@ -69,8 +69,8 @@ Expire an entry from the domain cache.  Use this if the domain has changed.
 `domainID::Int64`
 :    The ID of the domain to expire.
 
-`appID::AbstractString`
-:    The App ID (formerly known as API key) associated with the domain.  This is available from the mPulse domain configuration dialog.
+`appKey::AbstractString`
+:    The App Key (formerly known as API key) associated with the domain.  This is available from the mPulse domain configuration dialog.
 
 `appName::AbstractString`
 :    The App name in mPulse.  This can be got from the mPulse domain configuration dialog.
@@ -84,7 +84,7 @@ Expire an entry from the domain cache.  Use this if the domain has changed.
 :    if the entry was not in cache
 
 """
-clearDomainCache(;domainID::Int64=0, appID::AbstractString="", appName::AbstractString="") = clearObjectCache("domain", Dict{Symbol, Any}(:id => domainID, :key => appID, :name => appName))
+clearDomainCache(;domainID::Int64=0, appKey::AbstractString="", appName::AbstractString="") = clearObjectCache("domain", Dict{Symbol, Any}(:id => domainID, :key => appKey, :name => appName))
 
 """
 Expire an entry from the tenant cache.  Use this if the tenant has changed.

@@ -2,14 +2,14 @@ using DataFrames
 
 token  = getRepositoryToken(mPulseAPITenant, mPulseAPIToken)
 domain = getRepositoryDomain(token, appName="mPulse Demo")
-appID  = domain["attributes"]["appID"]
+appKey = domain["attributes"]["appKey"]
 
 # Summary
-# We need to add a random string to the appID to cache bust API results from the previous test
-@test_throws mPulseAPIAuthException mPulseAPI.getSummaryTimers("invalid-token", appID * "-" * base(16, round(Int, rand()*100000), 5))
-@test_throws mPulseAPIRequestException mPulseAPI.getSummaryTimers(token, appID, filters = Dict("invalid-token" => "foo"))
+# We need to add a random string to the appKey to cache bust API results from the previous test
+@test_throws mPulseAPIAuthException mPulseAPI.getSummaryTimers("invalid-token", appKey * "-" * base(16, round(Int, rand()*100000), 5))
+@test_throws mPulseAPIRequestException mPulseAPI.getSummaryTimers(token, appKey, filters = Dict("invalid-token" => "foo"))
 
-summary = mPulseAPI.getSummaryTimers(token, appID)
+summary = mPulseAPI.getSummaryTimers(token, appKey)
 
 @test length(summary) == 5
 
@@ -23,12 +23,12 @@ summary = mPulseAPI.getSummaryTimers(token, appID)
 function testDimensionTable(method, first_symbol, first_friendly)
     local x
     try
-        x = getfield(mPulseAPI, method)(token, appID)
+        x = getfield(mPulseAPI, method)(token, appKey)
     
         @test size(x, 2) == 5
         @test names(x) == [first_symbol, :t_done_median, :t_done_moe, :t_done_count, :t_done_total_pc]
     
-        x = getfield(mPulseAPI, method)(token, appID, friendly_names=true)
+        x = getfield(mPulseAPI, method)(token, appKey, friendly_names=true)
         @test size(x, 2) == 5
         @test names(x) == [symbol(first_friendly), symbol("Median Time (ms)"), symbol("MoE (ms)"), symbol("Measurements"), symbol("% of total")]
     catch ex
@@ -56,7 +56,7 @@ testDimensionTable(:getGeoTimers, :country, "Country")
 for dimension in ["browser", "page_group", "country", "bw_block", "ab_test"]
     local metrics
     try
-        metrics = mPulseAPI.getMetricsByDimension(token, appID, dimension)
+        metrics = mPulseAPI.getMetricsByDimension(token, appKey, dimension)
     
         @test size(metrics, 2) == 1 + length(domain["custom_metrics"])
         @test sort(names(metrics)) == sort(map(symbol, [ dimension; collect(keys(domain["custom_metrics"])) ]))
@@ -75,11 +75,11 @@ for dimension in ["browser", "page_group", "country", "bw_block", "ab_test"]
     end
 end
 
-@test_throws mPulseAPIRequestException mPulseAPI.getMetricsByDimension(token, appID, "some-fake-dimension")
+@test_throws mPulseAPIRequestException mPulseAPI.getMetricsByDimension(token, appKey, "some-fake-dimension")
 
 
 # TimersMetrics
-tm = mPulseAPI.getTimersMetrics(token, appID)
+tm = mPulseAPI.getTimersMetrics(token, appKey)
 
 fixed_cols = [:Beacons, :PageLoad, :Sessions, :BounceRate, :DNS, :TCP, :SSL, :FirstByte, :DomLoad, :DomReady, :FirstLastByte]
 varia_cols = map(symbol, [collect(keys(domain["custom_timers"])); collect(keys(domain["custom_metrics"]))])
@@ -91,7 +91,7 @@ varia_cols = map(symbol, [collect(keys(domain["custom_timers"])); collect(keys(d
 @test size(tm, 1) == 1441
 
 
-tm = mPulseAPI.getTimersMetrics(token, appID, filters=Dict("page-group" => ["product-page", "shop-subcategory"]))
+tm = mPulseAPI.getTimersMetrics(token, appKey, filters=Dict("page-group" => ["product-page", "shop-subcategory"]))
 
 fixed_cols = [:Beacons, :PageLoad, :Sessions, :BounceRate, :DNS, :TCP, :SSL, :FirstByte, :DomLoad, :DomReady, :FirstLastByte]
 varia_cols = map(symbol, [collect(keys(domain["custom_timers"])); collect(keys(domain["custom_metrics"]))])
@@ -103,7 +103,7 @@ varia_cols = map(symbol, [collect(keys(domain["custom_timers"])); collect(keys(d
 
 # Histogram
 
-hgm = mPulseAPI.getHistogram(token, appID)
+hgm = mPulseAPI.getHistogram(token, appKey)
 
 @test length(hgm) == 4
 @test isa(hgm["median"], Int)
@@ -128,9 +128,9 @@ for tuple in metrics
     local x
     try
         if length(tuple) == 3
-            x = getfield(mPulseAPI, tuple[1])(token, appID, metric=tuple[3])
+            x = getfield(mPulseAPI, tuple[1])(token, appKey, metric=tuple[3])
         else
-            x = getfield(mPulseAPI, tuple[1])(token, appID)
+            x = getfield(mPulseAPI, tuple[1])(token, appKey)
         end
 
         push!(metric_frames, x)
@@ -165,7 +165,7 @@ merged_frame = mPulseAPI.mergeMetrics(metric_frames...)
 for timer in mPulseAPI.supported_timers ∪ collect(keys(domain["custom_timers"]))
     local tbm
     try
-        tbm = mPulseAPI.getTimerByMinute(token, appID, timer=timer)
+        tbm = mPulseAPI.getTimerByMinute(token, appKey, timer=timer)
 
         @test size(tbm) == (1440, 3) || size(tbm) == (1439, 3)      # The mPulse API will sometimes not return the last minute of the day
         @test names(tbm) == [:timestamp, symbol(timer), :moe]
@@ -178,4 +178,4 @@ for timer in mPulseAPI.supported_timers ∪ collect(keys(domain["custom_timers"]
     end
 end
 
-@test_throws mPulseAPIRequestException mPulseAPI.getTimerByMinute(token, appID, timer="Some-Bad-Timer")
+@test_throws mPulseAPIRequestException mPulseAPI.getTimerByMinute(token, appKey, timer="Some-Bad-Timer")

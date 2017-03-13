@@ -1,7 +1,7 @@
 `{DataFrame}` A julia `DataFrame` mapping the {1} to a load time bucket:
 
 ```julia
-julia> mPulseAPI.get{1}OverPageLoadTime(token, appID)
+julia> mPulseAPI.get{1}OverPageLoadTime(token, appKey)
 60x2 DataFrames.DataFrame
 | Row | t_done | {2:10s} |
 |-----|--------|------------|

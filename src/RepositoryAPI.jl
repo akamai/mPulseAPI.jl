@@ -98,12 +98,12 @@ end
 """
 Fetches a Domain object from the mPulse repository
 
-To fetch a single domain, at least one of `domainID`, `appID` or `appName` must be passed in to identify the domain.
+To fetch a single domain, at least one of `domainID`, `appKey` or `appName` must be passed in to identify the domain.
 If none of these are passed in, then all domains that are readable by the specified `token` will be returned as an array.
 
-The domain will be cached in memory for 1 hour, so subsequent calls using a matching `domainID`, `appID` or `appName` return
+The domain will be cached in memory for 1 hour, so subsequent calls using a matching `domainID`, `appKey` or `appName` return
 quickly without calling out to the API.  This can be a problem if the domain changes in the repository.
-You can clear the cache for this domain using [`mPulseAPI.clearDomainCache`](@ref) and passing in one of `domainID`, `appID` or `appName`.
+You can clear the cache for this domain using [`mPulseAPI.clearDomainCache`](@ref) and passing in one of `domainID`, `appKey` or `appName`.
 
 #### Arguments
 `token::AbstractString`
@@ -113,14 +113,14 @@ You can clear the cache for this domain using [`mPulseAPI.clearDomainCache`](@re
 `domainID::Int64`
 :    The ID of the domain to fetch.  This is the fastest method, but it can be hard to figure out a domain's ID
 
-`appID::AbstractString`
-:    The App ID (formerly known as API key) associated with the domain.  This is available from the mPulse domain configuration dialog.
+`appKey::AbstractString`
+:    The App Key (formerly known as API key) associated with the domain.  This is available from the mPulse domain configuration dialog.
 
 `appName::AbstractString`
 :    The App name in mPulse. This is available from the mPulse domain configuration dialog.
 
 #### Returns
-`{Dict|Array{Dict}}` If one of `domainID`, `appID` or `appName` are passed in, then a single `domain` object is returned as a `Dict`.
+`{Dict|Array{Dict}}` If one of `domainID`, `appKey` or `appName` are passed in, then a single `domain` object is returned as a `Dict`.
 
 If none of these are passed in, then an array of all domains is returned, each is a `Dict`.
 
@@ -148,7 +148,7 @@ The `domain` `Dict` has the following fields:
 :    The timestamp when this object was created
 
 `attributes::Dict`
-:    A `Dict` of attributes for this app, including its `AppID`
+:    A `Dict` of attributes for this app, including its `AppKey`
 
 `custom_metrics::Dict`
 :    A $(mPulseAPI.readdocs("CustomMetricMap-structure", indent=5))
@@ -170,7 +170,7 @@ The `domain` `Dict` has the following fields:
 
 #### Throws
 `ArgumentError`
-:    if token is empty or domainID, appID and appName are all empty
+:    if token is empty or domainID, appKey and appName are all empty
 
 `mPulseAPIException`
 :    if API access failed for some reason
@@ -179,11 +179,16 @@ The `domain` `Dict` has the following fields:
 :    if something unexpected happened while parsing the repository object
 
 """
-function getRepositoryDomain(token::AbstractString; domainID::Int64=0, appID::AbstractString="", appName::AbstractString="")
+function getRepositoryDomain(token::AbstractString; domainID::Int64=0, appKey::AbstractString="", appName::AbstractString="", appID::AbstractString="")
+    # Keep appID for backwards compatibility
+    if isempty(appKey) && !isempty(appID)
+        appKey = appID
+    end
+
     domain_list = getRepositoryObject(
                 token,
                 "domain",
-                Dict{Symbol, Any}(:id => domainID, :apiKey => appID, :name => appName),
+                Dict{Symbol, Any}(:id => domainID, :apiKey => appKey, :name => appName),
                 filterRequired=false
         )
 
@@ -215,6 +220,7 @@ function getRepositoryDomain(token::AbstractString; domainID::Int64=0, appID::Ab
 
         if haskey(domain, "attributes") && haskey(domain["attributes"], "apiKey")
             domain["attributes"]["appID"] = domain["attributes"]["apiKey"]
+            domain["attributes"]["appKey"] = domain["attributes"]["apiKey"]
         end
 
         delete!(domain, "readOnly")
@@ -222,7 +228,7 @@ function getRepositoryDomain(token::AbstractString; domainID::Int64=0, appID::Ab
 
     # Return the first element only if the caller asked for a unique domain, else
     # return the list even if it only has one element in it
-    if domainID != 0 || appID != "" || appName != ""
+    if domainID != 0 || appKey != "" || appName != ""
         return domain_list[1]
     else
         return domain_list
