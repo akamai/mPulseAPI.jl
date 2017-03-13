@@ -493,11 +493,37 @@ function getTimersMetrics(token::AbstractString, appKey::AbstractString; filters
         name   = symbol(element["id"])
         latest = element["latest"]
 
-	local i=0
-	while name ∈ names(df) ∪ nulls
-		i += 1
-		name = symbol(element["id"], "__", i)
-	end
+        # If we got a metric/timer without a name, and it actually has data, try to determine its name from the domain object
+        if ismatch(r"^Custom(Timer|Metric)\d+$", string(name))
+            if latest != 0 && haskey(element, "history") && length(element["history"]) > 0
+
+                # This is returned from in-memory cache on subsequent calls, so safe to call in a loop
+                domain = getRepositoryDomain(token, appKey=appKey)
+    
+                # Invert and merge both maps
+                custom = Dict(
+                            [ symbol("CustomMetric", v["index"]) => k for (k, v) in domain["custom_metrics"] ]
+                            ∪
+                            [ symbol(v["mpulseapiname"]) => k for (k, v) in domain["custom_timers"] ]
+                        )
+    
+                if haskey(custom, name)
+                    name = custom[name]
+                else
+                    # Metric/timer had data, but wasn't actually defined in the app. mPulse bug 115779
+                    warn("Got data for $name but it does not exist for this app")
+                    continue
+                end
+            else
+                continue
+            end
+        end
+
+        local i=0
+        while name ∈ names(df) ∪ nulls
+            i += 1
+            name = symbol(element["id"], "__", i)
+        end
 
         if latest == 0 && (!haskey(element, "history") || length(element["history"]) == 0)
             push!(nulls, name)
