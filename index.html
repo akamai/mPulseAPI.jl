@@ -175,10 +175,10 @@ token = getRepositoryToken(&quot;&lt;tenant name&gt;&quot;, &quot;&lt;mPulse api
 # Get a domain by app name
 domain = getRepositoryDomain(token, appName=&quot;&lt;app name from mPulse&gt;&quot;)
 
-# Get a domain by App ID (formerly known as API key)
-domain = getRepositoryDomain(token, appID=&quot;&lt;App ID from mPulse&gt;&quot;)
+# Get a domain by App Key (formerly known as API key)
+domain = getRepositoryDomain(token, appKey=&quot;&lt;App Key from mPulse&gt;&quot;)
 
-domain[&quot;attributes&quot;][&quot;appID&quot;]                            # Gets the App ID (formerly known as API key)
+domain[&quot;attributes&quot;][&quot;appKey&quot;]                           # Gets the App Key (formerly known as API key)
                                                          # for this app
 domain[&quot;custom_metrics&quot;]                                 # Get a Dict of custom metrics
 domain[&quot;custom_metrics&quot;][&quot;Conversion Rate&quot;]              # Get mapping for Conversion Rate custom metric
@@ -310,5 +310,5 @@ importing them or by prefixing them with the <code>mPulseAPI.</code> namespace.<
 
 <!--
 MkDocs version : 0.15.3
-Build Date UTC : 2016-10-25 20:36:06.821233
+Build Date UTC : 2017-03-13 19:27:50.058342
 -->

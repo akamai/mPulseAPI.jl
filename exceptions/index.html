@@ -163,16 +163,18 @@
 </dl>
 <hr />
 <h3 id="datatype-mpulseapiauthexception">datatype <code>mPulseAPIAuthException</code><a class="headerlink" href="#datatype-mpulseapiauthexception" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/exceptions.jl#L33-L35">exceptions.jl#33-35</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/exceptions.jl#L36-L41">exceptions.jl#36-41</a></p>
 <p>Thrown when the token used to authenticate with the REST API is invalid or has expired</p>
 <h4 id="fields_1">Fields<a class="headerlink" href="#fields_1" title="Permanent link">&para;</a></h4>
 <dl>
+<dt><code>msg::AbstractString</code></dt>
+<dd>This message is always set to "Error Authenticating with REST API"</dd>
 <dt><code>response::Response</code></dt>
 <dd>The response object from the REST API call.  You can inspect headers, data, cookies, redirects, and the initiating request.</dd>
 </dl>
 <hr />
 <h3 id="datatype-mpulseapirequestexception">datatype <code>mPulseAPIRequestException</code><a class="headerlink" href="#datatype-mpulseapirequestexception" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/exceptions.jl#L57-L63">exceptions.jl#57-63</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/exceptions.jl#L63-L69">exceptions.jl#63-69</a></p>
 <p>Thrown when a request parameter is invalid</p>
 <h4 id="fields_2">Fields<a class="headerlink" href="#fields_2" title="Permanent link">&para;</a></h4>
 <dl>
@@ -189,7 +191,7 @@
 </dl>
 <hr />
 <h3 id="datatype-mpulseapiresultformatexception">datatype <code>mPulseAPIResultFormatException</code><a class="headerlink" href="#datatype-mpulseapiresultformatexception" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/exceptions.jl#L76-L79">exceptions.jl#76-79</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/exceptions.jl#L82-L85">exceptions.jl#82-85</a></p>
 <p>Thrown when the result returned by an API call was not in the expected format</p>
 <h4 id="fields_3">Fields<a class="headerlink" href="#fields_3" title="Permanent link">&para;</a></h4>
 <dl>

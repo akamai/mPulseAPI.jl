@@ -179,13 +179,13 @@ location or is logged out of mPulse.  You can clear the cache for this token usi
 </dl>
 <hr />
 <h3 id="function-getrepositorydomain">function <code>getRepositoryDomain</code><a class="headerlink" href="#function-getrepositorydomain" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L182-L230">RepositoryAPI.jl#182-230</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L182-L235">RepositoryAPI.jl#182-235</a></p>
 <p>Fetches a Domain object from the mPulse repository</p>
-<p>To fetch a single domain, at least one of <code>domainID</code>, <code>appID</code> or <code>appName</code> must be passed in to identify the domain.
+<p>To fetch a single domain, at least one of <code>domainID</code>, <code>appKey</code> or <code>appName</code> must be passed in to identify the domain.
 If none of these are passed in, then all domains that are readable by the specified <code>token</code> will be returned as an array.</p>
-<p>The domain will be cached in memory for 1 hour, so subsequent calls using a matching <code>domainID</code>, <code>appID</code> or <code>appName</code> return
+<p>The domain will be cached in memory for 1 hour, so subsequent calls using a matching <code>domainID</code>, <code>appKey</code> or <code>appName</code> return
 quickly without calling out to the API.  This can be a problem if the domain changes in the repository.
-You can clear the cache for this domain using <a class="x-ref" href="../cache_utilities/index.html#function-cleardomaincache"><code>mPulseAPI.clearDomainCache</code></a> and passing in one of <code>domainID</code>, <code>appID</code> or <code>appName</code>.</p>
+You can clear the cache for this domain using <a class="x-ref" href="../cache_utilities/index.html#function-cleardomaincache"><code>mPulseAPI.clearDomainCache</code></a> and passing in one of <code>domainID</code>, <code>appKey</code> or <code>appName</code>.</p>
 <h4 id="arguments_1">Arguments<a class="headerlink" href="#arguments_1" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>token::AbstractString</code></dt>
@@ -195,13 +195,13 @@ You can clear the cache for this domain using <a class="x-ref" href="../cache_ut
 <dl>
 <dt><code>domainID::Int64</code></dt>
 <dd>The ID of the domain to fetch.  This is the fastest method, but it can be hard to figure out a domain's ID</dd>
-<dt><code>appID::AbstractString</code></dt>
-<dd>The App ID (formerly known as API key) associated with the domain.  This is available from the mPulse domain configuration dialog.</dd>
+<dt><code>appKey::AbstractString</code></dt>
+<dd>The App Key (formerly known as API key) associated with the domain.  This is available from the mPulse domain configuration dialog.</dd>
 <dt><code>appName::AbstractString</code></dt>
 <dd>The App name in mPulse. This is available from the mPulse domain configuration dialog.</dd>
 </dl>
 <h4 id="returns_1">Returns<a class="headerlink" href="#returns_1" title="Permanent link">&para;</a></h4>
-<p><code>{Dict|Array{Dict}}</code> If one of <code>domainID</code>, <code>appID</code> or <code>appName</code> are passed in, then a single <code>domain</code> object is returned as a <code>Dict</code>.</p>
+<p><code>{Dict|Array{Dict}}</code> If one of <code>domainID</code>, <code>appKey</code> or <code>appName</code> are passed in, then a single <code>domain</code> object is returned as a <code>Dict</code>.</p>
 <p>If none of these are passed in, then an array of all domains is returned, each is a <code>Dict</code>.</p>
 <p>The <code>domain</code> <code>Dict</code> has the following fields:</p>
 <dl>
@@ -220,7 +220,7 @@ You can clear the cache for this domain using <a class="x-ref" href="../cache_ut
 <dt><code>lastModified::DateTime</code></dt>
 <dd>The timestamp when this object was created</dd>
 <dt><code>attributes::Dict</code></dt>
-<dd>A <code>Dict</code> of attributes for this app, including its <code>AppID</code></dd>
+<dd>A <code>Dict</code> of attributes for this app, including its <code>AppKey</code></dd>
 <dt><code>custom_metrics::Dict</code></dt>
 <dd>A      <code>{Dict}</code> of Custom Metric names mapped to RedShift fieldnames with the following structure:<pre><code>  Dict(
       &lt;metric name&gt; =&gt; Dict(
@@ -272,7 +272,7 @@ You can clear the cache for this domain using <a class="x-ref" href="../cache_ut
 <h4 id="throws_1">Throws<a class="headerlink" href="#throws_1" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>ArgumentError</code></dt>
-<dd>if token is empty or domainID, appID and appName are all empty</dd>
+<dd>if token is empty or domainID, appKey and appName are all empty</dd>
 <dt><a href="../exceptions/index.html#datatype-mpulseapiexception"><code>mPulseAPIException</code></a></dt>
 <dd>if API access failed for some reason</dd>
 <dt><code>Exception</code></dt>
@@ -280,7 +280,7 @@ You can clear the cache for this domain using <a class="x-ref" href="../cache_ut
 </dl>
 <hr />
 <h3 id="function-getrepositorytenant">function <code>getRepositoryTenant</code><a class="headerlink" href="#function-getrepositorytenant" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L300-L322">RepositoryAPI.jl#300-322</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L305-L327">RepositoryAPI.jl#305-327</a></p>
 <p>Fetches a Tenant object from the mPulse repository</p>
 <p>At least one of <code>tenantID</code> or <code>name</code> must be passed in to identify the tenant.</p>
 <p>The tenant will be cached in memory for 1 hour, so subsequent calls using a matching <code>tenantID</code>, or <code>name</code> return
@@ -338,7 +338,7 @@ You can clear the cache for this tenant using <a class="x-ref" href="../cache_ut
 importing them or by prefixing them with the <code>mPulseAPI.</code> namespace.</p>
 </div>
 <h3 id="function-getcustommetricmap">function <code>getCustomMetricMap</code><a class="headerlink" href="#function-getcustommetricmap" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L446-L481">RepositoryAPI.jl#446-481</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L453-L488">RepositoryAPI.jl#453-488</a></p>
 <p>Gets a mapping of custom metric names to RedShift field names from domain XML.  This list also includes valid dates.</p>
 <h4 id="arguments_3">Arguments<a class="headerlink" href="#arguments_3" title="Permanent link">&para;</a></h4>
 <dl>
@@ -379,7 +379,7 @@ importing them or by prefixing them with the <code>mPulseAPI.</code> namespace.<
 </dl>
 <hr />
 <h3 id="function-getcustomtimermap">function <code>getCustomTimerMap</code><a class="headerlink" href="#function-getcustomtimermap" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L498-L534">RepositoryAPI.jl#498-534</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L505-L541">RepositoryAPI.jl#505-541</a></p>
 <p>Gets a mapping of custom timer names to RedShift field names from domain XML.  This list also includes valid dates.</p>
 <h4 id="arguments_4">Arguments<a class="headerlink" href="#arguments_4" title="Permanent link">&para;</a></h4>
 <dl>
@@ -425,7 +425,7 @@ importing them or by prefixing them with the <code>mPulseAPI.</code> namespace.<
 </dl>
 <hr />
 <h3 id="function-getnodecontent">function <code>getNodeContent</code><a class="headerlink" href="#function-getnodecontent" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L558-L582">RepositoryAPI.jl#558-582</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L565-L589">RepositoryAPI.jl#565-589</a></p>
 <p>Gets the content of a node</p>
 <h4 id="arguments_5">Arguments<a class="headerlink" href="#arguments_5" title="Permanent link">&para;</a></h4>
 <dl>
