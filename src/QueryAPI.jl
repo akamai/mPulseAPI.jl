@@ -554,7 +554,12 @@ function getTimersMetrics(token::AbstractString, appKey::AbstractString; filters
 
     df[nulls] = NA
 
-    return df
+    if all(a -> isna(a) || a == 0, stack(df[end-1, :], names(df))[:value])
+        # mPulse bug 115785: If penultimate row is all 0s/NAs, remove it
+        return df[[1:end-2; end], :]
+    else
+        return df
+    end
 end
 
 
