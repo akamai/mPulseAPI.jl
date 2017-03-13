@@ -30,7 +30,7 @@ function testDimensionTable(method, first_symbol, first_friendly)
     
         x = getfield(mPulseAPI, method)(token, appKey, friendly_names=true)
         @test size(x, 2) == 5
-        @test names(x) == [symbol(first_friendly), symbol("Median Time (ms)"), symbol("MoE (ms)"), symbol("Measurements"), symbol("% of total")]
+        @test names(x) == [Symbol(first_friendly), Symbol("Median Time (ms)"), Symbol("MoE (ms)"), Symbol("Measurements"), Symbol("% of total")]
     catch ex
         warn("mPulseAPI.$method")
         show(x)
@@ -59,7 +59,7 @@ for dimension in ["browser", "page_group", "country", "bw_block", "ab_test"]
         metrics = mPulseAPI.getMetricsByDimension(token, appKey, dimension)
     
         @test size(metrics, 2) == 1 + length(domain["custom_metrics"])
-        @test sort(names(metrics)) == sort(map(symbol, [ dimension; collect(keys(domain["custom_metrics"])) ]))
+        @test sort(names(metrics)) == sort(map(Symbol, [ dimension; collect(keys(domain["custom_metrics"])) ]))
 
         @test size(metrics, 1) > 0
     catch ex
@@ -77,7 +77,7 @@ end
 tm = mPulseAPI.getTimersMetrics(token, appKey)
 
 fixed_cols = [:Beacons, :PageLoad, :Sessions, :BounceRate, :DNS, :TCP, :SSL, :FirstByte, :DomLoad, :DomReady, :FirstLastByte]
-varia_cols = map(symbol, [collect(keys(domain["custom_timers"])); collect(keys(domain["custom_metrics"]))])
+varia_cols = map(Symbol, [collect(keys(domain["custom_timers"])); collect(keys(domain["custom_metrics"]))])
 
 @test size(tm, 2) == length(fixed_cols ∪ varia_cols)
 
@@ -89,7 +89,7 @@ varia_cols = map(symbol, [collect(keys(domain["custom_timers"])); collect(keys(d
 tm = mPulseAPI.getTimersMetrics(token, appKey, filters=Dict("page-group" => ["product-page", "shop-subcategory"]))
 
 fixed_cols = [:Beacons, :PageLoad, :Sessions, :BounceRate, :DNS, :TCP, :SSL, :FirstByte, :DomLoad, :DomReady, :FirstLastByte]
-varia_cols = map(symbol, [collect(keys(domain["custom_timers"])); collect(keys(domain["custom_metrics"]))])
+varia_cols = map(Symbol, [collect(keys(domain["custom_timers"])); collect(keys(domain["custom_metrics"]))])
 
 @test size(tm, 2) >= length(fixed_cols)
 
@@ -118,7 +118,7 @@ metric_frames = []
 metrics = [
     (:getSessionsOverPageLoadTime, :Sessions),
     (:getMetricOverPageLoadTime, :BounceRate)
-] ∪ map(m -> (:getMetricOverPageLoadTime, symbol(m), m), collect(keys(domain["custom_metrics"])))
+] ∪ map(m -> (:getMetricOverPageLoadTime, Symbol(m), m), collect(keys(domain["custom_metrics"])))
 for tuple in metrics
     local x
     try
@@ -147,7 +147,7 @@ end
 merged_frame = mPulseAPI.mergeMetrics(metric_frames...)
 
 @test size(merged_frame, 2) == 3 + length(domain["custom_metrics"])
-@test names(merged_frame) == [:t_done, :Sessions, :BounceRate] ∪ map(symbol, collect(keys(domain["custom_metrics"])))
+@test names(merged_frame) == [:t_done, :Sessions, :BounceRate] ∪ map(Symbol, collect(keys(domain["custom_metrics"])))
 @test size(merged_frame, 1) > 0
 
 
@@ -162,7 +162,7 @@ for timer in mPulseAPI.supported_timers ∪ collect(keys(domain["custom_timers"]
         else
             @test size(tbm) == (1440, 3) || size(tbm) == (1439, 3)      # The mPulse API will sometimes not return the last minute of the day
         end
-        @test names(tbm) == [:timestamp, symbol(timer), :moe]
+        @test names(tbm) == [:timestamp, Symbol(timer), :moe]
     catch ex
         warn("mPulseAPI.getTimerByMinute($timer)")
         show(tbm)

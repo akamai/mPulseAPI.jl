@@ -352,7 +352,7 @@ function getGeoTimers(token::AbstractString, appKey::AbstractString; filters::Di
     df[:t_done_total_pc] = df[:timerN] * 100 / sum(df[:timerN])
 
     if friendly_names
-        names!(df, [:Country, symbol("Median Time (ms)"), symbol("MoE (ms)"), symbol("Measurements"), symbol("% of total")])
+        names!(df, [:Country, Symbol("Median Time (ms)"), Symbol("MoE (ms)"), Symbol("Measurements"), Symbol("% of total")])
     else
         names!(df, [:country, :t_done_median, :t_done_moe, :t_done_count, :t_done_total_pc])
     end
@@ -433,7 +433,7 @@ function getMetricsByDimension(token::AbstractString, appKey::AbstractString, di
     df = resultsToDataFrame(results["columnNames"], :metrics, results["data"])
 
     ns = names(df)
-    ns[1] = symbol(dimension)
+    ns[1] = Symbol(dimension)
     names!(df, ns)
 
     return df
@@ -490,7 +490,7 @@ function getTimersMetrics(token::AbstractString, appKey::AbstractString; filters
     nulls = Symbol[]
 
     for element in results["values"]
-        name   = symbol(element["id"])
+        name   = Symbol(element["id"])
         latest = element["latest"]
 
         # If we got a metric/timer without a name, and it actually has data, try to determine its name from the domain object
@@ -502,9 +502,9 @@ function getTimersMetrics(token::AbstractString, appKey::AbstractString; filters
     
                 # Invert and merge both maps
                 custom = Dict(
-                            [ symbol("CustomMetric", v["index"]) => k for (k, v) in domain["custom_metrics"] ]
+                            [ Symbol("CustomMetric", v["index"]) => k for (k, v) in domain["custom_metrics"] ]
                             ∪
-                            [ symbol(v["mpulseapiname"]) => k for (k, v) in domain["custom_timers"] ]
+                            [ Symbol(v["mpulseapiname"]) => k for (k, v) in domain["custom_timers"] ]
                         )
     
                 if haskey(custom, name)
@@ -522,7 +522,7 @@ function getTimersMetrics(token::AbstractString, appKey::AbstractString; filters
         local i=0
         while name ∈ names(df) ∪ nulls
             i += 1
-            name = symbol(element["id"], "__", i)
+            name = Symbol(element["id"], "__", i)
         end
 
         if latest == 0 && (!haskey(element, "history") || length(element["history"]) == 0)
@@ -708,7 +708,7 @@ function getMetricOverPageLoadTime(token::AbstractString, appKey::AbstractString
 
     df = resultsToDataFrame( Symbol[:x, :y], :hist, results["aPoints"] )
 
-    names!(df, [ :t_done, symbol(metric) ])
+    names!(df, [ :t_done, Symbol(metric) ])
 
     return df
 end
@@ -791,7 +791,7 @@ function getTimerByMinute(token::AbstractString, appKey::AbstractString; filters
 
     df = resultsToDataFrame( Symbol[:x, :y], :hist, results["aPoints"] )
 
-    names!(df, [ :timestamp, symbol(timer)])
+    names!(df, [ :timestamp, Symbol(timer)])
 
     if size(df, 1) > 0
         df[:moe] = DataArray{Int}(map(p -> haskey(p, "userdata") ? round(Int, 1000*JSON.parse(p["userdata"])["value"]) : 0, results["aPoints"]))
@@ -913,7 +913,7 @@ const df_types_array = Dict(
 # Internal convenience method to convert results from /browsers/, /ab-tests/, /page-groups/, etc. to a DataFrame
 function resultsToDataFrame(names::Vector{Any}, types::Symbol, results::Vector)
     return resultsToDataFrame(
-                convert(Array{Symbol}, map(symbol, names)),
+                convert(Array{Symbol}, map(Symbol, names)),
                 types,
                 results
             )
