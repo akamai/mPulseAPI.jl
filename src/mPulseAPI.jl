@@ -9,8 +9,9 @@
 #
 ###################################################
 
-if VERSION >= v"0.4"
-    __precompile__(true)
+__precompile__(true)
+if VERSION <= v"0.4"
+    readstring = readall
 end
 
 module mPulseAPI
@@ -18,19 +19,12 @@ module mPulseAPI
 const __module_dir = dirname(dirname(@__FILE__))
 
 """
-$(replace(readall(joinpath(mPulseAPI.__module_dir, "README.md")), r"\n.*travis-ci\.org.*\n", ""))
+$(replace(readstring(joinpath(mPulseAPI.__module_dir, "README.md")), r"\n.*travis-ci\.org.*\n", ""))
 """
 mPulseAPI
 
-if VERSION >= v"0.4"
-    using Base.Dates
-    import Base: @__doc__
-else
-    using Dates
-    macro __doc__(ex)
-        esc(ex)
-    end
-end
+using Base.Dates
+import Base: @__doc__
 
 using Requests, LightXML, HttpCommon
 
@@ -90,7 +84,7 @@ end
 
 function readdocs(name::AbstractString, replacers=[]; indent=0)
     # read the file and strip out the newline at the end
-    data = chomp( readall( joinpath(mPulseAPI.__module_dir, "doc-snippets", name * ".md") ) )
+    data = chomp( readstring( joinpath(mPulseAPI.__module_dir, "doc-snippets", name * ".md") ) )
 
     # If any placeholders have default values, pull them out and insert them into the replace
     # array if a value is not already set
