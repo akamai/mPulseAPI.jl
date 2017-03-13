@@ -10,13 +10,14 @@
 ###################################################
 
 __precompile__(true)
-if VERSION <= v"0.4"
-    readstring = readall
-end
 
 module mPulseAPI
 # This should bind at compile time, so @__FILE__ is set to mPulseAPI.jl
 const __module_dir = dirname(dirname(@__FILE__))
+
+if !isdefined(:readstring)
+    readstring(x) = readall(x)
+end
 
 """
 $(replace(readstring(joinpath(mPulseAPI.__module_dir, "README.md")), r"\n.*travis-ci\.org.*\n", ""))
