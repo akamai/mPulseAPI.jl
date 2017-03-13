@@ -722,7 +722,7 @@ const supported_timers = [
         "DomLoad",
         "DomReady",
         "FirstLastByte"
-]
+    ]
 
 
 """
