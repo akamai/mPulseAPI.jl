@@ -21,7 +21,7 @@ summary = mPulseAPI.getSummaryTimers(token, appKey)
 
 
 function testDimensionTable(method, first_symbol, first_friendly)
-    local x
+    local x = "--"
     try
         x = getfield(mPulseAPI, method)(token, appKey)
     
