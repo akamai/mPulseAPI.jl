@@ -394,6 +394,8 @@ function getRepositoryObject(token::AbstractString, objectType::AbstractString, 
 
     if statuscode(resp) == 401
         throw(mPulseAPIAuthException(resp))
+    elseif statuscode(resp) == 500
+        throw(mPulseAPIBugException(resp))
     elseif statuscode(resp) != 200
         throw(mPulseAPIException("Error fetching $(objectType) $(debugID)", resp))
     end

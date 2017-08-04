@@ -123,7 +123,11 @@ function getAPIResults(token::AbstractString, appKey::AbstractString, query_type
             end
         end
 
-        throw(mPulseAPIException("Error fetching $(query_type)", resp))
+        if statuscode(resp) == 500
+            throw(mPulseAPIBugException(resp))
+        else
+            throw(mPulseAPIException("Error fetching $(query_type)", resp))
+        end
     end
 
     # Do not use Requests.json as that expects UTF-8 data, and mPulse API's response is ISO-8859-1
