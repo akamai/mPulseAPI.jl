@@ -54,6 +54,8 @@ $(mPulseAPI.readdocs("APIResults-exceptions"))
 `{Any}` A Julia representation of the JSON returned by the API call. Convenience wrappers in this library may return more appropriate data structures.
 """
 function getAPIResults(token::AbstractString, appKey::AbstractString, query_type::AbstractString; filters::Dict=Dict())
+    global verbose
+
     if query_type ∉ query_types
         throw(ArgumentError("Unrecognized query_type $(query_type)"))
     end
@@ -85,6 +87,12 @@ function getAPIResults(token::AbstractString, appKey::AbstractString, query_type
         "User-Agent" => "mPulseAPI-julia/1.0.0",
         "Accept" => "application/json"
     )
+
+    if verbose
+        println("GET $url")
+        println(headers)
+        println(query)
+    end
 
     resp = Requests.get(url, headers = headers, query = query)
 

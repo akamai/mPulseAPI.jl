@@ -15,6 +15,11 @@ end
 mPulseAPIToken  = ENV["mPulseAPIToken"]
 mPulseAPITenant = ENV["mPulseAPITenant"]
 
+verbosity = (ENV["mPulseAPIVerbose"] == "true")
+
+mPulseAPI.setVerbose(verbosity)
+
+
 include("repository-tests.jl")
 
 include("query-tests.jl")

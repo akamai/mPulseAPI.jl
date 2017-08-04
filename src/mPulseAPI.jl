@@ -36,6 +36,8 @@ const default_SOASTAEndpoint = "https://mpulse.soasta.com/concerto"
 
 function __init__()
     setEndpoints()
+
+    global verbose = false
 end
 
 """
@@ -57,6 +59,15 @@ function setEndpoints(SOASTAEndpoint::AbstractString = default_SOASTAEndpoint)
     return (mPulseEndpoint, RepositoryService)
 end
 
+
+"""
+Set verbosity of API calls.
+
+If set to true, all URLs, headers and POST data will be printed to the console before making an API call.
+"""
+function setVerbose(vbs::Bool)
+    global verbose = vbs
+end
 
 # Convenience method because the mPulse API is bad with dates
 function iso8601ToDateTime(date::AbstractString)

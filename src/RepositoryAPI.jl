@@ -47,6 +47,8 @@ location or is logged out of mPulse.  You can clear the cache for this token usi
 :    if authentication failed for some reason
 """
 function getRepositoryToken(tenant::AbstractString, apiToken::AbstractString)
+    global verbose
+
     if tenant == ""
         throw(ArgumentError("`tenant' cannot be empty"))
     end
@@ -68,6 +70,12 @@ function getRepositoryToken(tenant::AbstractString, apiToken::AbstractString)
         else
             apiToken = object["apiToken"]
         end
+    end
+
+    if verbose
+        println("PUT $TokenEndpoint")
+        println("Content-Type: application/json")
+        println(Dict("tenant" => tenant, "apiToken" => apiToken))
     end
 
     resp = Requests.put(TokenEndpoint,
@@ -335,6 +343,8 @@ end
 # - Returns an array of objects if filter keys are not passed in and filterRequired is set to false
 # - Throws an exception if filter keys are not passed in and filterRequired is set to true
 function getRepositoryObject(token::AbstractString, objectType::AbstractString, searchKey::Dict{Symbol, Any}; filterRequired::Bool=true)
+    global verbose
+
     if token == ""
         throw(ArgumentError("`token' cannot be empty"))
     end
@@ -372,6 +382,12 @@ function getRepositoryObject(token::AbstractString, objectType::AbstractString, 
         end
     end
 
+
+    if verbose
+        println("GET $url")
+        println("X-Auth-Token: $token")
+        println(query)
+    end
 
     # Attempt to fetch object from repository using auth token
     resp = Requests.get(url, headers=Dict("X-Auth-Token" => token), query=query)
