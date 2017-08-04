@@ -76,8 +76,9 @@ end
 # TimersMetrics
 tm = mPulseAPI.getTimersMetrics(token, appKey)
 
-fixed_cols = [:Beacons, :PageLoad, :Sessions, :BounceRate, :DNS, :TCP, :SSL, :FirstByte, :DomLoad, :DomReady, :FirstLastByte]
-varia_cols = map(Symbol, [collect(keys(domain["custom_timers"])); collect(keys(domain["custom_metrics"]))])
+fixed_cols = [:Beacons, :PageLoad] # mPulse now only returns Beacons & PageLoad by default
+# fixed_cols = [:Beacons, :PageLoad, :Sessions, :BounceRate, :DNS, :TCP, :SSL, :FirstByte, :DomLoad, :DomReady, :FirstLastByte]
+varia_cols = Symbol[] #map(Symbol, [collect(keys(domain["custom_timers"])); collect(keys(domain["custom_metrics"]))])
 
 @test size(tm, 2) == length(fixed_cols ∪ varia_cols)
 
@@ -88,8 +89,9 @@ varia_cols = map(Symbol, [collect(keys(domain["custom_timers"])); collect(keys(d
 
 tm = mPulseAPI.getTimersMetrics(token, appKey, filters=Dict("page-group" => ["product-page", "shop-subcategory"]))
 
-fixed_cols = [:Beacons, :PageLoad, :Sessions, :BounceRate, :DNS, :TCP, :SSL, :FirstByte, :DomLoad, :DomReady, :FirstLastByte]
-varia_cols = map(Symbol, [collect(keys(domain["custom_timers"])); collect(keys(domain["custom_metrics"]))])
+fixed_cols = [:Beacons, :PageLoad] # mPulse now only returns Beacons & PageLoad by default
+# fixed_cols = [:Beacons, :PageLoad, :Sessions, :BounceRate, :DNS, :TCP, :SSL, :FirstByte, :DomLoad, :DomReady, :FirstLastByte]
+varia_cols = Symbol[] #map(Symbol, [collect(keys(domain["custom_timers"])); collect(keys(domain["custom_metrics"]))])
 
 @test size(tm, 2) >= length(fixed_cols)
 
