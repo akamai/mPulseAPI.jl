@@ -74,5 +74,9 @@ tenant = getRepositoryTenant(token, name=mPulseAPITenant)
 try
     getRepositoryDomain("some-invalid-token", appKey=appKey * "-" * base(16, round(Int, rand()*100000), 5))
 catch ex
-    @test isa(ex, mPulseAPIAuthException) || isa(ex, mPulseAPIBugException)
+    if isa(ex, mPulseAPIBugException)
+        warn("Expected mPulseAPIAuthException, got mPulseAPIBugException", ex)
+    else
+        @test isa(ex, mPulseAPIAuthException) || isa(ex, mPulseAPIBugException)
+    end
 end
