@@ -27,7 +27,7 @@ mPulseAPI
 using Base.Dates
 import Base: @__doc__
 
-using Requests, LightXML, HttpCommon
+using Requests, LightXML, HttpCommon, Formatting
 
 # Tells docgen.jl to document internal methods as well
 const __document_internal = true
@@ -118,7 +118,7 @@ function readdocs(name::AbstractString, replacers=[]; indent=0)
 
         # And run the whole thing through format
         try
-            data = format(data, replacers...)
+            data = Formatting.format(data, replacers...)
         catch
             println(replacers)
             println(data)
