@@ -2,8 +2,13 @@
 
 @test isconst(mPulseAPI, :default_SOASTAEndpoint)
 
-@test mPulseAPI.ObjectEndpoint == "$(mPulseAPI.default_SOASTAEndpoint)/services/rest/RepositoryService/v1/Objects"
-@test mPulseAPI.mPulseEndpoint == "$(mPulseAPI.default_SOASTAEndpoint)/mpulse/api/v2/"
+if !isempty(endpoint)
+    @test mPulseAPI.ObjectEndpoint == "$(endpoint)/services/rest/RepositoryService/v1/Objects"
+    @test mPulseAPI.mPulseEndpoint == "$(endpoint)/mpulse/api/v2/"
+else
+    @test mPulseAPI.ObjectEndpoint == "$(mPulseAPI.default_SOASTAEndpoint)/services/rest/RepositoryService/v1/Objects"
+    @test mPulseAPI.mPulseEndpoint == "$(mPulseAPI.default_SOASTAEndpoint)/mpulse/api/v2/"
+end
 
 
 new_endpoint = "https://foo.bar.com"
