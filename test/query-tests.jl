@@ -70,7 +70,7 @@ for dimension in ["browser", "page_group", "country", "bw_block", "ab_test"]
 
         hasDemoData && @test size(metrics, 1) > 0
     catch ex
-        warn("mPulseAPI.getMetricsByTimension:$dimension")
+        warn("mPulseAPI.getMetricsByDimension:$dimension")
         show(metrics)
         println()
         rethrow(ex)
