@@ -13,11 +13,18 @@ summary = mPulseAPI.getSummaryTimers(token, appKey)
 
 @test length(summary) == 5
 
-@test isa(summary["n"], Int)
-@test isa(summary["median"], Int)
-@test isa(summary["p95"], Int)
-@test isa(summary["p98"], Int)
-@test isa(summary["moe"], Float64)
+hasDemoData = true
+
+if summary["n"] != nothing
+    @test isa(summary["n"], Int)
+    @test isa(summary["median"], Int)
+    @test isa(summary["p95"], Int)
+    @test isa(summary["p98"], Int)
+    @test isa(summary["moe"], Float64)
+else
+    warn("mPulse Demo app has no demo data")
+    hasDemoData = false
+end
 
 
 function testDimensionTable(method, first_symbol, first_friendly)
@@ -61,7 +68,7 @@ for dimension in ["browser", "page_group", "country", "bw_block", "ab_test"]
         @test size(metrics, 2) == 1 + length(domain["custom_metrics"])
         @test sort(names(metrics)) == sort(map(Symbol, [ dimension; collect(keys(domain["custom_metrics"])) ]))
 
-        @test size(metrics, 1) > 0
+        hasDemoData && @test size(metrics, 1) > 0
     catch ex
         warn("mPulseAPI.getMetricsByTimension:$dimension")
         show(metrics)
@@ -84,18 +91,20 @@ varia_cols = Symbol[] #map(Symbol, [collect(keys(domain["custom_timers"])); coll
 
 @test sort(names(tm)) == sort(fixed_cols ∪ varia_cols)
 
-@test size(tm, 1) == 1441
+hasDemoData && @test size(tm, 1) == 1441
 
 
-tm = mPulseAPI.getTimersMetrics(token, appKey, filters=Dict("page-group" => ["product-page", "shop-subcategory"]))
+if hasDemoData
+    tm = mPulseAPI.getTimersMetrics(token, appKey, filters=Dict("page-group" => ["product-page", "shop-subcategory"]))
 
-fixed_cols = [:Beacons, :PageLoad] # mPulse now only returns Beacons & PageLoad by default
-# fixed_cols = [:Beacons, :PageLoad, :Sessions, :BounceRate, :DNS, :TCP, :SSL, :FirstByte, :DomLoad, :DomReady, :FirstLastByte]
-varia_cols = Symbol[] #map(Symbol, [collect(keys(domain["custom_timers"])); collect(keys(domain["custom_metrics"]))])
+    fixed_cols = [:Beacons, :PageLoad] # mPulse now only returns Beacons & PageLoad by default
+    # fixed_cols = [:Beacons, :PageLoad, :Sessions, :BounceRate, :DNS, :TCP, :SSL, :FirstByte, :DomLoad, :DomReady, :FirstLastByte]
+    varia_cols = Symbol[] #map(Symbol, [collect(keys(domain["custom_timers"])); collect(keys(domain["custom_metrics"]))])
 
-@test size(tm, 2) >= length(fixed_cols)
+    @test size(tm, 2) >= length(fixed_cols)
 
-@test size(tm, 1) == 1441
+    @test size(tm, 1) == 1441
+end
 
 
 # Histogram
@@ -103,9 +112,13 @@ varia_cols = Symbol[] #map(Symbol, [collect(keys(domain["custom_timers"])); coll
 hgm = mPulseAPI.getHistogram(token, appKey)
 
 @test length(hgm) == 4
-@test isa(hgm["median"], Int)
-@test isa(hgm["p95"], Int)
-@test isa(hgm["p98"], Int)
+
+if hasDemoData
+    @test isa(hgm["median"], Int)
+    @test isa(hgm["p95"], Int)
+    @test isa(hgm["p98"], Int)
+end
+
 @test isa(hgm["buckets"], DataFrame)
 
 @test size(hgm["buckets"], 2) == 3
@@ -135,7 +148,7 @@ for tuple in metrics
         @test size(x, 2) == 2
         @test names(x) == [:t_done, tuple[2]]
 
-        @test size(x, 1) > 0
+        hasDemoData && @test size(x, 1) > 0
     catch ex
         warn("mPulseAPI.$(tuple[1])", length(tuple) == 3 ? ":$(tuple[3])" : "")
         show(x)
@@ -150,7 +163,7 @@ merged_frame = mPulseAPI.mergeMetrics(metric_frames...)
 
 @test size(merged_frame, 2) == 3 + length(domain["custom_metrics"])
 @test names(merged_frame) == [:t_done, :Sessions, :BounceRate] ∪ map(Symbol, collect(keys(domain["custom_metrics"])))
-@test size(merged_frame, 1) > 0
+hasDemoData && @test size(merged_frame, 1) > 0
 
 
 # TimerByMinute
@@ -159,7 +172,7 @@ for timer in mPulseAPI.supported_timers ∪ collect(keys(domain["custom_timers"]
     try
         tbm = mPulseAPI.getTimerByMinute(token, appKey, timer=timer)
 
-        if timer == "ResourceTimer"
+        if timer == "ResourceTimer" || !hasDemoData
             @test size(tbm) == (0, 3)                                   # ResourceTimer has no data
         else
             @test size(tbm) == (1440, 3) || size(tbm) == (1439, 3)      # The mPulse API will sometimes not return the last minute of the day
