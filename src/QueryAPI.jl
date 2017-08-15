@@ -566,7 +566,7 @@ function getTimersMetrics(token::AbstractString, appKey::AbstractString; filters
 
     df[nulls] = NA
 
-    if all(a -> isna(a) || a == 0, stack(df[end-1, :], names(df))[:value])
+    if nrow(df) > 1 && all(a -> isna(a) || a == 0, stack(df[end-1, :], names(df))[:value])
         # mPulse bug 115785: If penultimate row is all 0s/NAs, remove it
         return df[[1:end-2; end], :]
     else
@@ -923,6 +923,9 @@ const df_types_array = Dict(
                         )
 
 # Internal convenience method to convert results from /browsers/, /ab-tests/, /page-groups/, etc. to a DataFrame
+resultsToDataFrame(names::Vector{Any}, types::Symbol, results::Void) = resultsToDataFrame(names, types, Void[])
+resultsToDataFrame(names::Vector{Symbol}, types::Symbol, results::Void) = resultsToDataFrame(names, types, Void[])
+
 function resultsToDataFrame(names::Vector{Any}, types::Symbol, results::Vector)
     return resultsToDataFrame(
                 convert(Array{Symbol}, map(Symbol, names)),
