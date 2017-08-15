@@ -117,7 +117,7 @@ function getAPIResults(token::AbstractString, appKey::AbstractString, query_type
                 parameter = lowercase(replace(replace(object["message"], r"^.*?: ", ""), r" .*", ""))
 
                 # Extract the parameter value
-                value = replace(object["message"], r".*:", "")
+                value = replace(object["message"], r".*: *", "")
 
                 throw(mPulseAPIRequestException(object["message"], object["code"], parameter, value, resp))
             end
