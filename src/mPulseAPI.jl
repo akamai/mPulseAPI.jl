@@ -15,12 +15,17 @@ module mPulseAPI
 # This should bind at compile time, so @__FILE__ is set to mPulseAPI.jl
 const __module_dir = dirname(dirname(@__FILE__))
 
-if !isdefined(:readstring)
-    readstring(x) = readall(x)
+function readdoc(path::AbstractString...)
+    docpath = joinpath(mPulseAPI.__module_dir, path...)
+    if VERSION < v"0.5"
+        return readall(docpath)
+    else
+        return readstring(docpath)
+    end
 end
 
 """
-$(replace(readstring(joinpath(mPulseAPI.__module_dir, "README.md")), r"\n.*travis-ci\.org.*\n", ""))
+$(replace(readdoc("README.md"), r"\n.*travis-ci\.org.*\n", ""))
 """
 mPulseAPI
 
@@ -96,7 +101,7 @@ end
 
 function readdocs(name::AbstractString, replacers=[]; indent=0)
     # read the file and strip out the newline at the end
-    data = chomp( readstring( joinpath(mPulseAPI.__module_dir, "doc-snippets", name * ".md") ) )
+    data = chomp( readdoc( "doc-snippets", name * ".md" ) )
 
     # If any placeholders have default values, pull them out and insert them into the replace
     # array if a value is not already set
