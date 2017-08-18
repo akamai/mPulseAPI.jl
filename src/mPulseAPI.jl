@@ -19,8 +19,10 @@ function readdoc(path::AbstractString...)
     docpath = joinpath(mPulseAPI.__module_dir, path...)
     if VERSION < v"0.5"
         return readall(docpath)
-    else
+    elseif VERSION < v"0.7"
         return readstring(docpath)
+    else
+        return read(docpath, String)
     end
 end
 
