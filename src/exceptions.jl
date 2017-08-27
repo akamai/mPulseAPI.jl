@@ -17,10 +17,16 @@ Thrown when the REST API has a problem and returns something other than a 2xx re
 `response::Response`
 :    The response object from the REST API call.  You can inspect headers, data, cookies, redirects, and the initiating request.
 
+`responseBody::AbstractString`
+:    The body of the HTTP response from the server
+
 """
 immutable mPulseAPIException <: Exception
     msg::AbstractString
     response::Response
+    responseBody::AbstractString
+
+    mPulseAPIException(msg::AbstractString, response::Response) = new(msg, response, join(map(Char, response.data)))
 end
 
 """
@@ -33,12 +39,16 @@ Thrown when the token used to authenticate with the REST API is invalid or has e
 `response::Response`
 :    The response object from the REST API call.  You can inspect headers, data, cookies, redirects, and the initiating request.
 
+`responseBody::AbstractString`
+:    The body of the HTTP response from the server
+
 """
 immutable mPulseAPIAuthException <: Exception
     msg::AbstractString
     response::Response
+    responseBody::AbstractString
 
-    mPulseAPIAuthException(response::Response) = new("Error Authenticating with REST API", response)
+    mPulseAPIAuthException(response::Response) = new("Error Authenticating with REST API", response, join(map(Char, response.data)))
 end
 
 """
@@ -95,10 +105,14 @@ Thrown when the REST API has an internal server error and returns a `500 Interna
 `response::Response`
 :    The response object from the REST API call.  You can inspect headers, data, cookies, redirects, and the initiating request.
 
+`responseBody::AbstractString`
+:    The body of the HTTP response from the server
+
 """
 immutable mPulseAPIBugException <: Exception
     msg::AbstractString
     response::Response
+    responseBody::Response
 
-    mPulseAPIBugException(resp::Response) = new("Internal Server Error, please report this. Timestamp: $(round(Int, datetime2unix(now())))", resp)
+    mPulseAPIBugException(resp::Response) = new("Internal Server Error, please report this. Timestamp: $(round(Int, datetime2unix(now())))", resp, join(map(Char, resp.data)))
 end
