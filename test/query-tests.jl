@@ -42,6 +42,10 @@ function testDimensionTable(method, first_symbol, first_friendly)
         warn("mPulseAPI.$method")
         show(x)
         println()
+        if :response ∈ fieldnames(ex) && isa(ex.response, HttpCommon.Response)
+            show(ex.response)
+            println()
+        end
         rethrow(ex)
     end
 end
@@ -73,6 +77,10 @@ for dimension in ["browser", "page_group", "country", "bw_block", "ab_test"]
         warn("mPulseAPI.getMetricsByDimension:$dimension")
         show(metrics)
         println()
+        if :response ∈ fieldnames(ex) && isa(ex.response, HttpCommon.Response)
+            show(ex.response)
+            println()
+        end
         rethrow(ex)
     end
 end
@@ -153,6 +161,10 @@ for tuple in metrics
         warn("mPulseAPI.$(tuple[1])", length(tuple) == 3 ? ":$(tuple[3])" : "")
         show(x)
         println()
+        if :response ∈ fieldnames(ex) && isa(ex.response, HttpCommon.Response)
+            show(ex.response)
+            println()
+        end
 
         rethrow(ex)
     end
@@ -182,6 +194,10 @@ for timer in mPulseAPI.supported_timers ∪ collect(keys(domain["custom_timers"]
         warn("mPulseAPI.getTimerByMinute($timer)")
         show(tbm)
         println()
+        if :response ∈ fieldnames(ex) && isa(ex.response, HttpCommon.Response)
+            show(ex.response)
+            println()
+        end
 
         rethrow(ex)
     end
