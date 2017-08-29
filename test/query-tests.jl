@@ -65,7 +65,7 @@ testDimensionTable(:getGeoTimers, :country, "Country")
 # MetricsByDimension
 
 for dimension in ["browser", "page_group", "country", "bw_block", "ab_test"]
-    local metrics
+    local metrics = []
     try
         metrics = mPulseAPI.getMetricsByDimension(token, appKey, dimension)
     
@@ -143,7 +143,7 @@ metrics = [
     (:getMetricOverPageLoadTime, :BounceRate)
 ] ∪ map(m -> (:getMetricOverPageLoadTime, Symbol(m), m), collect(keys(domain["custom_metrics"])))
 for tuple in metrics
-    local x
+    local x = nothing
     try
         if length(tuple) == 3
             x = getfield(mPulseAPI, tuple[1])(token, appKey, metric=tuple[3])
@@ -180,7 +180,7 @@ hasDemoData && @test size(merged_frame, 1) > 0
 
 # TimerByMinute
 for timer in mPulseAPI.supported_timers ∪ collect(keys(domain["custom_timers"]))
-    local tbm
+    local tbm = []
     try
         tbm = mPulseAPI.getTimerByMinute(token, appKey, timer=timer)
 
