@@ -103,7 +103,7 @@ hasDemoData && @test size(tm, 1) == 1441
 
 
 if hasDemoData
-    tm = mPulseAPI.getTimersMetrics(token, appKey, filters=Dict("page-group" => ["product-page", "shop-subcategory"]))
+    tm = mPulseAPI.getTimersMetrics(token, appKey, filters=Dict("page-group" => ["Account", "Search"]))
 
     fixed_cols = [:Beacons, :PageLoad] # mPulse now only returns Beacons & PageLoad by default
     # fixed_cols = [:Beacons, :PageLoad, :Sessions, :BounceRate, :DNS, :TCP, :SSL, :FirstByte, :DomLoad, :DomReady, :FirstLastByte]
