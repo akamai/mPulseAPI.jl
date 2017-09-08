@@ -22,7 +22,7 @@ function readdoc(path::AbstractString...)
     elseif VERSION < v"0.7"
         return readstring(docpath)
     else
-        return read(docpath, String)
+        return read(docpath, AbstractString)
     end
 end
 
