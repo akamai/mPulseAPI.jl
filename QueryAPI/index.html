@@ -7,21 +7,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   
-  
-  <title>Query API - mPulseAPI.jl Documentation</title>
-  
-
   <link rel="shortcut icon" href="../favicon.ico">
   
-
-  
+  <title>Query API - mPulseAPI.jl Documentation</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
   <link rel="stylesheet" href="../css/highlight.css">
   <link href="../css/mkdocs.css" rel="stylesheet">
-
   
   <script>
     // Current page data
@@ -32,9 +26,7 @@
   
   <script src="../js/jquery-2.1.1.min.js"></script>
   <script src="../js/modernizr-2.8.3.min.js"></script>
-  <script type="text/javascript" src="../js/highlight.pack.js"></script>
-  <script src="../js/theme.js"></script> 
-
+  <script type="text/javascript" src="../js/highlight.pack.js"></script> 
   
 </head>
 
@@ -54,90 +46,82 @@
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-        <ul class="current">
+	<ul class="current">
+	  
           
-            <li>
-    <li class="toctree-l1 ">
-        <a class="" href="../index.html">mPulseAPI</a>
-        
-    </li>
-<li>
+            <li class="toctree-l1">
+		
+    <a class="" href="../index.html">mPulseAPI</a>
+	    </li>
           
-            <li>
-    <li class="toctree-l1 ">
-        <a class="" href="../apiToken/index.html">How to generate an API Token</a>
-        
-    </li>
-<li>
+            <li class="toctree-l1">
+		
+    <a class="" href="../apiToken/index.html">How to generate an API Token</a>
+	    </li>
           
-            <li>
-    <li class="toctree-l1 ">
-        <a class="" href="../RepositoryAPI/index.html">Repository API</a>
-        
-    </li>
-<li>
+            <li class="toctree-l1">
+		
+    <a class="" href="../RepositoryAPI/index.html">Repository API</a>
+	    </li>
           
-            <li>
-    <li class="toctree-l1 current">
-        <a class="current" href="index.html">Query API</a>
-        
-            <ul>
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="index.html">Query API</a>
+    <ul class="subnav">
             
-                <li class="toctree-l3"><a href="#query-api">Query API</a></li>
-                
-                    <li><a class="toctree-l4" href="#function-getapiresults">function getAPIResults</a></li>
-                
-                    <li><a class="toctree-l4" href="#function-getsummarytimers">function getSummaryTimers</a></li>
-                
-                    <li><a class="toctree-l4" href="#function-getpagegrouptimers">function getPageGroupTimers</a></li>
-                
-                    <li><a class="toctree-l4" href="#function-getbrowsertimers">function getBrowserTimers</a></li>
-                
-                    <li><a class="toctree-l4" href="#function-getabtesttimers">function getABTestTimers</a></li>
-                
-                    <li><a class="toctree-l4" href="#function-getgeotimers">function getGeoTimers</a></li>
-                
-                    <li><a class="toctree-l4" href="#function-getmetricsbydimension">function getMetricsByDimension</a></li>
-                
-                    <li><a class="toctree-l4" href="#function-gettimersmetrics">function getTimersMetrics</a></li>
-                
-                    <li><a class="toctree-l4" href="#function-gethistogram">function getHistogram</a></li>
-                
-                    <li><a class="toctree-l4" href="#function-getsessionsoverpageloadtime">function getSessionsOverPageLoadTime</a></li>
-                
-                    <li><a class="toctree-l4" href="#function-getmetricoverpageloadtime">function getMetricOverPageLoadTime</a></li>
-                
-                    <li><a class="toctree-l4" href="#function-gettimerbyminute">function getTimerByMinute</a></li>
-                
-                    <li><a class="toctree-l4" href="#function-mergemetrics">function mergeMetrics</a></li>
-                
-                    <li><a class="toctree-l4" href="#arguments_12">Arguments</a></li>
-                
-                    <li><a class="toctree-l4" href="#optional-arguments_12">Optional Arguments</a></li>
-                
-                    <li><a class="toctree-l4" href="#throws_12">Throws</a></li>
-                
-                    <li><a class="toctree-l4" href="#returns_12">Returns</a></li>
-                
-            
-            </ul>
+    <li class="toctree-l2"><a href="#query-api">Query API</a></li>
+    
+        <ul>
         
-    </li>
-<li>
+            <li><a class="toctree-l3" href="#function-getapiresults">function getAPIResults</a></li>
+        
+            <li><a class="toctree-l3" href="#function-getsummarytimers">function getSummaryTimers</a></li>
+        
+            <li><a class="toctree-l3" href="#function-getpagegrouptimers">function getPageGroupTimers</a></li>
+        
+            <li><a class="toctree-l3" href="#function-getbrowsertimers">function getBrowserTimers</a></li>
+        
+            <li><a class="toctree-l3" href="#function-getabtesttimers">function getABTestTimers</a></li>
+        
+            <li><a class="toctree-l3" href="#function-getgeotimers">function getGeoTimers</a></li>
+        
+            <li><a class="toctree-l3" href="#function-getmetricsbydimension">function getMetricsByDimension</a></li>
+        
+            <li><a class="toctree-l3" href="#function-gettimersmetrics">function getTimersMetrics</a></li>
+        
+            <li><a class="toctree-l3" href="#function-gethistogram">function getHistogram</a></li>
+        
+            <li><a class="toctree-l3" href="#function-getsessionsoverpageloadtime">function getSessionsOverPageLoadTime</a></li>
+        
+            <li><a class="toctree-l3" href="#function-getmetricoverpageloadtime">function getMetricOverPageLoadTime</a></li>
+        
+            <li><a class="toctree-l3" href="#function-gettimerbyminute">function getTimerByMinute</a></li>
+        
+            <li><a class="toctree-l3" href="#function-mergemetrics">function mergeMetrics</a></li>
+        
+            <li><a class="toctree-l3" href="#arguments_12">Arguments</a></li>
+        
+            <li><a class="toctree-l3" href="#optional-arguments_12">Optional Arguments</a></li>
+        
+            <li><a class="toctree-l3" href="#throws_12">Throws</a></li>
+        
+            <li><a class="toctree-l3" href="#returns_12">Returns</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
           
-            <li>
-    <li class="toctree-l1 ">
-        <a class="" href="../exceptions/index.html">Exceptions</a>
-        
-    </li>
-<li>
+            <li class="toctree-l1">
+		
+    <a class="" href="../exceptions/index.html">Exceptions</a>
+	    </li>
           
-            <li>
-    <li class="toctree-l1 ">
-        <a class="" href="../cache_utilities/index.html">Internal Cache Utilities</a>
-        
-    </li>
-<li>
+            <li class="toctree-l1">
+		
+    <a class="" href="../cache_utilities/index.html">Internal Cache Utilities</a>
+	    </li>
           
         </ul>
       </div>
@@ -164,9 +148,8 @@
     <li>Query API</li>
     <li class="wy-breadcrumbs-aside">
       
-        
-          <a href="https://github.com/SOASTA/mPulseAPI.jl/" class="icon icon-github"> Edit on GitHub</a>
-        
+        <a href="https://github.com/SOASTA/mPulseAPI.jl/edit/master/docs/QueryAPI.md"
+          class="icon icon-github"> Edit on GitHub</a>
       
     </li>
   </ul>
@@ -182,7 +165,7 @@
 importing them or by prefixing them with the <code>mPulseAPI.</code> namespace.</p>
 </div>
 <h3 id="function-getapiresults">function <code>getAPIResults</code><a class="headerlink" href="#function-getapiresults" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L56-L154">QueryAPI.jl#56-154</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L56-L166">QueryAPI.jl#56-166</a></p>
 <p>Get API results from the mPulse <a href="http://docs.soasta.com/query-api/">Query API</a></p>
 <p>This method is a generic catch-all that queries the mPulse API and returns results as a Julia data structure matching the JSON structure of the specified API call</p>
 <h4 id="arguments">Arguments<a class="headerlink" href="#arguments" title="Permanent link">&para;</a></h4>
@@ -232,6 +215,12 @@ importing them or by prefixing them with the <code>mPulseAPI.</code> namespace.<
      "date-end"        =&gt; DateTime(2016, 10, 19, 16, 30)
  )
 </code></pre>
+<p>To pass multiple values for a single filter, use an array:</p>
+<pre><code> filters = Dict(
+     "beacon-type" =&gt; ["page view", "xhr", "spa", "spa_hard"],
+     "page-group"  =&gt; ["product", "search"]
+ )
+</code></pre>
 </dd>
 </dl>
 <h4 id="throws">Throws<a class="headerlink" href="#throws" title="Permanent link">&para;</a></h4>
@@ -250,7 +239,7 @@ the problem</dd>
 <p><code>{Any}</code> A Julia representation of the JSON returned by the API call. Convenience wrappers in this library may return more appropriate data structures.</p>
 <hr />
 <h3 id="function-getsummarytimers">function <code>getSummaryTimers</code><a class="headerlink" href="#function-getsummarytimers" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L203-L205">QueryAPI.jl#203-205</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L215-L217">QueryAPI.jl#215-217</a></p>
 <p>Calls the <code>summary</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_1">Arguments<a class="headerlink" href="#arguments_1" title="Permanent link">&para;</a></h4>
 <dl>
@@ -279,6 +268,12 @@ the problem</dd>
      "date-comparator" =&gt; "Between",
      "date-start"      =&gt; ZonedDateTime(2016, 10, 19, 4, 30, TimeZone("America/New_York")).utc_datetime,
      "date-end"        =&gt; DateTime(2016, 10, 19, 16, 30)
+ )
+</code></pre>
+<p>To pass multiple values for a single filter, use an array:</p>
+<pre><code> filters = Dict(
+     "beacon-type" =&gt; ["page view", "xhr", "spa", "spa_hard"],
+     "page-group"  =&gt; ["product", "search"]
  )
 </code></pre>
 </dd>
@@ -320,7 +315,7 @@ Dict{Any,Any} with 5 entries:
 
 <hr />
 <h3 id="function-getpagegrouptimers">function <code>getPageGroupTimers</code><a class="headerlink" href="#function-getpagegrouptimers" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L229-L243">QueryAPI.jl#229-243</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L241-L255">QueryAPI.jl#241-255</a></p>
 <p>Calls the <code>page-groups</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_2">Arguments<a class="headerlink" href="#arguments_2" title="Permanent link">&para;</a></h4>
 <dl>
@@ -349,6 +344,12 @@ Dict{Any,Any} with 5 entries:
      "date-comparator" =&gt; "Between",
      "date-start"      =&gt; ZonedDateTime(2016, 10, 19, 4, 30, TimeZone("America/New_York")).utc_datetime,
      "date-end"        =&gt; DateTime(2016, 10, 19, 16, 30)
+ )
+</code></pre>
+<p>To pass multiple values for a single filter, use an array:</p>
+<pre><code> filters = Dict(
+     "beacon-type" =&gt; ["page view", "xhr", "spa", "spa_hard"],
+     "page-group"  =&gt; ["product", "search"]
  )
 </code></pre>
 </dd>
@@ -392,7 +393,7 @@ the problem</dd>
 
 <hr />
 <h3 id="function-getbrowsertimers">function <code>getBrowserTimers</code><a class="headerlink" href="#function-getbrowsertimers" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L267-L281">QueryAPI.jl#267-281</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L279-L293">QueryAPI.jl#279-293</a></p>
 <p>Calls the <code>browsers</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_3">Arguments<a class="headerlink" href="#arguments_3" title="Permanent link">&para;</a></h4>
 <dl>
@@ -421,6 +422,12 @@ the problem</dd>
      "date-comparator" =&gt; "Between",
      "date-start"      =&gt; ZonedDateTime(2016, 10, 19, 4, 30, TimeZone("America/New_York")).utc_datetime,
      "date-end"        =&gt; DateTime(2016, 10, 19, 16, 30)
+ )
+</code></pre>
+<p>To pass multiple values for a single filter, use an array:</p>
+<pre><code> filters = Dict(
+     "beacon-type" =&gt; ["page view", "xhr", "spa", "spa_hard"],
+     "page-group"  =&gt; ["product", "search"]
  )
 </code></pre>
 </dd>
@@ -464,7 +471,7 @@ the problem</dd>
 
 <hr />
 <h3 id="function-getabtesttimers">function <code>getABTestTimers</code><a class="headerlink" href="#function-getabtesttimers" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L305-L319">QueryAPI.jl#305-319</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L317-L331">QueryAPI.jl#317-331</a></p>
 <p>Calls the <code>ab-tests</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_4">Arguments<a class="headerlink" href="#arguments_4" title="Permanent link">&para;</a></h4>
 <dl>
@@ -493,6 +500,12 @@ the problem</dd>
      "date-comparator" =&gt; "Between",
      "date-start"      =&gt; ZonedDateTime(2016, 10, 19, 4, 30, TimeZone("America/New_York")).utc_datetime,
      "date-end"        =&gt; DateTime(2016, 10, 19, 16, 30)
+ )
+</code></pre>
+<p>To pass multiple values for a single filter, use an array:</p>
+<pre><code> filters = Dict(
+     "beacon-type" =&gt; ["page view", "xhr", "spa", "spa_hard"],
+     "page-group"  =&gt; ["product", "search"]
  )
 </code></pre>
 </dd>
@@ -536,7 +549,7 @@ the problem</dd>
 
 <hr />
 <h3 id="function-getgeotimers">function <code>getGeoTimers</code><a class="headerlink" href="#function-getgeotimers" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L343-L361">QueryAPI.jl#343-361</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L355-L373">QueryAPI.jl#355-373</a></p>
 <p>Calls the <code>geography</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_5">Arguments<a class="headerlink" href="#arguments_5" title="Permanent link">&para;</a></h4>
 <dl>
@@ -565,6 +578,12 @@ the problem</dd>
      "date-comparator" =&gt; "Between",
      "date-start"      =&gt; ZonedDateTime(2016, 10, 19, 4, 30, TimeZone("America/New_York")).utc_datetime,
      "date-end"        =&gt; DateTime(2016, 10, 19, 16, 30)
+ )
+</code></pre>
+<p>To pass multiple values for a single filter, use an array:</p>
+<pre><code> filters = Dict(
+     "beacon-type" =&gt; ["page view", "xhr", "spa", "spa_hard"],
+     "page-group"  =&gt; ["product", "search"]
  )
 </code></pre>
 </dd>
@@ -608,7 +627,7 @@ the problem</dd>
 
 <hr />
 <h3 id="function-getmetricsbydimension">function <code>getMetricsByDimension</code><a class="headerlink" href="#function-getmetricsbydimension" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L408-L440">QueryAPI.jl#408-440</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L420-L452">QueryAPI.jl#420-452</a></p>
 <p>Calls the <code>metrics-by-dimension</code> endpoint of the mPulse REST API with the passed in dimension name and filters</p>
 <h4 id="arguments_6">Arguments<a class="headerlink" href="#arguments_6" title="Permanent link">&para;</a></h4>
 <dl>
@@ -652,6 +671,12 @@ the problem</dd>
      "date-end"        =&gt; DateTime(2016, 10, 19, 16, 30)
  )
 </code></pre>
+<p>To pass multiple values for a single filter, use an array:</p>
+<pre><code> filters = Dict(
+     "beacon-type" =&gt; ["page view", "xhr", "spa", "spa_hard"],
+     "page-group"  =&gt; ["product", "search"]
+ )
+</code></pre>
 </dd>
 </dl>
 <h4 id="throws_6">Throws<a class="headerlink" href="#throws_6" title="Permanent link">&para;</a></h4>
@@ -682,7 +707,7 @@ the problem</dd>
 
 <hr />
 <h3 id="function-gettimersmetrics">function <code>getTimersMetrics</code><a class="headerlink" href="#function-gettimersmetrics" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L486-L532">QueryAPI.jl#486-532</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L498-L575">QueryAPI.jl#498-575</a></p>
 <p>Calls the <code>timers-metrics</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_7">Arguments<a class="headerlink" href="#arguments_7" title="Permanent link">&para;</a></h4>
 <dl>
@@ -711,6 +736,12 @@ the problem</dd>
      "date-comparator" =&gt; "Between",
      "date-start"      =&gt; ZonedDateTime(2016, 10, 19, 4, 30, TimeZone("America/New_York")).utc_datetime,
      "date-end"        =&gt; DateTime(2016, 10, 19, 16, 30)
+ )
+</code></pre>
+<p>To pass multiple values for a single filter, use an array:</p>
+<pre><code> filters = Dict(
+     "beacon-type" =&gt; ["page view", "xhr", "spa", "spa_hard"],
+     "page-group"  =&gt; ["product", "search"]
  )
 </code></pre>
 </dd>
@@ -753,7 +784,7 @@ For example, for Last24Hours, there will be 1440 entries representing each minut
 
 <hr />
 <h3 id="function-gethistogram">function <code>getHistogram</code><a class="headerlink" href="#function-gethistogram" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L598-L612">QueryAPI.jl#598-612</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L641-L655">QueryAPI.jl#641-655</a></p>
 <p>Calls the <code>histogram</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_8">Arguments<a class="headerlink" href="#arguments_8" title="Permanent link">&para;</a></h4>
 <dl>
@@ -782,6 +813,12 @@ For example, for Last24Hours, there will be 1440 entries representing each minut
      "date-comparator" =&gt; "Between",
      "date-start"      =&gt; ZonedDateTime(2016, 10, 19, 4, 30, TimeZone("America/New_York")).utc_datetime,
      "date-end"        =&gt; DateTime(2016, 10, 19, 16, 30)
+ )
+</code></pre>
+<p>To pass multiple values for a single filter, use an array:</p>
+<pre><code> filters = Dict(
+     "beacon-type" =&gt; ["page view", "xhr", "spa", "spa_hard"],
+     "page-group"  =&gt; ["product", "search"]
  )
 </code></pre>
 </dd>
@@ -840,7 +877,7 @@ Dict{AbstractString,Any} with 4 entries:
 
 <hr />
 <h3 id="function-getsessionsoverpageloadtime">function <code>getSessionsOverPageLoadTime</code><a class="headerlink" href="#function-getsessionsoverpageloadtime" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L632-L634">QueryAPI.jl#632-634</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L675-L677">QueryAPI.jl#675-677</a></p>
 <p>Calls the <code>sessions-per-page-load-time</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_9">Arguments<a class="headerlink" href="#arguments_9" title="Permanent link">&para;</a></h4>
 <dl>
@@ -869,6 +906,12 @@ Dict{AbstractString,Any} with 4 entries:
      "date-comparator" =&gt; "Between",
      "date-start"      =&gt; ZonedDateTime(2016, 10, 19, 4, 30, TimeZone("America/New_York")).utc_datetime,
      "date-end"        =&gt; DateTime(2016, 10, 19, 16, 30)
+ )
+</code></pre>
+<p>To pass multiple values for a single filter, use an array:</p>
+<pre><code> filters = Dict(
+     "beacon-type" =&gt; ["page view", "xhr", "spa", "spa_hard"],
+     "page-group"  =&gt; ["product", "search"]
  )
 </code></pre>
 </dd>
@@ -903,7 +946,7 @@ the problem</dd>
 
 <hr />
 <h3 id="function-getmetricoverpageloadtime">function <code>getMetricOverPageLoadTime</code><a class="headerlink" href="#function-getmetricoverpageloadtime" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L659-L683">QueryAPI.jl#659-683</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L702-L726">QueryAPI.jl#702-726</a></p>
 <p>Calls the <code>metric-per-page-load-time</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_10">Arguments<a class="headerlink" href="#arguments_10" title="Permanent link">&para;</a></h4>
 <dl>
@@ -934,6 +977,12 @@ the problem</dd>
      "date-comparator" =&gt; "Between",
      "date-start"      =&gt; ZonedDateTime(2016, 10, 19, 4, 30, TimeZone("America/New_York")).utc_datetime,
      "date-end"        =&gt; DateTime(2016, 10, 19, 16, 30)
+ )
+</code></pre>
+<p>To pass multiple values for a single filter, use an array:</p>
+<pre><code> filters = Dict(
+     "beacon-type" =&gt; ["page view", "xhr", "spa", "spa_hard"],
+     "page-group"  =&gt; ["product", "search"]
  )
 </code></pre>
 </dd>
@@ -970,7 +1019,7 @@ the problem</dd>
 
 <hr />
 <h3 id="function-gettimerbyminute">function <code>getTimerByMinute</code><a class="headerlink" href="#function-gettimerbyminute" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L738-L772">QueryAPI.jl#738-772</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L781-L815">QueryAPI.jl#781-815</a></p>
 <p>Calls the <code>by-minute</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_11">Arguments<a class="headerlink" href="#arguments_11" title="Permanent link">&para;</a></h4>
 <dl>
@@ -1017,6 +1066,12 @@ the problem</dd>
      "date-end"        =&gt; DateTime(2016, 10, 19, 16, 30)
  )
 </code></pre>
+<p>To pass multiple values for a single filter, use an array:</p>
+<pre><code> filters = Dict(
+     "beacon-type" =&gt; ["page view", "xhr", "spa", "spa_hard"],
+     "page-group"  =&gt; ["product", "search"]
+ )
+</code></pre>
 </dd>
 </dl>
 <h4 id="throws_11">Throws<a class="headerlink" href="#throws_11" title="Permanent link">&para;</a></h4>
@@ -1051,7 +1106,7 @@ The fields are: <code>:timestamp</code> in milliseconds since the UNIX epoch, <c
 
 <hr />
 <h3 id="function-mergemetrics">function <code>mergeMetrics</code><a class="headerlink" href="#function-mergemetrics" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L837-L845">QueryAPI.jl#837-845</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L880-L888">QueryAPI.jl#880-888</a></p>
 <p>Merge multiple similar <code>DataFrames</code> into a single <code>DataFrame</code></p>
 <p>Use this method to merge the results from multiple calls to <code>getMetricOverPageLoadTime()</code> and <code>getSessionsOverPageLoadTime()</code>.
 All passed in <code>DataFrame</code>s MUST contain a <code>:t_done</code> column.</p>
@@ -1143,13 +1198,13 @@ julia&gt; mPulseAPI.mergeMetrics(sessions, bouncerate, conversion)
       </div>
 
     </section>
-
+    
   </div>
 
-<div class="rst-versions" role="note" style="cursor: pointer">
+  <div class="rst-versions" role="note" style="cursor: pointer">
     <span class="rst-current-version" data-toggle="rst-current-version">
       
-          <a href="https://github.com/SOASTA/mPulseAPI.jl/" class="icon icon-github" style="float: left; color: #fcfcfc"> GitHub</a>
+          <a href="https://github.com/SOASTA/mPulseAPI.jl/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
         <span><a href="../RepositoryAPI/index.html" style="color: #fcfcfc;">&laquo; Previous</a></span>
@@ -1159,6 +1214,7 @@ julia&gt; mPulseAPI.mergeMetrics(sessions, bouncerate, conversion)
       
     </span>
 </div>
+    <script src="../js/theme.js"></script>
 
 </body>
 </html>

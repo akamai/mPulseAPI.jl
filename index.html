@@ -7,34 +7,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Communicate with the mPulse Query & Repository REST APIs to fetch information about tenants and apps.">
   
+  <link rel="shortcut icon" href="./favicon.ico">
   
-  <title>mPulseAPI.jl Documentation</title>
-  
-
-  <link rel="shortcut icon" href="favicon.ico">
-  
-
-  
+  <title>mPulseAPI - mPulseAPI.jl Documentation</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="./css/theme.css" type="text/css" />
   <link rel="stylesheet" href="./css/theme_extra.css" type="text/css" />
   <link rel="stylesheet" href="./css/highlight.css">
   <link href="./css/mkdocs.css" rel="stylesheet">
-
   
   <script>
     // Current page data
-    var mkdocs_page_name = "None";
+    var mkdocs_page_name = "mPulseAPI";
     var mkdocs_page_input_path = "index.md";
     var mkdocs_page_url = "/index.html";
   </script>
   
   <script src="./js/jquery-2.1.1.min.js"></script>
   <script src="./js/modernizr-2.8.3.min.js"></script>
-  <script type="text/javascript" src="./js/highlight.pack.js"></script>
-  <script src="./js/theme.js"></script> 
-
+  <script type="text/javascript" src="./js/highlight.pack.js"></script> 
   
 </head>
 
@@ -54,64 +46,56 @@
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-        <ul class="current">
+	<ul class="current">
+	  
           
-            <li>
-    <li class="toctree-l1 current">
-        <a class="current" href="index.html">mPulseAPI</a>
-        
-            <ul>
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="index.html">mPulseAPI</a>
+    <ul class="subnav">
             
-                <li class="toctree-l3"><a href="#mpulseapi">mPulseAPI</a></li>
-                
-                    <li><a class="toctree-l4" href="#module-mpulseapi">module mPulseAPI</a></li>
-                
-                    <li><a class="toctree-l4" href="#documentation">Documentation</a></li>
-                
-                    <li><a class="toctree-l4" href="#quick-and-dirty-usage">Quick and dirty usage</a></li>
-                
-                    <li><a class="toctree-l4" href="#api-reference">API Reference</a></li>
-                
-            
-            </ul>
+    <li class="toctree-l2"><a href="#mpulseapi">mPulseAPI</a></li>
+    
+        <ul>
         
-    </li>
-<li>
+            <li><a class="toctree-l3" href="#module-mpulseapi">module mPulseAPI</a></li>
+        
+            <li><a class="toctree-l3" href="#documentation">Documentation</a></li>
+        
+            <li><a class="toctree-l3" href="#quick-and-dirty-usage">Quick and dirty usage</a></li>
+        
+            <li><a class="toctree-l3" href="#api-reference">API Reference</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
           
-            <li>
-    <li class="toctree-l1 ">
-        <a class="" href="apiToken/index.html">How to generate an API Token</a>
-        
-    </li>
-<li>
+            <li class="toctree-l1">
+		
+    <a class="" href="apiToken/index.html">How to generate an API Token</a>
+	    </li>
           
-            <li>
-    <li class="toctree-l1 ">
-        <a class="" href="RepositoryAPI/index.html">Repository API</a>
-        
-    </li>
-<li>
+            <li class="toctree-l1">
+		
+    <a class="" href="RepositoryAPI/index.html">Repository API</a>
+	    </li>
           
-            <li>
-    <li class="toctree-l1 ">
-        <a class="" href="QueryAPI/index.html">Query API</a>
-        
-    </li>
-<li>
+            <li class="toctree-l1">
+		
+    <a class="" href="QueryAPI/index.html">Query API</a>
+	    </li>
           
-            <li>
-    <li class="toctree-l1 ">
-        <a class="" href="exceptions/index.html">Exceptions</a>
-        
-    </li>
-<li>
+            <li class="toctree-l1">
+		
+    <a class="" href="exceptions/index.html">Exceptions</a>
+	    </li>
           
-            <li>
-    <li class="toctree-l1 ">
-        <a class="" href="cache_utilities/index.html">Internal Cache Utilities</a>
-        
-    </li>
-<li>
+            <li class="toctree-l1">
+		
+    <a class="" href="cache_utilities/index.html">Internal Cache Utilities</a>
+	    </li>
           
         </ul>
       </div>
@@ -138,9 +122,8 @@
     <li>mPulseAPI</li>
     <li class="wy-breadcrumbs-aside">
       
-        
-          <a href="https://github.com/SOASTA/mPulseAPI.jl/" class="icon icon-github"> Edit on GitHub</a>
-        
+        <a href="https://github.com/SOASTA/mPulseAPI.jl/edit/master/docs/index.md"
+          class="icon icon-github"> Edit on GitHub</a>
       
     </li>
   </ul>
@@ -151,7 +134,7 @@
               
                 <h1 id="mpulseapi">mPulseAPI<a class="headerlink" href="#mpulseapi" title="Permanent link">&para;</a></h1>
 <h2 id="module-mpulseapi">module <code>mPulseAPI</code><a class="headerlink" href="#module-mpulseapi" title="Permanent link">&para;</a></h2>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/mPulseAPI.jl#L16-L16">mPulseAPI.jl#16</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/mPulseAPI.jl#L14-L14">mPulseAPI.jl#14</a></p>
 <p>Communicate with the mPulse Query &amp; Repository REST APIs to fetch information about tenants and apps.</p>
 <h2 id="documentation">Documentation<a class="headerlink" href="#documentation" title="Permanent link">&para;</a></h2>
 <h3 id="this-module">This module:<a class="headerlink" href="#this-module" title="Permanent link">&para;</a></h3>
@@ -200,12 +183,17 @@ tenant = getRepositoryTenant(token, name=&quot;&lt;tenant name from mPulse&gt;&q
 importing them or by prefixing them with the <code>mPulseAPI.</code> namespace.</p>
 </div>
 <h3 id="function-setendpoints">function <code>setEndpoints</code><a class="headerlink" href="#function-setendpoints" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/mPulseAPI.jl#L55-L63">mPulseAPI.jl#55-63</a></p>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/mPulseAPI.jl#L59-L67">mPulseAPI.jl#59-67</a></p>
 <p>Change the SOASTA API endpoint that we connect to.  The default is <code>https://mpulse.soasta.com/concerto</code></p>
 <h4 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h4>
 <pre><code class="julia">mPulseAPI.setEndpoints(&quot;https://mpulse-alt.soasta.com/concerto&quot;)
 </code></pre>
 
+<hr />
+<h3 id="function-setverbose">function <code>setVerbose</code><a class="headerlink" href="#function-setverbose" title="Permanent link">&para;</a></h3>
+<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/mPulseAPI.jl#L75-L77">mPulseAPI.jl#75-77</a></p>
+<p>Set verbosity of API calls.</p>
+<p>If set to true, all URLs, headers and POST data will be printed to the console before making an API call.</p>
 <hr />
 <h2 id="api-reference">API Reference<a class="headerlink" href="#api-reference" title="Permanent link">&para;</a></h2>
 <ul>
@@ -216,6 +204,7 @@ importing them or by prefixing them with the <code>mPulseAPI.</code> namespace.<
 <li><a href="exceptions/index.html#datatype-mpulseapiauthexception">mPulseAPIAuthException</a></li>
 <li><a href="exceptions/index.html#datatype-mpulseapirequestexception">mPulseAPIRequestException</a></li>
 <li><a href="exceptions/index.html#datatype-mpulseapiresultformatexception">mPulseAPIResultFormatException</a></li>
+<li><a href="exceptions/index.html#datatype-mpulseapibugexception">mPulseAPIBugException</a></li>
 </ul>
 </li>
 <li>
@@ -290,13 +279,13 @@ importing them or by prefixing them with the <code>mPulseAPI.</code> namespace.<
       </div>
 
     </section>
-
+    
   </div>
 
-<div class="rst-versions" role="note" style="cursor: pointer">
+  <div class="rst-versions" role="note" style="cursor: pointer">
     <span class="rst-current-version" data-toggle="rst-current-version">
       
-          <a href="https://github.com/SOASTA/mPulseAPI.jl/" class="icon icon-github" style="float: left; color: #fcfcfc"> GitHub</a>
+          <a href="https://github.com/SOASTA/mPulseAPI.jl/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
       
@@ -304,11 +293,12 @@ importing them or by prefixing them with the <code>mPulseAPI.</code> namespace.<
       
     </span>
 </div>
+    <script src="./js/theme.js"></script>
 
 </body>
 </html>
 
 <!--
-MkDocs version : 0.15.3
-Build Date UTC : 2017-03-13 19:27:50.058342
+MkDocs version : 0.16.3
+Build Date UTC : 2017-09-08 04:37:14
 -->
