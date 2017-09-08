@@ -2,7 +2,7 @@
 
 
 ## module `mPulseAPI`
-[mPulseAPI.jl#16](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/mPulseAPI.jl#L16-L16){: .source-link}
+[mPulseAPI.jl#14](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/mPulseAPI.jl#L14-L14){: .source-link}
 
 Communicate with the mPulse Query & Repository REST APIs to fetch information about tenants and apps.
 
@@ -59,7 +59,7 @@ tenant = getRepositoryTenant(token, name="<tenant name from mPulse>")
 
 
 ### function `setEndpoints`
-[mPulseAPI.jl#55-63](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/mPulseAPI.jl#L55-L63){: .source-link}
+[mPulseAPI.jl#59-67](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/mPulseAPI.jl#L59-L67){: .source-link}
 
 Change the SOASTA API endpoint that we connect to.  The default is `https://mpulse.soasta.com/concerto`
 
@@ -68,6 +68,15 @@ Change the SOASTA API endpoint that we connect to.  The default is `https://mpul
 ```julia
 mPulseAPI.setEndpoints("https://mpulse-alt.soasta.com/concerto")
 ```
+
+---
+
+### function `setVerbose`
+[mPulseAPI.jl#75-77](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/mPulseAPI.jl#L75-L77){: .source-link}
+
+Set verbosity of API calls.
+
+If set to true, all URLs, headers and POST data will be printed to the console before making an API call.
 
 ---
 
@@ -80,6 +89,7 @@ mPulseAPI.setEndpoints("https://mpulse-alt.soasta.com/concerto")
     * [mPulseAPIAuthException](exceptions.md#datatype-mpulseapiauthexception)
     * [mPulseAPIRequestException](exceptions.md#datatype-mpulseapirequestexception)
     * [mPulseAPIResultFormatException](exceptions.md#datatype-mpulseapiresultformatexception)
+    * [mPulseAPIBugException](exceptions.md#datatype-mpulseapibugexception)
 
 * [Repository API](RepositoryAPI.md)
 

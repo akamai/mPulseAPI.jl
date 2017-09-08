@@ -21,7 +21,7 @@
 
 
 ### function `getAPIResults`
-[QueryAPI.jl#56-154](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L56-L154){: .source-link}
+[QueryAPI.jl#56-166](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L56-L166){: .source-link}
 
 Get API results from the mPulse [Query API](http://docs.soasta.com/query-api/)
 
@@ -75,6 +75,13 @@ This method is a generic catch-all that queries the mPulse API and returns resul
              "date-end"        => DateTime(2016, 10, 19, 16, 30)
          )
 
+     To pass multiple values for a single filter, use an array:
+
+         filters = Dict(
+             "beacon-type" => ["page view", "xhr", "spa", "spa_hard"],
+             "page-group"  => ["product", "search"]
+         )
+
 #### Throws
 `ArgumentError`
 :   If the `query_type` is not recognized
@@ -95,7 +102,7 @@ This method is a generic catch-all that queries the mPulse API and returns resul
 ---
 
 ### function `getSummaryTimers`
-[QueryAPI.jl#203-205](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L203-L205){: .source-link}
+[QueryAPI.jl#215-217](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L215-L217){: .source-link}
 
 Calls the `summary` endpoint of the mPulse REST API with the passed in filters
 
@@ -128,6 +135,13 @@ Calls the `summary` endpoint of the mPulse REST API with the passed in filters
              "date-comparator" => "Between",
              "date-start"      => ZonedDateTime(2016, 10, 19, 4, 30, TimeZone("America/New_York")).utc_datetime,
              "date-end"        => DateTime(2016, 10, 19, 16, 30)
+         )
+
+     To pass multiple values for a single filter, use an array:
+
+         filters = Dict(
+             "beacon-type" => ["page view", "xhr", "spa", "spa_hard"],
+             "page-group"  => ["product", "search"]
          )
 
 #### Throws
@@ -176,7 +190,7 @@ Dict{Any,Any} with 5 entries:
 ---
 
 ### function `getPageGroupTimers`
-[QueryAPI.jl#229-243](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L229-L243){: .source-link}
+[QueryAPI.jl#241-255](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L241-L255){: .source-link}
 
 Calls the `page-groups` endpoint of the mPulse REST API with the passed in filters
 
@@ -209,6 +223,13 @@ Calls the `page-groups` endpoint of the mPulse REST API with the passed in filte
              "date-comparator" => "Between",
              "date-start"      => ZonedDateTime(2016, 10, 19, 4, 30, TimeZone("America/New_York")).utc_datetime,
              "date-end"        => DateTime(2016, 10, 19, 16, 30)
+         )
+
+     To pass multiple values for a single filter, use an array:
+
+         filters = Dict(
+             "beacon-type" => ["page view", "xhr", "spa", "spa_hard"],
+             "page-group"  => ["product", "search"]
          )
 
 `friendly_names::Bool=false`
@@ -261,7 +282,7 @@ julia> pgroups = mPulseAPI.getPageGroupTimers(token, appKey)
 ---
 
 ### function `getBrowserTimers`
-[QueryAPI.jl#267-281](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L267-L281){: .source-link}
+[QueryAPI.jl#279-293](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L279-L293){: .source-link}
 
 Calls the `browsers` endpoint of the mPulse REST API with the passed in filters
 
@@ -294,6 +315,13 @@ Calls the `browsers` endpoint of the mPulse REST API with the passed in filters
              "date-comparator" => "Between",
              "date-start"      => ZonedDateTime(2016, 10, 19, 4, 30, TimeZone("America/New_York")).utc_datetime,
              "date-end"        => DateTime(2016, 10, 19, 16, 30)
+         )
+
+     To pass multiple values for a single filter, use an array:
+
+         filters = Dict(
+             "beacon-type" => ["page view", "xhr", "spa", "spa_hard"],
+             "page-group"  => ["product", "search"]
          )
 
 `friendly_names::Bool=false`
@@ -346,7 +374,7 @@ julia> pgroups = mPulseAPI.getBrowserTimers(token, appKey)
 ---
 
 ### function `getABTestTimers`
-[QueryAPI.jl#305-319](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L305-L319){: .source-link}
+[QueryAPI.jl#317-331](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L317-L331){: .source-link}
 
 Calls the `ab-tests` endpoint of the mPulse REST API with the passed in filters
 
@@ -379,6 +407,13 @@ Calls the `ab-tests` endpoint of the mPulse REST API with the passed in filters
              "date-comparator" => "Between",
              "date-start"      => ZonedDateTime(2016, 10, 19, 4, 30, TimeZone("America/New_York")).utc_datetime,
              "date-end"        => DateTime(2016, 10, 19, 16, 30)
+         )
+
+     To pass multiple values for a single filter, use an array:
+
+         filters = Dict(
+             "beacon-type" => ["page view", "xhr", "spa", "spa_hard"],
+             "page-group"  => ["product", "search"]
          )
 
 `friendly_names::Bool=false`
@@ -431,7 +466,7 @@ julia> pgroups = mPulseAPI.getABTestTimers(token, appKey)
 ---
 
 ### function `getGeoTimers`
-[QueryAPI.jl#343-361](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L343-L361){: .source-link}
+[QueryAPI.jl#355-373](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L355-L373){: .source-link}
 
 Calls the `geography` endpoint of the mPulse REST API with the passed in filters
 
@@ -464,6 +499,13 @@ Calls the `geography` endpoint of the mPulse REST API with the passed in filters
              "date-comparator" => "Between",
              "date-start"      => ZonedDateTime(2016, 10, 19, 4, 30, TimeZone("America/New_York")).utc_datetime,
              "date-end"        => DateTime(2016, 10, 19, 16, 30)
+         )
+
+     To pass multiple values for a single filter, use an array:
+
+         filters = Dict(
+             "beacon-type" => ["page view", "xhr", "spa", "spa_hard"],
+             "page-group"  => ["product", "search"]
          )
 
 `friendly_names::Bool=false`
@@ -516,7 +558,7 @@ julia> pgroups = mPulseAPI.getCountryTimers(token, appKey)
 ---
 
 ### function `getMetricsByDimension`
-[QueryAPI.jl#408-440](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L408-L440){: .source-link}
+[QueryAPI.jl#420-452](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L420-L452){: .source-link}
 
 Calls the `metrics-by-dimension` endpoint of the mPulse REST API with the passed in dimension name and filters
 
@@ -563,6 +605,13 @@ Calls the `metrics-by-dimension` endpoint of the mPulse REST API with the passed
              "date-end"        => DateTime(2016, 10, 19, 16, 30)
          )
 
+     To pass multiple values for a single filter, use an array:
+
+         filters = Dict(
+             "beacon-type" => ["page view", "xhr", "spa", "spa_hard"],
+             "page-group"  => ["product", "search"]
+         )
+
 #### Throws
 [`mPulseAPIAuthException`](exceptions.md#datatype-mpulseapiauthexception)
 :   If the `token` is invalid or has expired.
@@ -596,7 +645,7 @@ julia> mPulseAPI.getMetricsByDimension(token, appKey, "browser")
 ---
 
 ### function `getTimersMetrics`
-[QueryAPI.jl#486-532](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L486-L532){: .source-link}
+[QueryAPI.jl#498-575](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L498-L575){: .source-link}
 
 Calls the `timers-metrics` endpoint of the mPulse REST API with the passed in filters
 
@@ -629,6 +678,13 @@ Calls the `timers-metrics` endpoint of the mPulse REST API with the passed in fi
              "date-comparator" => "Between",
              "date-start"      => ZonedDateTime(2016, 10, 19, 4, 30, TimeZone("America/New_York")).utc_datetime,
              "date-end"        => DateTime(2016, 10, 19, 16, 30)
+         )
+
+     To pass multiple values for a single filter, use an array:
+
+         filters = Dict(
+             "beacon-type" => ["page view", "xhr", "spa", "spa_hard"],
+             "page-group"  => ["product", "search"]
          )
 
 #### Throws
@@ -674,7 +730,7 @@ julia> mPulseAPI.getTimersMetrics(token, appKey)
 ---
 
 ### function `getHistogram`
-[QueryAPI.jl#598-612](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L598-L612){: .source-link}
+[QueryAPI.jl#641-655](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L641-L655){: .source-link}
 
 Calls the `histogram` endpoint of the mPulse REST API with the passed in filters
 
@@ -707,6 +763,13 @@ Calls the `histogram` endpoint of the mPulse REST API with the passed in filters
              "date-comparator" => "Between",
              "date-start"      => ZonedDateTime(2016, 10, 19, 4, 30, TimeZone("America/New_York")).utc_datetime,
              "date-end"        => DateTime(2016, 10, 19, 16, 30)
+         )
+
+     To pass multiple values for a single filter, use an array:
+
+         filters = Dict(
+             "beacon-type" => ["page view", "xhr", "spa", "spa_hard"],
+             "page-group"  => ["product", "search"]
          )
 
 #### Throws
@@ -773,7 +836,7 @@ julia> histo["buckets"]
 ---
 
 ### function `getSessionsOverPageLoadTime`
-[QueryAPI.jl#632-634](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L632-L634){: .source-link}
+[QueryAPI.jl#675-677](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L675-L677){: .source-link}
 
 Calls the `sessions-per-page-load-time` endpoint of the mPulse REST API with the passed in filters
 
@@ -806,6 +869,13 @@ Calls the `sessions-per-page-load-time` endpoint of the mPulse REST API with the
              "date-comparator" => "Between",
              "date-start"      => ZonedDateTime(2016, 10, 19, 4, 30, TimeZone("America/New_York")).utc_datetime,
              "date-end"        => DateTime(2016, 10, 19, 16, 30)
+         )
+
+     To pass multiple values for a single filter, use an array:
+
+         filters = Dict(
+             "beacon-type" => ["page view", "xhr", "spa", "spa_hard"],
+             "page-group"  => ["product", "search"]
          )
 
 #### Throws
@@ -842,7 +912,7 @@ julia> mPulseAPI.getSessionsOverPageLoadTime(token, appKey)
 ---
 
 ### function `getMetricOverPageLoadTime`
-[QueryAPI.jl#659-683](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L659-L683){: .source-link}
+[QueryAPI.jl#702-726](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L702-L726){: .source-link}
 
 Calls the `metric-per-page-load-time` endpoint of the mPulse REST API with the passed in filters
 
@@ -878,6 +948,13 @@ Calls the `metric-per-page-load-time` endpoint of the mPulse REST API with the p
              "date-comparator" => "Between",
              "date-start"      => ZonedDateTime(2016, 10, 19, 4, 30, TimeZone("America/New_York")).utc_datetime,
              "date-end"        => DateTime(2016, 10, 19, 16, 30)
+         )
+
+     To pass multiple values for a single filter, use an array:
+
+         filters = Dict(
+             "beacon-type" => ["page view", "xhr", "spa", "spa_hard"],
+             "page-group"  => ["product", "search"]
          )
 
 #### Throws
@@ -917,7 +994,7 @@ julia> mPulseAPI.getMetricOverPageLoadTime(token, appKey)
 ---
 
 ### function `getTimerByMinute`
-[QueryAPI.jl#738-772](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L738-L772){: .source-link}
+[QueryAPI.jl#781-815](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L781-L815){: .source-link}
 
 Calls the `by-minute` endpoint of the mPulse REST API with the passed in filters
 
@@ -966,6 +1043,13 @@ Calls the `by-minute` endpoint of the mPulse REST API with the passed in filters
              "date-end"        => DateTime(2016, 10, 19, 16, 30)
          )
 
+     To pass multiple values for a single filter, use an array:
+
+         filters = Dict(
+             "beacon-type" => ["page view", "xhr", "spa", "spa_hard"],
+             "page-group"  => ["product", "search"]
+         )
+
 #### Throws
 [`mPulseAPIAuthException`](exceptions.md#datatype-mpulseapiauthexception)
 :   If the `token` is invalid or has expired.
@@ -1003,7 +1087,7 @@ julia> data = mPulseAPI.getTimerByMinute(token, appKey, timer="PageLoad")
 ---
 
 ### function `mergeMetrics`
-[QueryAPI.jl#837-845](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L837-L845){: .source-link}
+[QueryAPI.jl#880-888](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L880-L888){: .source-link}
 
 Merge multiple similar `DataFrames` into a single `DataFrame`
 
