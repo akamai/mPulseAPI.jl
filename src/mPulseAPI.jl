@@ -27,7 +27,7 @@ function readdoc(path::AbstractString...)
 end
 
 """
-$(replace(readdoc("README.md"), r"\n.*travis-ci\.org.*\n", ""))
+$(replace(mPulseAPI.readdoc("README.md"), r"\n.*travis-ci\.org.*\n", ""))
 """
 mPulseAPI
 
