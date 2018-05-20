@@ -1,4 +1,4 @@
-using DataFrames
+using DataFrames, DataArrays
 
 token  = getRepositoryToken(mPulseAPITenant, mPulseAPIToken)
 domain = getRepositoryDomain(token, appName="mPulse Demo")

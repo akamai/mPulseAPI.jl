@@ -10,7 +10,18 @@
 #
 ###################################################
 
-using DataFrames, JSON, Formatting
+using DataFrames, DataArrays, JSON, Formatting
+
+if isdefined(:Missings) && isdefined(:missing)
+    const nullval = missing
+elseif isdefined(:NA)
+    const nullval = NA
+    ismissing = isna
+else
+    const nullval = nothing
+    ismissing(x) = (x == nothing)
+    ismissing(x::AbstractVector) = (x .== nothing)
+end
 
 const query_types = [
         "summary",
@@ -564,9 +575,9 @@ function getTimersMetrics(token::AbstractString, appKey::AbstractString; filters
         df[name] = history
     end
 
-    df[nulls] = NA
+    df[nulls] = nullval
 
-    if nrow(df) > 1 && all(a -> isna(a) || a == 0, stack(df[end-1, :], names(df))[:value])
+    if nrow(df) > 1 && all(a -> ismissing(a) || a == 0, stack(df[end-1, :], names(df))[:value])
         # mPulse bug 115785: If penultimate row is all 0s/NAs, remove it
         return df[[1:end-2; end], :]
     else
@@ -883,7 +894,11 @@ function mergeMetrics(df1::DataFrame, df2::DataFrame...; keyField::Symbol=:t_don
         df = join(df, next, on=keyField, kind=joinType)
     end
 
-    sort!(df, cols = [keyField])
+    if length(methods(sort!, [DataFrame, Any])) >= 1
+        sort!(df, keyField)
+    else
+        sort!(df, cols = [keyField])
+    end
     return df
 end
 
