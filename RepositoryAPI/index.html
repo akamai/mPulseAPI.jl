@@ -116,7 +116,7 @@
     <li>Repository API</li>
     <li class="wy-breadcrumbs-aside">
       
-        <a href="https://github.com/SOASTA/mPulseAPI.jl/edit/master/docs/RepositoryAPI.md"
+        <a href="https://github.com/akamai/mPulseAPI.jl/edit/master/docs/RepositoryAPI.md"
           class="icon icon-github"> Edit on GitHub</a>
       
     </li>
@@ -137,7 +137,7 @@
 </ul>
 <h2 id="exported-functions">Exported Functions<a class="headerlink" href="#exported-functions" title="Permanent link">&para;</a></h2>
 <h3 id="function-getrepositorytoken">function <code>getRepositoryToken</code><a class="headerlink" href="#function-getrepositorytoken" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L49-L101">RepositoryAPI.jl#49-101</a></p>
+<p><a class="source-link" href="https://github.com/akamai/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L49-L101">RepositoryAPI.jl#49-101</a></p>
 <p>Logs in to the mPulse repository and fetches an Authorization token that can be used for other calls</p>
 <p>The token will be cached in memory for 5 hours, so subsequent calls using the same tenant will return
 quickly without calling out to the API.  This can be a problem if the account has signed in from a different
@@ -162,7 +162,7 @@ location or is logged out of mPulse.  You can clear the cache for this token usi
 </dl>
 <hr />
 <h3 id="function-getrepositorydomain">function <code>getRepositoryDomain</code><a class="headerlink" href="#function-getrepositorydomain" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L190-L244">RepositoryAPI.jl#190-244</a></p>
+<p><a class="source-link" href="https://github.com/akamai/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L190-L244">RepositoryAPI.jl#190-244</a></p>
 <p>Fetches a Domain object from the mPulse repository</p>
 <p>To fetch a single domain, at least one of <code>domainID</code>, <code>appKey</code> or <code>appName</code> must be passed in to identify the domain.
 If none of these are passed in, then all domains that are readable by the specified <code>token</code> will be returned as an array.</p>
@@ -263,7 +263,7 @@ You can clear the cache for this domain using <a class="x-ref" href="../cache_ut
 </dl>
 <hr />
 <h3 id="function-getrepositorytenant">function <code>getRepositoryTenant</code><a class="headerlink" href="#function-getrepositorytenant" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L314-L336">RepositoryAPI.jl#314-336</a></p>
+<p><a class="source-link" href="https://github.com/akamai/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L314-L336">RepositoryAPI.jl#314-336</a></p>
 <p>Fetches a Tenant object from the mPulse repository</p>
 <p>At least one of <code>tenantID</code> or <code>name</code> must be passed in to identify the tenant.</p>
 <p>The tenant will be cached in memory for 1 hour, so subsequent calls using a matching <code>tenantID</code>, or <code>name</code> return
@@ -321,7 +321,7 @@ You can clear the cache for this tenant using <a class="x-ref" href="../cache_ut
 importing them or by prefixing them with the <code>mPulseAPI.</code> namespace.</p>
 </div>
 <h3 id="function-getcustommetricmap">function <code>getCustomMetricMap</code><a class="headerlink" href="#function-getcustommetricmap" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L472-L507">RepositoryAPI.jl#472-507</a></p>
+<p><a class="source-link" href="https://github.com/akamai/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L472-L507">RepositoryAPI.jl#472-507</a></p>
 <p>Gets a mapping of custom metric names to RedShift field names from domain XML.  This list also includes valid dates.</p>
 <h4 id="arguments_3">Arguments<a class="headerlink" href="#arguments_3" title="Permanent link">&para;</a></h4>
 <dl>
@@ -362,7 +362,7 @@ importing them or by prefixing them with the <code>mPulseAPI.</code> namespace.<
 </dl>
 <hr />
 <h3 id="function-getcustomtimermap">function <code>getCustomTimerMap</code><a class="headerlink" href="#function-getcustomtimermap" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L524-L560">RepositoryAPI.jl#524-560</a></p>
+<p><a class="source-link" href="https://github.com/akamai/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L524-L560">RepositoryAPI.jl#524-560</a></p>
 <p>Gets a mapping of custom timer names to RedShift field names from domain XML.  This list also includes valid dates.</p>
 <h4 id="arguments_4">Arguments<a class="headerlink" href="#arguments_4" title="Permanent link">&para;</a></h4>
 <dl>
@@ -408,7 +408,7 @@ importing them or by prefixing them with the <code>mPulseAPI.</code> namespace.<
 </dl>
 <hr />
 <h3 id="function-getnodecontent">function <code>getNodeContent</code><a class="headerlink" href="#function-getnodecontent" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L584-L608">RepositoryAPI.jl#584-608</a></p>
+<p><a class="source-link" href="https://github.com/akamai/mPulseAPI.jl/tree/master/src/RepositoryAPI.jl#L584-L608">RepositoryAPI.jl#584-608</a></p>
 <p>Gets the content of a node</p>
 <h4 id="arguments_5">Arguments<a class="headerlink" href="#arguments_5" title="Permanent link">&para;</a></h4>
 <dl>
@@ -456,7 +456,7 @@ importing them or by prefixing them with the <code>mPulseAPI.</code> namespace.<
   <div role="contentinfo">
     <!-- Copyright etc -->
     
-      <p>SOASTA, Inc.</p>
+      <p>Akamai, Inc.</p>
     
   </div>
 
@@ -473,7 +473,7 @@ importing them or by prefixing them with the <code>mPulseAPI.</code> namespace.<
   <div class="rst-versions" role="note" style="cursor: pointer">
     <span class="rst-current-version" data-toggle="rst-current-version">
       
-          <a href="https://github.com/SOASTA/mPulseAPI.jl/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+          <a href="https://github.com/akamai/mPulseAPI.jl/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
         <span><a href="../apiToken/index.html" style="color: #fcfcfc;">&laquo; Previous</a></span>

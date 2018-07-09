@@ -148,7 +148,7 @@
     <li>Query API</li>
     <li class="wy-breadcrumbs-aside">
       
-        <a href="https://github.com/SOASTA/mPulseAPI.jl/edit/master/docs/QueryAPI.md"
+        <a href="https://github.com/akamai/mPulseAPI.jl/edit/master/docs/QueryAPI.md"
           class="icon icon-github"> Edit on GitHub</a>
       
     </li>
@@ -165,7 +165,7 @@
 importing them or by prefixing them with the <code>mPulseAPI.</code> namespace.</p>
 </div>
 <h3 id="function-getapiresults">function <code>getAPIResults</code><a class="headerlink" href="#function-getapiresults" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L56-L166">QueryAPI.jl#56-166</a></p>
+<p><a class="source-link" href="https://github.com/akamai/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L67-L177">QueryAPI.jl#67-177</a></p>
 <p>Get API results from the mPulse <a href="http://docs.soasta.com/query-api/">Query API</a></p>
 <p>This method is a generic catch-all that queries the mPulse API and returns results as a Julia data structure matching the JSON structure of the specified API call</p>
 <h4 id="arguments">Arguments<a class="headerlink" href="#arguments" title="Permanent link">&para;</a></h4>
@@ -239,7 +239,7 @@ the problem</dd>
 <p><code>{Any}</code> A Julia representation of the JSON returned by the API call. Convenience wrappers in this library may return more appropriate data structures.</p>
 <hr />
 <h3 id="function-getsummarytimers">function <code>getSummaryTimers</code><a class="headerlink" href="#function-getsummarytimers" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L215-L217">QueryAPI.jl#215-217</a></p>
+<p><a class="source-link" href="https://github.com/akamai/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L226-L228">QueryAPI.jl#226-228</a></p>
 <p>Calls the <code>summary</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_1">Arguments<a class="headerlink" href="#arguments_1" title="Permanent link">&para;</a></h4>
 <dl>
@@ -315,7 +315,7 @@ Dict{Any,Any} with 5 entries:
 
 <hr />
 <h3 id="function-getpagegrouptimers">function <code>getPageGroupTimers</code><a class="headerlink" href="#function-getpagegrouptimers" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L241-L255">QueryAPI.jl#241-255</a></p>
+<p><a class="source-link" href="https://github.com/akamai/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L252-L266">QueryAPI.jl#252-266</a></p>
 <p>Calls the <code>page-groups</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_2">Arguments<a class="headerlink" href="#arguments_2" title="Permanent link">&para;</a></h4>
 <dl>
@@ -393,7 +393,7 @@ the problem</dd>
 
 <hr />
 <h3 id="function-getbrowsertimers">function <code>getBrowserTimers</code><a class="headerlink" href="#function-getbrowsertimers" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L279-L293">QueryAPI.jl#279-293</a></p>
+<p><a class="source-link" href="https://github.com/akamai/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L290-L304">QueryAPI.jl#290-304</a></p>
 <p>Calls the <code>browsers</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_3">Arguments<a class="headerlink" href="#arguments_3" title="Permanent link">&para;</a></h4>
 <dl>
@@ -471,7 +471,7 @@ the problem</dd>
 
 <hr />
 <h3 id="function-getabtesttimers">function <code>getABTestTimers</code><a class="headerlink" href="#function-getabtesttimers" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L317-L331">QueryAPI.jl#317-331</a></p>
+<p><a class="source-link" href="https://github.com/akamai/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L328-L342">QueryAPI.jl#328-342</a></p>
 <p>Calls the <code>ab-tests</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_4">Arguments<a class="headerlink" href="#arguments_4" title="Permanent link">&para;</a></h4>
 <dl>
@@ -549,7 +549,7 @@ the problem</dd>
 
 <hr />
 <h3 id="function-getgeotimers">function <code>getGeoTimers</code><a class="headerlink" href="#function-getgeotimers" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L355-L373">QueryAPI.jl#355-373</a></p>
+<p><a class="source-link" href="https://github.com/akamai/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L366-L384">QueryAPI.jl#366-384</a></p>
 <p>Calls the <code>geography</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_5">Arguments<a class="headerlink" href="#arguments_5" title="Permanent link">&para;</a></h4>
 <dl>
@@ -627,7 +627,7 @@ the problem</dd>
 
 <hr />
 <h3 id="function-getmetricsbydimension">function <code>getMetricsByDimension</code><a class="headerlink" href="#function-getmetricsbydimension" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L420-L452">QueryAPI.jl#420-452</a></p>
+<p><a class="source-link" href="https://github.com/akamai/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L431-L463">QueryAPI.jl#431-463</a></p>
 <p>Calls the <code>metrics-by-dimension</code> endpoint of the mPulse REST API with the passed in dimension name and filters</p>
 <h4 id="arguments_6">Arguments<a class="headerlink" href="#arguments_6" title="Permanent link">&para;</a></h4>
 <dl>
@@ -707,7 +707,7 @@ the problem</dd>
 
 <hr />
 <h3 id="function-gettimersmetrics">function <code>getTimersMetrics</code><a class="headerlink" href="#function-gettimersmetrics" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L498-L575">QueryAPI.jl#498-575</a></p>
+<p><a class="source-link" href="https://github.com/akamai/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L509-L586">QueryAPI.jl#509-586</a></p>
 <p>Calls the <code>timers-metrics</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_7">Arguments<a class="headerlink" href="#arguments_7" title="Permanent link">&para;</a></h4>
 <dl>
@@ -784,7 +784,7 @@ For example, for Last24Hours, there will be 1440 entries representing each minut
 
 <hr />
 <h3 id="function-gethistogram">function <code>getHistogram</code><a class="headerlink" href="#function-gethistogram" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L641-L655">QueryAPI.jl#641-655</a></p>
+<p><a class="source-link" href="https://github.com/akamai/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L652-L666">QueryAPI.jl#652-666</a></p>
 <p>Calls the <code>histogram</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_8">Arguments<a class="headerlink" href="#arguments_8" title="Permanent link">&para;</a></h4>
 <dl>
@@ -877,7 +877,7 @@ Dict{AbstractString,Any} with 4 entries:
 
 <hr />
 <h3 id="function-getsessionsoverpageloadtime">function <code>getSessionsOverPageLoadTime</code><a class="headerlink" href="#function-getsessionsoverpageloadtime" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L675-L677">QueryAPI.jl#675-677</a></p>
+<p><a class="source-link" href="https://github.com/akamai/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L686-L688">QueryAPI.jl#686-688</a></p>
 <p>Calls the <code>sessions-per-page-load-time</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_9">Arguments<a class="headerlink" href="#arguments_9" title="Permanent link">&para;</a></h4>
 <dl>
@@ -946,7 +946,7 @@ the problem</dd>
 
 <hr />
 <h3 id="function-getmetricoverpageloadtime">function <code>getMetricOverPageLoadTime</code><a class="headerlink" href="#function-getmetricoverpageloadtime" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L702-L726">QueryAPI.jl#702-726</a></p>
+<p><a class="source-link" href="https://github.com/akamai/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L713-L737">QueryAPI.jl#713-737</a></p>
 <p>Calls the <code>metric-per-page-load-time</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_10">Arguments<a class="headerlink" href="#arguments_10" title="Permanent link">&para;</a></h4>
 <dl>
@@ -1019,7 +1019,7 @@ the problem</dd>
 
 <hr />
 <h3 id="function-gettimerbyminute">function <code>getTimerByMinute</code><a class="headerlink" href="#function-gettimerbyminute" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L781-L815">QueryAPI.jl#781-815</a></p>
+<p><a class="source-link" href="https://github.com/akamai/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L792-L826">QueryAPI.jl#792-826</a></p>
 <p>Calls the <code>by-minute</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_11">Arguments<a class="headerlink" href="#arguments_11" title="Permanent link">&para;</a></h4>
 <dl>
@@ -1106,7 +1106,7 @@ The fields are: <code>:timestamp</code> in milliseconds since the UNIX epoch, <c
 
 <hr />
 <h3 id="function-mergemetrics">function <code>mergeMetrics</code><a class="headerlink" href="#function-mergemetrics" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L880-L888">QueryAPI.jl#880-888</a></p>
+<p><a class="source-link" href="https://github.com/akamai/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L891-L903">QueryAPI.jl#891-903</a></p>
 <p>Merge multiple similar <code>DataFrames</code> into a single <code>DataFrame</code></p>
 <p>Use this method to merge the results from multiple calls to <code>getMetricOverPageLoadTime()</code> and <code>getSessionsOverPageLoadTime()</code>.
 All passed in <code>DataFrame</code>s MUST contain a <code>:t_done</code> column.</p>
@@ -1187,7 +1187,7 @@ julia&gt; mPulseAPI.mergeMetrics(sessions, bouncerate, conversion)
   <div role="contentinfo">
     <!-- Copyright etc -->
     
-      <p>SOASTA, Inc.</p>
+      <p>Akamai, Inc.</p>
     
   </div>
 
@@ -1204,7 +1204,7 @@ julia&gt; mPulseAPI.mergeMetrics(sessions, bouncerate, conversion)
   <div class="rst-versions" role="note" style="cursor: pointer">
     <span class="rst-current-version" data-toggle="rst-current-version">
       
-          <a href="https://github.com/SOASTA/mPulseAPI.jl/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+          <a href="https://github.com/akamai/mPulseAPI.jl/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
         <span><a href="../RepositoryAPI/index.html" style="color: #fcfcfc;">&laquo; Previous</a></span>
