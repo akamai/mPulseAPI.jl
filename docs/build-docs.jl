@@ -38,12 +38,12 @@ const mkdocsy = "mkdocs.yml"
 # Prefix configuration for mkdocs.  Page names will be appended to this
 const mkdocs_config = Dict(
     :site_name => "$(mod).jl Documentation",
-    :site_url  => "https://SOASTA.github.com/$(mod).jl/",
-    :repo_url  => "https://github.com/SOASTA/$(mod).jl/",
+    :site_url  => "https://akamai.github.com/$(mod).jl/",
+    :repo_url  => "https://github.com/akamai/$(mod).jl/",
     :site_favicon     => "favicon.ico",
     :extra_css => ["css/mkdocs.css"],
     :site_description => "Communicate with the mPulse Query & Repository REST APIs to fetch information about tenants and apps.",
-    :copyright => "SOASTA, Inc.",
+    :copyright => "Akamai, Inc.",
     :docs_dir  => "src",
     :use_directory_urls => false,
     :theme     => "readthedocs",

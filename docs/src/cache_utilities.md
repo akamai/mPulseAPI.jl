@@ -11,7 +11,7 @@
 
 
 ### function `clearDomainCache`
-[cache_utilities.jl#87-137](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/cache_utilities.jl#L87-L137){: .source-link}
+[cache_utilities.jl#87-137](https://github.com/akamai/mPulseAPI.jl/tree/master/src/cache_utilities.jl#L87-L137){: .source-link}
 
 Expire an entry from the domain cache.  Use this if the domain has changed.
 
@@ -37,7 +37,7 @@ Expire an entry from the domain cache.  Use this if the domain has changed.
 ---
 
 ### function `clearTenantCache`
-[cache_utilities.jl#108-137](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/cache_utilities.jl#L108-L137){: .source-link}
+[cache_utilities.jl#108-137](https://github.com/akamai/mPulseAPI.jl/tree/master/src/cache_utilities.jl#L108-L137){: .source-link}
 
 Expire an entry from the tenant cache.  Use this if the tenant has changed.
 
@@ -60,7 +60,7 @@ Expire an entry from the tenant cache.  Use this if the tenant has changed.
 ---
 
 ### function `clearTokenCache`
-[cache_utilities.jl#127-137](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/cache_utilities.jl#L127-L137){: .source-link}
+[cache_utilities.jl#127-137](https://github.com/akamai/mPulseAPI.jl/tree/master/src/cache_utilities.jl#L127-L137){: .source-link}
 
 Expire an entry from the token cache.  Use this if the token associated with this tenant is no longer valid.
 

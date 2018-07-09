@@ -2,14 +2,14 @@
 
 
 ## module `mPulseAPI`
-[mPulseAPI.jl#14](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/mPulseAPI.jl#L14-L14){: .source-link}
+[mPulseAPI.jl#14](https://github.com/akamai/mPulseAPI.jl/tree/master/src/mPulseAPI.jl#L14-L14){: .source-link}
 
 Communicate with the mPulse Query & Repository REST APIs to fetch information about tenants and apps.
 
 ## Documentation
 
 ### This module:
-* mPulseAPI.jl: [https://soasta.github.io/mPulseAPI.jl/](https://soasta.github.io/mPulseAPI.jl/)
+* mPulseAPI.jl: [https://akamai.github.io/mPulseAPI.jl/](https://akamai.github.io/mPulseAPI.jl/)
 
 ### REST APIs that this module uses:
 * mPulse Query API: [http://docs.soasta.com/query-api/](http://docs.soasta.com/query-api/)
@@ -59,7 +59,7 @@ tenant = getRepositoryTenant(token, name="<tenant name from mPulse>")
 
 
 ### function `setEndpoints`
-[mPulseAPI.jl#59-67](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/mPulseAPI.jl#L59-L67){: .source-link}
+[mPulseAPI.jl#59-67](https://github.com/akamai/mPulseAPI.jl/tree/master/src/mPulseAPI.jl#L59-L67){: .source-link}
 
 Change the SOASTA API endpoint that we connect to.  The default is `https://mpulse.soasta.com/concerto`
 
@@ -72,7 +72,7 @@ mPulseAPI.setEndpoints("https://mpulse-alt.soasta.com/concerto")
 ---
 
 ### function `setVerbose`
-[mPulseAPI.jl#75-77](https://github.com/SOASTA/mPulseAPI.jl/tree/master/src/mPulseAPI.jl#L75-L77){: .source-link}
+[mPulseAPI.jl#75-77](https://github.com/akamai/mPulseAPI.jl/tree/master/src/mPulseAPI.jl#L75-L77){: .source-link}
 
 Set verbosity of API calls.
 

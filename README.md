@@ -1,11 +1,11 @@
 Communicate with the mPulse Query & Repository REST APIs to fetch information about tenants and apps.
 
-[![Build Status](https://travis-ci.org/SOASTA/mPulseAPI.jl.svg?branch=master)](https://travis-ci.org/SOASTA/mPulseAPI.jl)
+[![Build Status](https://travis-ci.org/akamai/mPulseAPI.jl.svg?branch=master)](https://travis-ci.org/akamai/mPulseAPI.jl)
 
 ## Documentation
 
 ### This module:
-* mPulseAPI.jl: [https://soasta.github.io/mPulseAPI.jl/](https://soasta.github.io/mPulseAPI.jl/)
+* mPulseAPI.jl: [https://akamai.github.io/mPulseAPI.jl/](https://akamai.github.io/mPulseAPI.jl/)
 
 ### REST APIs that this module uses:
 * mPulse Query API: [http://docs.soasta.com/query-api/](http://docs.soasta.com/query-api/)
