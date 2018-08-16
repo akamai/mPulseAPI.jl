@@ -13,7 +13,8 @@
 export
     getRepositoryToken,
     getRepositoryTenant,
-    getRepositoryDomain
+    getRepositoryDomain,
+    postRepositoryObject
 
 const TokenTimeoutHours = 5
 
@@ -47,6 +48,7 @@ location or is logged out of mPulse.  You can clear the cache for this token usi
 :    if authentication failed for some reason
 """
 function getRepositoryToken(tenant::AbstractString, apiToken::AbstractString)
+    println("testing function - getRepositoryToken")
     global verbose
 
     if tenant == ""
@@ -337,6 +339,11 @@ end
 
 
 
+  # tenant = getRepositoryObject(
+  #               token,
+  #               "tenant",
+  #               Dict{Symbol, Any}(:id => tenantID, :name => name)
+  #       )
 
 # Internal convenience function.  Fetches an object from the repository and caches it for an hour in the appropriate cache object
 # - Returns a single object if filter keys are passed in an filterRequired is set to true (default)
@@ -362,6 +369,7 @@ function getRepositoryObject(token::AbstractString, objectType::AbstractString, 
     local object = getObjectFromCache(objectType, searchKey)
 
     if object != nothing
+        println("getObjectFromCache")
         return object
     end
 
@@ -388,6 +396,15 @@ function getRepositoryObject(token::AbstractString, objectType::AbstractString, 
         println("X-Auth-Token: $token")
         println(query)
     end
+
+################################################################
+# from getRepositoryToken
+    # resp = Requests.put(TokenEndpoint,
+    #     json = Dict("tenant" => tenant, "apiToken" => apiToken),
+    #     headers = Dict("Content-type" => "application/json")
+    # )
+################################################################
+
 
     # Attempt to fetch object from repository using auth token
     resp = Requests.get(url, headers=Dict("X-Auth-Token" => token), query=query)
@@ -454,6 +471,103 @@ function getRepositoryObject(token::AbstractString, objectType::AbstractString, 
     end
 end
 
+
+
+
+
+"""
+
+TODO: documentation 
+
+"""
+
+function postRepositoryObject(token::AbstractString,
+                              objectType::AbstractString,
+                              searchKey::Dict{Symbol, Any},
+                              name::AbstractString="",
+                              tenantID::Int64=0;
+                              attributes=Dict{AbstractString, Any},
+                              filterRequired::Bool=true
+)
+
+    global verbose
+
+    if token == ""
+        throw(ArgumentError("`token' cannot be empty"))
+    end
+
+    # If tenantID is not supplied, retrieve from getRepositoryTenant
+    if tenantID == 0 
+        tenant = getRepositoryTenant(token, name = name)
+        tenantID = get(tenant, "id", 0)
+    end
+
+    local isKeySet = false
+
+    if filterRequired
+        isKeySet = any(kv -> isa(kv[2], Number) ? kv[2] > 0 : !isempty(kv[2]), searchKey)
+
+        if !isKeySet
+            throw(ArgumentError("At least one of `$(join(collect(keys(searchKey)), "', `", "' or `"))' must be set"))
+        end
+    end
+
+    # local object = getObjectFromCache(objectType, searchKey)
+
+    # if object != nothing
+    #     println("getObjectFromCache")
+    #     return object
+    # end
+
+    local url = ObjectEndpoint * "/" * objectType * "/$(tenantID)"
+    local query = Dict()
+    local debugID = "(all)"
+
+
+    # Adjust query URL to use ID or search attribute depending on which is passed in
+    for (k, v) in searchKey
+        if isa(v, Number) ? v > 0 : v != ""
+            if k == :id
+                url *= "/$(v)"
+            else
+                query[k] = v
+            end
+            debugID = "$(k)=$(v)"
+            break
+        end
+    end
+
+
+    if verbose
+        println("POST $url")
+        println("X-Auth-Token: $token")
+        # println(query)
+    end
+
+
+    json = Dict{AbstractString, Any}()
+    json["type"] = objectType
+
+    if haskey(query, "name")
+        json["name"] = query["name"]
+    end
+
+    attributesDict = []
+    for (key, val) in attributes
+        push!(attributesDict, Dict("name" => key, "value"=> val))
+    end
+
+    if !isempty(attributesDict)
+        json["attributes"] = attributesDict
+    end
+
+    resp = Requests.post(url,
+        json = json,
+        headers = Dict("X-Auth-Token" => token, "Content-type" => "application/json")
+    )
+
+
+end
 
 
 
