@@ -483,9 +483,9 @@ TODO: documentation
 
 function postRepositoryObject(token::AbstractString,
                               objectType::AbstractString,
-                              searchKey::Dict{Symbol, Any},
-                              name::AbstractString="",
-                              tenantID::Int64=0;
+                              searchKey::Dict{Symbol, Any};
+                              # name::AbstractString="",
+                              # tenantID::Int64=0,
                               attributes=Dict{AbstractString, Any},
                               filterRequired::Bool=true
 )
@@ -496,10 +496,13 @@ function postRepositoryObject(token::AbstractString,
         throw(ArgumentError("`token' cannot be empty"))
     end
 
-    # If tenantID is not supplied, retrieve from getRepositoryTenant
+    tenantID = get(searchKey, :id, 0)
+    name = get(searchKey, :name, "")
+
+    # If tenantID is not supplied, retrieve from getRepositoryDomain
     if tenantID == 0 
-        tenant = getRepositoryTenant(token, name = name)
-        tenantID = get(tenant, "id", 0)
+        domain = getRepositoryDomain(token, appName = name)
+        tenantID = get(domain, "id", 0)
     end
 
     local isKeySet = false
