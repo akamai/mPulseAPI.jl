@@ -31,11 +31,11 @@ domain = getRepositoryDomain(token, appKey=appKey)
 @test haskey(domain["custom_metrics"], "Revenue GBP")
 
 @test domain["custom_metrics"]["Conversion"]["index"] == 0
-@test domain["custom_metrics"]["Conversion"]["fieldname"] == "custom_metrics_0"
+@test domain["custom_metrics"]["Conversion"]["fieldname"] == "custommetric0"
 @test domain["custom_metrics"]["Conversion"]["dataType"]["type"] == "Percentage"
 
 @test domain["custom_metrics"]["Revenue GBP"]["index"] == 1
-@test domain["custom_metrics"]["Revenue GBP"]["fieldname"] == "custom_metrics_1"
+@test domain["custom_metrics"]["Revenue GBP"]["fieldname"] == "custommetric1"
 @test domain["custom_metrics"]["Revenue GBP"]["dataType"]["type"] == "Currency"
 @test domain["custom_metrics"]["Revenue GBP"]["dataType"]["currencyCode"] == "GBP"
 # Bug in mPulseAPI means that `currencySymbol` will sometimes disappear
@@ -45,7 +45,7 @@ domain = getRepositoryDomain(token, appKey=appKey)
 # CustomMetric2 is inactive
 
 @test domain["custom_metrics"]["OrderTotal"]["index"] == 3
-@test domain["custom_metrics"]["OrderTotal"]["fieldname"] == "custom_metrics_3"
+@test domain["custom_metrics"]["OrderTotal"]["fieldname"] == "custommetric3"
 @test domain["custom_metrics"]["OrderTotal"]["dataType"]["type"] == "Currency"
 @test domain["custom_metrics"]["OrderTotal"]["dataType"]["currencyCode"] == "USD"
 @test domain["custom_metrics"]["OrderTotal"]["dataType"]["decimalPlaces"] == "2"
@@ -57,7 +57,7 @@ domain = getRepositoryDomain(token, appKey=appKey)
 @test haskey(domain["custom_timers"], "ResourceTimer")
 
 @test domain["custom_timers"]["ResourceTimer"]["index"] == 0
-@test domain["custom_timers"]["ResourceTimer"]["fieldname"] == "timers_custom0"
+@test domain["custom_timers"]["ResourceTimer"]["fieldname"] == "customtimer0"
 @test domain["custom_timers"]["ResourceTimer"]["mpulseapiname"] == "CustomTimer0"
 
 # Check tenant

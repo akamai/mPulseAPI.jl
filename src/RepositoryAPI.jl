@@ -600,7 +600,7 @@ function getCustomMetricMap(body::Any)
         if attributes["inactive"] == "false"
             custom_metric = Dict(
                 "index" => parse(Int, attributes["index"], 10),
-                "fieldname" => "custom_metrics_" * attributes["index"],
+                "fieldname" => "custommetric" * attributes["index"],
                 "lastModified" => iso8601ToDateTime(attributes["lastModified"]),
                 "description" => attributes["description"]
             )
@@ -652,7 +652,7 @@ function getCustomTimerMap(body::Any)
         if attributes["inactive"] == "false"
             custom_timer = Dict(
                 "index" => parse(Int, attributes["index"], 10),
-                "fieldname" => "timers_custom" * attributes["index"],
+                "fieldname" => "customtimer" * attributes["index"],
                 "mpulseapiname" => "CustomTimer" * attributes["index"],
                 "lastModified" => iso8601ToDateTime(attributes["lastModified"]),
                 "description" => attributes["description"]
