@@ -136,3 +136,24 @@ function clearTokenCache(tenant::AbstractString)
     return false
 end
 
+
+"""
+Expire an entry from the alert cache.  Use this if the alert has changed.
+
+#### Optional Arguments
+`alertID::Int64`
+:    The ID of the alert to expire.
+
+`alertName::AbstractString`
+:    The Alert name in mPulse.  This can be found from the mPulse alert configuration dialog.
+
+#### Returns
+`true`
+:    on success
+
+`false`
+:    if the entry was not in cache
+
+"""
+clearAlertCache(;alertID::Int64=0, alertName::AbstractString="") = clearObjectCache("alert", Dict{Symbol, Any}(:id => alertID, :name => alertName))
+
