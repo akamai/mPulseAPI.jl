@@ -15,6 +15,7 @@ export
     getRepositoryToken,
     getRepositoryTenant,
     getRepositoryDomain,
+    postRepositoryAlert,
     postRepositoryObject
 
 const TokenTimeoutHours = 5
@@ -420,14 +421,6 @@ function getRepositoryObject(token::AbstractString, objectType::AbstractString, 
         println(query)
     end
 
-################################################################
-# from getRepositoryToken
-    # resp = Requests.put(TokenEndpoint,
-    #     json = Dict("tenant" => tenant, "apiToken" => apiToken),
-    #     headers = Dict("Content-type" => "application/json")
-    # )
-################################################################
-
 
     # Attempt to fetch object from repository using auth token
     resp = Requests.get(url, headers=Dict("X-Auth-Token" => token), query=query)
@@ -592,6 +585,35 @@ function postRepositoryObject(token::AbstractString,
         headers = Dict("X-Auth-Token" => token, "Content-type" => "application/json")
     )
 
+
+end
+
+
+"""
+
+TODO: documentation 
+
+"""
+
+
+function postRepositoryAlert(token::AbstractString;
+                            alertID::Int64=0,
+                            alertName::AbstractString="",
+                            attributes::Dict=Dict(),
+)
+
+    if token == ""
+        throw(ArgumentError("`token' cannot be empty"))
+    end
+
+    alert = postRepositoryObject(
+                token,
+                "alert",
+                Dict{Symbol, Any}(:id => alertID, :name => alertName),
+                attributes = attributes
+        )
+
+    return alert
 
 end
 
