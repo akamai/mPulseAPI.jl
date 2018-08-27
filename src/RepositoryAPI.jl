@@ -500,9 +500,7 @@ TODO: documentation
 function postRepositoryObject(token::AbstractString,
                               objectType::AbstractString,
                               searchKey::Dict{Symbol, Any};
-                              # name::AbstractString="",
-                              # tenantID::Int64=0,
-                              attributes=Dict{AbstractString, Any},
+                              attributes::Dict=Dict(),
                               filterRequired::Bool=true
 )
 
@@ -512,13 +510,21 @@ function postRepositoryObject(token::AbstractString,
         throw(ArgumentError("`token' cannot be empty"))
     end
 
-    tenantID = get(searchKey, :id, 0)
+    objectID = get(searchKey, :id, 0)
     name = get(searchKey, :name, "")
 
-    # If tenantID is not supplied, retrieve from getRepositoryDomain
-    if tenantID == 0 
-        domain = getRepositoryDomain(token, appName = name)
-        tenantID = get(domain, "id", 0)
+    # If objectID is not supplied, retrieve from get function
+    if objectID == 0 
+        if objectType == "alert"
+            object = getRepositoryAlert(token, alertName = name)
+            objectID = get(object, "id", 0)
+        elseif objectType == "domain"
+            object = getRepositoryDomain(token, appName = name)
+            objectID = get(object, "id", 0)
+        elseif objectType == "tenant"
+            object = getRepositoryTenant(token, name = name)
+            objectID = get(object, "id", 0)
+        end
     end
 
     local isKeySet = false
@@ -531,36 +537,14 @@ function postRepositoryObject(token::AbstractString,
         end
     end
 
-    # local object = getObjectFromCache(objectType, searchKey)
-
-    # if object != nothing
-    #     println("getObjectFromCache")
-    #     return object
-    # end
-
-    local url = ObjectEndpoint * "/" * objectType * "/$(tenantID)"
+    local url = ObjectEndpoint * "/" * objectType * "/$(objectID)"
     local query = Dict()
     local debugID = "(all)"
-
-
-    # Adjust query URL to use ID or search attribute depending on which is passed in
-    for (k, v) in searchKey
-        if isa(v, Number) ? v > 0 : v != ""
-            if k == :id
-                url *= "/$(v)"
-            else
-                query[k] = v
-            end
-            debugID = "$(k)=$(v)"
-            break
-        end
-    end
-
 
     if verbose
         println("POST $url")
         println("X-Auth-Token: $token")
-        # println(query)
+        println(attributes)
     end
 
 
