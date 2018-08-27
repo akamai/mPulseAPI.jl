@@ -11,6 +11,7 @@
 ###################################################
 
 export
+    getRepositoryAlert,
     getRepositoryToken,
     getRepositoryTenant,
     getRepositoryDomain,
@@ -244,6 +245,28 @@ function getRepositoryDomain(token::AbstractString; domainID::Int64=0, appKey::A
         return domain_list
     end
 end
+
+
+
+"""
+
+TODO: documentation 
+
+Fetches an Alert object from the mPulse repository
+
+"""
+function getRepositoryAlert(token::AbstractString; alertID::Int64=0, alertName::AbstractString="")
+
+    alert = getRepositoryObject(
+                token,
+                "alert",
+                Dict{Symbol, Any}(:id => alertID, :name => alertName)
+        )
+
+    return alert
+
+end
+
 
 
 
