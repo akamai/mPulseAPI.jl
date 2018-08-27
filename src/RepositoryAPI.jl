@@ -361,14 +361,6 @@ function getRepositoryTenant(token::AbstractString; tenantID::Int64=0, name::Abs
     return tenant
 end
 
-
-
-  # tenant = getRepositoryObject(
-  #               token,
-  #               "tenant",
-  #               Dict{Symbol, Any}(:id => tenantID, :name => name)
-  #       )
-
 # Internal convenience function.  Fetches an object from the repository and caches it for an hour in the appropriate cache object
 # - Returns a single object if filter keys are passed in an filterRequired is set to true (default)
 # - Returns an array of objects if filter keys are not passed in and filterRequired is set to false
