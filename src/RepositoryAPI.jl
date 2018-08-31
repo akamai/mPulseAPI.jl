@@ -603,7 +603,7 @@ end
 
 
 """
-Gets a mapping of custom metric names to RedShift field names from domain XML.  This list also includes valid dates.
+Gets a mapping of custom metric names to Snowflake field names from domain XML.  This list also includes valid dates.
 
 #### Arguments
 $(mPulseAPI.readdocs("NodeContent-body"))
@@ -655,7 +655,7 @@ end
 
 
 """
-Gets a mapping of custom timer names to RedShift field names from domain XML.  This list also includes valid dates.
+Gets a mapping of custom timer names to Snowflake field names from domain XML.  This list also includes valid dates.
 
 #### Arguments
 $(mPulseAPI.readdocs("NodeContent-body"))
