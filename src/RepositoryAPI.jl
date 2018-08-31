@@ -493,6 +493,7 @@ function postRepositoryObject(token::AbstractString,
                               objectType::AbstractString,
                               searchKey::Dict{Symbol, Any};
                               attributes::Dict=Dict(),
+                              objectFields::Dict=Dict(),
                               filterRequired::Bool=true
 )
 
@@ -530,7 +531,6 @@ function postRepositoryObject(token::AbstractString,
     end
 
     local url = ObjectEndpoint * "/" * objectType * "/$(objectID)"
-    local query = Dict()
     local debugID = "(all)"
 
     if verbose
@@ -543,17 +543,20 @@ function postRepositoryObject(token::AbstractString,
     json = Dict{AbstractString, Any}()
     json["type"] = objectType
 
-    if haskey(query, "name")
-        json["name"] = query["name"]
-    end
+    if !isempty(attributes)
+        attributesDict = []
 
-    attributesDict = []
-    for (key, val) in attributes
-        push!(attributesDict, Dict("name" => key, "value"=> val))
-    end
-
-    if !isempty(attributesDict)
+        for (key, val) in attributes
+            push!(attributesDict, Dict("name" => key, "value"=> val))
+        end
+        
         json["attributes"] = attributesDict
+    end
+
+    if !isempty(objectFields)
+        for (key, val) in objectFields
+            json[key] = val
+        end
     end
 
     resp = Requests.post(url,
@@ -571,11 +574,14 @@ TODO: documentation
 
 """
 
+# postRepositoryWithChecks 
+# pass in argument -> objectType
 
 function postRepositoryAlert(token::AbstractString;
                             alertID::Int64=0,
                             alertName::AbstractString="",
                             attributes::Dict=Dict(),
+                            objectFields::Dict=Dict()
 )
 
     if token == ""
@@ -584,9 +590,10 @@ function postRepositoryAlert(token::AbstractString;
 
     alert = postRepositoryObject(
                 token,
-                "alert",
+                "alert", # pass in ObjectType instead
                 Dict{Symbol, Any}(:id => alertID, :name => alertName),
-                attributes = attributes
+                attributes = attributes,
+                objectFields = objectFields
         )
 
     return alert
