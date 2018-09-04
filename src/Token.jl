@@ -13,7 +13,6 @@
 export
     getRepositoryToken
 
-
 """
 Logs in to the mPulse repository and fetches an Authorization token that can be used for other calls
 

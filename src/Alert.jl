@@ -16,7 +16,6 @@ export
     getRepositoryAlert,
     postRepositoryAlert
 
-
 """
 
 TODO: documentation 

@@ -14,9 +14,6 @@
 export
     getRepositoryTenant
 
-
-
-
 """
 Fetches a Tenant object from the mPulse repository
 

@@ -13,8 +13,6 @@
 export
     getRepositoryDomain
 
-
-
 """
 Fetches a Domain object from the mPulse repository
 
