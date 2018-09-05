@@ -155,5 +155,5 @@ Expire an entry from the alert cache.  Use this if the alert has changed.
 :    if the entry was not in cache
 
 """
-clearAlertCache(;alertID::Int64=0, alertName::AbstractString="") = clearObjectCache("alert", Dict{Symbol, Any}(:id => alertID, :name => alertName))
+clearAlertCache(;alertID::Int64=0) = clearObjectCache("alert", Dict{Symbol, Any}(:id => alertID))
 
