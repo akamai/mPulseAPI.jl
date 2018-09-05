@@ -137,14 +137,7 @@ end
 
 
 
-
-
-"""
-
-TODO: documentation 
-
-"""
-
+# Internal convenience function.  Updates an object from the repository.
 function postRepositoryObject(token::AbstractString,
                               objectType::AbstractString,
                               searchKey::Dict{Symbol, Any};
