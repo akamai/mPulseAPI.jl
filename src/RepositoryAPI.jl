@@ -41,7 +41,6 @@ function getRepositoryObject(token::AbstractString, objectType::AbstractString, 
     local object = getObjectFromCache(objectType, searchKey)
 
     if object != nothing
-        println("getObjectFromCache")
         return object
     end
 

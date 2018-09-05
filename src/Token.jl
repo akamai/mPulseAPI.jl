@@ -40,7 +40,6 @@ location or is logged out of mPulse.  You can clear the cache for this token usi
 :    if authentication failed for some reason
 """
 function getRepositoryToken(tenant::AbstractString, apiToken::AbstractString)
-    println("testing function - getRepositoryToken")
     global verbose
 
     if tenant == ""
