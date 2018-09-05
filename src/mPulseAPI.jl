@@ -144,6 +144,10 @@ include(joinpath(dirname(@__FILE__), "exceptions.jl"))
 include(joinpath(dirname(@__FILE__), "cache_utilities.jl"))
 
 include(joinpath(dirname(@__FILE__), "RepositoryAPI.jl"))
+include(joinpath(dirname(@__FILE__), "Alert.jl"))
+include(joinpath(dirname(@__FILE__), "Domain.jl"))
+include(joinpath(dirname(@__FILE__), "Tenant.jl"))
+include(joinpath(dirname(@__FILE__), "Token.jl"))
 include(joinpath(dirname(@__FILE__), "QueryAPI.jl"))
 
 end
