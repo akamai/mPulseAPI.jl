@@ -177,6 +177,7 @@ function postRepositoryObject(token::AbstractString,
     json = Dict{AbstractString, Any}()
     json["type"] = objectType
 
+    # If attributes is supplied, update the object’s attributes field
     if !isempty(attributes)
         attributesDict = []
 
@@ -187,6 +188,7 @@ function postRepositoryObject(token::AbstractString,
         json["attributes"] = attributesDict
     end
 
+    # If any objectFields are supplied by the user, update these in the object (if it exists)
     if !isempty(objectFields)
         for (key, val) in objectFields
             json[key] = val
