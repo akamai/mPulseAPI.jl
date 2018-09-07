@@ -108,11 +108,7 @@ end
 
 
 
-
 """
-
-TODO: documentation 
-
 Updates an Alert object from the mPulse repository
 
 The alert will be cached in memory for 1 hour, so subsequent calls using a matching `alertID` return
