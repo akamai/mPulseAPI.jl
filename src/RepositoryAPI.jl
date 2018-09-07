@@ -154,6 +154,20 @@ function postRepositoryObject(token::AbstractString,
     objectID = get(searchKey, :id, 0)
     name = get(searchKey, :name, "")
 
+    # If objectID is not supplied, retrieve from get function
+    if objectID == 0 
+        if objectType == "alert"
+            object = getRepositoryAlert(token, alertName = name)
+            objectID = get(object, "id", 0)
+        elseif objectType == "domain"
+            object = getRepositoryDomain(token, appName = name)
+            objectID = get(object, "id", 0)
+        elseif objectType == "tenant"
+            object = getRepositoryTenant(token, name = name)
+            objectID = get(object, "id", 0)
+        end
+    end
+
     local isKeySet = false
 
     if filterRequired
@@ -200,9 +214,9 @@ function postRepositoryObject(token::AbstractString,
         headers = Dict("X-Auth-Token" => token, "Content-type" => "application/json")
     )
 
-    if statuscode(resp) != 204
-        error("Error fetching $(objectType), id = $(objectID).")
-    end
+    # if statuscode(resp) != 204
+    #     error("Error fetching $(objectType), id = $(objectID).")
+    # end
 
     return resp
 

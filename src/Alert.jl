@@ -94,12 +94,12 @@ You can clear the cache for this tenant using [`mPulseAPI.clearAlertCache`](@ref
 :    if API access failed for some reason
 
 """
-function getRepositoryAlert(token::AbstractString; alertID::Int64=0)
+function getRepositoryAlert(token::AbstractString; alertID::Int64=0, alertName::AbstractString="")
 
     alert = getRepositoryObject(
                 token,
                 "alert",
-                Dict{Symbol, Any}(:id => alertID)
+                Dict{Symbol, Any}(:id => alertID, :name => alertName)
         )
 
     return alert
@@ -195,6 +195,7 @@ You can clear the cache for this tenant using [`mPulseAPI.clearAlertCache`](@ref
 
 function postRepositoryAlert(token::AbstractString;
                             alertID::Int64=0,
+                            alertName::AbstractString="",
                             attributes::Dict=Dict(),
                             objectFields::Dict=Dict()
 )
@@ -202,12 +203,18 @@ function postRepositoryAlert(token::AbstractString;
     postRepositoryObject(
         token,
         "alert",
-        Dict{Symbol, Any}(:id => alertID),
+        Dict{Symbol, Any}(:id => alertID, :name => alertName),
         attributes = attributes,
         objectFields = objectFields
     )
-
-    alert = getRepositoryAlert(token, alertID=alertID)
+    
+    if alertID > 0 
+        clearAlertCache(alertID = alertID )    
+        alert = getRepositoryAlert(token, alertID=alertID)
+    else
+        clearAlertCache(alertName = alertName)
+        alert = getRepositoryAlert(token, alertName=alertName)
+    end
 
     return alert
 
