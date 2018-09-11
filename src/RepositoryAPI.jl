@@ -214,9 +214,9 @@ function postRepositoryObject(token::AbstractString,
         headers = Dict("X-Auth-Token" => token, "Content-type" => "application/json")
     )
 
-    # if statuscode(resp) != 204
-    #     error("Error fetching $(objectType), id = $(objectID).")
-    # end
+    if statuscode(resp) != 204
+        error("Error updating $(objectType), id = $(objectID).")
+    end
 
     return resp
 
