@@ -13,6 +13,7 @@
 
 
 export
+    deleteRepositoryAlert,
     getRepositoryAlert,
     postRepositoryAlert
 
@@ -219,5 +220,49 @@ function postRepositoryAlert(token::AbstractString;
     return alert
 
 end
+
+
+"""
+Deletes an Alert object from the mPulse repository
+
+#### Arguments
+`token::AbstractString`
+:    The Repository authentication token fetched by calling [`getRepositoryToken`](@ref)
+
+#### Optional Arguments
+`alertID::Int64`
+:    The ID of the alert to update.
+
+`alertName::AbstractString`
+:    The Alert name in mPulse. This is available from the mPulse domain configuration dialog.
+
+#### Returns
+If the delete is successful, the response will be `204 No Content`.
+
+#### Throws
+`ArgumentError`
+:    if token is empty or alertID is empty
+
+`mPulseAPIException`
+:    if API access failed for some reason
+
+
+"""
+
+function deleteRepositoryAlert(token::AbstractString;
+                            alertID::Int64=0,
+                            alertName::AbstractString=""
+)
+
+    resp = deleteRepositoryObject(
+        token,
+        "alert",
+        Dict{Symbol, Any}(:id => alertID, :name => alertName)
+    )
+    
+    return resp
+
+end
+
 
 

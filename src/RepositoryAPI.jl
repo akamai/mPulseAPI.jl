@@ -11,6 +11,7 @@
 ###################################################
 
 export
+    deleteRepositoryObject,
     getRepositoryObject,
     postRepositoryObject
 
@@ -221,6 +222,61 @@ function postRepositoryObject(token::AbstractString,
     return resp
 
 end
+
+
+
+# Internal convenience function.  Deletes an object from the repository.
+function deleteRepositoryObject(token::AbstractString,
+                              objectType::AbstractString,
+                              searchKey::Dict{Symbol, Any}
+)
+
+    global verbose
+
+    if token == ""
+        throw(ArgumentError("`token' cannot be empty"))
+    end
+
+    objectID = get(searchKey, :id, 0)
+    name = get(searchKey, :name, "")
+
+    # If objectID is not supplied, retrieve from get function
+    if objectID == 0 
+        if objectType == "alert"
+            object = getRepositoryAlert(token, alertName = name)
+            objectID = get(object, "id", 0)
+        elseif objectType == "domain"
+            object = getRepositoryDomain(token, appName = name)
+            objectID = get(object, "id", 0)
+        elseif objectType == "tenant"
+            object = getRepositoryTenant(token, name = name)
+            objectID = get(object, "id", 0)
+        end
+    end
+
+    local url = ObjectEndpoint * "/" * objectType * "/$(objectID)"
+    local debugID = "(all)"
+
+    if verbose
+        println("DELETE $url")
+        println("X-Auth-Token: $token")
+    end
+
+    resp = Requests.delete(url,
+        json = json,
+        headers = Dict("X-Auth-Token" => token, "Content-type" => "application/json")
+    )
+
+    if statuscode(resp) != 204
+        error("Error deleting $(objectType), id = $(objectID).")
+    end
+
+    return resp
+
+end
+
+
+
 
 
 
