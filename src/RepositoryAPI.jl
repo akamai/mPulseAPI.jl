@@ -191,6 +191,13 @@ function postRepositoryObject(token::AbstractString,
     json = Dict{AbstractString, Any}()
     json["type"] = objectType
 
+    # If any objectFields are supplied by the user, update these in the object (if it exists)
+    if !isempty(objectFields)
+        for (key, val) in objectFields
+            json[key] = val
+        end
+    end
+
     # If attributes is supplied, update the object’s attributes field
     if !isempty(attributes)
         attributesDict = []
@@ -202,20 +209,13 @@ function postRepositoryObject(token::AbstractString,
         json["attributes"] = attributesDict
     end
 
-    # If any objectFields are supplied by the user, update these in the object (if it exists)
-    if !isempty(objectFields)
-        for (key, val) in objectFields
-            json[key] = val
-        end
-    end
-
     resp = Requests.post(url,
         json = json,
         headers = Dict("X-Auth-Token" => token, "Content-type" => "application/json")
     )
 
     if statuscode(resp) != 204
-        error("Error updating $(objectType), id = $(objectID).")
+        throw(mPulseAPIException("Error updating $(objectType) $(objectID)", resp))
     end
 
     return resp
