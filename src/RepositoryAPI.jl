@@ -159,15 +159,14 @@ function postRepositoryObject(token::AbstractString,
     if objectID == 0 
         if objectType == "alert"
             object = getRepositoryAlert(token, alertName = name)
-            objectID = get(object, "id", 0)
         elseif objectType == "domain"
             object = getRepositoryDomain(token, appName = name)
-            objectID = get(object, "id", 0)
         elseif objectType == "tenant"
             object = getRepositoryTenant(token, name = name)
-            objectID = get(object, "id", 0)
         end
     end
+
+    objectID = get(object, "id", 0)
 
     local isKeySet = false
 
