@@ -239,7 +239,7 @@ At least one of `alertID` or `alertName` must be passed in to delete the alert o
 :    The Alert name in mPulse. This is available from the mPulse domain configuration dialog.
 
 #### Returns
-If the delete is successful, the response will be `204 No Content`.
+Returns true if the delete is successful, else false.
 
 #### Throws
 `ArgumentError`
@@ -262,9 +262,10 @@ function deleteRepositoryAlert(token::AbstractString;
         Dict{Symbol, Any}(:id => alertID, :name => alertName)
     )
     
-    return resp
+    if statuscode(test) == 204
+        return true
+    else
+        return false
+    end
 
 end
-
-
-
