@@ -1,7 +1,6 @@
 ###################################################
 #
 # Copyright © Akamai Technologies. All rights reserved.
-# Proprietary and confidential.
 #
 # File: Alert.jl
 #
@@ -10,16 +9,15 @@
 #
 ###################################################
 
-
-
 export
     deleteRepositoryAlert,
     getRepositoryAlert,
     postRepositoryAlert
 
 """
-
 Fetches an Alert object from the mPulse repository
+
+At least one of `alertID` or `alertName` must be passed in to identify the alert.
 
 The alert will be cached in memory for 1 hour, so subsequent calls using a matching `alertID` return
 quickly without calling out to the API.  This can be a problem if the alert changes in the repository.
@@ -29,9 +27,12 @@ You can clear the cache for this tenant using [`mPulseAPI.clearAlertCache`](@ref
 `token::AbstractString`
 :    The Repository authentication token fetched by calling [`getRepositoryToken`](@ref)
 
-#### Optional Arguments
+#### Keyword Arguments
 `alertID::Int64`
 :    The ID of the alert to fetch.
+
+`alertName::AbstractString`
+:    The Alert name in mPulse. This is available from the mPulse domain configuration dialog.
 
 #### Returns
 `{Dict}` The `alert` object with the following fields:
@@ -52,7 +53,7 @@ You can clear the cache for this tenant using [`mPulseAPI.clearAlertCache`](@ref
 :    The alert's name
 
 `tenantID::Int64`
-:    The ID of the tenant in which the alert is in
+:    The ID of the tenant that the alert is in
 
 `created::DateTime`
 :    The timestamp when this object was created
@@ -70,7 +71,7 @@ You can clear the cache for this tenant using [`mPulseAPI.clearAlertCache`](@ref
 :    An XML object representing the alert's XML definition or an empty node if you do not have permission to see the full alert
 
 `references::Dict`
-:    A `Dict` of locations in which this alert is referenced 
+:    An array of `Dict`s with reference information such as `name`, `id`, `type`, and `path`.
 
 `uid::AbstractString`
 :    The encrypted uid associated with the alert
@@ -82,7 +83,7 @@ You can clear the cache for this tenant using [`mPulseAPI.clearAlertCache`](@ref
 :    The ID of the alert's owner
 
 `attributes::Dict`
-:    A `Dict` of attributes for this alert
+:    A `Dict` containing whether the alert is active, version number, and the time(s) that the alert was last cleared, triggered, and updated.
 
 `lastModified::DateTime`
 :    The timestamp when this object was created
@@ -93,7 +94,6 @@ You can clear the cache for this tenant using [`mPulseAPI.clearAlertCache`](@ref
 
 `mPulseAPIException`
 :    if API access failed for some reason
-
 """
 function getRepositoryAlert(token::AbstractString; alertID::Int64=0, alertName::AbstractString="")
 
@@ -104,7 +104,6 @@ function getRepositoryAlert(token::AbstractString; alertID::Int64=0, alertName::
         )
 
     return alert
-
 end
 
 
@@ -112,9 +111,7 @@ end
 """
 Updates an Alert object from the mPulse repository
 
-The alert will be cached in memory for 1 hour, so subsequent calls using a matching `alertID` return
-quickly without calling out to the API.  This can be a problem if the alert changes in the repository.
-You can clear the cache for this tenant using [`mPulseAPI.clearAlertCache`](@ref) and passing in `alertID`.
+At least one of `alertID` or `alertName` must be passed in to update the alert object.
 
 #### Arguments
 `token::AbstractString`
@@ -122,7 +119,10 @@ You can clear the cache for this tenant using [`mPulseAPI.clearAlertCache`](@ref
 
 #### Optional Arguments
 `alertID::Int64`
-:    The ID of the alert to update.
+:    The ID of the alert to update.  
+
+`alertName::AbstractString`
+:    The Alert name in mPulse. This is available from the mPulse domain configuration dialog.
 
 `attributes::Dict`
 :    A `Dict` of alert attributes to update
@@ -167,7 +167,7 @@ You can clear the cache for this tenant using [`mPulseAPI.clearAlertCache`](@ref
 :    An XML object representing the alert's XML definition or an empty node if you do not have permission to see the full alert
 
 `references::Dict`
-:    A `Dict` of locations in which this alert is referenced 
+:    An array of `Dict`s with reference information such as `name`, `id`, `type`, and `path`.
 
 `uid::AbstractString`
 :    The encrypted uid associated with the alert
@@ -179,7 +179,7 @@ You can clear the cache for this tenant using [`mPulseAPI.clearAlertCache`](@ref
 :    The ID of the alert's owner
 
 `attributes::Dict`
-:    A `Dict` of attributes for this alert
+:    A `Dict` containing whether the alert is active, version number, and the time(s) that the alert was last cleared, triggered, and updated.
 
 `lastModified::DateTime`
 :    The timestamp when this object was created
@@ -224,6 +224,8 @@ end
 
 """
 Deletes an Alert object from the mPulse repository
+
+At least one of `alertID` or `alertName` must be passed in to delete the alert object.
 
 #### Arguments
 `token::AbstractString`
