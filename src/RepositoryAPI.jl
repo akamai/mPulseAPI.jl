@@ -156,7 +156,7 @@ function postRepositoryObject(token::AbstractString,
     name = get(searchKey, :name, "")
 
     # If objectID is not supplied, retrieve from get function
-    if objectID == 0 
+    if objectID == 0
         if objectType == "alert"
             object = getRepositoryAlert(token, alertName = name)
         elseif objectType == "domain"
@@ -243,15 +243,14 @@ function deleteRepositoryObject(token::AbstractString,
     if objectID == 0 
         if objectType == "alert"
             object = getRepositoryAlert(token, alertName = name)
-            objectID = get(object, "id", 0)
         elseif objectType == "domain"
             object = getRepositoryDomain(token, appName = name)
-            objectID = get(object, "id", 0)
         elseif objectType == "tenant"
             object = getRepositoryTenant(token, name = name)
-            objectID = get(object, "id", 0)
         end
     end
+
+    objectID = get(object, "id", 0)
 
     local url = ObjectEndpoint * "/" * objectType * "/$(objectID)"
     local debugID = "(all)"
@@ -262,7 +261,6 @@ function deleteRepositoryObject(token::AbstractString,
     end
 
     resp = Requests.delete(url,
-        json = json,
         headers = Dict("X-Auth-Token" => token, "Content-type" => "application/json")
     )
 
