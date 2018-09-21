@@ -52,7 +52,7 @@ $(mPulseAPI.readdocs("APIResults-common-args"))
 
 $(mapfoldl(x -> "   * $x\n", *, mPulseAPI.query_types))
 
-#### Optional Arguments
+#### Keyword Arguments
 $(mPulseAPI.readdocs("APIResults-common-optargs"))
 
 #### Throws
@@ -185,7 +185,7 @@ Calls the `summary` endpoint of the mPulse REST API with the passed in filters
 #### Arguments
 $(mPulseAPI.readdocs("APIResults-common-args"))
 
-#### Optional Arguments
+#### Keyword Arguments
 $(mPulseAPI.readdocs("APIResults-common-optargs"))
 
 #### Throws
@@ -236,7 +236,7 @@ Calls the `page-groups` endpoint of the mPulse REST API with the passed in filte
 #### Arguments
 $(mPulseAPI.readdocs("APIResults-common-args"))
 
-#### Optional Arguments
+#### Keyword Arguments
 $(mPulseAPI.readdocs("APIResults-common-optargs"))
 
 $(mPulseAPI.readdocs("friendly-names", ["Page Group", "page_group"]))
@@ -274,7 +274,7 @@ Calls the `browsers` endpoint of the mPulse REST API with the passed in filters
 #### Arguments
 $(mPulseAPI.readdocs("APIResults-common-args"))
 
-#### Optional Arguments
+#### Keyword Arguments
 $(mPulseAPI.readdocs("APIResults-common-optargs"))
 
 $(mPulseAPI.readdocs("friendly-names", ["User Agent", "user_agent"]))
@@ -312,7 +312,7 @@ Calls the `ab-tests` endpoint of the mPulse REST API with the passed in filters
 #### Arguments
 $(mPulseAPI.readdocs("APIResults-common-args"))
 
-#### Optional Arguments
+#### Keyword Arguments
 $(mPulseAPI.readdocs("APIResults-common-optargs"))
 
 $(mPulseAPI.readdocs("friendly-names", ["Test Name", "test_name"]))
@@ -350,7 +350,7 @@ Calls the `geography` endpoint of the mPulse REST API with the passed in filters
 #### Arguments
 $(mPulseAPI.readdocs("APIResults-common-args"))
 
-#### Optional Arguments
+#### Keyword Arguments
 $(mPulseAPI.readdocs("APIResults-common-optargs"))
 
 $(mPulseAPI.readdocs("friendly-names", ["Country", "country"]))
@@ -404,7 +404,7 @@ $(mPulseAPI.readdocs("APIResults-common-args"))
      See [http://docs.soasta.com/query-api/#metrics-by-dimension-parameters](http://docs.soasta.com/query-api/#metrics-by-dimension-parameters) for
      an up-to-date list.
 
-#### Optional Arguments
+#### Keyword Arguments
 $(mPulseAPI.readdocs("APIResults-common-optargs"))
 
 #### Throws
@@ -471,7 +471,7 @@ Calls the `timers-metrics` endpoint of the mPulse REST API with the passed in fi
 #### Arguments
 $(mPulseAPI.readdocs("APIResults-common-args"))
 
-#### Optional Arguments
+#### Keyword Arguments
 $(mPulseAPI.readdocs("APIResults-common-optargs"))
 
 #### Throws
@@ -594,7 +594,7 @@ Calls the `histogram` endpoint of the mPulse REST API with the passed in filters
 #### Arguments
 $(mPulseAPI.readdocs("APIResults-common-args"))
 
-#### Optional Arguments
+#### Keyword Arguments
 $(mPulseAPI.readdocs("APIResults-common-optargs"))
 
 #### Throws
@@ -674,7 +674,7 @@ Calls the `sessions-per-page-load-time` endpoint of the mPulse REST API with the
 #### Arguments
 $(mPulseAPI.readdocs("APIResults-common-args"))
 
-#### Optional Arguments
+#### Keyword Arguments
 $(mPulseAPI.readdocs("APIResults-common-optargs"))
 
 #### Throws
@@ -696,7 +696,7 @@ Calls the `metric-per-page-load-time` endpoint of the mPulse REST API with the p
 #### Arguments
 $(mPulseAPI.readdocs("APIResults-common-args"))
 
-#### Optional Arguments
+#### Keyword Arguments
 `metric::AbstractString`
 :    The name of the metric that we want data for.  If not specified, defaults to `BounceRate`
 
@@ -754,7 +754,7 @@ Calls the `by-minute` endpoint of the mPulse REST API with the passed in filters
 #### Arguments
 $(mPulseAPI.readdocs("APIResults-common-args"))
 
-#### Optional Arguments
+#### Keyword Arguments
 `timer::AbstractString`
 :    The name of the timer whose data we want.  If not specified, defaults to `PageLoad`.  Other possible
      values are:
@@ -840,7 +840,7 @@ All passed in `DataFrame`s MUST contain a `:t_done` column.
 `df2::DataFrame...`
 :    One or more `DataFrame` to be merged together with the first one
 
-### Optional Arguments
+### Keyword Arguments
 `keyField::Symbol=:t_done`
 :    The column name to join on.  Defaults to `:t_done`
 

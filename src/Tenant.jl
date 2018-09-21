@@ -27,7 +27,7 @@ You can clear the cache for this tenant using [`mPulseAPI.clearTenantCache`](@re
 `token::AbstractString`
 :    The Repository authentication token fetched by calling [`getRepositoryToken`](@ref)
 
-#### Optional Arguments
+#### Keyword Arguments
 `tenantID::Int64`
 :    The ID of the tenant to fetch.  This is the fastest method, but it can be hard to figure out a tenant's ID
 

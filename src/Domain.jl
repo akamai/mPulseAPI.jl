@@ -27,7 +27,7 @@ You can clear the cache for this domain using [`mPulseAPI.clearDomainCache`](@re
 `token::AbstractString`
 :    The Repository authentication token fetched by calling [`getRepositoryToken`](@ref)
 
-#### Optional Arguments
+#### Keyword Arguments
 `domainID::Int64`
 :    The ID of the domain to fetch.  This is the fastest method, but it can be hard to figure out a domain's ID
 

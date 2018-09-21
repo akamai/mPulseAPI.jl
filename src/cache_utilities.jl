@@ -65,7 +65,7 @@ end
 """
 Expire an entry from the domain cache.  Use this if the domain has changed.
 
-#### Optional Arguments
+#### Keyword Arguments
 `domainID::Int64`
 :    The ID of the domain to expire.
 
@@ -89,7 +89,7 @@ clearDomainCache(;domainID::Int64=0, appKey::AbstractString="", appName::Abstrac
 """
 Expire an entry from the tenant cache.  Use this if the tenant has changed.
 
-#### Optional Arguments
+#### Keyword Arguments
 `tenantID::Int64`
 :    The ID of the tenant to expire.
 
@@ -140,7 +140,7 @@ end
 """
 Expire an entry from the alert cache.  Use this if the alert has changed.
 
-#### Optional Arguments
+#### Keyword Arguments
 `alertID::Int64`
 :    The ID of the alert to expire.
 

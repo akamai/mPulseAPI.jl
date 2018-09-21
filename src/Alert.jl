@@ -117,7 +117,7 @@ At least one of `alertID` or `alertName` must be passed in to update the alert o
 `token::AbstractString`
 :    The Repository authentication token fetched by calling [`getRepositoryToken`](@ref)
 
-#### Optional Arguments
+#### Keyword Arguments
 `alertID::Int64`
 :    The ID of the alert to update.  
 
@@ -231,7 +231,7 @@ At least one of `alertID` or `alertName` must be passed in to delete the alert o
 `token::AbstractString`
 :    The Repository authentication token fetched by calling [`getRepositoryToken`](@ref)
 
-#### Optional Arguments
+#### Keyword Arguments
 `alertID::Int64`
 :    The ID of the alert to update.
 
