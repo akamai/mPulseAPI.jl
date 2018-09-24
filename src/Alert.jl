@@ -215,7 +215,7 @@ function postRepositoryAlert(token::AbstractString;
     )
     
     if alertID > 0 
-        clearAlertCache(alertID = alertID )    
+        clearAlertCache(alertID = alertID)    
         alert = getRepositoryAlert(token, alertID=alertID)
     else
         clearAlertCache(alertName = alertName)
