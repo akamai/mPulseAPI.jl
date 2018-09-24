@@ -1,7 +1,6 @@
 ###################################################
 #
 # Copyright © Akamai Technologies. All rights reserved.
-# Proprietary and confidential.
 #
 # File: Tenant.jl
 #
