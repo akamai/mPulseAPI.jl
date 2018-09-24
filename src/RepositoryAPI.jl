@@ -143,6 +143,7 @@ function postRepositoryObject(token::AbstractString,
                               searchKey::Dict{Symbol, Any};
                               attributes::Dict=Dict(),
                               objectFields::Dict=Dict(),
+                              body::Union{AbstractString, LightXML.XMLElement}="",
                               filterRequired::Bool=true
 )
 
@@ -184,7 +185,9 @@ function postRepositoryObject(token::AbstractString,
     if verbose
         println("POST $url")
         println("X-Auth-Token: $token")
-        println(attributes)
+        !isempty(attributes) && println(attributes)
+        !isempty(objectFields) && println(objectFields)
+        !isempty(body) && println(body)
     end
 
 
@@ -207,6 +210,21 @@ function postRepositoryObject(token::AbstractString,
         end
         
         json["attributes"] = attributesDict
+    end
+
+    # If the body argument is supplied, update this in the object 
+    if body != ""
+        if isa(body, AbstractString)
+            try
+                xdoc = parse_string(body)
+                xroot = root(xdoc)
+            catch
+                error("body string is not formatted correctly")
+            end
+        else
+            body = string(body)
+        end
+        json["body"] = body
     end
 
     resp = Requests.post(url,

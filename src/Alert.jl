@@ -130,6 +130,9 @@ At least one of `alertID` or `alertName` must be passed in to update the alert o
 `objectFields::Dict`
 :    A `Dict` of alert object fields to update
 
+`body::AbstractString|LightXML.XMLElement=""`
+:    An XMLElement (if not empty) containing the body of the alert, containing pertinent information surrounding errors.
+
 #### Returns
 `{Dict}` The updated `alert` object with the following fields:
 
@@ -198,7 +201,8 @@ function postRepositoryAlert(token::AbstractString;
                             alertID::Int64=0,
                             alertName::AbstractString="",
                             attributes::Dict=Dict(),
-                            objectFields::Dict=Dict()
+                            objectFields::Dict=Dict(),
+                            body::Union{AbstractString, LightXML.XMLElement}=""
 )
 
     postRepositoryObject(
@@ -206,7 +210,8 @@ function postRepositoryAlert(token::AbstractString;
         "alert",
         Dict{Symbol, Any}(:id => alertID, :name => alertName),
         attributes = attributes,
-        objectFields = objectFields
+        objectFields = objectFields,
+        body = body
     )
     
     if alertID > 0 
