@@ -65,6 +65,12 @@ tenant = getRepositoryTenant(token, name=mPulseAPITenant)
 @test !isempty(tenant)
 @test tenant["name"] == mPulseAPITenant
 
+# Check alert
+alert = getRepositoryAlert(token, alertName=mPulseAPITenant)
+@test !isempty(alert)
+@test alert["name"] == "mPulseAPI Test Alert"
+@test alert["tenantID"] == 236904
+@test alert["tenantID"] == tenant["id"]
 
 # Now check all exceptions
 @test_throws ArgumentError getRepositoryToken("", "")
