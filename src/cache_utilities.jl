@@ -156,3 +156,24 @@ Expire an entry from the alert cache.  Use this if the alert has changed.
 
 """
 clearAlertCache(;alertID::Int64=0, alertName::AbstractString="") = clearObjectCache("alert", Dict{Symbol, Any}(:id => alertID, :name => alertName))
+
+
+"""
+Expire an entry from the statistical model cache.  Use this if the model has changed.
+
+#### Keyword Arguments
+`statModelID::Int64`
+:    The ID of the statistical model to expire.
+
+`statModelName::AbstractString`
+:    The statistical model name in mPulse.  This can be found from the mPulse statistical model configuration dialog.
+
+#### Returns
+`true`
+:    on success
+
+`false`
+:    if the entry was not in cache
+
+"""
+clearStatModelCache(;statModelID::Int64=0, statModelName::AbstractString="") = clearObjectCache("statisticalmodel", Dict{Symbol, Any}(:id => statModelID, :name => statModelName))
