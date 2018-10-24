@@ -144,6 +144,7 @@ function postRepositoryObject(token::AbstractString,
                               attributes::Dict=Dict(),
                               objectFields::Dict=Dict(),
                               body::Union{AbstractString, LightXML.XMLElement}="",
+                              ObjectEndpoint::AbstractString=ObjectEndpoint;
                               filterRequired::Bool=true
 )
 
