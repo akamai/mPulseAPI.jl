@@ -22,7 +22,7 @@ const TokenTimeoutHours = 5
 # - Returns a single object if filter keys are passed in an filterRequired is set to true (default)
 # - Returns an array of objects if filter keys are not passed in and filterRequired is set to false
 # - Throws an exception if filter keys are not passed in and filterRequired is set to true
-function getRepositoryObject(token::AbstractString, objectType::AbstractString, searchKey::Dict{Symbol, Any}; filterRequired::Bool=true)
+function getRepositoryObject(token::AbstractString, objectType::AbstractString, searchKey::Dict{Symbol, Any}; filterRequired::Bool=true, ObjectEndpoint::AbstractString=ObjectEndpoint)
     global verbose
 
     if token == ""
@@ -246,7 +246,8 @@ end
 # Internal convenience function.  Deletes an object from the repository.
 function deleteRepositoryObject(token::AbstractString,
                               objectType::AbstractString,
-                              searchKey::Dict{Symbol, Any}
+                              searchKey::Dict{Symbol, Any},
+                              ObjectEndpoint::AbstractString=ObjectEndpoint
 )
 
     global verbose

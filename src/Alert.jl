@@ -95,12 +95,14 @@ You can clear the cache for this tenant using [`mPulseAPI.clearAlertCache`](@ref
 `mPulseAPIException`
 :    if API access failed for some reason
 """
-function getRepositoryAlert(token::AbstractString; alertID::Int64=0, alertName::AbstractString="")
+function getRepositoryAlert(token::AbstractString; alertID::Int64=0, alertName::AbstractString="", ObjectEndpoint::AbstractString=ObjectEndpoint)
 
     alert = getRepositoryObject(
                 token,
                 "alert",
-                Dict{Symbol, Any}(:id => alertID, :name => alertName)
+                Dict{Symbol, Any}(:id => alertID, :name => alertName,
+                ObjectEndpoint=ObjectEndpoint
+                )
         )
 
     return alert
@@ -202,7 +204,8 @@ function postRepositoryAlert(token::AbstractString;
                             alertName::AbstractString="",
                             attributes::Dict=Dict(),
                             objectFields::Dict=Dict(),
-                            body::Union{AbstractString, LightXML.XMLElement}=""
+                            body::Union{AbstractString, LightXML.XMLElement}="",
+                            ObjectEndpoint::AbstractString=ObjectEndpoint
 )
 
     postRepositoryObject(
@@ -211,7 +214,8 @@ function postRepositoryAlert(token::AbstractString;
         Dict{Symbol, Any}(:id => alertID, :name => alertName),
         attributes = attributes,
         objectFields = objectFields,
-        body = body
+        body = body,
+        ObjectEndpoint=ObjectEndpoint
     )
     
     if alertID > 0 
@@ -258,13 +262,15 @@ Returns true if the delete is successful, else false.
 
 function deleteRepositoryAlert(token::AbstractString;
                             alertID::Int64=0,
-                            alertName::AbstractString=""
+                            alertName::AbstractString="",
+                            ObjectEndpoint::AbstractString=ObjectEndpoint
 )
 
     resp = deleteRepositoryObject(
         token,
         "alert",
-        Dict{Symbol, Any}(:id => alertID, :name => alertName)
+        Dict{Symbol, Any}(:id => alertID, :name => alertName),
+        ObjectEndpoint=ObjectEndpoint
     )
     
     if statuscode(test) == 204

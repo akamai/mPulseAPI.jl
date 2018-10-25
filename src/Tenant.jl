@@ -78,11 +78,12 @@ You can clear the cache for this tenant using [`mPulseAPI.clearTenantCache`](@re
 :    if API access failed for some reason
 
 """
-function getRepositoryTenant(token::AbstractString; tenantID::Int64=0, name::AbstractString="")
+function getRepositoryTenant(token::AbstractString; tenantID::Int64=0, name::AbstractString="", ObjectEndpoint::AbstractString=ObjectEndpoint)
     tenant = getRepositoryObject(
                 token,
                 "tenant",
-                Dict{Symbol, Any}(:id => tenantID, :name => name)
+                Dict{Symbol, Any}(:id => tenantID, :name => name),
+                ObjectEndpoint = ObjectEndpoint
         )
 
     # If the object came out of cache, then it already contains these fields
