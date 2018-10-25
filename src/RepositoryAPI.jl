@@ -165,7 +165,7 @@ function postRepositoryObject(token::AbstractString,
             object = getRepositoryDomain(token, appName = name, ObjectEndpoint=ObjectEndpoint)
         elseif objectType == "tenant"
             object = getRepositoryTenant(token, name = name, ObjectEndpoint=ObjectEndpoint)
-        elseif objectType = "statisticalmodel"
+        elseif objectType == "statisticalmodel"
             object = getRepositoryStatModel(token, statModelName = name, ObjectEndpoint=ObjectEndpoint)
         end
     end
