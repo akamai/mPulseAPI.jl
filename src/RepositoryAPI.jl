@@ -22,7 +22,7 @@ const TokenTimeoutHours = 5
 # - Returns a single object if filter keys are passed in an filterRequired is set to true (default)
 # - Returns an array of objects if filter keys are not passed in and filterRequired is set to false
 # - Throws an exception if filter keys are not passed in and filterRequired is set to true
-function getRepositoryObject(token::AbstractString, objectType::AbstractString, searchKey::Dict{Symbol, Any}; filterRequired::Bool=true, ObjectEndpoint::AbstractString=ObjectEndpoint)
+function getRepositoryObject(token::AbstractString, objectType::AbstractString, searchKey::Dict{Symbol, Any}; filterRequired::Bool=true, ObjectEndpoint::AbstractString="$ObjectEndpoint")
     global verbose
 
     if token == ""
@@ -144,7 +144,7 @@ function postRepositoryObject(token::AbstractString,
                               attributes::Dict=Dict(),
                               objectFields::Dict=Dict(),
                               body::Union{AbstractString, LightXML.XMLElement}="",
-                              ObjectEndpoint::AbstractString=ObjectEndpoint,
+                              ObjectEndpoint::AbstractString="$ObjectEndpoint",
                               filterRequired::Bool=true
 )
 
@@ -247,7 +247,7 @@ end
 function deleteRepositoryObject(token::AbstractString,
                               objectType::AbstractString,
                               searchKey::Dict{Symbol, Any},
-                              ObjectEndpoint::AbstractString=ObjectEndpoint
+                              ObjectEndpoint::AbstractString="$ObjectEndpoint"
 )
 
     global verbose
