@@ -160,11 +160,11 @@ function postRepositoryObject(token::AbstractString,
     # If objectID is not supplied, retrieve from get function
     if objectID == 0
         if objectType == "alert"
-            object = getRepositoryAlert(token, alertName = name)
+            object = getRepositoryAlert(token, alertName = name, ObjectEndpoint=ObjectEndpoint)
         elseif objectType == "domain"
-            object = getRepositoryDomain(token, appName = name)
+            object = getRepositoryDomain(token, appName = name, ObjectEndpoint=ObjectEndpoint)
         elseif objectType == "tenant"
-            object = getRepositoryTenant(token, name = name)
+            object = getRepositoryTenant(token, name = name, ObjectEndpoint=ObjectEndpoint)
         end
     end
 
