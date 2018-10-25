@@ -219,10 +219,10 @@ function postRepositoryStatModel(token::AbstractString;
     
     if statModelID > 0 
         clearStatModelCache(statModelID = statModelID)    
-        statModel = getRepositoryStatModel(token, statModelID=statModelID)
+        statModel = getRepositoryStatModel(token, statModelID=statModelID, ObjectEndpoint=ObjectEndpoint)
     else
         clearStatModelCache(statModelName = statModelName)
-        statModel = getRepositoryStatModel(token, statModelName=statModelName)
+        statModel = getRepositoryStatModel(token, statModelName=statModelName, ObjectEndpoint=ObjectEndpoint)
     end
 
     return statModel

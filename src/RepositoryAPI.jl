@@ -168,9 +168,8 @@ function postRepositoryObject(token::AbstractString,
         elseif objectType == "statisticalmodel"
             object = getRepositoryStatModel(token, statModelName = name, ObjectEndpoint=ObjectEndpoint)
         end
+        objectID = get(object, "id", 0)
     end
-
-    objectID = get(object, "id", 0)
 
     local isKeySet = false
 
