@@ -102,7 +102,6 @@ function getRepositoryAlert(token::AbstractString; alertID::Int64=0, alertName::
                 "alert",
                 Dict{Symbol, Any}(:id => alertID, :name => alertName),
                 ObjectEndpoint=ObjectEndpoint
-            )
         )
 
     return alert
