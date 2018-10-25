@@ -78,7 +78,7 @@ You can clear the cache for this tenant using [`mPulseAPI.clearTenantCache`](@re
 :    if API access failed for some reason
 
 """
-function getRepositoryTenant(token::AbstractString; tenantID::Int64=0, name::AbstractString="", ObjectEndpoint::AbstractString=ObjectEndpoint)
+function getRepositoryTenant(token::AbstractString; tenantID::Int64=0, name::AbstractString="", ObjectEndpoint::AbstractString="$ObjectEndpoint")
     tenant = getRepositoryObject(
                 token,
                 "tenant",

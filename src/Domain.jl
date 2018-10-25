@@ -96,7 +96,7 @@ The `domain` `Dict` has the following fields:
 :    if something unexpected happened while parsing the repository object
 
 """
-function getRepositoryDomain(token::AbstractString; domainID::Int64=0, appKey::AbstractString="", appName::AbstractString="", appID::AbstractString="", ObjectEndpoint::AbstractString=ObjectEndpoint)
+function getRepositoryDomain(token::AbstractString; domainID::Int64=0, appKey::AbstractString="", appName::AbstractString="", appID::AbstractString="", ObjectEndpoint::AbstractString="$ObjectEndpoint")
     # Keep appID for backwards compatibility
     if isempty(appKey) && !isempty(appID)
         appKey = appID

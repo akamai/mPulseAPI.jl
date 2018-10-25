@@ -95,7 +95,7 @@ You can clear the cache for this tenant using [`mPulseAPI.clearAlertCache`](@ref
 `mPulseAPIException`
 :    if API access failed for some reason
 """
-function getRepositoryAlert(token::AbstractString; alertID::Int64=0, alertName::AbstractString="", ObjectEndpoint::AbstractString=ObjectEndpoint)
+function getRepositoryAlert(token::AbstractString; alertID::Int64=0, alertName::AbstractString="", ObjectEndpoint::AbstractString="$ObjectEndpoint")
 
     alert = getRepositoryObject(
                 token,
@@ -205,7 +205,7 @@ function postRepositoryAlert(token::AbstractString;
                             attributes::Dict=Dict(),
                             objectFields::Dict=Dict(),
                             body::Union{AbstractString, LightXML.XMLElement}="",
-                            ObjectEndpoint::AbstractString=ObjectEndpoint
+                            ObjectEndpoint::AbstractString="$ObjectEndpoint"
 )
 
     postRepositoryObject(
@@ -263,7 +263,7 @@ Returns true if the delete is successful, else false.
 function deleteRepositoryAlert(token::AbstractString;
                             alertID::Int64=0,
                             alertName::AbstractString="",
-                            ObjectEndpoint::AbstractString=ObjectEndpoint
+                            ObjectEndpoint::AbstractString="$ObjectEndpoint"
 )
 
     resp = deleteRepositoryObject(
