@@ -95,7 +95,7 @@ You can clear the cache for this tenant using [`mPulseAPI.clearStatModelCache`](
 `mPulseAPIException`
 :    if API access failed for some reason
 """
-function getRepositoryStatModel(token::AbstractString; statModelID::Int64=0, statModelName::AbstractString="", ObjectEndpoint::AbstractString="$ObjectEndpoint")
+function getRepositoryStatModel(token::AbstractString; statModelID::Int64=0, statModelName::AbstractString="", ObjectEndpoint::AbstractString=mPulseAPI.ObjectEndpoint)
 
     statModel = getRepositoryObject(
                 token,
@@ -204,7 +204,7 @@ function postRepositoryStatModel(token::AbstractString;
                             attributes::Dict=Dict(),
                             objectFields::Dict=Dict(),
                             body::Union{AbstractString, LightXML.XMLElement}="",
-                            ObjectEndpoint::AbstractString="$ObjectEndpoint"
+                            ObjectEndpoint::AbstractString=mPulseAPI.ObjectEndpoint
 )
 
     postRepositoryObject(
@@ -262,7 +262,7 @@ Returns true if the delete is successful, else false.
 function deleteRepositoryStatModel(token::AbstractString;
                             statModelID::Int64=0,
                             statModelName::AbstractString="",
-                            ObjectEndpoint::AbstractString="$ObjectEndpoint"
+                            ObjectEndpoint::AbstractString=mPulseAPI.ObjectEndpoint
 )
 
     resp = deleteRepositoryObject(

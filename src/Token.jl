@@ -38,7 +38,7 @@ location or is logged out of mPulse.  You can clear the cache for this token usi
 `mPulseAPIAuthException`
 :    if authentication failed for some reason
 """
-function getRepositoryToken(tenant::AbstractString, apiToken::AbstractString; TokenEndpoint::AbstractString="$TokenEndpoint")
+function getRepositoryToken(tenant::AbstractString, apiToken::AbstractString; TokenEndpoint::AbstractString=mPulseAPI.TokenEndpoint)
     global verbose
 
     if tenant == ""
