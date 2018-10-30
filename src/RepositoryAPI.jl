@@ -170,8 +170,8 @@ function postRepositoryObject(token::AbstractString,
         object = getRepositoryStatModel(token, statModelID=objectID, statModelName = name, ObjectEndpoint=ObjectEndpoint)
         if !isempty(attributes)
             oldAttributes = object["attributes"]
-            for key in keys(attributes)
-                if haskey(attributes, key)
+            for key in keys(oldAttributes)
+                if !haskey(attributes, key)
                     attributes[key] = oldAttributes[key]
                 end
             end
