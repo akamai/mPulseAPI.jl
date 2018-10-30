@@ -157,9 +157,6 @@ function postRepositoryObject(token::AbstractString,
     objectID = get(searchKey, :id, 0)
     name = get(searchKey, :name, "")
 
-    # If objectID is not supplied, retrieve from get function
-    # if objectID == 0
-
     if objectType == "alert"
         object = getRepositoryAlert(token, alertID=objectID, alertName = name, ObjectEndpoint=ObjectEndpoint)
     elseif objectType == "domain"
@@ -180,7 +177,6 @@ function postRepositoryObject(token::AbstractString,
 
     # If objectID was not supplied, it will now be available 
     objectID = get(object, "id", 0)
-    # end
 
     local isKeySet = false
 
