@@ -167,6 +167,14 @@ function postRepositoryObject(token::AbstractString,
             object = getRepositoryTenant(token, name = name, ObjectEndpoint=ObjectEndpoint)
         elseif objectType == "statisticalmodel"
             object = getRepositoryStatModel(token, statModelName = name, ObjectEndpoint=ObjectEndpoint)
+            if !isempty(attributes)
+                oldAttributes = object["attributes"]
+                for key in keys(attributes)
+                    if haskey(attributes, key)
+                        attributes[key] = oldAttributes[key]
+                    end
+                end
+            end
         end
         objectID = get(object, "id", 0)
     end
