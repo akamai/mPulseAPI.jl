@@ -158,26 +158,29 @@ function postRepositoryObject(token::AbstractString,
     name = get(searchKey, :name, "")
 
     # If objectID is not supplied, retrieve from get function
-    if objectID == 0
-        if objectType == "alert"
-            object = getRepositoryAlert(token, alertName = name, ObjectEndpoint=ObjectEndpoint)
-        elseif objectType == "domain"
-            object = getRepositoryDomain(token, appName = name, ObjectEndpoint=ObjectEndpoint)
-        elseif objectType == "tenant"
-            object = getRepositoryTenant(token, name = name, ObjectEndpoint=ObjectEndpoint)
-        elseif objectType == "statisticalmodel"
-            object = getRepositoryStatModel(token, statModelName = name, ObjectEndpoint=ObjectEndpoint)
-            if !isempty(attributes)
-                oldAttributes = object["attributes"]
-                for key in keys(attributes)
-                    if haskey(attributes, key)
-                        attributes[key] = oldAttributes[key]
-                    end
+    # if objectID == 0
+
+    if objectType == "alert"
+        object = getRepositoryAlert(token, alertID=objectID, alertName = name, ObjectEndpoint=ObjectEndpoint)
+    elseif objectType == "domain"
+        object = getRepositoryDomain(token, domainID=objectID, appName = name, ObjectEndpoint=ObjectEndpoint)
+    elseif objectType == "tenant"
+        object = getRepositoryTenant(token, tenantID=objectID, name = name, ObjectEndpoint=ObjectEndpoint)
+    elseif objectType == "statisticalmodel"
+        object = getRepositoryStatModel(token, statModelID=objectID, statModelName = name, ObjectEndpoint=ObjectEndpoint)
+        if !isempty(attributes)
+            oldAttributes = object["attributes"]
+            for key in keys(attributes)
+                if haskey(attributes, key)
+                    attributes[key] = oldAttributes[key]
                 end
             end
         end
-        objectID = get(object, "id", 0)
     end
+
+    # If objectID was not supplied, it will now be available 
+    objectID = get(object, "id", 0)
+    # end
 
     local isKeySet = false
 
