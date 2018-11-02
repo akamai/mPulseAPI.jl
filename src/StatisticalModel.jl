@@ -202,7 +202,7 @@ function postRepositoryStatModel(token::AbstractString;
                             statModelName::AbstractString="",
                             attributes::Dict=Dict(),
                             objectFields::Dict=Dict(),
-                            body::Union{AbstractString, LightXML.XMLElement}=""
+                            errorXML::Union{AbstractString, LightXML.XMLElement}=""
 )
 
     postRepositoryObject(
@@ -211,7 +211,7 @@ function postRepositoryStatModel(token::AbstractString;
         Dict{Symbol, Any}(:id => statModelID, :name => statModelName),
         attributes = attributes,
         objectFields = objectFields,
-        body = body
+        errorXML = errorXML
     )
     
     if statModelID > 0 

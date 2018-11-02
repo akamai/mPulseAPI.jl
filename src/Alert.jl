@@ -202,7 +202,7 @@ function postRepositoryAlert(token::AbstractString;
                             alertName::AbstractString="",
                             attributes::Dict=Dict(),
                             objectFields::Dict=Dict(),
-                            body::Union{AbstractString, LightXML.XMLElement}=""
+                            errorXML::Union{AbstractString, LightXML.XMLElement}=""
 )
 
     postRepositoryObject(
@@ -211,7 +211,7 @@ function postRepositoryAlert(token::AbstractString;
         Dict{Symbol, Any}(:id => alertID, :name => alertName),
         attributes = attributes,
         objectFields = objectFields,
-        body = body
+        errorXML = errorXML
     )
     
     if alertID > 0 
