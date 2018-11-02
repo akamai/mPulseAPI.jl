@@ -22,7 +22,7 @@ const TokenTimeoutHours = 5
 # - Returns a single object if filter keys are passed in an filterRequired is set to true (default)
 # - Returns an array of objects if filter keys are not passed in and filterRequired is set to false
 # - Throws an exception if filter keys are not passed in and filterRequired is set to true
-function getRepositoryObject(token::AbstractString, objectType::AbstractString, searchKey::Dict{Symbol, Any}; filterRequired::Bool=true, ObjectEndpoint::AbstractString=mPulseAPI.ObjectEndpoint)
+function getRepositoryObject(token::AbstractString, objectType::AbstractString, searchKey::Dict{Symbol, Any}; filterRequired::Bool=true)
     global verbose
 
     if token == ""
@@ -144,7 +144,6 @@ function postRepositoryObject(token::AbstractString,
                               attributes::Dict=Dict(),
                               objectFields::Dict=Dict(),
                               body::Union{AbstractString, LightXML.XMLElement}="",
-                              ObjectEndpoint::AbstractString=mPulseAPI.ObjectEndpoint,
                               filterRequired::Bool=true
 )
 
@@ -158,13 +157,13 @@ function postRepositoryObject(token::AbstractString,
     name = get(searchKey, :name, "")
 
     if objectType == "alert"
-        object = getRepositoryAlert(token, alertID=objectID, alertName = name, ObjectEndpoint=ObjectEndpoint)
+        object = getRepositoryAlert(token, alertID=objectID, alertName = name)
     elseif objectType == "domain"
-        object = getRepositoryDomain(token, domainID=objectID, appName = name, ObjectEndpoint=ObjectEndpoint)
+        object = getRepositoryDomain(token, domainID=objectID, appName = name)
     elseif objectType == "tenant"
-        object = getRepositoryTenant(token, tenantID=objectID, name = name, ObjectEndpoint=ObjectEndpoint)
+        object = getRepositoryTenant(token, tenantID=objectID, name = name)
     elseif objectType == "statisticalmodel"
-        object = getRepositoryStatModel(token, statModelID=objectID, statModelName = name, ObjectEndpoint=ObjectEndpoint)
+        object = getRepositoryStatModel(token, statModelID=objectID, statModelName = name)
         if !isempty(attributes)
             oldAttributes = object["attributes"]
             for key in keys(oldAttributes)
@@ -254,8 +253,7 @@ end
 # Internal convenience function.  Deletes an object from the repository.
 function deleteRepositoryObject(token::AbstractString,
                               objectType::AbstractString,
-                              searchKey::Dict{Symbol, Any},
-                              ObjectEndpoint::AbstractString=mPulseAPI.ObjectEndpoint
+                              searchKey::Dict{Symbol, Any}
 )
 
     global verbose

@@ -96,7 +96,7 @@ The `domain` `Dict` has the following fields:
 :    if something unexpected happened while parsing the repository object
 
 """
-function getRepositoryDomain(token::AbstractString; domainID::Int64=0, appKey::AbstractString="", appName::AbstractString="", appID::AbstractString="", ObjectEndpoint::AbstractString=mPulseAPI.ObjectEndpoint)
+function getRepositoryDomain(token::AbstractString; domainID::Int64=0, appKey::AbstractString="", appName::AbstractString="", appID::AbstractString="")
     # Keep appID for backwards compatibility
     if isempty(appKey) && !isempty(appID)
         appKey = appID
@@ -106,8 +106,7 @@ function getRepositoryDomain(token::AbstractString; domainID::Int64=0, appKey::A
                 token,
                 "domain",
                 Dict{Symbol, Any}(:id => domainID, :apiKey => appKey, :name => appName),
-                filterRequired=false,
-                ObjectEndpoint = ObjectEndpoint
+                filterRequired=false
         )
 
     # Always convert to an array for easier processing

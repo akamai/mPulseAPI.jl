@@ -95,13 +95,12 @@ You can clear the cache for this tenant using [`mPulseAPI.clearAlertCache`](@ref
 `mPulseAPIException`
 :    if API access failed for some reason
 """
-function getRepositoryAlert(token::AbstractString; alertID::Int64=0, alertName::AbstractString="", ObjectEndpoint::AbstractString=mPulseAPI.ObjectEndpoint)
+function getRepositoryAlert(token::AbstractString; alertID::Int64=0, alertName::AbstractString="")
 
     alert = getRepositoryObject(
                 token,
                 "alert",
-                Dict{Symbol, Any}(:id => alertID, :name => alertName),
-                ObjectEndpoint=ObjectEndpoint
+                Dict{Symbol, Any}(:id => alertID, :name => alertName)
         )
 
     return alert
@@ -203,8 +202,7 @@ function postRepositoryAlert(token::AbstractString;
                             alertName::AbstractString="",
                             attributes::Dict=Dict(),
                             objectFields::Dict=Dict(),
-                            body::Union{AbstractString, LightXML.XMLElement}="",
-                            ObjectEndpoint::AbstractString=mPulseAPI.ObjectEndpoint
+                            body::Union{AbstractString, LightXML.XMLElement}=""
 )
 
     postRepositoryObject(
@@ -213,16 +211,15 @@ function postRepositoryAlert(token::AbstractString;
         Dict{Symbol, Any}(:id => alertID, :name => alertName),
         attributes = attributes,
         objectFields = objectFields,
-        body = body,
-        ObjectEndpoint=ObjectEndpoint
+        body = body
     )
     
     if alertID > 0 
         clearAlertCache(alertID = alertID)    
-        alert = getRepositoryAlert(token, alertID=alertID, ObjectEndpoint=ObjectEndpoint)
+        alert = getRepositoryAlert(token, alertID=alertID)
     else
         clearAlertCache(alertName = alertName)
-        alert = getRepositoryAlert(token, alertName=alertName, ObjectEndpoint=ObjectEndpoint)
+        alert = getRepositoryAlert(token, alertName=alertName)
     end
 
     return alert
@@ -261,15 +258,13 @@ Returns true if the delete is successful, else false.
 
 function deleteRepositoryAlert(token::AbstractString;
                             alertID::Int64=0,
-                            alertName::AbstractString="",
-                            ObjectEndpoint::AbstractString=mPulseAPI.ObjectEndpoint
+                            alertName::AbstractString=""
 )
 
     resp = deleteRepositoryObject(
         token,
         "alert",
-        Dict{Symbol, Any}(:id => alertID, :name => alertName),
-        ObjectEndpoint=ObjectEndpoint
+        Dict{Symbol, Any}(:id => alertID, :name => alertName)
     )
     
     if statuscode(test) == 204

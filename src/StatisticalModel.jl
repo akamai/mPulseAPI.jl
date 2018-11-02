@@ -95,13 +95,12 @@ You can clear the cache for this tenant using [`mPulseAPI.clearStatModelCache`](
 `mPulseAPIException`
 :    if API access failed for some reason
 """
-function getRepositoryStatModel(token::AbstractString; statModelID::Int64=0, statModelName::AbstractString="", ObjectEndpoint::AbstractString=mPulseAPI.ObjectEndpoint)
+function getRepositoryStatModel(token::AbstractString; statModelID::Int64=0, statModelName::AbstractString="")
 
     statModel = getRepositoryObject(
                 token,
                 "statisticalmodel",
-                Dict{Symbol, Any}(:id => statModelID, :name => statModelName),
-                ObjectEndpoint=ObjectEndpoint
+                Dict{Symbol, Any}(:id => statModelID, :name => statModelName)
         )
 
     return statModel
@@ -203,8 +202,7 @@ function postRepositoryStatModel(token::AbstractString;
                             statModelName::AbstractString="",
                             attributes::Dict=Dict(),
                             objectFields::Dict=Dict(),
-                            body::Union{AbstractString, LightXML.XMLElement}="",
-                            ObjectEndpoint::AbstractString=mPulseAPI.ObjectEndpoint
+                            body::Union{AbstractString, LightXML.XMLElement}=""
 )
 
     postRepositoryObject(
@@ -213,16 +211,15 @@ function postRepositoryStatModel(token::AbstractString;
         Dict{Symbol, Any}(:id => statModelID, :name => statModelName),
         attributes = attributes,
         objectFields = objectFields,
-        body = body,
-        ObjectEndpoint=ObjectEndpoint
+        body = body
     )
     
     if statModelID > 0 
         clearStatModelCache(statModelID = statModelID)    
-        statModel = getRepositoryStatModel(token, statModelID=statModelID, ObjectEndpoint=ObjectEndpoint)
+        statModel = getRepositoryStatModel(token, statModelID=statModelID)
     else
         clearStatModelCache(statModelName = statModelName)
-        statModel = getRepositoryStatModel(token, statModelName=statModelName, ObjectEndpoint=ObjectEndpoint)
+        statModel = getRepositoryStatModel(token, statModelName=statModelName)
     end
 
     return statModel
@@ -261,15 +258,13 @@ Returns true if the delete is successful, else false.
 
 function deleteRepositoryStatModel(token::AbstractString;
                             statModelID::Int64=0,
-                            statModelName::AbstractString="",
-                            ObjectEndpoint::AbstractString=mPulseAPI.ObjectEndpoint
+                            statModelName::AbstractString=""
 )
 
     resp = deleteRepositoryObject(
         token,
         "statisticalmodel",
-        Dict{Symbol, Any}(:id => statModelID, :name => statModelName),
-        ObjectEndpoint=ObjectEndpoint
+        Dict{Symbol, Any}(:id => statModelID, :name => statModelName)
     )
     
     if statuscode(test) == 204
