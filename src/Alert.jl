@@ -166,8 +166,8 @@ At least one of `alertID` or `alertName` must be passed in to update the alert o
 `lastCached::DateTime`
 :    The timestamp when this object was last cached
 
-`body::XMLElement`
-:    An XML object representing the alert's XML definition or an empty node if you do not have permission to see the full alert
+`errorXML::Union{AbstractString, LightXML.XMLElement}`
+:    An XML object representing the alert's XML error definition to be updated by the repository.
 
 `references::Dict`
 :    An array of `Dict`s with reference information such as `name`, `id`, `type`, and `path`.
@@ -211,7 +211,7 @@ function postRepositoryAlert(token::AbstractString;
         Dict{Symbol, Any}(:id => alertID, :name => alertName),
         attributes = attributes,
         objectFields = objectFields,
-        errorXML = errorXML
+        body = errorXML
     )
     
     if alertID > 0 

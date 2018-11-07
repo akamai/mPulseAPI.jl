@@ -166,8 +166,8 @@ At least one of `statModelID` or `statModelName` must be passed in to update the
 `lastCached::DateTime`
 :    The timestamp when this object was last cached
 
-`body::XMLElement`
-:    An XML object representing the statistical model's XML definition or an empty node if you do not have permission to see the full statistical model
+`errorXML::Union{AbstractString, LightXML.XMLElement}`
+:    An XML object representing the alert's XML error definition to be updated by the repository.
 
 `references::Dict`
 :    An array of `Dict`s with reference information such as `name`, `id`, `type`, and `path`.
@@ -211,7 +211,7 @@ function postRepositoryStatModel(token::AbstractString;
         Dict{Symbol, Any}(:id => statModelID, :name => statModelName),
         attributes = attributes,
         objectFields = objectFields,
-        errorXML = errorXML
+        body = errorXML
     )
     
     if statModelID > 0 
