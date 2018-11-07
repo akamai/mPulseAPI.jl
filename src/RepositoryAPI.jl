@@ -195,7 +195,6 @@ function postRepositoryObject(token::AbstractString,
         println("X-Auth-Token: $token")
         !isempty(attributes) && println(attributes)
         !isempty(objectFields) && println(objectFields)
-        !isempty(body) && println(body)
     end
 
 
