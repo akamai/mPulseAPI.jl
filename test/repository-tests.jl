@@ -66,7 +66,7 @@ tenant = getRepositoryTenant(token, name=mPulseAPITenant)
 @test tenant["name"] == mPulseAPITenant
 
 # Check alert
-alert = getRepositoryAlert(token, alertName=mPulseAPITenant)
+alert = getRepositoryAlert(token, alertName=mPulseAPIAlert)
 @test !isempty(alert)
 @test alert["name"] == "mPulseAPI Test Alert"
 @test alert["tenantID"] == 236904
