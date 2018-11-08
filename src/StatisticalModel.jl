@@ -214,15 +214,7 @@ function postRepositoryStatModel(token::AbstractString;
         body = errorXML
     )
     
-    if statModelID > 0 
-        clearStatModelCache(statModelID = statModelID)    
-        statModel = getRepositoryStatModel(token, statModelID=statModelID)
-    else
-        clearStatModelCache(statModelName = statModelName)
-        statModel = getRepositoryStatModel(token, statModelName=statModelName)
-    end
-
-    return statModel
+    return nothing
 
 end
 
