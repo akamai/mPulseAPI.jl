@@ -268,17 +268,16 @@ function deleteRepositoryObject(token::AbstractString,
     objectID = get(searchKey, :id, 0)
     name = get(searchKey, :name, "")
 
-    # If objectID is not supplied, retrieve from get function
-    if objectID == 0 
-        if objectType == "alert"
-            object = getRepositoryAlert(token, alertName = name)
-        elseif objectType == "domain"
-            object = getRepositoryDomain(token, appName = name)
-        elseif objectType == "tenant"
-            object = getRepositoryTenant(token, name = name)
-        end
+
+    if objectType == "alert"
+        object = getRepositoryAlert(token, alertName = name)
+    elseif objectType == "domain"
+        object = getRepositoryDomain(token, appName = name)
+    elseif objectType == "tenant"
+        object = getRepositoryTenant(token, name = name)
     end
 
+    # If objectID was not supplied, it will now be available 
     objectID = get(object, "id", 0)
 
     local url = ObjectEndpoint * "/" * objectType * "/$(objectID)"
