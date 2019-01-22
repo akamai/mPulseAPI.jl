@@ -156,20 +156,13 @@ function postRepositoryObject(token::AbstractString,
     objectID = get(searchKey, :id, 0)
     name = get(searchKey, :name, "")
 
-    if objectType == "alert"
-        object = getRepositoryAlert(token, alertID=objectID, alertName = name)
-    elseif objectType == "domain"
-        object = getRepositoryDomain(token, domainID=objectID, appName = name)
-    elseif objectType == "tenant"
-        object = getRepositoryTenant(token, tenantID=objectID, name = name)
-    elseif objectType == "statisticalmodel"
-        object = getRepositoryStatModel(token, statModelID=objectID, statModelName = name)
-        if !isempty(attributes)
-            oldAttributes = object["attributes"]
-            for key in keys(oldAttributes)
-                if !haskey(attributes, key)
-                    attributes[key] = oldAttributes[key]
-                end
+    object = getObjectInfo(token, objectType, objectID, name)
+
+    if !isempty(attributes)
+        oldAttributes = object["attributes"]
+        for key in keys(oldAttributes)
+            if !haskey(attributes, key)
+                attributes[key] = oldAttributes[key]
             end
         end
     end
@@ -268,14 +261,7 @@ function deleteRepositoryObject(token::AbstractString,
     objectID = get(searchKey, :id, 0)
     name = get(searchKey, :name, "")
 
-
-    if objectType == "alert"
-        object = getRepositoryAlert(token, alertName = name)
-    elseif objectType == "domain"
-        object = getRepositoryDomain(token, appName = name)
-    elseif objectType == "tenant"
-        object = getRepositoryTenant(token, name = name)
-    end
+    object = getObjectInfo(token, objectType, objectID, name)
 
     # If objectID was not supplied, it will now be available 
     objectID = get(object, "id", 0)

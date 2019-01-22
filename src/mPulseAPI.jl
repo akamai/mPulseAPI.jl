@@ -82,6 +82,23 @@ function iso8601ToDateTime(date::AbstractString)
     return DateTime(date)
 end
 
+# Internal convenience function for retrieving object info
+function getObjectInfo(token::AbstractString, objectType::AbstractString, objectID::Int64, name::AbstractString)
+
+    if objectType == "alert"
+        object = getRepositoryAlert(token, alertID=objectID, alertName = name)
+    elseif objectType == "domain"
+        object = getRepositoryDomain(token, domainID=objectID, appName = name)
+    elseif objectType == "tenant"
+        object = getRepositoryTenant(token, tenantID=objectID, name = name)
+    elseif objectType == "statisticalmodel"
+        object = getRepositoryStatModel(token, statModelID=objectID, statModelName = name)
+    end
+
+    return object
+end
+
+
 # Fix datatype of elements got from JSON because the mPulse API is bad in what it sends
 function fixJSONDataType(value::Union{AbstractString, Void})
     if value == nothing || isa(value, Void)
