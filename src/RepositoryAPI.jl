@@ -158,6 +158,7 @@ function postRepositoryObject(token::AbstractString,
 
     object = getObjectInfo(token, objectType, objectID, name)
 
+    # Merge existing and new attributes
     if !isempty(attributes)
         oldAttributes = object["attributes"]
         for key in keys(oldAttributes)
@@ -236,11 +237,37 @@ function postRepositoryObject(token::AbstractString,
         headers = Dict("X-Auth-Token" => token, "Content-type" => "application/json")
     )
 
-    if statuscode(resp) != 204
-        throw(mPulseAPIException("Error updating $(objectType) $(objectID)", resp))
-    end
+    if statuscode(resp) == 204 # Success
+        return resp
 
-    return resp
+    elseif statuscode(resp) == 400 # Bad request.  The URL or JSON is invalid
+        throw(mPulseAPIException("Error updating $(objectType) $(objectID)", resp))
+    
+    elseif statuscode(resp) == 404 # Not found.  The requested object does not exist
+        throw(mPulseAPIException("Error updating $(objectType) $(objectID)", resp))
+
+    elseif statuscode(resp) == 401 # Unauthorized.  The security token is missing or invalid.  # retry 1 time
+        resp = Requests.post(url, json = json, headers = Dict("X-Auth-Token" => token, "Content-type" => "application/json"))
+    
+        if statuscode(resp) == 204
+            return resp
+        else
+            throw(mPulseAPIAuthException(resp))
+        end
+    
+    elseif 500 < statuscode(resp) <= 599 # Internal server error.  Try again later. # retry 5 times
+            i = 1
+            while i <=5 && statuscode(resp) != 204
+                sleep(30)
+                resp = Requests.post(url, json = json, headers = Dict("X-Auth-Token" => token, "Content-type" => "application/json"))
+                i += 1      
+            end
+        if statuscode(resp) == 204
+            return resp
+        else
+            throw(mPulseAPIBugException(resp))
+        end
+    end
 
 end
 
