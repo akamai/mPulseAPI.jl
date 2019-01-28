@@ -156,17 +156,7 @@ function postRepositoryObject(token::AbstractString,
     objectID = get(searchKey, :id, 0)
     name = get(searchKey, :name, "")
 
-    object = getObjectInfo(token, objectType, objectID, name)
-
-    # Merge existing and new attributes
-    if !isempty(attributes)
-        oldAttributes = object["attributes"]
-        for key in keys(oldAttributes)
-            if !haskey(attributes, key)
-                attributes[key] = oldAttributes[key]
-            end
-        end
-    end
+    object = getObjectInfo(token, objectType, objectID, name, attributes)
 
     # If objectID was not supplied, it will now be available 
     objectID = get(object, "id", 0)
@@ -191,83 +181,9 @@ function postRepositoryObject(token::AbstractString,
         !isempty(objectFields) && println(objectFields)
     end
 
+    json = bulidJSON(objectType, objectFields, attributes, body)
 
-    json = Dict{AbstractString, Any}()
-    json["type"] = objectType
-
-    # If any objectFields are supplied by the user, update these in the object (if it exists)
-    if !isempty(objectFields)
-        for (key, val) in objectFields
-            json[key] = val
-        end
-    end
-
-    # If attributes is supplied, update the object’s attributes field
-    if !isempty(attributes)
-        attributesDict = []
-
-        for (key, val) in attributes
-            push!(attributesDict, Dict("name" => key, "value"=> val))
-        end
-        
-        json["attributes"] = attributesDict
-    end
-
-    # If the bodyError argument is supplied, update this in the object 
-    if body != ""
-        if isa(body, AbstractString)
-            try
-                xdoc = parse_string(body)
-                xroot = root(xdoc)
-            catch
-                if objectType == "alert" || objectType == "statisticalmodel"
-                    error("errorXML is not formatted correctly")
-                else
-                    error("body keyword argument is not formatted correctly")
-                end
-            end
-        else
-            body = string(body)
-        end
-        json["body"] = body
-    end
-
-    resp = Requests.post(url,
-        json = json,
-        headers = Dict("X-Auth-Token" => token, "Content-type" => "application/json")
-    )
-
-    if statuscode(resp) == 204 # Success
-        return resp
-
-    elseif statuscode(resp) == 400 # Bad request.  The URL or JSON is invalid
-        throw(mPulseAPIException("Error updating $(objectType) $(objectID)", resp))
-    
-    elseif statuscode(resp) == 404 # Not found.  The requested object does not exist
-        throw(mPulseAPIException("Error updating $(objectType) $(objectID)", resp))
-
-    elseif statuscode(resp) == 401 # Unauthorized.  The security token is missing or invalid.  # retry 1 time
-        resp = Requests.post(url, json = json, headers = Dict("X-Auth-Token" => token, "Content-type" => "application/json"))
-    
-        if statuscode(resp) == 204
-            return resp
-        else
-            throw(mPulseAPIAuthException(resp))
-        end
-    
-    elseif 500 < statuscode(resp) <= 599 # Internal server error.  Try again later. # retry 5 times
-            i = 1
-            while i <=5 && statuscode(resp) != 204
-                sleep(30)
-                resp = Requests.post(url, json = json, headers = Dict("X-Auth-Token" => token, "Content-type" => "application/json"))
-                i += 1      
-            end
-        if statuscode(resp) == 204
-            return resp
-        else
-            throw(mPulseAPIBugException(resp))
-        end
-    end
+    handlePostResponse(url, json, token)
 
 end
 
@@ -485,4 +401,134 @@ function getXMLNode(body::Any, nodeName::AbstractString)
     end
 
     return find_element(xroot, nodeName)
+end
+
+
+# Internal convenience function used to POST to repository
+function postHttp(url::AbstractString, json::Dict{AbstractString, Any}, token::AbstractString)
+   
+   try 
+      resp = Requests.post(url,
+         json = json,
+         headers = Dict("X-Auth-Token" => token, "Content-type" => "application/json")
+    )
+
+      respStatusCode = statuscode(resp)
+
+      if respStatusCode == 204 # Success
+         return resp
+      elseif respStatusCode == 400 # Bad request.  The URL or JSON is invalid
+         throw(mPulseAPIException("Error updating $(objectType) $(objectID)", resp))
+      elseif statuscode(resp) == 404 # Not found.  The requested object does not exist
+        throw(mPulseAPIException("Error updating $(objectType) $(objectID)", resp))
+     end
+
+   catch er
+      if isa(er, Base.UVError)
+         error("TCP timeout")
+      else
+         error("We have not encountered this error before.  Please report this. Timestamp: $(round(Int, datetime2unix(now())))")
+      end
+   end
+
+   return respStatusCode
+end
+
+
+# Internal convenience function for handling POST REST API Responses
+function handlePostResponse(url::AbstractString, json::Dict{AbstractString, Any}, token::AbstractString)
+
+   while true
+
+      count = 0
+
+      respStatusCode = postHttp(url, json, token)
+
+         if statuscode(resp) == 401 # Unauthorized.  The security token is missing or invalid. 
+            # Retry once
+            if count > 1
+               throw(mPulseAPIAuthException(resp))
+            else
+               # TODO: request new token first
+               # token = ...
+               # respStatusCode = postHttp(url, json, token)
+            end
+
+            count += 1
+
+         elseif 500 < respStatusCode <= 599 # Internal server error.  Try again later.
+            # Retry up to 5 times
+            if count <= 5
+               count += 1
+            else
+               throw(mPulseAPIBugException(resp))
+            end
+         end
+
+      end
+      
+end
+
+# Internal convenience function for building object JSON entry
+function buildJSON(objectType::AbstractString,
+                  objectFields::Dict=Dict(),
+                  attributes::Dict=Dict(),
+                  body::Union{AbstractString, LightXML.XMLElement}=""
+)
+
+   # Initialize JSON Dict
+   json = Dict{AbstractString, Any}()
+   json["type"] = objectType
+
+    # If attributes is supplied, update the object’s attributes field
+    if !isempty(attributes)
+
+      if objectType == "statisticalmodel"
+         # Merge existing and new attributes needed for statisticalmodel
+           oldAttributes = object["attributes"]
+           for key in keys(oldAttributes)
+               if !haskey(attributes, key)
+                   attributes[key] = oldAttributes[key]
+               end
+           end
+        end
+
+      attributesDict = []
+
+      for (key, val) in attributes
+         push!(attributesDict, Dict("name" => key, "value"=> val))
+      end
+
+      json["attributes"] = attributesDict
+
+    end
+
+    # If any objectFields are supplied by the user, update these in the object (if it exists)
+    if !isempty(objectFields)
+        for (key, val) in objectFields
+            json[key] = val
+        end
+    end
+
+    # If the bodyError argument is supplied, update this in the object 
+    if body != ""
+        if isa(body, AbstractString)
+            try
+                xdoc = parse_string(body)
+                xroot = root(xdoc)
+            catch
+                if objectType == "alert" || objectType == "statisticalmodel"
+                    error("errorXML is not formatted correctly")
+                else
+                    error("body keyword argument is not formatted correctly")
+                end
+            end
+        else
+            body = string(body)
+        end
+        json["body"] = body
+    end
+
+    return json
+
 end
