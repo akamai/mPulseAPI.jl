@@ -332,15 +332,13 @@ function postHttpRequest(url::AbstractString, objectType::AbstractString, object
          headers = Dict("X-Auth-Token" => token, "Content-type" => "application/json")
     )
 
-      respStatusCode = statuscode(resp)
-
-      if respStatusCode == 204 # Success
-         return resp
-      elseif respStatusCode == 400 # Bad request.  The URL or JSON is invalid
+      if statuscode(resp) == 400 # Bad request.  The URL or JSON is invalid
          throw(mPulseAPIException("Error updating $(objectType) $(objectID)", resp))
       elseif statuscode(resp) == 404 # Not found.  The requested object does not exist
         throw(mPulseAPIException("Error updating $(objectType) $(objectID)", resp))
-     end
+      end
+
+      return resp
 
    catch er
       if isa(er, Base.UVError)
@@ -350,20 +348,21 @@ function postHttpRequest(url::AbstractString, objectType::AbstractString, object
       end
    end
 
-   return respStatusCode
 end
 
 
 # Internal convenience function for handling POST REST API Responses
 function handlePostResponse(url::AbstractString, objectType::AbstractString, objectID::Int64, json::Dict{AbstractString, Any}, token::AbstractString)
 
-   while true
+    count = 0
+    while count <= 5 
 
-      count = 0
+      resp = postHttpRequest(url, objectType, objectID, json, token)
 
-      respStatusCode = postHttpRequest(url, objectType, objectID, json, token)
+         if statuscode(resp) == 204 # Success
+            return resp
 
-         if statuscode(resp) == 401 # Unauthorized.  The security token is missing or invalid. 
+         elseif statuscode(resp) == 401 # Unauthorized.  The security token is missing or invalid. 
             # Retry once
             if count > 1
                throw(mPulseAPIAuthException(resp))
@@ -375,7 +374,7 @@ function handlePostResponse(url::AbstractString, objectType::AbstractString, obj
 
             count += 1
 
-         elseif 500 < respStatusCode <= 599 # Internal server error.  Try again later.
+         elseif 500 < statuscode(resp) <= 599 # Internal server error.  Try again later.
             # Retry up to 5 times
             if count <= 5
                count += 1
