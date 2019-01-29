@@ -156,7 +156,7 @@ function postRepositoryObject(token::AbstractString,
     objectID = get(searchKey, :id, 0)
     name = get(searchKey, :name, "")
 
-    object = getObjectInfo(token, objectType, objectID, name, attributes)
+    object = getObjectInfo(token, objectType, objectID, name)
 
     # If objectID was not supplied, it will now be available 
     objectID = get(object, "id", 0)
