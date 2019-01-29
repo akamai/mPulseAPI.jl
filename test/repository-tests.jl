@@ -86,3 +86,38 @@ catch ex
         @test isa(ex, mPulseAPIAuthException) || isa(ex, mPulseAPIBugException)
     end
 end
+
+
+#### Dynamic Alerting ###
+# Dynamic Alerting tests to be run on rum-dev until production ready
+mPulseAPI.setEndpoints("https://rum-dev.soasta.com/concerto")
+
+# Try getting token
+token = getRepositoryToken(DA_mPulseAPITenant, DA_mPulseAPIToken)
+@test !isempty(token)
+
+# Check tenant
+tenant = getRepositoryTenant(token, name=DA_mPulseAPITenant)
+@test !isempty(tenant)
+@test tenant["name"] == "SOASTA_Users"
+
+# Check alert
+DAalert = getRepositoryAlert(token, alertName=DA_mPulseAPIAlert)
+@test !isempty(alert)
+@test DAalert["name"] == "mPulseAPI Dynamic Test Alert"
+@test DAalert["tenantID"] == 1
+@test DAalert["tenantID"] == tenant["id"]
+@test DAalert["attributes"]["dynamic"] == true
+@test DAalert["attributes"]["statisticalModelID"] == 1201
+
+# Check statistical model
+statModel = getRepositoryStatModel(token, statModelID = 1201)
+@test !isempty(statModel)
+@test statModel["id"] == 1201
+@test statModel["parentID"] == 34573101
+@test statModel["tenantID"] == 1
+@test statModel["tenantID"] == 1
+@test statModel["tenantID"] == tenant["id"]
+
+# reset to production mPulse
+mPulseAPI.setEndpoints(mPulseAPI.default_SOASTAEndpoint)
