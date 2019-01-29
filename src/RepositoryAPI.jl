@@ -43,89 +43,8 @@ function getRepositoryObject(token::AbstractString, objectType::AbstractString, 
 
     if object != nothing
         return object
-    end
-
-    local url = ObjectEndpoint * "/" * objectType
-    local query = Dict()
-    local debugID = "(all)"
-
-    # Adjust query URL to use ID or search attribute depending on which is passed in
-    for (k, v) in searchKey
-        if isa(v, Number) ? v > 0 : v != ""
-            if k == :id
-                url *= "/$(v)"
-            else
-                query[k] = v
-            end
-            debugID = "$(k)=$(v)"
-            break
-        end
-    end
-
-
-    if verbose
-        println("GET $url")
-        println("X-Auth-Token: $token")
-        println(query)
-    end
-
-
-    # Attempt to fetch object from repository using auth token
-    resp = Requests.get(url, headers=Dict("X-Auth-Token" => token), query=query)
-
-    if statuscode(resp) == 401
-        throw(mPulseAPIAuthException(resp))
-    elseif statuscode(resp) == 500
-        throw(mPulseAPIBugException(resp))
-    elseif statuscode(resp) != 200
-        throw(mPulseAPIException("Error fetching $(objectType) $(debugID)", resp))
-    end
-
-    # Do not use Requests.json as that expects UTF-8 data, and mPulse API's response is ISO-8859-1
-    json = join(map(Char, resp.data))
-    object = JSON.parse(json)
-
-    # If calling by a searchKey other than ID, the return value will be a Dict with a single key="objects"
-    # and value set to an array of domain objects.
-    # If searching by ID, then the object is returned, so turn it into an array
-    if haskey(object, "objects") && isa(object["objects"], Array)
-        object_list = object["objects"]
     else
-        object_list = [object]
-    end
-
-    if length(object_list) == 0
-        throw(mPulseAPIException("An object matching $debugID was not returned", resp))
-    # If caller has passed in a filter key, then we should only get a single object
-    elseif isKeySet && length(object_list) > 1
-        throw(mPulseAPIException("Found too many matching objects with IDs=($(map(d->d["id"], object_list)))", resp))
-    end
-
-
-    for object in object_list
-        if !isempty(object["body"])
-            # Convert body string to an actual XML root object
-            xdoc = parse_string(object["body"])
-            xroot = root(xdoc)
-        else
-            # LightXML cannot handle empty strings, so just fake it
-            xdoc = XMLDocument()
-            xroot = create_root(xdoc, "")
-        end
-
-        object["body"] = xroot
-        object["created"] = iso8601ToDateTime(object["created"])
-        object["lastModified"] = iso8601ToDateTime(object["lastModified"])
-
-        object["attributes"] = Dict(
-            map(attr -> attr["name"] => fixJSONDataType(attr["value"]), object["attributes"])
-        )
-
-        delete!(object, "schemaVersion")
-        delete!(object, "type")
-        delete!(object, "effectivePermissions")
-
-        writeObjectToCache(objectType, searchKey, object)
+        object_list = getHttpRequest(token, objectType, searchKey, isKeySet)
     end
 
     if isKeySet
@@ -530,5 +449,96 @@ function buildJSON(objectType::AbstractString,
     end
 
     return json
+
+end
+
+# Internal convenience function used to GET from repository
+function getHttpRequest(token::AbstractString, objectType::AbstractString, searchKey::Dict{Symbol, Any}, isKeySet::Bool)
+
+    local url = ObjectEndpoint * "/" * objectType
+    local query = Dict()
+    local debugID = "(all)"
+
+    # Adjust query URL to use ID or search attribute depending on which is passed in
+    for (k, v) in searchKey
+        if isa(v, Number) ? v > 0 : v != ""
+            if k == :id
+                url *= "/$(v)"
+            else
+                query[k] = v
+            end
+            debugID = "$(k)=$(v)"
+            break
+        end
+    end
+
+    if verbose
+        println("GET $url")
+        println("X-Auth-Token: $token")
+        println(query)
+    end
+
+    resp = Requests.get(url, headers=Dict("X-Auth-Token" => token), query=query)
+
+    respStatusCode = statuscode(resp)
+
+    if respStatusCode == 401
+        throw(mPulseAPIAuthException(resp))
+    elseif respStatusCode == 500
+        throw(mPulseAPIBugException(resp))
+    elseif respStatusCode != 200
+        throw(mPulseAPIException("Error fetching $(objectType) $(debugID)", resp))
+    end
+
+    # Do not use Requests.json as that expects UTF-8 data, and mPulse API's response is ISO-8859-1
+    json = join(map(Char, resp.data))
+    object = JSON.parse(json)
+
+      # If calling by a searchKey other than ID, the return value will be a Dict with a single key="objects"
+    # and value set to an array of domain objects.
+    # If searching by ID, then the object is returned, so turn it into an array
+    if haskey(object, "objects") && isa(object["objects"], Array)
+        object_list = object["objects"]
+    else
+        object_list = [object]
+    end
+
+
+    if length(object_list) == 0
+        throw(mPulseAPIException("An object matching $debugID was not returned", resp))
+    # If caller has passed in a filter key, then we should only get a single object
+    elseif isKeySet && length(object_list) > 1
+        throw(mPulseAPIException("Found too many matching objects with IDs=($(map(d->d["id"], object_list)))", resp))
+    end
+
+
+    for object in object_list
+        if !isempty(object["body"])
+            # Convert body string to an actual XML root object
+            xdoc = parse_string(object["body"])
+            xroot = root(xdoc)
+        else
+            # LightXML cannot handle empty strings, so just fake it
+            xdoc = XMLDocument()
+            xroot = create_root(xdoc, "")
+        end
+
+        object["body"] = xroot
+        object["created"] = iso8601ToDateTime(object["created"])
+        object["lastModified"] = iso8601ToDateTime(object["lastModified"])
+
+        object["attributes"] = Dict(
+            map(attr -> attr["name"] => fixJSONDataType(attr["value"]), object["attributes"])
+        )
+
+        delete!(object, "schemaVersion")
+        delete!(object, "type")
+        delete!(object, "effectivePermissions")
+
+        writeObjectToCache(objectType, searchKey, object)
+
+    end
+
+    return object_list
 
 end
