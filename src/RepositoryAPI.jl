@@ -100,9 +100,9 @@ function postRepositoryObject(token::AbstractString,
         !isempty(objectFields) && println(objectFields)
     end
 
-    json = bulidJSON(objectType, objectFields, attributes, body)
+    json = buildPostJSON(objectType, objectFields, attributes, body)
 
-    handlePostResponse(url, json, token)
+    handlePostResponse(url, objectType, objectID, json, token)
 
 end
 
@@ -324,7 +324,7 @@ end
 
 
 # Internal convenience function used to POST to repository
-function postHttp(url::AbstractString, json::Dict{AbstractString, Any}, token::AbstractString)
+function postHttpRequest(url::AbstractString, objectType::AbstractString, objectID::Int64, json::Dict{AbstractString, Any}, token::AbstractString)
    
    try 
       resp = Requests.post(url,
@@ -355,13 +355,13 @@ end
 
 
 # Internal convenience function for handling POST REST API Responses
-function handlePostResponse(url::AbstractString, json::Dict{AbstractString, Any}, token::AbstractString)
+function handlePostResponse(url::AbstractString, objectType::AbstractString, objectID::Int64, json::Dict{AbstractString, Any}, token::AbstractString)
 
    while true
 
       count = 0
 
-      respStatusCode = postHttp(url, json, token)
+      respStatusCode = postHttpRequest(url, objectType, objectID, json, token)
 
          if statuscode(resp) == 401 # Unauthorized.  The security token is missing or invalid. 
             # Retry once
@@ -370,7 +370,7 @@ function handlePostResponse(url::AbstractString, json::Dict{AbstractString, Any}
             else
                # TODO: request new token first
                # token = ...
-               # respStatusCode = postHttp(url, json, token)
+               # respStatusCode = postHttpRequest(url, objectType, json, token)
             end
 
             count += 1
@@ -388,8 +388,8 @@ function handlePostResponse(url::AbstractString, json::Dict{AbstractString, Any}
       
 end
 
-# Internal convenience function for building object JSON entry
-function buildJSON(objectType::AbstractString,
+# Internal convenience function for building object JSON entry used in POST
+function buildPostJSON(objectType::AbstractString,
                   objectFields::Dict=Dict(),
                   attributes::Dict=Dict(),
                   body::Union{AbstractString, LightXML.XMLElement}=""
