@@ -116,7 +116,6 @@ statModel = getRepositoryStatModel(token, statModelID = 1201)
 @test statModel["id"] == 1201
 @test statModel["parentID"] == 34573101
 @test statModel["tenantID"] == 1
-@test statModel["tenantID"] == 1
 @test statModel["tenantID"] == tenant["id"]
 
 # reset to production mPulse
