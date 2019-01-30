@@ -332,9 +332,10 @@ function postHttpRequest(url::AbstractString, objectType::AbstractString, object
          headers = Dict("X-Auth-Token" => token, "Content-type" => "application/json")
     )
 
-      if statuscode(resp) == 400 # Bad request.  The URL or JSON is invalid
-         throw(mPulseAPIException("Error updating $(objectType) $(objectID)", resp))
-      elseif statuscode(resp) == 404 # Not found.  The requested object does not exist
+      # 400 - Bad request.  The URL or JSON is invalid
+      # 404 - Not found.  The requested object does not exist
+      if statuscode(resp) == 400 || statuscode(resp) == 404
+        # Datadog.info("Error updating $(objectType) $(objectID)")
         throw(mPulseAPIException("Error updating $(objectType) $(objectID)", resp))
       end
 
@@ -360,12 +361,14 @@ function handlePostResponse(url::AbstractString, objectType::AbstractString, obj
       resp = postHttpRequest(url, objectType, objectID, json, token)
 
          if statuscode(resp) == 204 # Success
+            # Datadog.info("Successfully updated $(objectType) $(objectID)")
             return resp
 
          elseif statuscode(resp) == 401 # Unauthorized.  The security token is missing or invalid. 
             # Retry once
             if count > 1
-               throw(mPulseAPIAuthException(resp))
+                # Datadog.info("Error updating $(objectType) $(objectID)")
+                throw(mPulseAPIAuthException(resp))
             else
                # TODO: request new token first
                # token = ...
@@ -377,9 +380,10 @@ function handlePostResponse(url::AbstractString, objectType::AbstractString, obj
          elseif 500 < statuscode(resp) <= 599 # Internal server error.  Try again later.
             # Retry up to 5 times
             if count <= 5
-               count += 1
+                count += 1
             else
-               throw(mPulseAPIBugException(resp))
+                # Datadog.info("Error updating $(objectType) $(objectID)")
+                throw(mPulseAPIBugException(resp))
             end
          end
 
@@ -482,10 +486,13 @@ function getHttpRequest(token::AbstractString, objectType::AbstractString, searc
     respStatusCode = statuscode(resp)
 
     if respStatusCode == 401
+        # Datadog.info("Error updating $(objectType) $(objectID)")
         throw(mPulseAPIAuthException(resp))
     elseif respStatusCode == 500
+        # Datadog.info("Error updating $(objectType) $(objectID)")
         throw(mPulseAPIBugException(resp))
     elseif respStatusCode != 200
+        # Datadog.info("Successfully updated $(objectType) $(objectID)")
         throw(mPulseAPIException("Error fetching $(objectType) $(debugID)", resp))
     end
 
