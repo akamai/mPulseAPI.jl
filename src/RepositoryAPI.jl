@@ -326,20 +326,13 @@ end
 # Internal convenience function used to POST to repository
 function postHttpRequest(url::AbstractString, objectType::AbstractString, objectID::Int64, json::Dict{AbstractString, Any}, token::AbstractString)
    
+    resp = nothing
+
    try 
       resp = Requests.post(url,
          json = json,
          headers = Dict("X-Auth-Token" => token, "Content-type" => "application/json")
     )
-
-      # 400 - Bad request.  The URL or JSON is invalid
-      # 404 - Not found.  The requested object does not exist
-      if statuscode(resp) == 400 || statuscode(resp) == 404
-        # Datadog.info("Error updating $(objectType) $(objectID)")
-        throw(mPulseAPIException("Error updating $(objectType) $(objectID)", resp))
-      end
-
-      return resp
 
    catch er
       if isa(er, Base.UVError)
@@ -348,6 +341,16 @@ function postHttpRequest(url::AbstractString, objectType::AbstractString, object
          error("We have not encountered this error before.  Please report this. Timestamp: $(round(Int, datetime2unix(now())))")
       end
    end
+
+  # 400 - Bad request.  The URL or JSON is invalid
+  # 404 - Not found.  The requested object does not exist
+  if statuscode(resp) == 400 || statuscode(resp) == 404
+    # Datadog.info("Error updating $(objectType) $(objectID)")
+    throw(mPulseAPIException("Error updating $(objectType) $(objectID)", resp))
+  end
+
+  return resp
+   
 
 end
 
