@@ -345,7 +345,6 @@ function postHttpRequest(url::AbstractString, objectType::AbstractString, object
   # 400 - Bad request.  The URL or JSON is invalid
   # 404 - Not found.  The requested object does not exist
   if statuscode(resp) == 400 || statuscode(resp) == 404
-    # Datadog.info("Error updating $(objectType) $(objectID)")
     throw(mPulseAPIException("Error updating $(objectType) $(objectID)", resp))
   end
 
@@ -364,13 +363,11 @@ function handlePostResponse(url::AbstractString, objectType::AbstractString, obj
       resp = postHttpRequest(url, objectType, objectID, json, token)
 
          if statuscode(resp) == 204 # Success
-            # Datadog.info("Successfully updated $(objectType) $(objectID)")
             return resp
 
          elseif statuscode(resp) == 401 # Unauthorized.  The security token is missing or invalid. 
             # Retry once
             if count > 1
-                # Datadog.info("Error updating $(objectType) $(objectID)")
                 throw(mPulseAPIAuthException(resp))
             else
                # TODO: request new token first
@@ -385,7 +382,6 @@ function handlePostResponse(url::AbstractString, objectType::AbstractString, obj
             if count <= 5
                 count += 1
             else
-                # Datadog.info("Error updating $(objectType) $(objectID)")
                 throw(mPulseAPIBugException(resp))
             end
          end
@@ -489,13 +485,10 @@ function getHttpRequest(token::AbstractString, objectType::AbstractString, searc
     respStatusCode = statuscode(resp)
 
     if respStatusCode == 401
-        # Datadog.info("Error updating $(objectType) $(objectID)")
         throw(mPulseAPIAuthException(resp))
     elseif respStatusCode == 500
-        # Datadog.info("Error updating $(objectType) $(objectID)")
         throw(mPulseAPIBugException(resp))
     elseif respStatusCode != 200
-        # Datadog.info("Successfully updated $(objectType) $(objectID)")
         throw(mPulseAPIException("Error fetching $(objectType) $(debugID)", resp))
     end
 
