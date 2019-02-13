@@ -369,10 +369,6 @@ function handlePostResponse(url::AbstractString, objectType::AbstractString, obj
             # Retry once
             if count > 1
                 throw(mPulseAPIAuthException(resp))
-            else
-               # TODO: request new token first
-               # token = ...
-               # respStatusCode = postHttpRequest(url, objectType, json, token)
             end
 
             count += 1
