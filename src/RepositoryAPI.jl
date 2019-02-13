@@ -80,6 +80,9 @@ function postRepositoryObject(token::AbstractString,
     # If objectID was not supplied, it will now be available 
     objectID = get(object, "id", 0)
 
+    # Retrieve existing (old) attributes 
+    oldAttributes = Dict{AbstractString, Any}(get(object, "attributes", Dict()))
+
     local isKeySet = false
 
     if filterRequired
@@ -100,7 +103,7 @@ function postRepositoryObject(token::AbstractString,
         !isempty(objectFields) && println(objectFields)
     end
 
-    json = buildPostJSON(objectType, objectFields, attributes, body)
+    json = buildPostJSON(objectType, objectFields, oldAttributes, attributes, body)
 
     handlePostResponse(url, objectType, objectID, json, token)
 
@@ -373,13 +376,13 @@ function handlePostResponse(url::AbstractString, objectType::AbstractString, obj
 
             count += 1
 
-         elseif 500 < statuscode(resp) <= 599 # Internal server error.  Try again later.
+         else # Internal server error.  Try again later. Expecting 500 < resp < 509
             # Retry up to 5 times
-            if count <= 5
-                count += 1
-            else
-                throw(mPulseAPIBugException(resp))
-            end
+             if count <= 5
+                 count += 1
+             else
+                 throw(mPulseAPIBugException(resp))
+             end
          end
 
       end
@@ -389,6 +392,7 @@ end
 # Internal convenience function for building object JSON entry used in POST
 function buildPostJSON(objectType::AbstractString,
                   objectFields::Dict=Dict(),
+                  oldAttributes::Dict=Dict(),
                   attributes::Dict=Dict(),
                   body::Union{AbstractString, LightXML.XMLElement}=""
 )
@@ -399,10 +403,10 @@ function buildPostJSON(objectType::AbstractString,
 
     # If attributes is supplied, update the object’s attributes field
     if !isempty(attributes)
+        attributes = convert(Dict{AbstractString, Any}, attributes)
 
       if objectType == "statisticalmodel"
          # Merge existing and new attributes needed for statisticalmodel
-           oldAttributes = object["attributes"]
            for key in keys(oldAttributes)
                if !haskey(attributes, key)
                    attributes[key] = oldAttributes[key]
