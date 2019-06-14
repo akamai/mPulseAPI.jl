@@ -24,6 +24,8 @@ verbosity = (get(ENV, "mPulseAPIVerbose", "false") == "true")
 
 endpoint = get(ENV, "mPulseAPIEndpoint", "")
 
+testDA = get(ENV, "testDA", "false")
+
 if !isempty(endpoint)
     mPulseAPI.setEndpoints(endpoint)
 end
