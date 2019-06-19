@@ -89,39 +89,29 @@ end
 
 
 #### Dynamic Alerting ###
-# Dynamic Alerting tests to be run on rum-dev until production ready
+# Try getting token
+token = getRepositoryToken(DA_mPulseAPITenant, DA_mPulseAPIToken)
+@test !isempty(token)
 
-if testDA == "true"
-	
-	mPulseAPI.setEndpoints("https://rum-dev.soasta.com/concerto")
+# Check tenant
+tenant = getRepositoryTenant(token, name=DA_mPulseAPITenant)
+@test !isempty(tenant)
+@test tenant["name"] == "SOASTA_Users"
 
-	# Try getting token
-	token = getRepositoryToken(DA_mPulseAPITenant, DA_mPulseAPIToken)
-	@test !isempty(token)
+# Check alert
+DAalert = getRepositoryAlert(token, alertName=DA_mPulseAPIAlert)
+@test !isempty(alert)
+@test DAalert["name"] == "mPulseAPI Dynamic Test Alert"
+@test DAalert["id"] == 34607825
+@test DAalert["tenantID"] == 1
+@test DAalert["tenantID"] == tenant["id"]
+@test DAalert["attributes"]["dynamic"] == true
+@test DAalert["attributes"]["statisticalModelID"] == 11204
 
-	# Check tenant
-	tenant = getRepositoryTenant(token, name=DA_mPulseAPITenant)
-	@test !isempty(tenant)
-	@test tenant["name"] == "SOASTA_Users"
-
-	# Check alert
-	DAalert = getRepositoryAlert(token, alertName=DA_mPulseAPIAlert)
-	@test !isempty(alert)
-	@test DAalert["name"] == "mPulseAPI Dynamic Test Alert"
-	@test DAalert["id"] == 34607825
-	@test DAalert["tenantID"] == 1
-	@test DAalert["tenantID"] == tenant["id"]
-	@test DAalert["attributes"]["dynamic"] == true
-	@test DAalert["attributes"]["statisticalModelID"] == 11204
-
-	# Check statistical model
-	statModel = getRepositoryStatModel(token, statModelID = 11204)
-	@test !isempty(statModel)
-	@test statModel["id"] == 11204
-	@test statModel["parentID"] == 34607825
-	@test statModel["tenantID"] == 1
-	@test statModel["tenantID"] == tenant["id"]
-
-	# reset to production mPulse
-	mPulseAPI.setEndpoints(mPulseAPI.default_SOASTAEndpoint)
-end
+# Check statistical model
+statModel = getRepositoryStatModel(token, statModelID = 11204)
+@test !isempty(statModel)
+@test statModel["id"] == 11204
+@test statModel["parentID"] == 34607825
+@test statModel["tenantID"] == 1
+@test statModel["tenantID"] == tenant["id"]
