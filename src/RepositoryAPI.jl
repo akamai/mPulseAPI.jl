@@ -392,7 +392,7 @@ end
 # Internal convenience function for building object JSON entry used in POST
 function buildPostJSON(
     objectType::AbstractString,
-    objectID::AbstractString,
+    objectID::Int64,
     objectFields::Dict=Dict(),
     oldAttributes::Dict=Dict(),
     attributes::Dict=Dict(),
