@@ -103,7 +103,7 @@ function postRepositoryObject(token::AbstractString,
         !isempty(objectFields) && println(objectFields)
     end
 
-    json = buildPostJSON(objectType, objectFields, oldAttributes, attributes, body)
+    json = buildPostJSON(objectType, objectID, objectFields, oldAttributes, attributes, body)
 
     handlePostResponse(url, objectType, objectID, json, token)
 
@@ -390,16 +390,19 @@ function handlePostResponse(url::AbstractString, objectType::AbstractString, obj
 end
 
 # Internal convenience function for building object JSON entry used in POST
-function buildPostJSON(objectType::AbstractString,
-                  objectFields::Dict=Dict(),
-                  oldAttributes::Dict=Dict(),
-                  attributes::Dict=Dict(),
-                  body::Union{AbstractString, LightXML.XMLElement}=""
+function buildPostJSON(
+    objectType::AbstractString,
+    objectID::AbstractString,
+    objectFields::Dict=Dict(),
+    oldAttributes::Dict=Dict(),
+    attributes::Dict=Dict(),
+    body::Union{AbstractString, LightXML.XMLElement}=""
 )
 
    # Initialize JSON Dict
    json = Dict{AbstractString, Any}()
    json["type"] = objectType
+   json["id"] = objectID
 
     # If attributes is supplied, update the object’s attributes field
     if !isempty(attributes)
