@@ -89,29 +89,29 @@ end
 
 
 #### Dynamic Alerting ###
-# Try getting token
-token = getRepositoryToken(DA_mPulseAPITenant, DA_mPulseAPIToken)
-@test !isempty(token)
-
-# Check tenant
-tenant = getRepositoryTenant(token, name=DA_mPulseAPITenant)
-@test !isempty(tenant)
-@test tenant["name"] == "SOASTA_Users"
-
 # Check alert
 DAalert = getRepositoryAlert(token, alertName=DA_mPulseAPIAlert)
 @test !isempty(alert)
 @test DAalert["name"] == "mPulseAPI Dynamic Test Alert"
-@test DAalert["id"] == 34607825
-@test DAalert["tenantID"] == 1
+@test DAalert["id"] == 2251091
+@test DAalert["tenantID"] == 236904
 @test DAalert["tenantID"] == tenant["id"]
 @test DAalert["attributes"]["dynamic"] == true
-@test DAalert["attributes"]["statisticalModelID"] == 11204
+@test DAalert["attributes"]["statisticalModelID"] == 415
+@test DAalert["attributes"]["state"] == "Updated"
+
+# Update alert via post request
+postRepositoryAlert(token, alertID = DAalert["id"], attributes = Dict("version" => 2))
 
 # Check statistical model
-statModel = getRepositoryStatModel(token, statModelID = 11204)
+statModel = getRepositoryStatModel(token, statModelID = 402)
 @test !isempty(statModel)
-@test statModel["id"] == 11204
-@test statModel["parentID"] == 34607825
-@test statModel["tenantID"] == 1
+@test statModel["id"] == 415
+@test statModel["parentID"] == 2251091
+@test statModel["tenantID"] == 236904
 @test statModel["tenantID"] == tenant["id"]
+@test statModel["attributes"]["type"] == 1
+@test statModel["attributes"]["version"] == 1.0
+
+# Update statistical model via post request
+postRepositoryStatModel(token, statModelID = model["id"], attributes = Dict("type" => 1))
