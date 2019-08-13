@@ -104,7 +104,7 @@ DAalert = getRepositoryAlert(token, alertName=DA_mPulseAPIAlert)
 postRepositoryAlert(token, alertID = DAalert["id"], attributes = Dict("version" => 2))
 
 # Check statistical model
-statModel = getRepositoryStatModel(token, statModelID = 402)
+statModel = getRepositoryStatModel(token, statModelID = DAalert["attributes"]["statisticalModelID"])
 @test !isempty(statModel)
 @test statModel["id"] == 415
 @test statModel["parentID"] == 2251091
@@ -114,4 +114,4 @@ statModel = getRepositoryStatModel(token, statModelID = 402)
 @test statModel["attributes"]["version"] == 1.0
 
 # Update statistical model via post request
-postRepositoryStatModel(token, statModelID = model["id"], attributes = Dict("type" => 1))
+postRepositoryStatModel(token, statModelID = statModel["id"], attributes = Dict("type" => 1))
