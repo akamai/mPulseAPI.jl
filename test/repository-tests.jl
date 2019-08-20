@@ -107,9 +107,10 @@ postRepositoryAlert(token, alertID = DAalert["id"], attributes = Dict("version" 
 statModel = getRepositoryStatModel(token, statModelID = DAalert["attributes"]["statisticalModelID"])
 @test !isempty(statModel)
 @test statModel["id"] == 415
+@test statModel["parentID"] == DAalert["id"]
 @test statModel["parentID"] == 2251091
-@test statModel["tenantID"] == 236904
 @test statModel["tenantID"] == tenant["id"]
+@test statModel["tenantID"] == 236904
 @test statModel["attributes"]["type"] == 1
 @test statModel["attributes"]["version"] == 1.0
 
