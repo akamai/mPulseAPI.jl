@@ -259,7 +259,7 @@ function deleteRepositoryStatModel(token::AbstractString;
         Dict{Symbol, Any}(:id => statModelID, :name => statModelName)
     )
     
-    if statuscode(test) == 204
+    if statuscode(resp) == 204
         return true
     else
         return false
