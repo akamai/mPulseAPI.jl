@@ -14,6 +14,9 @@ end
 
 mPulseAPIToken  = ENV["mPulseAPIToken"]
 mPulseAPITenant = ENV["mPulseAPITenant"]
+mPulseAPIAlert  = ENV["mPulseAPIAlert"]
+
+DA_mPulseAPIAlert  = ENV["DA_mPulseAPIAlert"]
 
 verbosity = (get(ENV, "mPulseAPIVerbose", "false") == "true")
 

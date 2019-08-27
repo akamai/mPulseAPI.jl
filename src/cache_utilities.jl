@@ -65,7 +65,7 @@ end
 """
 Expire an entry from the domain cache.  Use this if the domain has changed.
 
-#### Optional Arguments
+#### Keyword Arguments
 `domainID::Int64`
 :    The ID of the domain to expire.
 
@@ -89,7 +89,7 @@ clearDomainCache(;domainID::Int64=0, appKey::AbstractString="", appName::Abstrac
 """
 Expire an entry from the tenant cache.  Use this if the tenant has changed.
 
-#### Optional Arguments
+#### Keyword Arguments
 `tenantID::Int64`
 :    The ID of the tenant to expire.
 
@@ -136,3 +136,44 @@ function clearTokenCache(tenant::AbstractString)
     return false
 end
 
+
+"""
+Expire an entry from the alert cache.  Use this if the alert has changed.
+
+#### Keyword Arguments
+`alertID::Int64`
+:    The ID of the alert to expire.
+
+`alertName::AbstractString`
+:    The Alert name in mPulse.  This can be found from the mPulse alert configuration dialog.
+
+#### Returns
+`true`
+:    on success
+
+`false`
+:    if the entry was not in cache
+
+"""
+clearAlertCache(;alertID::Int64=0, alertName::AbstractString="") = clearObjectCache("alert", Dict{Symbol, Any}(:id => alertID, :name => alertName))
+
+
+"""
+Expire an entry from the statistical model cache.  Use this if the model has changed.
+
+#### Keyword Arguments
+`statModelID::Int64`
+:    The ID of the statistical model to expire.
+
+`statModelName::AbstractString`
+:    The statistical model name in mPulse.  This can be found from the mPulse statistical model configuration dialog.
+
+#### Returns
+`true`
+:    on success
+
+`false`
+:    if the entry was not in cache
+
+"""
+clearStatModelCache(;statModelID::Int64=0, statModelName::AbstractString="") = clearObjectCache("statisticalmodel", Dict{Symbol, Any}(:id => statModelID, :name => statModelName))
