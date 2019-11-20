@@ -97,13 +97,14 @@ You can clear the cache for this tenant using [`mPulseAPI.clearAlertCache`](@ref
 """
 function getRepositoryAlert(token::AbstractString; alertID::Int64=0, alertName::AbstractString="")
 
-    alert = getRepositoryObject(
+    alert_list = getRepositoryObject(
                 token,
                 "alert",
-                Dict{Symbol, Any}(:id => alertID, :name => alertName)
+                Dict{Symbol, Any}(:id => alertID, :name => alertName),
+                filterRequired=false
         )
 
-    return alert
+    return alert_list
 end
 
 
