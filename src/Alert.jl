@@ -125,7 +125,6 @@ function getRepositoryAlert(token::AbstractString; alertID::Int64=0, alertName::
     else
         return alert_list
     end
-
 end
 
 
