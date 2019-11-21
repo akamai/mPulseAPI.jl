@@ -97,13 +97,27 @@ You can clear the cache for this tenant using [`mPulseAPI.clearStatModelCache`](
 """
 function getRepositoryStatModel(token::AbstractString; statModelID::Int64=0, statModelName::AbstractString="")
 
-    statModel = getRepositoryObject(
+    statModel_list = getRepositoryObject(
                 token,
                 "statisticalmodel",
-                Dict{Symbol, Any}(:id => statModelID, :name => statModelName)
+                Dict{Symbol, Any}(:id => statModelID, :name => statModelName),
+                filterRequired=false
         )
 
-    return statModel
+    # Always convert to an array for easier processing
+    if !isa(statModel_list, Array)
+        statModel_list = [statModel_list]
+    end    
+
+    # Return the first element only if the caller asked for a unique statisticalmodel, else
+    # return the list even if it only has one element in it
+    if statModelID != 0 || statModelName != ""
+        return statModel_list[1]
+    else
+        return statModel_list
+    end
+
+    return statModel_list
 end
 
 
