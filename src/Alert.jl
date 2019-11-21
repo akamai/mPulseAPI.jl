@@ -104,8 +104,22 @@ function getRepositoryAlert(token::AbstractString; alertID::Int64=0, alertName::
                 filterRequired=false
         )
 
-    return alert_list
+    # Always convert to an array for easier processing
+    if !isa(alert_list, Array)
+        alert_list = [alert_list]
+    end
+
+    # Return the first element only if the caller asked for a unique alert, else
+    # return the list even if it only has one element in it
+    if alertID != 0 || alertName != ""
+        return alert_list[1]
+    else
+        return alert_list
+    end
+
 end
+
+
 
 
 
