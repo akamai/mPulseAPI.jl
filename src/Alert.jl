@@ -121,8 +121,6 @@ end
 
 
 
-
-
 """
 Updates an Alert object from the mPulse repository
 
