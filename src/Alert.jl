@@ -224,7 +224,7 @@ function postRepositoryAlert(token::AbstractString;
                             alertName::AbstractString="",
                             attributes::Dict=Dict(),
                             objectFields::Dict=Dict(),
-                            errorXML::Union{AbstractString, LightXML.XMLElement}=""
+                            alertBody::Union{AbstractString, LightXML.XMLElement}=""
 )
 
     postRepositoryObject(
@@ -233,7 +233,7 @@ function postRepositoryAlert(token::AbstractString;
         Dict{Symbol, Any}(:id => alertID, :name => alertName),
         attributes = attributes,
         objectFields = objectFields,
-        body = errorXML
+        body = alertBody
     )
     
     return nothing
