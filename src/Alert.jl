@@ -113,9 +113,9 @@ function getRepositoryAlert(token::AbstractString; alertID::Int64=0, alertName::
     dateFormat = "y-m-dTH:M:S.s+z"
     for alert in alert_list
         alertAttributes = alert["attributes"]
-        alertAttributes["lastUpdated"] = ZonedDateTime(alertAttributes["lastUpdated"], dateFormat)
-        alertAttributes["lastTriggered"] = ZonedDateTime(alertAttributes["lastTriggered"], dateFormat)
-        alertAttributes["lastCleared"] = ZonedDateTime(alertAttributes["lastCleared"], dateFormat)
+        for lastTimestamp in ["lastCleared", "lastTriggered", "lastUpdated"]
+            alertAttributes[lastTimestamp] = isa(alertAttributes[lastTimestamp], AbstractString) ? ZonedDateTime(alertAttributes[lastTimestamp], dateFormat) : alertAttributes[lastTimestamp]
+        end
     end
 
     # Return the first element only if the caller asked for a unique alert, else
