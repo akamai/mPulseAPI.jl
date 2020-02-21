@@ -116,8 +116,7 @@ function getRepositoryStatModel(token::AbstractString; statModelID::Int64=0, sta
     else
         return statModel_list
     end
-
-    return statModel_list
+    
 end
 
 
