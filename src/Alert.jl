@@ -225,7 +225,7 @@ function postRepositoryAlert(token::AbstractString;
                             attributes::Dict=Dict(),
                             objectFields::Dict=Dict(),
                             alertBody::Union{AbstractString, LightXML.XMLElement}="",
-                            errorXML::Union{AbstractString, LightXML.XMLElement}="", # deprecated, remains here for backwards compatibility
+                            errorXML::Union{AbstractString, LightXML.XMLElement}="" # deprecated, remains here for backwards compatibility
 )
 
     
