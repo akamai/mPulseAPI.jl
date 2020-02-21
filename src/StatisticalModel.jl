@@ -105,7 +105,7 @@ function getRepositoryStatModel(token::AbstractString; statModelID::Int64=0, sta
         )
 
     # Always convert to an array for easier processing
-    if !isa(statModel_list, Array)
+    if !isa(statModel_list, AbstractArray)
         statModel_list = Dict{AbstractString, Any}[statModel_list]
     end    
 

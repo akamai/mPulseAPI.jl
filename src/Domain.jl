@@ -110,7 +110,7 @@ function getRepositoryDomain(token::AbstractString; domainID::Int64=0, appKey::A
         )
 
     # Always convert to an array for easier processing
-    if !isa(domain_list, Array)
+    if !isa(domain_list, AbstractArray)
         domain_list = Dict{AbstractString, Any}[domain_list]
     end
 

@@ -105,7 +105,7 @@ function getRepositoryAlert(token::AbstractString; alertID::Int64=0, alertName::
         )
 
     # Always convert to an array for easier processing
-    if !isa(alert_list, Array)
+    if !isa(alert_list, AbstractArray)
         alert_list = Dict{AbstractString, Any}[alert_list]
     end
 
