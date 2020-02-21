@@ -97,13 +97,35 @@ You can clear the cache for this tenant using [`mPulseAPI.clearAlertCache`](@ref
 """
 function getRepositoryAlert(token::AbstractString; alertID::Int64=0, alertName::AbstractString="")
 
-    alert = getRepositoryObject(
+    alert_list = getRepositoryObject(
                 token,
                 "alert",
-                Dict{Symbol, Any}(:id => alertID, :name => alertName)
+                Dict{Symbol, Any}(:id => alertID, :name => alertName),
+                filterRequired=false
         )
 
-    return alert
+    # Always convert to an array for easier processing
+    if !isa(alert_list, AbstractArray)
+        alert_list = Dict{AbstractString, Any}[alert_list]
+    end
+
+    # Convert alert attribute dates to ZonedDateTime
+    dateFormat = "y-m-dTH:M:S.s+z"
+    for alert in alert_list
+        alertAttributes = alert["attributes"]
+        for lastTimestamp in ["lastCleared", "lastTriggered", "lastUpdated"]
+            alertAttributes[lastTimestamp] = isa(alertAttributes[lastTimestamp], AbstractString) ? ZonedDateTime(alertAttributes[lastTimestamp], dateFormat) : alertAttributes[lastTimestamp]
+        end
+    end
+
+    # Return the first element only if the caller asked for a unique alert, else
+    # return the list even if it only has one element in it
+    if alertID != 0 || alertName != ""
+        return alert_list[1]
+    else
+        return alert_list
+    end
+
 end
 
 
@@ -202,8 +224,15 @@ function postRepositoryAlert(token::AbstractString;
                             alertName::AbstractString="",
                             attributes::Dict=Dict(),
                             objectFields::Dict=Dict(),
-                            errorXML::Union{AbstractString, LightXML.XMLElement}=""
+                            alertBody::Union{AbstractString, LightXML.XMLElement}="",
+                            errorXML::Union{AbstractString, LightXML.XMLElement}="" # deprecated, remains here for backwards compatibility
 )
+
+    
+    # Renaming errorXML argument to alertBody; safeguard until all code is updated
+    if isempty(alertBody) && errorXML != ""
+        alertBody = errorXML
+    end
 
     postRepositoryObject(
         token,
@@ -211,7 +240,7 @@ function postRepositoryAlert(token::AbstractString;
         Dict{Symbol, Any}(:id => alertID, :name => alertName),
         attributes = attributes,
         objectFields = objectFields,
-        body = errorXML
+        body = alertBody
     )
     
     return nothing
