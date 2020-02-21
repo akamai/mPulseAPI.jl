@@ -230,7 +230,7 @@ function postRepositoryAlert(token::AbstractString;
 
     
     # Renaming errorXML argument to alertBody; safeguard until all code is updated
-    if errorXML != ""
+    if isempty(alertBody) && errorXML != ""
         alertBody = errorXML
     end
 
