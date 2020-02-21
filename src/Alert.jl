@@ -106,7 +106,7 @@ function getRepositoryAlert(token::AbstractString; alertID::Int64=0, alertName::
 
     # Always convert to an array for easier processing
     if !isa(alert_list, Array)
-        alert_list = [alert_list]
+        alert_list = Dict{AbstractString, Any}[alert_list]
     end
 
     # Convert alert attribute dates to ZonedDateTime

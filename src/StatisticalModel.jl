@@ -106,7 +106,7 @@ function getRepositoryStatModel(token::AbstractString; statModelID::Int64=0, sta
 
     # Always convert to an array for easier processing
     if !isa(statModel_list, Array)
-        statModel_list = [statModel_list]
+        statModel_list = Dict{AbstractString, Any}[statModel_list]
     end    
 
     # Return the first element only if the caller asked for a unique statisticalmodel, else
