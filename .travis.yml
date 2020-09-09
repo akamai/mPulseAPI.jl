@@ -3,7 +3,7 @@ os:
 - linux
 
 julia:
-- 0.4
+- 1.0
 
 git:
   quiet: true
