@@ -1,5 +1,5 @@
 using mPulseAPI
-using Base.Test
+using Test
 
 # Check environment
 if !haskey(ENV, "mPulseAPIToken")
@@ -29,8 +29,16 @@ end
 mPulseAPI.setVerbose(verbosity)
 
 
-include("repository-tests.jl")
+@testset "mPulseAPI" begin
+    @testset "Repository" begin
+        include("repository-tests.jl")
+    end
 
-include("query-tests.jl")
+    @testset "Query" begin
+        include("query-tests.jl")
+    end
 
-include("zzz_change-url-tests.jl")
+    @testset "Change URL" begin
+        include("zzz_change-url-tests.jl")
+    end
+end
