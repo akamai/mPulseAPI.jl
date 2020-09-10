@@ -105,7 +105,7 @@ function getSymbols(mod::Module; order=[Module, DataType, Function])
 
         if file != ""
             lines = open(readlines, file)
-            line = find(x -> ismatch(Regex("^$(declarator[typ])$(name)"), x), lines)
+            line = find(x -> occursin(Regex("^$(declarator[typ])$(name)"), x), lines)
             if length(line) == 0
                 println(Regex("^$(declarator[typ]) +$(name)"))
                 println(lines)
