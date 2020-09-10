@@ -70,16 +70,17 @@ function getRepositoryToken(tenant::AbstractString, apiToken::AbstractString)
         println(Dict("tenant" => tenant, "apiToken" => apiToken))
     end
 
-    resp = Requests.put(TokenEndpoint,
-        json = Dict("tenant" => tenant, "apiToken" => apiToken),
-        headers = Dict("Content-type" => "application/json")
+    resp = HTTP.put(TokenEndpoint,
+        Dict("Content-type" => "application/json"),
+        JSON.json(Dict("tenant" => tenant, "apiToken" => apiToken)),
+        status_exception=false
     )
 
-    if statuscode(resp) != 200
+    if resp.status != 200
         throw(mPulseAPIAuthException(resp))
     end
 
-    resp = Requests.json(resp)
+    resp = JSON.parse(String(resp.body))
 
     object = Dict(
         "apiToken" => apiToken,

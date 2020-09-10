@@ -216,7 +216,6 @@ function postRepositoryStatModel(token::AbstractString;
                             objectFields::Dict=Dict(),
                             errorXML::Union{AbstractString, LightXML.XMLElement}=""
 )
-
     postRepositoryObject(
         token,
         "statisticalmodel",
@@ -227,7 +226,6 @@ function postRepositoryStatModel(token::AbstractString;
     )
 
     return nothing
-
 end
 
 
@@ -264,12 +262,11 @@ function deleteRepositoryStatModel(token::AbstractString;
                             statModelID::Int64=0,
                             statModelName::AbstractString=""
 )
-
     resp = deleteRepositoryObject(
         token,
         "statisticalmodel",
         Dict{Symbol, Any}(:id => statModelID, :name => statModelName)
     )
 
-    return statuscode(resp) == 204
+    return resp.status == 204
 end

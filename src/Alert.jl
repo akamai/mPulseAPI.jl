@@ -293,5 +293,5 @@ function deleteRepositoryAlert(token::AbstractString;
         Dict{Symbol, Any}(:id => alertID, :name => alertName)
     )
 
-    return statuscode(resp) == 204
+    return resp.status == 204
 end
