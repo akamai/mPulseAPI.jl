@@ -140,7 +140,7 @@ At least one of `alertID` or `alertName` must be passed in to update the alert o
 
 #### Keyword Arguments
 `alertID::Int64`
-:    The ID of the alert to update.  
+:    The ID of the alert to update.
 
 `alertName::AbstractString`
 :    The Alert name in mPulse. This is available from the mPulse domain configuration dialog.
@@ -226,8 +226,6 @@ function postRepositoryAlert(token::AbstractString;
                             alertBody::Union{AbstractString, LightXML.XMLElement}="",
                             errorXML::Union{AbstractString, LightXML.XMLElement}="" # deprecated, remains here for backwards compatibility
 )
-
-    
     # Renaming errorXML argument to alertBody; safeguard until all code is updated
     if isempty(alertBody) && errorXML != ""
         alertBody = errorXML
@@ -241,9 +239,8 @@ function postRepositoryAlert(token::AbstractString;
         objectFields = objectFields,
         body = alertBody
     )
-    
-    return nothing
 
+    return nothing
 end
 
 
@@ -286,11 +283,6 @@ function deleteRepositoryAlert(token::AbstractString;
         "alert",
         Dict{Symbol, Any}(:id => alertID, :name => alertName)
     )
-    
-    if statuscode(resp) == 204
-        return true
-    else
-        return false
-    end
 
+    return statuscode(resp) == 204
 end

@@ -107,7 +107,7 @@ function getRepositoryStatModel(token::AbstractString; statModelID::Int64=0, sta
     # Always convert to an array for easier processing
     if !isa(statModel_list, AbstractArray)
         statModel_list = Dict{AbstractString, Any}[statModel_list]
-    end    
+    end
 
     # Return the first element only if the caller asked for a unique statisticalmodel, else
     # return the list even if it only has one element in it
@@ -116,7 +116,6 @@ function getRepositoryStatModel(token::AbstractString; statModelID::Int64=0, sta
     else
         return statModel_list
     end
-    
 end
 
 
@@ -226,7 +225,7 @@ function postRepositoryStatModel(token::AbstractString;
         objectFields = objectFields,
         body = errorXML
     )
-    
+
     return nothing
 
 end
@@ -271,11 +270,6 @@ function deleteRepositoryStatModel(token::AbstractString;
         "statisticalmodel",
         Dict{Symbol, Any}(:id => statModelID, :name => statModelName)
     )
-    
-    if statuscode(resp) == 204
-        return true
-    else
-        return false
-    end
 
+    return statuscode(resp) == 204
 end
