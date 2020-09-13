@@ -522,14 +522,14 @@ function getTimersMetrics(token::AbstractString, appKey::AbstractString; filters
 
                 # This is returned from in-memory cache on subsequent calls, so safe to call in a loop
                 domain = getRepositoryDomain(token, appKey=appKey)
-    
+
                 # Invert and merge both maps
                 custom = Dict(
                             [ Symbol("CustomMetric", v["index"]) => k for (k, v) in domain["custom_metrics"] ]
                             ∪
                             [ Symbol(v["mpulseapiname"]) => k for (k, v) in domain["custom_timers"] ]
                         )
-    
+
                 if haskey(custom, name)
                     name = custom[name]
                 else

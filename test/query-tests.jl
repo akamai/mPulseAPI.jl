@@ -31,10 +31,10 @@ function testDimensionTable(method, first_symbol, first_friendly)
     local x = "--"
     try
         x = getfield(mPulseAPI, method)(token, appKey)
-    
+
         @test size(x, 2) == 5
         @test names(x) == [first_symbol, :t_done_median, :t_done_moe, :t_done_count, :t_done_total_pc]
-    
+
         x = getfield(mPulseAPI, method)(token, appKey, friendly_names=true)
         @test size(x, 2) == 5
         @test names(x) == [Symbol(first_friendly), Symbol("Median Time (ms)"), Symbol("MoE (ms)"), Symbol("Measurements"), Symbol("% of total")]
@@ -68,7 +68,7 @@ for dimension in ["browser", "page_group", "country", "bw_block", "ab_test"]
     local metrics = []
     try
         metrics = mPulseAPI.getMetricsByDimension(token, appKey, dimension)
-    
+
         @test size(metrics, 2) == 1 + length(domain["custom_metrics"])
         @test sort(names(metrics)) == sort(map(Symbol, [ dimension; collect(keys(domain["custom_metrics"])) ]))
 
@@ -152,7 +152,7 @@ for tuple in metrics
         end
 
         push!(metric_frames, x)
-    
+
         @test size(x, 2) == 2
         @test names(x) == [:t_done, tuple[2]]
 

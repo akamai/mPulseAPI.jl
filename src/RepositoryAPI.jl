@@ -77,10 +77,10 @@ function postRepositoryObject(token::AbstractString,
 
     object = getObjectInfo(token, objectType, objectID, name)
 
-    # If objectID was not supplied, it will now be available 
+    # If objectID was not supplied, it will now be available
     objectID = get(object, "id", 0)
 
-    # Retrieve existing (old) attributes 
+    # Retrieve existing (old) attributes
     oldAttributes = Dict{AbstractString, Any}(get(object, "attributes", Dict()))
 
     local isKeySet = false
@@ -128,7 +128,7 @@ function deleteRepositoryObject(token::AbstractString,
 
     object = getObjectInfo(token, objectType, objectID, name)
 
-    # If objectID was not supplied, it will now be available 
+    # If objectID was not supplied, it will now be available
     objectID = get(object, "id", 0)
 
     local url = ObjectEndpoint * "/" * objectType * "/$(objectID)"
@@ -328,65 +328,55 @@ end
 
 # Internal convenience function used to POST to repository
 function postHttpRequest(url::AbstractString, objectType::AbstractString, objectID::Int64, json::Dict{AbstractString, Any}, token::AbstractString)
-   
     resp = nothing
 
-   try 
-      resp = Requests.post(url,
-         json = json,
-         headers = Dict("X-Auth-Token" => token, "Content-type" => "application/json")
-    )
+    try
+        resp = Requests.post(url,
+                             json = json,
+                             headers = Dict("X-Auth-Token" => token, "Content-type" => "application/json")
+                        )
+    catch er
+        if isa(er, Base.UVError)
+            error("TCP timeout")
+        else
+            error("We have not encountered this error before.  Please report this. Timestamp: $(round(Int, datetime2unix(now())))")
+        end
+    end
 
-   catch er
-      if isa(er, Base.UVError)
-         error("TCP timeout")
-      else
-         error("We have not encountered this error before.  Please report this. Timestamp: $(round(Int, datetime2unix(now())))")
-      end
-   end
+    # 400 - Bad request.  The URL or JSON is invalid
+    # 404 - Not found.  The requested object does not exist
+    if statuscode(resp) == 400 || statuscode(resp) == 404
+        throw(mPulseAPIException("Error updating $(objectType) $(objectID)", resp))
+    end
 
-  # 400 - Bad request.  The URL or JSON is invalid
-  # 404 - Not found.  The requested object does not exist
-  if statuscode(resp) == 400 || statuscode(resp) == 404
-    throw(mPulseAPIException("Error updating $(objectType) $(objectID)", resp))
-  end
-
-  return resp
-   
-
+    return resp
 end
 
 
 # Internal convenience function for handling POST REST API Responses
 function handlePostResponse(url::AbstractString, objectType::AbstractString, objectID::Int64, json::Dict{AbstractString, Any}, token::AbstractString)
-
     count = 0
-    while count <= 5 
+    while count <= 5
+        resp = postHttpRequest(url, objectType, objectID, json, token)
 
-      resp = postHttpRequest(url, objectType, objectID, json, token)
-
-         if statuscode(resp) == 204 # Success
+        if statuscode(resp) == 204 # Success
             return resp
-
-         elseif statuscode(resp) == 401 # Unauthorized.  The security token is missing or invalid. 
+        elseif statuscode(resp) == 401 # Unauthorized.  The security token is missing or invalid.
             # Retry once
             if count > 1
                 throw(mPulseAPIAuthException(resp))
             end
 
             count += 1
-
-         else # Internal server error.  Try again later. Expecting 500 < resp < 509
+        else # Internal server error.  Try again later. Expecting 500 < resp < 509
             # Retry up to 5 times
-             if count <= 5
-                 count += 1
-             else
-                 throw(mPulseAPIBugException(resp))
-             end
-         end
-
-      end
-      
+            if count <= 5
+                count += 1
+            else
+                throw(mPulseAPIBugException(resp))
+            end
+        end
+    end
 end
 
 # Internal convenience function for building object JSON entry used in POST
@@ -398,32 +388,31 @@ function buildPostJSON(
     attributes::Dict=Dict(),
     body::Union{AbstractString, LightXML.XMLElement}=""
 )
-
-   # Initialize JSON Dict
-   json = Dict{AbstractString, Any}()
-   json["type"] = objectType
-   json["id"] = objectID
+    # Initialize JSON Dict
+    json = Dict{AbstractString, Any}()
+    json["type"] = objectType
+    json["id"] = objectID
 
     # If attributes is supplied, update the object’s attributes field
     if !isempty(attributes)
         attributes = convert(Dict{AbstractString, Any}, attributes)
 
-      if objectType == "statisticalmodel"
-         # Merge existing and new attributes needed for statisticalmodel
-           for key in keys(oldAttributes)
-               if !haskey(attributes, key)
-                   attributes[key] = oldAttributes[key]
-               end
-           end
+        if objectType == "statisticalmodel"
+        # Merge existing and new attributes needed for statisticalmodel
+            for key in keys(oldAttributes)
+                if !haskey(attributes, key)
+                    attributes[key] = oldAttributes[key]
+                end
+            end
         end
 
-      attributesDict = []
+        attributesDict = []
 
-      for (key, val) in attributes
-         push!(attributesDict, Dict("name" => key, "value"=> val))
-      end
+        for (key, val) in attributes
+            push!(attributesDict, Dict("name" => key, "value"=> val))
+        end
 
-      json["attributes"] = attributesDict
+        json["attributes"] = attributesDict
 
     end
 
@@ -434,7 +423,7 @@ function buildPostJSON(
         end
     end
 
-    # If the bodyError argument is supplied, update this in the object 
+    # If the bodyError argument is supplied, update this in the object
     if body != ""
         if isa(body, AbstractString)
             try
@@ -454,7 +443,6 @@ function buildPostJSON(
     end
 
     return json
-
 end
 
 # Internal convenience function used to GET from repository

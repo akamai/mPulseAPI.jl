@@ -101,7 +101,7 @@ if !isempty(DA_mPulseAPIAlert)
     @test DAalert["tenantID"] == tenant["id"]
     @test DAalert["attributes"]["dynamic"] == true
     @test DAalert["attributes"]["statisticalModelID"] == 415
-    @test DAalert["attributes"]["state"] == "Updated"
+    @test DAalert["attributes"]["state"] ∈ ["AutoCleared", "Updated", "Active", "ModelNotReady"]
 
     # Update alert via post request
     postRepositoryAlert(token, alertID = DAalert["id"], attributes = Dict("version" => 2))
