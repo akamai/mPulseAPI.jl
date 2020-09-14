@@ -110,7 +110,7 @@ function getRepositoryAlert(token::AbstractString; alertID::Int64=0, alertName::
     end
 
     # Convert alert attribute dates to ZonedDateTime
-    dateFormat = "y-m-dTH:M:S.s+z"
+    dateFormat = DateFormat("y-m-dTH:M:S.s+z")
     for alert in alert_list
         alertAttributes = alert["attributes"]
         for lastTimestamp in ["lastCleared", "lastTriggered", "lastUpdated"]
