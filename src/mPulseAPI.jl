@@ -27,6 +27,7 @@ using Dates
 
 using LightXML, Formatting, TimeZones, DataFrames
 import HTTP
+export LightXML
 
 # Tells docgen.jl to document internal methods as well
 const __document_internal = true
