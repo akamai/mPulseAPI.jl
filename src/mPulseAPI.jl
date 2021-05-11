@@ -1,6 +1,6 @@
 ###################################################
 #
-# Copyright 2016 SOASTA, Inc.
+# Copyright Akamai, Inc.
 # Distributed under the terms of the MIT license
 #
 # File: mPulseAPI.jl
@@ -32,7 +32,7 @@ export LightXML
 # Tells docgen.jl to document internal methods as well
 const __document_internal = true
 
-const default_SOASTAEndpoint = "https://mpulse.soasta.com/concerto"
+const default_mPulseEndpoint = "https://mpulse.soasta.com/concerto"
 
 function __init__()
     setEndpoints()
@@ -41,7 +41,7 @@ function __init__()
 end
 
 """
-Change the SOASTA API endpoint that we connect to.  The default is `$(mPulseAPI.default_SOASTAEndpoint)`
+Change the mPulse API endpoint that we connect to.  The default is `$(mPulseAPI.default_mPulseEndpoint)`
 
 #### Example
 
@@ -49,9 +49,9 @@ Change the SOASTA API endpoint that we connect to.  The default is `$(mPulseAPI.
 mPulseAPI.setEndpoints("https://mpulse-alt.soasta.com/concerto")
 ```
 """
-function setEndpoints(SOASTAEndpoint::AbstractString = default_SOASTAEndpoint)
-    global mPulseEndpoint     = "$SOASTAEndpoint/mpulse/api/v2/"
-    global RepositoryEndpoint = "$SOASTAEndpoint/services/rest"
+function setEndpoints(APIEndpoint::AbstractString = default_mPulseEndpoint)
+    global mPulseEndpoint     = "$APIEndpoint/mpulse/api/v2/"
+    global RepositoryEndpoint = "$APIEndpoint/services/rest"
     global RepositoryService  = "$RepositoryEndpoint/RepositoryService/v1"
     global TokenEndpoint      = "$RepositoryService/Tokens"
     global ObjectEndpoint     = "$RepositoryService/Objects"

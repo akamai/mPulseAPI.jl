@@ -1,6 +1,6 @@
 ###################################################
 #
-# Copyright 2016 SOASTA, Inc.
+# Copyright Akamai, Inc.
 # Distributed under the terms of the MIT license
 #
 # File: RepositoryAPI.jl
