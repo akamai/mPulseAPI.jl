@@ -24,7 +24,7 @@ struct mPulseAPIException <: Exception
     response::HTTP.Response
     responseBody::AbstractString
 
-    mPulseAPIException(msg::AbstractString, response::HTTP.Response) = new(msg, response, join(map(Char, response.body)))
+    mPulseAPIException(msg::AbstractString, response::HTTP.Response) = new(msg, response, String(response.body))
 end
 
 """
@@ -46,7 +46,7 @@ struct mPulseAPIAuthException <: Exception
     response::HTTP.Response
     responseBody::AbstractString
 
-    mPulseAPIAuthException(response::HTTP.Response) = new("Error Authenticating with REST API", response, join(map(Char, response.body)))
+    mPulseAPIAuthException(response::HTTP.Response) = new("Error Authenticating with REST API", response, String(response.body))
 end
 
 """
@@ -112,5 +112,5 @@ struct mPulseAPIBugException <: Exception
     response::HTTP.Response
     responseBody::AbstractString
 
-    mPulseAPIBugException(resp::HTTP.Response) = new("Internal Server Error, please report this. Timestamp: $(round(Int, datetime2unix(now())))", resp, join(map(Char, resp.body)))
+    mPulseAPIBugException(resp::HTTP.Response) = new("Internal Server Error, please report this. Timestamp: $(round(Int, datetime2unix(now())))", resp, String(resp.body))
 end

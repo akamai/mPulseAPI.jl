@@ -488,10 +488,10 @@ function getHttpRequest(token::AbstractString, objectType::AbstractString, searc
         throw(mPulseAPIException("Error fetching $(objectType) $(debugID)", resp))
     end
 
-    json = join(map(Char, resp.body))
+    json = String(resp.body)
     object = JSON.parse(json)
 
-      # If calling by a searchKey other than ID, the return value will be a Dict with a single key="objects"
+    # If calling by a searchKey other than ID, the return value will be a Dict with a single key="objects"
     # and value set to an array of domain objects.
     # If searching by ID, then the object is returned, so turn it into an array
     if haskey(object, "objects") && isa(object["objects"], Array)
