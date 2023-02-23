@@ -1,7 +1,7 @@
 name = "mPulseAPI"
 uuid = "314d2b54-f2c3-11ea-15f2-0bcf2fc50b35"
 authors = ["Akamai mPulse DSWB <dswb@akamai.com>"]
-version = "1.1.2"
+version = "1.1.3"
 
 [deps]
 DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
