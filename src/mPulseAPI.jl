@@ -137,8 +137,8 @@ function readdocs(name::AbstractString, replacers=[]; indent=0)
         try
             data = Formatting.format(data, replacers...)
         catch
-            println(replacers)
-            println(data)
+            @warn replacers
+            @warn data
             rethrow()
         end
     end

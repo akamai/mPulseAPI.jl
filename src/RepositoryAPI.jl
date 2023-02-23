@@ -329,23 +329,13 @@ end
 
 # Internal convenience function used to POST to repository
 function postHttpRequest(url::AbstractString, objectType::AbstractString, objectID::Int64, json::Dict{AbstractString, Any}, token::AbstractString)
-    resp = nothing
+    # This may throw on network error, but we'll allow the caller to deal with that
+    resp = HTTP.post(url,
+                     Dict("X-Auth-Token" => token, "Content-type" => "application/json"),
+                     JSON.json(json),
+                     status_exception = false
+           )
 
-    try
-        resp = HTTP.post(url,
-                         Dict("X-Auth-Token" => token, "Content-type" => "application/json"),
-                         JSON.json(json),
-                         status_exception = false
-               )
-
-    catch er
-        if isa(er, Base.UVError)
-            error("TCP timeout")
-        else
-            @warn("We have not encountered this error before.  Please report this. Timestamp: $(round(Int, datetime2unix(now())))")
-            rethrow()
-        end
-    end
 
     # 400 - Bad request.  The URL or JSON is invalid
     # 404 - Not found.  The requested object does not exist
@@ -431,15 +421,17 @@ function buildPostJSON(
     # If the bodyError argument is supplied, update this in the object
     if body != ""
         if isa(body, AbstractString)
+            # If body is a String, we'll check that it is well formed XML
             try
                 xdoc = parse_string(body)
                 xroot = root(xdoc)
-            catch
+            catch ex
                 if objectType == "alert" || objectType == "statisticalmodel"
-                    error("errorXML is not formatted correctly")
+                    @error "errorXML is not formatted correctly" exception=ex
                 else
-                    error("body keyword argument is not formatted correctly")
+                    @error "body keyword argument is not formatted correctly" exception=ex
                 end
+                rethrow()
             end
         else
             body = string(body)
