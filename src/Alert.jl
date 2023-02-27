@@ -217,7 +217,6 @@ At least one of `alertID` or `alertName` must be passed in to update the alert o
 
 
 """
-
 function postRepositoryAlert(token::AbstractString;
                             alertID::Int64=0,
                             alertName::AbstractString="",
@@ -272,7 +271,6 @@ Returns true if the delete is successful, else false.
 
 
 """
-
 function deleteRepositoryAlert(token::AbstractString;
                             alertID::Int64=0,
                             alertName::AbstractString=""

@@ -208,7 +208,6 @@ At least one of `statModelID` or `statModelName` must be passed in to update the
 
 
 """
-
 function postRepositoryStatModel(token::AbstractString;
                             statModelID::Int64=0,
                             statModelName::AbstractString="",
@@ -257,7 +256,6 @@ Returns true if the delete is successful, else false.
 
 
 """
-
 function deleteRepositoryStatModel(token::AbstractString;
                             statModelID::Int64=0,
                             statModelName::AbstractString=""
