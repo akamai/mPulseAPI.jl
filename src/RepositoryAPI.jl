@@ -496,6 +496,7 @@ function getHttpRequest(token::AbstractString, objectType::AbstractString, searc
         object_list = [object]
     end
 
+
     if length(object_list) == 0
         # Either no objects are defined in the repository, or the specific object was not found
         if debugID == "(all)"
