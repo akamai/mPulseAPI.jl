@@ -496,9 +496,13 @@ function getHttpRequest(token::AbstractString, objectType::AbstractString, searc
         object_list = [object]
     end
 
-
     if length(object_list) == 0
-        throw(mPulseAPIException("An object matching $debugID was not returned", resp))
+        # Either no objects are defined in the repository, or the specific object was not found
+        if debugID == "(all)"
+            throw(mPulseAPIException("There are no objects defined in the $objectType repository.", resp))
+        else
+            throw(mPulseAPIException("An object matching $debugID was not returned", resp))
+        end
     # If caller has passed in a filter key, then we should only get a single object
     elseif isKeySet && length(object_list) > 1
         throw(mPulseAPIException("Found too many matching objects with IDs=($(map(d->d["id"], object_list)))", resp))
