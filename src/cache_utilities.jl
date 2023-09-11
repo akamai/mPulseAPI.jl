@@ -51,7 +51,7 @@ function clearObjectCache(cacheType::AbstractString, searchKey::Dict{Symbol, Any
             k = string(ky)
             v = haskey(object, k) ? object[k] : haskey(object["attributes"], k) ? object["attributes"][k] : nothing
 
-            if typeof(v) != Void
+            if typeof(v) != Nothing
                 delete!(caches[cacheType], "$(ky)_$(v)")
                 done = true
             end

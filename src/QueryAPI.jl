@@ -1,6 +1,6 @@
 ###################################################
 #
-# Copyright 2016 SOASTA, Inc.
+# Copyright Akamai, Inc.
 # Distributed under the terms of the MIT license
 #
 # File: QueryAPI.jl
@@ -10,18 +10,9 @@
 #
 ###################################################
 
-using DataFrames, DataArrays, JSON, Formatting
+using DataFrames, JSON, Formatting
 
-if isdefined(:Missings) && isdefined(:missing)
-    const nullval = missing
-elseif isdefined(:NA)
-    const nullval = NA
-    ismissing = isna
-else
-    const nullval = nothing
-    ismissing(x) = (x == nothing)
-    ismissing(x::AbstractVector) = (x .== nothing)
-end
+const nullval = missing
 
 const query_types = [
         "summary",
@@ -105,16 +96,16 @@ function getAPIResults(token::AbstractString, appKey::AbstractString, query_type
         println(query)
     end
 
-    resp = Requests.get(url, headers = headers, query = query)
+    resp = HTTP.get(url, headers, query=query, status_exception=false)
 
     local object = Dict()
 
-    if statuscode(resp) == 401
+    json = String(resp.body)
+
+    if resp.status == 401
         throw(mPulseAPIAuthException(resp))
-    elseif statuscode(resp) != 200
-        try
-            object = Requests.json(resp)
-        end
+    elseif resp.status != 200
+        object = JSON.parse(json)
 
         if haskey(object, "rs_fault")
             object = object["rs_fault"]
@@ -125,27 +116,24 @@ function getAPIResults(token::AbstractString, appKey::AbstractString, query_type
                 throw(mPulseAPIAuthException(resp))
             elseif object["code"] == "MPulseAPIException.InvalidParameter"
                 # Extract the parameter name
-                parameter = lowercase(replace(replace(object["message"], r"^.*?: ", ""), r" .*", ""))
+                parameter = lowercase(replace(replace(object["message"], r"^.*?: " => ""), r" .*" => ""))
 
                 # Extract the parameter value
-                value = replace(object["message"], r".*: *", "")
+                value = replace(object["message"], r".*: *" => "")
 
                 throw(mPulseAPIRequestException(object["message"], object["code"], parameter, value, resp))
             end
         end
 
-        if statuscode(resp) == 500
+        if resp.status == 500
             throw(mPulseAPIBugException(resp))
         else
             throw(mPulseAPIException("Error fetching $(query_type)", resp))
         end
     end
 
-    # Do not use Requests.json as that expects UTF-8 data, and mPulse API's response is ISO-8859-1
-    json = join(map(Char, resp.data))
-
     # Remove double quotes around negative numbers (Bug 110740)
-    json = replace(json, r"\"(-\d+)\"", s"\1")
+    json = replace(json, r"\"(-\d+)\"" => s"\1")
 
     try
         object = JSON.parse(json)
@@ -155,7 +143,7 @@ function getAPIResults(token::AbstractString, appKey::AbstractString, query_type
         try
             # Enclose all string keys in double quotes
             # We use a positive lookbehind assertion to identify keys by being strings preceeded by { [ or ,
-            json = replace(json, r"(?<=[{\[,])( *)(\w+):", s"\"\2\":")
+            json = replace(json, r"(?<=[{\[,])( *)(\w+):" => s"\"\2\":")
             object = JSON.parse(json)
         catch
             # We'll throw the original exception if cleaning did not work
@@ -170,6 +158,7 @@ function getAPIResults(token::AbstractString, appKey::AbstractString, query_type
     for k in keys(object)
         try
             object[k] = fixJSONDataType(object[k])
+        catch;
         end
     end
 
@@ -259,7 +248,7 @@ function getPageGroupTimers(token::AbstractString, appKey::AbstractString; filte
     df = resultsToDataFrame(results["columnNames"], :primary, results["data"])
 
     if !friendly_names
-        names!(df, [:page_group, :t_done_median, :t_done_moe, :t_done_count, :t_done_total_pc])
+        rename!(df, [:page_group, :t_done_median, :t_done_moe, :t_done_count, :t_done_total_pc])
     end
 
     return df
@@ -297,7 +286,7 @@ function getBrowserTimers(token::AbstractString, appKey::AbstractString; filters
     df = resultsToDataFrame(results["columnNames"], :primary, results["data"])
 
     if !friendly_names
-        names!(df, [:user_agent, :t_done_median, :t_done_moe, :t_done_count, :t_done_total_pc])
+        rename!(df, ["user_agent", "t_done_median", "t_done_moe", "t_done_count", "t_done_total_pc"])
     end
 
     return df
@@ -335,7 +324,7 @@ function getABTestTimers(token::AbstractString, appKey::AbstractString; filters:
     df = resultsToDataFrame(results["columnNames"], :primary, results["data"])
 
     if !friendly_names
-        names!(df, [:test_name, :t_done_median, :t_done_moe, :t_done_count, :t_done_total_pc])
+        rename!(df, ["test_name", "t_done_median", "t_done_moe", "t_done_count", "t_done_total_pc"])
     end
 
     return df
@@ -372,12 +361,12 @@ function getGeoTimers(token::AbstractString, appKey::AbstractString; filters::Di
 
     df = resultsToDataFrame( Symbol[:country, :timerMedian, :timerMOE, :timerN], :primary, results["data"] )
 
-    df[:t_done_total_pc] = df[:timerN] * 100 / sum(df[:timerN])
+    df[!, :t_done_total_pc] = df[!, :timerN] * 100 / sum(df[!, :timerN])
 
     if friendly_names
-        names!(df, [:Country, Symbol("Median Time (ms)"), Symbol("MoE (ms)"), Symbol("Measurements"), Symbol("% of total")])
+        rename!(df, ["Country", "Median Time (ms)", "MoE (ms)", "Measurements", "% of total"])
     else
-        names!(df, [:country, :t_done_median, :t_done_moe, :t_done_count, :t_done_total_pc])
+        rename!(df, ["country", "t_done_median", "t_done_moe", "t_done_count", "t_done_total_pc"])
     end
 
     return df
@@ -456,8 +445,7 @@ function getMetricsByDimension(token::AbstractString, appKey::AbstractString, di
     df = resultsToDataFrame(results["columnNames"], :metrics, results["data"])
 
     ns = names(df)
-    ns[1] = Symbol(dimension)
-    names!(df, ns)
+    rename!(df, 1 => string(dimension))
 
     return df
 end
@@ -517,7 +505,7 @@ function getTimersMetrics(token::AbstractString, appKey::AbstractString; filters
         latest = element["latest"]
 
         # If we got a metric/timer without a name, and it actually has data, try to determine its name from the domain object
-        if ismatch(r"^Custom(Timer|Metric)\d+$", string(name))
+        if occursin(r"^Custom(Timer|Metric)\d+$", string(name))
             if latest != 0 && haskey(element, "history") && length(element["history"]) > 0
 
                 # This is returned from in-memory cache on subsequent calls, so safe to call in a loop
@@ -534,7 +522,7 @@ function getTimersMetrics(token::AbstractString, appKey::AbstractString; filters
                     name = custom[name]
                 else
                     # Metric/timer had data, but wasn't actually defined in the app. mPulse bug 115779
-                    warn("Got data for $name but it does not exist for this app")
+                    @warn("Got data for $name but it does not exist for this app")
                     continue
                 end
             else
@@ -543,11 +531,13 @@ function getTimersMetrics(token::AbstractString, appKey::AbstractString; filters
         end
 
         local i=0
+        # Make sure column name is unique
         while name ∈ names(df) ∪ nulls
             i += 1
             name = Symbol(element["id"], "__", i)
         end
 
+        # If latest is 0 and there's no history, then mark this column as NULL
         if latest == 0 && (!haskey(element, "history") || length(element["history"]) == 0)
             push!(nulls, name)
             continue
@@ -556,28 +546,33 @@ function getTimersMetrics(token::AbstractString, appKey::AbstractString; filters
         history = element["history"]
 
         etype = typeof(latest)
-        if !isa(history[1], Real)
+
+        # Make sure history is an array of numbers because sometimes mPulse wraps them in strings
+        if isa(history[1], Real)
+            history = Array{etype}(history)
+        else
             try
                 history = Array{etype}(map(h -> parse(etype, h), history))
             catch ex
-                if isa(ex, ArgumentError) && ismatch(r"invalid base 10 digit '\.' in", ex.msg)
+                # Sometimes latest is an Int but history contains Floats
+                if isa(ex, ArgumentError) && occursin(r"invalid base 10 digit '\.' in", ex.msg)
                     history = Array{Float64}(map(h -> parse(Float64, h), history))
                 else
                     rethrow()
                 end
             end
-        else
-            history = Array{etype}(history)
         end
 
         push!(history, latest)
 
-        df[name] = history
+        df[!, name] = history
     end
 
-    df[nulls] = nullval
+    for nullcol in nulls
+        df[!, nullcol] = nullval
+    end
 
-    if nrow(df) > 1 && all(a -> ismissing(a) || a == 0, stack(df[end-1, :], names(df))[:value])
+    if nrow(df) > 1 && all(a -> ismissing(a) || a == 0, map(x -> df[end-1, x], names(df)))
         # mPulse bug 115785: If penultimate row is all 0s/NAs, remove it
         return df[[1:end-2; end], :]
     else
@@ -655,7 +650,7 @@ function getHistogram(token::AbstractString, appKey::AbstractString; filters::Di
     results = cleanSeriesSeries(results)
 
     results["buckets"] = resultsToDataFrame( Symbol[:s, :e, :c], :hist, results["aPoints"] )
-    names!(results["buckets"], [ :bucket_start, :bucket_end, :element_count ])
+    rename!(results["buckets"], [ "bucket_start", "bucket_end", "element_count" ])
 
     delete!(results, "name")
     delete!(results, "aPoints")
@@ -731,7 +726,7 @@ function getMetricOverPageLoadTime(token::AbstractString, appKey::AbstractString
 
     df = resultsToDataFrame( Symbol[:x, :y], :hist, results["aPoints"] )
 
-    names!(df, [ :t_done, Symbol(metric) ])
+    rename!(df, [ "t_done", string(metric) ])
 
     return df
 end
@@ -814,12 +809,12 @@ function getTimerByMinute(token::AbstractString, appKey::AbstractString; filters
 
     df = resultsToDataFrame( Symbol[:x, :y], :hist, results["aPoints"] )
 
-    names!(df, [ :timestamp, Symbol(timer)])
+    rename!(df, [ "timestamp", string(timer)])
 
     if size(df, 1) > 0
-        df[:moe] = DataArray{Int}(map(p -> haskey(p, "userdata") ? round(Int, 1000*JSON.parse(p["userdata"])["value"]) : 0, results["aPoints"]))
+        df[!, :moe] = Vector{Int}(map(p -> haskey(p, "userdata") ? round(Int, 1000*JSON.parse(p["userdata"])["value"]) : 0, results["aPoints"]))
     else
-        df[:moe] = DataArray{Int}([])
+        df[!, :moe] = Int[]
     end
 
     return df
@@ -890,8 +885,15 @@ julia> mPulseAPI.mergeMetrics(sessions, bouncerate, conversion)
 """
 function mergeMetrics(df1::DataFrame, df2::DataFrame...; keyField::Symbol=:t_done, joinType::Symbol=:outer)
     df = df1
+    joinmethod = (Symbol(joinType, :join))
+    if !isdefined(DataFrames, joinmethod)
+        throw(ArgumentError("Unknown join type `$joinType`"))
+    end
+
+    joinmethod = getfield(DataFrames, joinmethod)
+
     for next in df2
-        df = join(df, next, on=keyField, kind=joinType)
+        df = joinmethod(df, next, on=keyField)
     end
 
     if length(methods(sort!, [DataFrame, Any])) >= 1
@@ -938,8 +940,8 @@ const df_types_array = Dict(
                         )
 
 # Internal convenience method to convert results from /browsers/, /ab-tests/, /page-groups/, etc. to a DataFrame
-resultsToDataFrame(names::Vector{Any}, types::Symbol, results::Void) = resultsToDataFrame(names, types, Void[])
-resultsToDataFrame(names::Vector{Symbol}, types::Symbol, results::Void) = resultsToDataFrame(names, types, Void[])
+resultsToDataFrame(names::Vector{Any}, types::Symbol, results::Nothing) = resultsToDataFrame(names, types, Nothing[])
+resultsToDataFrame(names::Vector{Symbol}, types::Symbol, results::Nothing) = resultsToDataFrame(names, types, Nothing[])
 
 function resultsToDataFrame(names::Vector{Any}, types::Symbol, results::Vector)
     return resultsToDataFrame(
@@ -958,7 +960,7 @@ function resultsToDataFrame(names::Vector{Symbol}, types::Symbol, results::Vecto
         local t = types[min(i, end)]
         local n = names[i]
 
-        df[n] = DataArray{t}(
+        df[!, n] = Array{t}(
                     map(results) do row
                         # First make sure the row is in a recognized format
                         if isa(row, Array)
@@ -975,7 +977,7 @@ function resultsToDataFrame(names::Vector{Symbol}, types::Symbol, results::Vecto
                         elseif t == AbstractString
                             return string(value)
                         elseif t == Real
-                            return ismatch(r"\.", value) ? parse(Float64, value) : parse(Int, value)
+                            return occursin(r"\.", value) ? parse(Float64, value) : parse(Int, value, base=10)
                         else
                             return parse(t, value)
                         end

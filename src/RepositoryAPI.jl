@@ -1,6 +1,6 @@
 ###################################################
 #
-# Copyright 2016 SOASTA, Inc.
+# Copyright Akamai, Inc.
 # Distributed under the terms of the MIT license
 #
 # File: RepositoryAPI.jl
@@ -139,11 +139,12 @@ function deleteRepositoryObject(token::AbstractString,
         println("X-Auth-Token: $token")
     end
 
-    resp = Requests.delete(url,
-        headers = Dict("X-Auth-Token" => token, "Content-type" => "application/json")
+    resp = HTTP.delete(url,
+        Dict("X-Auth-Token" => token, "Content-type" => "application/json"),
+        status_exception=false
     )
 
-    if statuscode(resp) != 204
+    if resp.status != 204
         error("Error deleting $(objectType), id = $(objectID).")
     end
 
@@ -181,7 +182,7 @@ function getCustomMetricMap(body::Any)
         attributes = attributes_dict(node)
         if attributes["inactive"] == "false"
             custom_metric = Dict(
-                "index" => parse(Int, attributes["index"], 10),
+                "index" => parse(Int, attributes["index"], base=10),
                 "fieldname" => "custommetric" * attributes["index"],
                 "lastModified" => iso8601ToDateTime(attributes["lastModified"]),
                 "description" => attributes["description"]
@@ -233,7 +234,7 @@ function getCustomTimerMap(body::Any)
         attributes = attributes_dict(node)
         if attributes["inactive"] == "false"
             custom_timer = Dict(
-                "index" => parse(Int, attributes["index"], 10),
+                "index" => parse(Int, attributes["index"], base=10),
                 "fieldname" => "customtimer" * attributes["index"],
                 "mpulseapiname" => "CustomTimer" * attributes["index"],
                 "lastModified" => iso8601ToDateTime(attributes["lastModified"]),
@@ -289,9 +290,9 @@ function getNodeContent(body::Any, nodeName::AbstractString, default::Any)
 
         # If the default value passed in was a Number, then we cast value to a Number
         if isa(default, AbstractFloat)
-            value = parse(Float64, value, 10)
+            value = parse(Float64, value)
         elseif isa(default, Int)
-            value = parse(Int, value, 10)
+            value = parse(Int, value, base=10)
         elseif isa(default, Bool)
             if lowercase(value) == "true"
                 value = true
@@ -328,24 +329,17 @@ end
 
 # Internal convenience function used to POST to repository
 function postHttpRequest(url::AbstractString, objectType::AbstractString, objectID::Int64, json::Dict{AbstractString, Any}, token::AbstractString)
-    resp = nothing
+    # This may throw on network error, but we'll allow the caller to deal with that
+    resp = HTTP.post(url,
+                     Dict("X-Auth-Token" => token, "Content-type" => "application/json"),
+                     JSON.json(json),
+                     status_exception = false
+           )
 
-    try
-        resp = Requests.post(url,
-                             json = json,
-                             headers = Dict("X-Auth-Token" => token, "Content-type" => "application/json")
-                        )
-    catch er
-        if isa(er, Base.UVError)
-            error("TCP timeout")
-        else
-            error("We have not encountered this error before.  Please report this. Timestamp: $(round(Int, datetime2unix(now())))")
-        end
-    end
 
     # 400 - Bad request.  The URL or JSON is invalid
     # 404 - Not found.  The requested object does not exist
-    if statuscode(resp) == 400 || statuscode(resp) == 404
+    if resp.status == 400 || resp.status == 404
         throw(mPulseAPIException("Error updating $(objectType) $(objectID)", resp))
     end
 
@@ -359,9 +353,10 @@ function handlePostResponse(url::AbstractString, objectType::AbstractString, obj
     while count <= 5
         resp = postHttpRequest(url, objectType, objectID, json, token)
 
-        if statuscode(resp) == 204 # Success
+        if resp.status == 204 # Success
             return resp
-        elseif statuscode(resp) == 401 # Unauthorized.  The security token is missing or invalid.
+
+        elseif resp.status == 401 # Unauthorized.  The security token is missing or invalid.
             # Retry once
             if count > 1
                 throw(mPulseAPIAuthException(resp))
@@ -398,7 +393,7 @@ function buildPostJSON(
         attributes = convert(Dict{AbstractString, Any}, attributes)
 
         if objectType == "statisticalmodel"
-        # Merge existing and new attributes needed for statisticalmodel
+            # Merge existing and new attributes needed for statisticalmodel
             for key in keys(oldAttributes)
                 if !haskey(attributes, key)
                     attributes[key] = oldAttributes[key]
@@ -426,15 +421,17 @@ function buildPostJSON(
     # If the bodyError argument is supplied, update this in the object
     if body != ""
         if isa(body, AbstractString)
+            # If body is a String, we'll check that it is well formed XML
             try
                 xdoc = parse_string(body)
                 xroot = root(xdoc)
-            catch
+            catch ex
                 if objectType == "alert" || objectType == "statisticalmodel"
-                    error("errorXML is not formatted correctly")
+                    @error "errorXML is not formatted correctly" exception=ex
                 else
-                    error("body keyword argument is not formatted correctly")
+                    @error "body keyword argument is not formatted correctly" exception=ex
                 end
+                rethrow()
             end
         else
             body = string(body)
@@ -471,9 +468,9 @@ function getHttpRequest(token::AbstractString, objectType::AbstractString, searc
         println(query)
     end
 
-    resp = Requests.get(url, headers=Dict("X-Auth-Token" => token), query=query)
+    resp = HTTP.get(url, Dict("X-Auth-Token" => token), query=query, status_exception=false)
 
-    respStatusCode = statuscode(resp)
+    respStatusCode = resp.status
 
     if respStatusCode == 401
         throw(mPulseAPIAuthException(resp))
@@ -483,11 +480,10 @@ function getHttpRequest(token::AbstractString, objectType::AbstractString, searc
         throw(mPulseAPIException("Error fetching $(objectType) $(debugID)", resp))
     end
 
-    # Do not use Requests.json as that expects UTF-8 data, and mPulse API's response is ISO-8859-1
-    json = join(map(Char, resp.data))
+    json = String(resp.body)
     object = JSON.parse(json)
 
-      # If calling by a searchKey other than ID, the return value will be a Dict with a single key="objects"
+    # If calling by a searchKey other than ID, the return value will be a Dict with a single key="objects"
     # and value set to an array of domain objects.
     # If searching by ID, then the object is returned, so turn it into an array
     if haskey(object, "objects") && isa(object["objects"], Array)
@@ -498,7 +494,12 @@ function getHttpRequest(token::AbstractString, objectType::AbstractString, searc
 
 
     if length(object_list) == 0
-        throw(mPulseAPIException("An object matching $debugID was not returned", resp))
+        # Either no objects are defined in the repository, or the specific object was not found
+        if debugID == "(all)"
+            throw(mPulseAPIException("There are no objects defined in the $objectType repository.", resp))
+        else
+            throw(mPulseAPIException("An object matching $debugID was not returned", resp))
+        end
     # If caller has passed in a filter key, then we should only get a single object
     elseif isKeySet && length(object_list) > 1
         throw(mPulseAPIException("Found too many matching objects with IDs=($(map(d->d["id"], object_list)))", resp))

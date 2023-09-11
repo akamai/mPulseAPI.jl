@@ -8,8 +8,8 @@ Communicate with the mPulse Query & Repository REST APIs to fetch information ab
 * mPulseAPI.jl: [https://akamai.github.io/mPulseAPI.jl/](https://akamai.github.io/mPulseAPI.jl/)
 
 ### REST APIs that this module uses:
-* mPulse Query API: [http://docs.soasta.com/query-api/](http://docs.soasta.com/query-api/)
-* SOASTA Repository API: [http://docs.soasta.com/repository-api/](http://docs.soasta.com/repository-api/)
+* mPulse Query API: [https://developer.akamai.com/api/web_performance/mpulse_query/v2.html](https://developer.akamai.com/api/web_performance/mpulse_query/v2.html)
+* mPulse Repository API: [https://developer.akamai.com/api/web_performance/mpulse_cloudtest_repository/v1.html](https://developer.akamai.com/api/web_performance/mpulse_cloudtest_repository/v1.html)
 
 ## Quick and dirty usage
 This snippet will get you up and running, see the full documentation for more details.
