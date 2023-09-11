@@ -86,6 +86,8 @@ function getObjectInfo(token::AbstractString, objectType::AbstractString, object
         object = getRepositoryTenant(token, tenantID=objectID, name = name)
     elseif objectType == "statisticalmodel"
         object = getRepositoryStatModel(token, statModelID=objectID, statModelName = name)
+    else
+        throw(ArgumentError("Unknown objectType `$(objectType)'"))
     end
 
     return object

@@ -72,6 +72,10 @@ if !isempty(mPulseAPIAlert)
     @test alert["name"] == "mPulseAPI Test Alert"
     @test alert["tenantID"] == 236904
     @test alert["tenantID"] == tenant["id"]
+
+    alerts = getRepositoryAlert(token)
+    @test isa(alerts, Vector)
+    @test mPulseAPIAlert ∈ map(x -> x["name"], alerts)
 end
 
 # Now check all exceptions
@@ -81,6 +85,14 @@ end
 
 @test_throws mPulseAPIAuthException getRepositoryDomain("some-invalid-token", appKey=appKey * "-" * string(round(Int, rand()*100000), base=16, pad=5))
 
+@test_throws ArgumentError getRepositoryObject("", "", Dict{Symbol, Any}())
+@test_throws ArgumentError getRepositoryObject("foo", "", Dict{Symbol, Any}())
+@test_throws ArgumentError getRepositoryObject("foo", "tenant", Dict{Symbol, Any}())
+
+@test_throws ArgumentError postRepositoryObject("", "", Dict{Symbol, Any}())
+@test_throws ArgumentError postRepositoryObject("foo", "", Dict{Symbol, Any}())
+@test_throws ArgumentError postRepositoryObject("foo", "tenant", Dict{Symbol, Any}())
+@test_throws mPulseAPIAuthException postRepositoryObject("foo", "tenant", Dict{Symbol, Any}(:id => 1); filterRequired=false)
 
 #### Dynamic Alerting ###
 # Check alert
