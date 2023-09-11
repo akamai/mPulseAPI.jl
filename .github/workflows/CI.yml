@@ -7,6 +7,9 @@ on:
     branches:
       - main
     tags: '*'
+env:
+  MPULSEAPIVERBOSE: false
+  MPULSEAPIENDPOINT: https://mpulse.soasta.com/concerto
 jobs:
   test:
     name: Julia ${{ matrix.version }} - ${{ matrix.os }} - ${{ matrix.arch }} - ${{ github.event_name }}
@@ -30,6 +33,13 @@ jobs:
           arch: ${{ matrix.arch }}
       - uses: julia-actions/julia-buildpkg@v1
       - uses: julia-actions/julia-runtest@v1
+        env:
+          mPulseAPIToken: ${{ secrets.MPULSEAPITOKEN }}
+          mPulseAPITenant: ${{ secrets.MPULSEAPITENANT }}
+          mPulseAPIAlert: ${{ env.MPULSEAPIALERT }}
+          DA_mPulseAPIAlert:  ${{ env.DA_MPULSEAPIALERT }}
+          mPulseAPIVerbose: ${{ env.MPULSEAPIVERBOSE }}
+          mPulseAPIEndpoint: ${{ env.MPULSEAPIENDPOINT }}
       - run: julia --color=yes --project=. -e 'if VERSION < v"1.9"; using Pkg; Pkg.add("Coverage"); using Coverage; Coveralls.submit(process_folder()); end'
         working-directory: ${{ github.workspace }}
         env:
