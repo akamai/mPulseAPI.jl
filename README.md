@@ -1,6 +1,7 @@
 Communicate with the mPulse Query & Repository REST APIs to fetch information about tenants and apps.
 
-[![Build Status](https://travis-ci.org/akamai/mPulseAPI.jl.svg?branch=master)](https://travis-ci.org/akamai/mPulseAPI.jl)
+[![GH Build](https://github.com/akamai/mPulseAPI.jl/workflows/CI/badge.svg)](https://github.com/akamai/mPulseAPI.jl/actions/workflows/CI.yml?query=branch%3Amain)
+[![Coverage Status](https://coveralls.io/repos/github/akamai/mPulseAPI.jl/badge.svg?branch=main)](https://coveralls.io/github/akamai/mPulseAPI.jl?branch=main)
 
 ## Documentation
 
