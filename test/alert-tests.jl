@@ -10,6 +10,9 @@ if !isempty(mPulseAPIAlert)
     alerts = getRepositoryAlert(token)
     @test isa(alerts, Vector)
     @test mPulseAPIAlert ∈ map(x -> x["name"], alerts)
+    @test mPulseAPI.clearAlertCache(; alertName=mPulseAPIAlert)
+
+    @test_throws mPulseAPIException deleteRepositoryAlert(token; alertID=1000)
 end
 
 
@@ -18,7 +21,7 @@ end
 if !isempty(DA_mPulseAPIAlert)
     @testset "Dynamic Alerting" begin
         DAalert = getRepositoryAlert(token, alertName=DA_mPulseAPIAlert)
-        @test !isempty(alert)
+        @test !isempty(DAalert)
         @test DAalert["name"] == DA_mPulseAPIAlert
         @test DAalert["id"] == 2251091
         @test DAalert["tenantID"] == 236904
@@ -41,5 +44,7 @@ if !isempty(DA_mPulseAPIAlert)
 
         # Update statistical model via post request
         postRepositoryStatModel(token, statModelID = statModel["id"], attributes = Dict("type" => 1))
+
+        @test mPulseAPI.clearStatModelCache(; statModelID=statModel["id"])
     end
 end

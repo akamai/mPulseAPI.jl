@@ -123,6 +123,11 @@ function deleteRepositoryObject(token::AbstractString,
         throw(ArgumentError("`token' cannot be empty"))
     end
 
+
+    if !any(kv -> isa(kv[2], Number) ? kv[2] > 0 : !isempty(kv[2]), searchKey)
+        throw(ArgumentError("At least one of `$(join(collect(keys(searchKey)), "', `", "' or `"))' must be set"))
+    end
+
     objectID = get(searchKey, :id, 0)
     name = get(searchKey, :name, "")
 

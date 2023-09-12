@@ -4,7 +4,8 @@ token = getRepositoryToken(mPulseAPITenant, mPulseAPIToken)
 @test !isempty(token)
 token = getRepositoryToken(mPulseAPITenant, "")
 @test !isempty(token)
-mPulseAPI.clearTokenCache(mPulseAPITenant)
+@test mPulseAPI.clearTokenCache(mPulseAPITenant)
+@test !mPulseAPI.clearTokenCache("invalid-tenant")
 token = getRepositoryToken(mPulseAPITenant, "")
 @test !isempty(token)
 
@@ -24,7 +25,8 @@ domain = getRepositoryDomain(token, appKey=appKey)
 @test !isempty(domain)
 @test haskey(mPulseAPI.caches["domain"], "apiKey_$(appKey)")
 @test domain == getRepositoryDomain(token, appID=appKey)
-mPulseAPI.clearDomainCache(; appKey)
+@test mPulseAPI.clearDomainCache(; appKey)
+@test !mPulseAPI.clearDomainCache(; appKey)
 @test !haskey(mPulseAPI.caches["domain"], "apiKey_$(appKey)")
 domain = getRepositoryDomain(token, appKey=appKey)
 
@@ -75,6 +77,7 @@ domain = getRepositoryDomain(token, appKey=appKey)
 tenant = getRepositoryTenant(token, name=mPulseAPITenant)
 @test !isempty(tenant)
 @test tenant["name"] == mPulseAPITenant
+@test mPulseAPI.clearTenantCache(; name=mPulseAPITenant)
 
 # Now check all exceptions
 @test_throws ArgumentError getRepositoryToken("", "")
