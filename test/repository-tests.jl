@@ -1,5 +1,8 @@
 # Try getting token
+@test_throws ArgumentError getRepositoryToken(mPulseAPITenant)
 token = getRepositoryToken(mPulseAPITenant, mPulseAPIToken)
+@test !isempty(token)
+token = getRepositoryToken(mPulseAPITenant)
 @test !isempty(token)
 
 # Get all domains
@@ -65,19 +68,6 @@ tenant = getRepositoryTenant(token, name=mPulseAPITenant)
 @test !isempty(tenant)
 @test tenant["name"] == mPulseAPITenant
 
-if !isempty(mPulseAPIAlert)
-    # Check alert
-    alert = getRepositoryAlert(token, alertName=mPulseAPIAlert)
-    @test !isempty(alert)
-    @test alert["name"] == "mPulseAPI Test Alert"
-    @test alert["tenantID"] == 236904
-    @test alert["tenantID"] == tenant["id"]
-
-    alerts = getRepositoryAlert(token)
-    @test isa(alerts, Vector)
-    @test mPulseAPIAlert ∈ map(x -> x["name"], alerts)
-end
-
 # Now check all exceptions
 @test_throws ArgumentError getRepositoryToken("", "")
 
@@ -93,36 +83,3 @@ end
 @test_throws ArgumentError postRepositoryObject("foo", "", Dict{Symbol, Any}())
 @test_throws ArgumentError postRepositoryObject("foo", "tenant", Dict{Symbol, Any}())
 @test_throws mPulseAPIAuthException postRepositoryObject("foo", "tenant", Dict{Symbol, Any}(:id => 1); filterRequired=false)
-
-#### Dynamic Alerting ###
-# Check alert
-if !isempty(DA_mPulseAPIAlert)
-    @testset "Dynamic Alerting" begin
-        DAalert = getRepositoryAlert(token, alertName=DA_mPulseAPIAlert)
-        @test !isempty(alert)
-        @test DAalert["name"] == "mPulseAPI Dynamic Test Alert"
-        @test DAalert["id"] == 2251091
-        @test DAalert["tenantID"] == 236904
-        @test DAalert["tenantID"] == tenant["id"]
-        @test DAalert["attributes"]["dynamic"] == true
-        @test DAalert["attributes"]["statisticalModelID"] == 415
-        @test DAalert["attributes"]["state"] ∈ ["AutoCleared", "Updated", "Active", "ModelNotReady"]
-
-        # Update alert via post request
-        postRepositoryAlert(token, alertID = DAalert["id"], attributes = Dict("version" => 2))
-
-        # Check statistical model
-        statModel = getRepositoryStatModel(token, statModelID = DAalert["attributes"]["statisticalModelID"])
-        @test !isempty(statModel)
-        @test statModel["id"] == 415
-        @test statModel["parentID"] == DAalert["id"]
-        @test statModel["parentID"] == 2251091
-        @test statModel["tenantID"] == tenant["id"]
-        @test statModel["tenantID"] == 236904
-        @test statModel["attributes"]["type"] == 1
-        @test statModel["attributes"]["version"] == 1.0
-
-        # Update statistical model via post request
-        postRepositoryStatModel(token, statModelID = statModel["id"], attributes = Dict("type" => 1))
-    end
-end

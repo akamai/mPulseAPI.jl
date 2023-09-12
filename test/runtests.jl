@@ -34,6 +34,10 @@ mPulseAPI.setVerbose(verbosity)
         include("repository-tests.jl")
     end
 
+    @testset "Alerts" begin
+        include("alert-tests.jl")
+    end
+
     @testset "Query" begin
         include("query-tests.jl")
     end
