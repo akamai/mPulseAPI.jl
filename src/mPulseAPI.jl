@@ -13,7 +13,7 @@ __precompile__(true)
 
 module mPulseAPI
 # This should bind at compile time, so @__FILE__ is set to mPulseAPI.jl
-const __module_dir = dirname(dirname(@__FILE__))
+const __module_dir = dirname(@__DIR__)
 
 function readdoc(path::AbstractString...)
     return ""

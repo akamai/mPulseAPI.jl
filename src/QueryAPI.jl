@@ -422,8 +422,6 @@ function getMetricsByDimension(token::AbstractString, appKey::AbstractString, di
 
     results = getAPIResults(token, appKey, "metrics-by-dimension", filters=filters)
 
-    local df
-
     if length(results) == 0
         results = Dict("columnNames" => [], "data" => [])
     end
@@ -892,15 +890,9 @@ function mergeMetrics(df1::DataFrame, df2::DataFrame...; keyField::Symbol=:t_don
 
     joinmethod = getfield(DataFrames, joinmethod)
 
-    for next in df2
-        df = joinmethod(df, next, on=keyField)
-    end
+    df = joinmethod(df, df2...; on=keyField)
 
-    if length(methods(sort!, [DataFrame, Any])) >= 1
-        sort!(df, keyField)
-    else
-        sort!(df, cols = [keyField])
-    end
+    sort!(df, keyField)
     return df
 end
 

@@ -46,5 +46,10 @@ if !isempty(DA_mPulseAPIAlert)
         postRepositoryStatModel(token, statModelID = statModel["id"], attributes = Dict("type" => 1))
 
         @test mPulseAPI.clearStatModelCache(; statModelID=statModel["id"])
+
+        statModels = getRepositoryStatModel(token)
+
+        @test isa(statModels, Vector)
+        @test DAalert["attributes"]["statisticalModelID"] ∈ map(s -> s["id"], statModels)
     end
 end
