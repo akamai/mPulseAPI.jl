@@ -10,7 +10,10 @@ function writeObjectToCache(cacheType::AbstractString, searchKey::Dict{Symbol, A
 
     for ky in keys(searchKey)
         k = string(ky)
-        v = haskey(object, k) ? object[k] : haskey(object, "attributes") && haskey(object["attributes"], k) ? object["attributes"][k] : nothing
+        v = searchKey[ky]
+        if v ∈ [0, ""]
+            v = haskey(object, k) ? object[k] : haskey(object, "attributes") && haskey(object["attributes"], k) ? object["attributes"][k] : nothing
+        end
 
         if v != nothing
             caches[cacheType]["$(k)_$(v)"] =  object
@@ -84,7 +87,7 @@ Expire an entry from the domain cache.  Use this if the domain has changed.
 :    if the entry was not in cache
 
 """
-clearDomainCache(;domainID::Int64=0, appKey::AbstractString="", appName::AbstractString="") = clearObjectCache("domain", Dict{Symbol, Any}(:id => domainID, :key => appKey, :name => appName))
+clearDomainCache(;domainID::Int64=0, appKey::AbstractString="", appName::AbstractString="") = clearObjectCache("domain", Dict{Symbol, Any}(:id => domainID, :apiKey => appKey, :name => appName))
 
 """
 Expire an entry from the tenant cache.  Use this if the tenant has changed.
@@ -128,8 +131,9 @@ function clearTokenCache(tenant::AbstractString)
     # Unlike the other caches, this one only resets the timestamp
     # because we still want to cache credentials that were passed
     # in previously to make authentication easier
+    tenant = "tenant_$tenant"
     if haskey(caches["token"], tenant)
-        caches["token"][tenant]["tokenTimestamp"] = Date()
+        caches["token"][tenant]["lastCached"] = caches["token"][tenant]["tokenTimestamp"] = Date(0)
         return true
     end
 

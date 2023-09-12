@@ -1,8 +1,11 @@
 # Try getting token
-@test_throws ArgumentError getRepositoryToken(mPulseAPITenant)
+@test_throws ArgumentError getRepositoryToken(mPulseAPITenant, "")
 token = getRepositoryToken(mPulseAPITenant, mPulseAPIToken)
 @test !isempty(token)
-token = getRepositoryToken(mPulseAPITenant)
+token = getRepositoryToken(mPulseAPITenant, "")
+@test !isempty(token)
+mPulseAPI.clearTokenCache(mPulseAPITenant)
+token = getRepositoryToken(mPulseAPITenant, "")
 @test !isempty(token)
 
 # Get all domains
@@ -19,6 +22,11 @@ appKey = filter(d -> d["name"] == "mPulseAPI Test", domains)[1]["attributes"]["a
 
 domain = getRepositoryDomain(token, appKey=appKey)
 @test !isempty(domain)
+@test haskey(mPulseAPI.caches["domain"], "apiKey_$(appKey)")
+@test domain == getRepositoryDomain(token, appID=appKey)
+mPulseAPI.clearDomainCache(; appKey)
+@test !haskey(mPulseAPI.caches["domain"], "apiKey_$(appKey)")
+domain = getRepositoryDomain(token, appKey=appKey)
 
 # Check domain parameters
 @test domain["name"] == "mPulseAPI Test"

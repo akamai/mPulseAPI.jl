@@ -530,7 +530,6 @@ function getHttpRequest(token::AbstractString, objectType::AbstractString, searc
         delete!(object, "effectivePermissions")
 
         writeObjectToCache(objectType, searchKey, object)
-
     end
 
     return object_list

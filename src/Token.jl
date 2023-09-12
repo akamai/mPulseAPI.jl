@@ -48,7 +48,7 @@ function getRepositoryToken(tenant::AbstractString, apiToken::AbstractString)
     # Fetch object from cache again, but this time do not fetch stale objects
     object = getObjectFromCache("token", Dict{Symbol, Any}(:tenant => tenant))
 
-    if object != nothing
+    if object != nothing && (isempty(apiToken) || object["apiToken"] == apiToken)
         return object["token"]
     end
 
