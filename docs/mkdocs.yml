@@ -1,0 +1,34 @@
+site_name: mPulseAPI Documentation
+copyright: Copyright © Akamai Technologies. All rights reserved.
+use_directory_urls: false
+repo_url: "https://github.com/akamai/mPulseAPI.jl"
+site_url: "https://akamai.github.com/mPulseAPI.jl/"
+site_dir: site
+site_description: "Communicate with the mPulse Query & Repository REST APIs to fetch information about tenants and apps."
+docs_dir: src
+extra_css:
+    - css/mkdocs.css
+theme:
+    name: readthedocs
+    favicon: "favicon.ico"
+markdown_extensions:
+    - admonition
+    - def_list
+    - attr_list
+    - toc:
+        permalink: True
+pages:
+    - Home: mPulseAPI/index.md
+    - Repository API:
+        - Base API: mPulseAPI/RepositoryAPI.md
+        - Tokens:
+            - Generate Tokens: apiToken.md
+            - Using Tokens: mPulseAPI/Token.md
+        - Tenants: mPulseAPI/Tenant.md
+        - Domains: mPulseAPI/Domain.md
+        - Alerts: mPulseAPI/Alert.md
+        - Statistical Model: mPulseAPI/StatisticalModel.md
+    - Query API: mPulseAPI/QueryAPI.md
+    - Utilities:
+        - Caching: mPulseAPI/cache_utilities.md
+        - Exceptions: mPulseAPI/exceptions.md

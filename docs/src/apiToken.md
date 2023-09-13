@@ -37,7 +37,7 @@ If you don't already have an API Token generated, click the **Generate** link:
 ## Step 4. Copy the API Token
 
 You should now have an API Token in the text field labelled **API Token**.  Copy this out and use it
-for the [`mPulseAPI.generateRepositoryToken`](RepositoryAPI.md#function-generaterepositorytoken) call.
+for the [`mPulseAPI.generateRepositoryToken`](mPulseAPI/RepositoryAPI.md#function-generaterepositorytoken) call.
 
 ![mPulse Account Settings Page showing a generated API Token](images/mpulse-account-apitoken.png)
 

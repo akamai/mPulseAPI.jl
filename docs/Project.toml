@@ -1,0 +1,3 @@
+[deps]
+YAML = "ddb6d928-2868-570f-bddf-ab3f9cf99eb6"
+mPulseAPI = "314d2b54-f2c3-11ea-15f2-0bcf2fc50b35"

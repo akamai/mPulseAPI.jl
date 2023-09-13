@@ -8,29 +8,16 @@
 # Functions to communicate with the mPulse Query and Repository REST APIs
 #
 ###################################################
-
-__precompile__(true)
-
+"""
+$(readchomp(joinpath(dirname(@__DIR__), "README.md")))
+"""
 module mPulseAPI
-# This should bind at compile time, so @__FILE__ is set to mPulseAPI.jl
-const __module_dir = dirname(@__DIR__)
-
-function readdoc(path::AbstractString...)
-    return ""
-end
-
-"""
-"""
-mPulseAPI
 
 using Dates
 
 using LightXML, Formatting, TimeZones, DataFrames
 import HTTP
 export LightXML
-
-# Tells docgen.jl to document internal methods as well
-const __document_internal = true
 
 const default_mPulseEndpoint = "https://mpulse.soasta.com/concerto"
 
@@ -115,7 +102,7 @@ end
 
 function readdocs(name::AbstractString, replacers=[]; indent=0)
     # read the file and strip out the newline at the end
-    data = chomp( readdoc( "doc-snippets", name * ".md" ) )
+    data = readchomp( joinpath(dirname(@__DIR__), "doc-snippets", name * ".md") )
 
     # If any placeholders have default values, pull them out and insert them into the replace
     # array if a value is not already set
