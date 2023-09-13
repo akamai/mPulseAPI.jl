@@ -1,52 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-    
     <url>
-     <loc>https://akamai.github.com/mPulseAPI.jl//index.html</loc>
-     <lastmod>2018-07-09</lastmod>
+     <loc>https://akamai.github.com/mPulseAPI.jl/mPulseAPI/index.html</loc>
+     <lastmod>2023-09-13</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>https://akamai.github.com/mPulseAPI.jl//apiToken/index.html</loc>
-     <lastmod>2018-07-09</lastmod>
+     <loc>https://akamai.github.com/mPulseAPI.jl/mPulseAPI/RepositoryAPI/index.html</loc>
+     <lastmod>2023-09-13</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>https://akamai.github.com/mPulseAPI.jl//RepositoryAPI/index.html</loc>
-     <lastmod>2018-07-09</lastmod>
+     <loc>https://akamai.github.com/mPulseAPI.jl/apiToken/index.html</loc>
+     <lastmod>2023-09-13</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>https://akamai.github.com/mPulseAPI.jl//QueryAPI/index.html</loc>
-     <lastmod>2018-07-09</lastmod>
+     <loc>https://akamai.github.com/mPulseAPI.jl/mPulseAPI/Token/index.html</loc>
+     <lastmod>2023-09-13</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>https://akamai.github.com/mPulseAPI.jl//exceptions/index.html</loc>
-     <lastmod>2018-07-09</lastmod>
+     <loc>https://akamai.github.com/mPulseAPI.jl/mPulseAPI/Tenant/index.html</loc>
+     <lastmod>2023-09-13</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>https://akamai.github.com/mPulseAPI.jl//cache_utilities/index.html</loc>
-     <lastmod>2018-07-09</lastmod>
+     <loc>https://akamai.github.com/mPulseAPI.jl/mPulseAPI/Domain/index.html</loc>
+     <lastmod>2023-09-13</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
+    <url>
+     <loc>https://akamai.github.com/mPulseAPI.jl/mPulseAPI/Alert/index.html</loc>
+     <lastmod>2023-09-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://akamai.github.com/mPulseAPI.jl/mPulseAPI/StatisticalModel/index.html</loc>
+     <lastmod>2023-09-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://akamai.github.com/mPulseAPI.jl/mPulseAPI/QueryAPI/index.html</loc>
+     <lastmod>2023-09-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://akamai.github.com/mPulseAPI.jl/mPulseAPI/cache_utilities/index.html</loc>
+     <lastmod>2023-09-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://akamai.github.com/mPulseAPI.jl/mPulseAPI/exceptions/index.html</loc>
+     <lastmod>2023-09-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
 </urlset>

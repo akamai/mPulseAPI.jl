@@ -7,9 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   
-  <link rel="shortcut icon" href="../favicon.ico">
-  
-  <title>How to generate an API Token - mPulseAPI.jl Documentation</title>
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Generate Tokens - mPulseAPI Documentation</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../css/theme.css" type="text/css" />
@@ -19,7 +18,7 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "How to generate an API Token";
+    var mkdocs_page_name = "Generate Tokens";
     var mkdocs_page_input_path = "apiToken.md";
     var mkdocs_page_url = "/apiToken/index.html";
   </script>
@@ -37,7 +36,7 @@
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
       <div class="wy-side-nav-search">
-        <a href="../index.html" class="icon icon-home"> mPulseAPI.jl Documentation</a>
+        <a href="../mPulseAPI/index.html" class="icon icon-home"> mPulseAPI Documentation</a>
         <div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -51,50 +50,86 @@
           
             <li class="toctree-l1">
 		
-    <a class="" href="../index.html">mPulseAPI</a>
+    <a class="" href="../mPulseAPI/index.html">Home</a>
 	    </li>
           
-            <li class="toctree-l1 current">
+            <li class="toctree-l1">
 		
-    <a class="current" href="index.html">How to generate an API Token</a>
+    <span class="caption-text">Repository API</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../mPulseAPI/RepositoryAPI/index.html">Base API</a>
+                </li>
+                <li class=" current">
+                    
+    <span class="caption-text">Tokens</span>
+    <ul class="subnav">
+                <li class="toctree-l3 current">
+                    
+    <a class="current" href="index.html">Generate Tokens</a>
     <ul class="subnav">
             
-    <li class="toctree-l2"><a href="#how-to-generate-an-mpulse-api-token">How to generate an mPulse API Token</a></li>
+    <li class="toctree-l4"><a href="#how-to-generate-an-mpulse-api-token">How to generate an mPulse API Token</a></li>
     
         <ul>
         
-            <li><a class="toctree-l3" href="#step-1-sign-in-to-mpulse">Step 1. Sign in to mPulse</a></li>
+            <li><a class="toctree-l5" href="#step-1-sign-in-to-mpulse">Step 1. Sign in to mPulse</a></li>
         
-            <li><a class="toctree-l3" href="#step-2-visit-your-account-settings">Step 2. Visit your Account Settings</a></li>
+            <li><a class="toctree-l5" href="#step-2-visit-your-account-settings">Step 2. Visit your Account Settings</a></li>
         
-            <li><a class="toctree-l3" href="#step-3-generate-a-new-api-token">Step 3. Generate a new API Token</a></li>
+            <li><a class="toctree-l5" href="#step-3-generate-a-new-api-token">Step 3. Generate a new API Token</a></li>
         
-            <li><a class="toctree-l3" href="#step-4-copy-the-api-token">Step 4. Copy the API Token</a></li>
+            <li><a class="toctree-l5" href="#step-4-copy-the-api-token">Step 4. Copy the API Token</a></li>
         
         </ul>
     
 
     </ul>
+                </li>
+                <li class="toctree-l3">
+                    
+    <a class="" href="../mPulseAPI/Token/index.html">Using Tokens</a>
+                </li>
+    </ul>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../mPulseAPI/Tenant/index.html">Tenants</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../mPulseAPI/Domain/index.html">Domains</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../mPulseAPI/Alert/index.html">Alerts</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../mPulseAPI/StatisticalModel/index.html">Statistical Model</a>
+                </li>
+    </ul>
 	    </li>
           
             <li class="toctree-l1">
 		
-    <a class="" href="../RepositoryAPI/index.html">Repository API</a>
+    <a class="" href="../mPulseAPI/QueryAPI/index.html">Query API</a>
 	    </li>
           
             <li class="toctree-l1">
 		
-    <a class="" href="../QueryAPI/index.html">Query API</a>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <a class="" href="../exceptions/index.html">Exceptions</a>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <a class="" href="../cache_utilities/index.html">Internal Cache Utilities</a>
+    <span class="caption-text">Utilities</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../mPulseAPI/cache_utilities/index.html">Caching</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../mPulseAPI/exceptions/index.html">Exceptions</a>
+                </li>
+    </ul>
 	    </li>
           
         </ul>
@@ -107,7 +142,7 @@
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">mPulseAPI.jl Documentation</a>
+        <a href="../mPulseAPI/index.html">mPulseAPI Documentation</a>
       </nav>
 
       
@@ -115,11 +150,19 @@
         <div class="rst-content">
           <div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href="../index.html">Docs</a> &raquo;</li>
+    <li><a href="../mPulseAPI/index.html">Docs</a> &raquo;</li>
     
       
+        
+          <li>Repository API &raquo;</li>
+        
+      
+        
+          <li>Tokens &raquo;</li>
+        
+      
     
-    <li>How to generate an API Token</li>
+    <li>Generate Tokens</li>
     <li class="wy-breadcrumbs-aside">
       
         <a href="https://github.com/akamai/mPulseAPI.jl/edit/master/docs/apiToken.md"
@@ -153,7 +196,7 @@ to Change your password and Generate/Revoke your API Token.</p>
 <p><img alt="mPulse Account Settings Page showing where the API Token Generate and Revoke links are" src="../images/mpulse-account-settings.png" /></p>
 <h2 id="step-4-copy-the-api-token">Step 4. Copy the API Token<a class="headerlink" href="#step-4-copy-the-api-token" title="Permanent link">&para;</a></h2>
 <p>You should now have an API Token in the text field labelled <strong>API Token</strong>.  Copy this out and use it
-for the <a href="../RepositoryAPI/index.html#function-generaterepositorytoken"><code>mPulseAPI.generateRepositoryToken</code></a> call.</p>
+for the <a href="../mPulseAPI/RepositoryAPI/index.html#function-generaterepositorytoken"><code>mPulseAPI.generateRepositoryToken</code></a> call.</p>
 <p><img alt="mPulse Account Settings Page showing a generated API Token" src="../images/mpulse-account-apitoken.png" /></p>
               
             </div>
@@ -162,10 +205,10 @@ for the <a href="../RepositoryAPI/index.html#function-generaterepositorytoken"><
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../RepositoryAPI/index.html" class="btn btn-neutral float-right" title="Repository API">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../mPulseAPI/Token/index.html" class="btn btn-neutral float-right" title="Using Tokens">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../index.html" class="btn btn-neutral" title="mPulseAPI"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../mPulseAPI/RepositoryAPI/index.html" class="btn btn-neutral" title="Base API"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -175,34 +218,37 @@ for the <a href="../RepositoryAPI/index.html#function-generaterepositorytoken"><
   <div role="contentinfo">
     <!-- Copyright etc -->
     
-      <p>Akamai, Inc.</p>
+      <p>Copyright © Akamai Technologies. All rights reserved.</p>
     
   </div>
 
   Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
-	  
+      
         </div>
       </div>
 
     </section>
-    
+
   </div>
 
   <div class="rst-versions" role="note" style="cursor: pointer">
     <span class="rst-current-version" data-toggle="rst-current-version">
       
-          <a href="https://github.com/akamai/mPulseAPI.jl/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+          <a href="https://github.com/akamai/mPulseAPI.jl/" class="fa fa-github" style="float: left;"> GitHub</a>
       
       
-        <span><a href="../index.html" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../mPulseAPI/RepositoryAPI/index.html" style="">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../RepositoryAPI/index.html" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../mPulseAPI/Token/index.html" style="">Next &raquo;</a></span>
       
     </span>
 </div>
+    <script>var base_url = '..';</script>
     <script src="../js/theme.js"></script>
+      <script src="../search/require.js"></script>
+      <script src="../search/search.js"></script>
 
 </body>
 </html>

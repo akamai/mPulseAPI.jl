@@ -7,26 +7,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   
-  <link rel="shortcut icon" href="../favicon.ico">
-  
-  <title>Query API - mPulseAPI.jl Documentation</title>
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Query API - mPulseAPI Documentation</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
-  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
-  <link rel="stylesheet" href="../css/highlight.css">
-  <link href="../css/mkdocs.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/highlight.css">
+  <link href="../../css/mkdocs.css" rel="stylesheet">
   
   <script>
     // Current page data
     var mkdocs_page_name = "Query API";
-    var mkdocs_page_input_path = "QueryAPI.md";
-    var mkdocs_page_url = "/QueryAPI/index.html";
+    var mkdocs_page_input_path = "mPulseAPI/QueryAPI.md";
+    var mkdocs_page_url = "/mPulseAPI/QueryAPI/index.html";
   </script>
   
-  <script src="../js/jquery-2.1.1.min.js"></script>
-  <script src="../js/modernizr-2.8.3.min.js"></script>
-  <script type="text/javascript" src="../js/highlight.pack.js"></script> 
+  <script src="../../js/jquery-2.1.1.min.js"></script>
+  <script src="../../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script> 
   
 </head>
 
@@ -37,9 +36,9 @@
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
       <div class="wy-side-nav-search">
-        <a href="../index.html" class="icon icon-home"> mPulseAPI.jl Documentation</a>
+        <a href="../index.html" class="icon icon-home"> mPulseAPI Documentation</a>
         <div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
   </form>
 </div>
@@ -51,17 +50,48 @@
           
             <li class="toctree-l1">
 		
-    <a class="" href="../index.html">mPulseAPI</a>
+    <a class="" href="../index.html">Home</a>
 	    </li>
           
             <li class="toctree-l1">
 		
-    <a class="" href="../apiToken/index.html">How to generate an API Token</a>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <a class="" href="../RepositoryAPI/index.html">Repository API</a>
+    <span class="caption-text">Repository API</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../RepositoryAPI/index.html">Base API</a>
+                </li>
+                <li class="">
+                    
+    <span class="caption-text">Tokens</span>
+    <ul class="subnav">
+                <li class="toctree-l3">
+                    
+    <a class="" href="../../apiToken/index.html">Generate Tokens</a>
+                </li>
+                <li class="toctree-l3">
+                    
+    <a class="" href="../Token/index.html">Using Tokens</a>
+                </li>
+    </ul>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../Tenant/index.html">Tenants</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../Domain/index.html">Domains</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../Alert/index.html">Alerts</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../StatisticalModel/index.html">Statistical Model</a>
+                </li>
+    </ul>
 	    </li>
           
             <li class="toctree-l1 current">
@@ -69,7 +99,7 @@
     <a class="current" href="index.html">Query API</a>
     <ul class="subnav">
             
-    <li class="toctree-l2"><a href="#query-api">Query API</a></li>
+    <li class="toctree-l2"><a href="#mpulseapi-query-api">mPulseAPI: Query API</a></li>
     
         <ul>
         
@@ -101,7 +131,7 @@
         
             <li><a class="toctree-l3" href="#arguments_12">Arguments</a></li>
         
-            <li><a class="toctree-l3" href="#optional-arguments_12">Optional Arguments</a></li>
+            <li><a class="toctree-l3" href="#keyword-arguments_12">Keyword Arguments</a></li>
         
             <li><a class="toctree-l3" href="#throws_12">Throws</a></li>
         
@@ -115,12 +145,17 @@
           
             <li class="toctree-l1">
 		
+    <span class="caption-text">Utilities</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../cache_utilities/index.html">Caching</a>
+                </li>
+                <li class="">
+                    
     <a class="" href="../exceptions/index.html">Exceptions</a>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <a class="" href="../cache_utilities/index.html">Internal Cache Utilities</a>
+                </li>
+    </ul>
 	    </li>
           
         </ul>
@@ -133,7 +168,7 @@
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">mPulseAPI.jl Documentation</a>
+        <a href="../index.html">mPulseAPI Documentation</a>
       </nav>
 
       
@@ -148,7 +183,7 @@
     <li>Query API</li>
     <li class="wy-breadcrumbs-aside">
       
-        <a href="https://github.com/akamai/mPulseAPI.jl/edit/master/docs/QueryAPI.md"
+        <a href="https://github.com/akamai/mPulseAPI.jl/edit/master/docs/mPulseAPI/QueryAPI.md"
           class="icon icon-github"> Edit on GitHub</a>
       
     </li>
@@ -158,23 +193,40 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="query-api">Query API<a class="headerlink" href="#query-api" title="Permanent link">&para;</a></h1>
+                <h1 id="mpulseapi-query-api">mPulseAPI: Query API<a class="headerlink" href="#mpulseapi-query-api" title="Permanent link">&para;</a></h1>
+<ul class="symbols">
+<li class="internal" title="internal"><a href="../mPulseAPI/QueryAPI.html#function-getabtesttimers">getABTestTimers</a></li>
+<li class="internal" title="internal"><a href="../mPulseAPI/QueryAPI.html#function-getapiresults">getAPIResults</a></li>
+<li class="internal" title="internal"><a href="../mPulseAPI/QueryAPI.html#function-getbrowsertimers">getBrowserTimers</a></li>
+<li class="internal" title="internal"><a href="../mPulseAPI/QueryAPI.html#function-getgeotimers">getGeoTimers</a></li>
+<li class="internal" title="internal"><a href="../mPulseAPI/QueryAPI.html#function-gethistogram">getHistogram</a></li>
+<li class="internal" title="internal"><a href="../mPulseAPI/QueryAPI.html#function-getmetricoverpageloadtime">getMetricOverPageLoadTime</a></li>
+<li class="internal" title="internal"><a href="../mPulseAPI/QueryAPI.html#function-getmetricsbydimension">getMetricsByDimension</a></li>
+<li class="internal" title="internal"><a href="../mPulseAPI/QueryAPI.html#function-getpagegrouptimers">getPageGroupTimers</a></li>
+<li class="internal" title="internal"><a href="../mPulseAPI/QueryAPI.html#function-getsessionsoverpageloadtime">getSessionsOverPageLoadTime</a></li>
+<li class="internal" title="internal"><a href="../mPulseAPI/QueryAPI.html#function-getsummarytimers">getSummaryTimers</a></li>
+<li class="internal" title="internal"><a href="../mPulseAPI/QueryAPI.html#function-gettimerbyminute">getTimerByMinute</a></li>
+<li class="internal" title="internal"><a href="../mPulseAPI/QueryAPI.html#function-gettimersmetrics">getTimersMetrics</a></li>
+<li class="internal" title="internal"><a href="../mPulseAPI/QueryAPI.html#function-mergemetrics">mergeMetrics</a></li>
+</ul>
+<h2>Qualified Functions</h2>
+
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The following methods are not exported by default. You may use them by explicitly
+<p>The following functions are not exported by default. You may use them by explicitly
 importing them or by prefixing them with the <code>mPulseAPI.</code> namespace.</p>
 </div>
 <h3 id="function-getapiresults">function <code>getAPIResults</code><a class="headerlink" href="#function-getapiresults" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/akamai/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L67-L177">QueryAPI.jl#67-177</a></p>
+<p><a class="source-link" href="https://github.com/akamai/mPulseAPI.jl/tree/main/src/QueryAPI.jl#L58-166">QueryAPI.jl#58-166</a></p>
 <p>Get API results from the mPulse <a href="http://docs.soasta.com/query-api/">Query API</a></p>
 <p>This method is a generic catch-all that queries the mPulse API and returns results as a Julia data structure matching the JSON structure of the specified API call</p>
 <h4 id="arguments">Arguments<a class="headerlink" href="#arguments" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>token::AbstractString</code></dt>
-<dd>The Repository authentication token fetched by calling <a class="x-ref" href="../RepositoryAPI/index.html#function-getrepositorytoken"><code>mPulseAPI.getRepositoryToken</code></a></dd>
+<dd>The Repository authentication token fetched by calling <a class="x-ref" href="../Token/index.html#function-getrepositorytoken"><code>mPulseAPI.getRepositoryToken</code></a></dd>
 <dt><code>appKey::AbstractString</code></dt>
 <dd>The App Key (formerly known as API key) for the app to query.  If you don't know the App Key, use
- <a class="x-ref" href="../RepositoryAPI/index.html#function-getrepositorydomain"><code>mPulseAPI.getRepositoryDomain</code></a> to fetch a domain and then inspect <code>domain["attributes"]["appKey"]</code></dd>
+ <a class="x-ref" href="../Domain/index.html#function-getrepositorydomain"><code>mPulseAPI.getRepositoryDomain</code></a> to fetch a domain and then inspect <code>domain["attributes"]["appKey"]</code></dd>
 <dt><code>query_type::AbstractString</code></dt>
 <dd>
 <p>The specific API query to make.  Must be one of the following:</p>
@@ -194,7 +246,7 @@ importing them or by prefixing them with the <code>mPulseAPI.</code> namespace.<
 </ul>
 </dd>
 </dl>
-<h4 id="optional-arguments">Optional Arguments<a class="headerlink" href="#optional-arguments" title="Permanent link">&para;</a></h4>
+<h4 id="keyword-arguments">Keyword Arguments<a class="headerlink" href="#keyword-arguments" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>filters::Dict</code></dt>
 <dd>
@@ -239,17 +291,17 @@ the problem</dd>
 <p><code>{Any}</code> A Julia representation of the JSON returned by the API call. Convenience wrappers in this library may return more appropriate data structures.</p>
 <hr />
 <h3 id="function-getsummarytimers">function <code>getSummaryTimers</code><a class="headerlink" href="#function-getsummarytimers" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/akamai/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L226-L228">QueryAPI.jl#226-228</a></p>
+<p><a class="source-link" href="https://github.com/akamai/mPulseAPI.jl/tree/main/src/QueryAPI.jl#L215-217">QueryAPI.jl#215-217</a></p>
 <p>Calls the <code>summary</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_1">Arguments<a class="headerlink" href="#arguments_1" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>token::AbstractString</code></dt>
-<dd>The Repository authentication token fetched by calling <a class="x-ref" href="../RepositoryAPI/index.html#function-getrepositorytoken"><code>mPulseAPI.getRepositoryToken</code></a></dd>
+<dd>The Repository authentication token fetched by calling <a class="x-ref" href="../Token/index.html#function-getrepositorytoken"><code>mPulseAPI.getRepositoryToken</code></a></dd>
 <dt><code>appKey::AbstractString</code></dt>
 <dd>The App Key (formerly known as API key) for the app to query.  If you don't know the App Key, use
- <a class="x-ref" href="../RepositoryAPI/index.html#function-getrepositorydomain"><code>mPulseAPI.getRepositoryDomain</code></a> to fetch a domain and then inspect <code>domain["attributes"]["appKey"]</code></dd>
+ <a class="x-ref" href="../Domain/index.html#function-getrepositorydomain"><code>mPulseAPI.getRepositoryDomain</code></a> to fetch a domain and then inspect <code>domain["attributes"]["appKey"]</code></dd>
 </dl>
-<h4 id="optional-arguments_1">Optional Arguments<a class="headerlink" href="#optional-arguments_1" title="Permanent link">&para;</a></h4>
+<h4 id="keyword-arguments_1">Keyword Arguments<a class="headerlink" href="#keyword-arguments_1" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>filters::Dict</code></dt>
 <dd>
@@ -303,7 +355,7 @@ the problem</dd>
 <dd>The 95% confidence interval margin of error on the arithmetic mean of the requested timer in milliseconds</dd>
 </dl>
 <h4 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h4>
-<pre><code class="julia">julia&gt; summary = mPulseAPI.getSummaryTimers(token, appKey)
+<pre><code class="language-julia">julia&gt; summary = mPulseAPI.getSummaryTimers(token, appKey)
 
 Dict{Any,Any} with 5 entries:
   &quot;n&quot;      =&gt; 356317
@@ -312,20 +364,19 @@ Dict{Any,Any} with 5 entries:
   &quot;p98&quot;    =&gt; 40678
   &quot;moe&quot;    =&gt; 13.93
 </code></pre>
-
 <hr />
 <h3 id="function-getpagegrouptimers">function <code>getPageGroupTimers</code><a class="headerlink" href="#function-getpagegrouptimers" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/akamai/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L252-L266">QueryAPI.jl#252-266</a></p>
+<p><a class="source-link" href="https://github.com/akamai/mPulseAPI.jl/tree/main/src/QueryAPI.jl#L241-255">QueryAPI.jl#241-255</a></p>
 <p>Calls the <code>page-groups</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_2">Arguments<a class="headerlink" href="#arguments_2" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>token::AbstractString</code></dt>
-<dd>The Repository authentication token fetched by calling <a class="x-ref" href="../RepositoryAPI/index.html#function-getrepositorytoken"><code>mPulseAPI.getRepositoryToken</code></a></dd>
+<dd>The Repository authentication token fetched by calling <a class="x-ref" href="../Token/index.html#function-getrepositorytoken"><code>mPulseAPI.getRepositoryToken</code></a></dd>
 <dt><code>appKey::AbstractString</code></dt>
 <dd>The App Key (formerly known as API key) for the app to query.  If you don't know the App Key, use
- <a class="x-ref" href="../RepositoryAPI/index.html#function-getrepositorydomain"><code>mPulseAPI.getRepositoryDomain</code></a> to fetch a domain and then inspect <code>domain["attributes"]["appKey"]</code></dd>
+ <a class="x-ref" href="../Domain/index.html#function-getrepositorydomain"><code>mPulseAPI.getRepositoryDomain</code></a> to fetch a domain and then inspect <code>domain["attributes"]["appKey"]</code></dd>
 </dl>
-<h4 id="optional-arguments_2">Optional Arguments<a class="headerlink" href="#optional-arguments_2" title="Permanent link">&para;</a></h4>
+<h4 id="keyword-arguments_2">Keyword Arguments<a class="headerlink" href="#keyword-arguments_2" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>filters::Dict</code></dt>
 <dd>
@@ -377,7 +428,7 @@ the problem</dd>
 <h4 id="returns_2">Returns<a class="headerlink" href="#returns_2" title="Permanent link">&para;</a></h4>
 <p><code>{DataFrame}</code> A Julia <code>DataFrame</code> with the following columns:</p>
 <p><code>page_group</code>, <code>t_done_median</code>, <code>t_done_moe</code>, <code>t_done_count</code>, and <code>t_done_total_pc</code></p>
-<pre><code class="julia">julia&gt; pgroups = mPulseAPI.getPageGroupTimers(token, appKey)
+<pre><code class="language-julia">julia&gt; pgroups = mPulseAPI.getPageGroupTimers(token, appKey)
 69x5 DataFrames.DataFrame
 | Row | page_group                  | t_done_median    | t_done_moe | t_done_count | t_done_total_pc |
 |-----|-----------------------------|------------------|------------|--------------|-----------------|
@@ -390,20 +441,19 @@ the problem</dd>
 | 7   | Checkout                    | 2875             | 169.091    | 2386         | 2.21402         |
 
 </code></pre>
-
 <hr />
 <h3 id="function-getbrowsertimers">function <code>getBrowserTimers</code><a class="headerlink" href="#function-getbrowsertimers" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/akamai/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L290-L304">QueryAPI.jl#290-304</a></p>
+<p><a class="source-link" href="https://github.com/akamai/mPulseAPI.jl/tree/main/src/QueryAPI.jl#L279-293">QueryAPI.jl#279-293</a></p>
 <p>Calls the <code>browsers</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_3">Arguments<a class="headerlink" href="#arguments_3" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>token::AbstractString</code></dt>
-<dd>The Repository authentication token fetched by calling <a class="x-ref" href="../RepositoryAPI/index.html#function-getrepositorytoken"><code>mPulseAPI.getRepositoryToken</code></a></dd>
+<dd>The Repository authentication token fetched by calling <a class="x-ref" href="../Token/index.html#function-getrepositorytoken"><code>mPulseAPI.getRepositoryToken</code></a></dd>
 <dt><code>appKey::AbstractString</code></dt>
 <dd>The App Key (formerly known as API key) for the app to query.  If you don't know the App Key, use
- <a class="x-ref" href="../RepositoryAPI/index.html#function-getrepositorydomain"><code>mPulseAPI.getRepositoryDomain</code></a> to fetch a domain and then inspect <code>domain["attributes"]["appKey"]</code></dd>
+ <a class="x-ref" href="../Domain/index.html#function-getrepositorydomain"><code>mPulseAPI.getRepositoryDomain</code></a> to fetch a domain and then inspect <code>domain["attributes"]["appKey"]</code></dd>
 </dl>
-<h4 id="optional-arguments_3">Optional Arguments<a class="headerlink" href="#optional-arguments_3" title="Permanent link">&para;</a></h4>
+<h4 id="keyword-arguments_3">Keyword Arguments<a class="headerlink" href="#keyword-arguments_3" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>filters::Dict</code></dt>
 <dd>
@@ -455,7 +505,7 @@ the problem</dd>
 <h4 id="returns_3">Returns<a class="headerlink" href="#returns_3" title="Permanent link">&para;</a></h4>
 <p><code>{DataFrame}</code> A Julia <code>DataFrame</code> with the following columns:</p>
 <p><code>user_agent</code>, <code>t_done_median</code>, <code>t_done_moe</code>, <code>t_done_count</code>, and <code>t_done_total_pc</code></p>
-<pre><code class="julia">julia&gt; pgroups = mPulseAPI.getBrowserTimers(token, appKey)
+<pre><code class="language-julia">julia&gt; pgroups = mPulseAPI.getBrowserTimers(token, appKey)
 69x5 DataFrames.DataFrame
 | Row | user_agent                  | t_done_median    | t_done_moe | t_done_count | t_done_total_pc |
 |-----|-----------------------------|------------------|------------|--------------|-----------------|
@@ -468,20 +518,19 @@ the problem</dd>
 | 7   | Edge/13                     | 2875             | 169.091    | 2386         | 2.21402         |
 
 </code></pre>
-
 <hr />
 <h3 id="function-getabtesttimers">function <code>getABTestTimers</code><a class="headerlink" href="#function-getabtesttimers" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/akamai/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L328-L342">QueryAPI.jl#328-342</a></p>
+<p><a class="source-link" href="https://github.com/akamai/mPulseAPI.jl/tree/main/src/QueryAPI.jl#L317-331">QueryAPI.jl#317-331</a></p>
 <p>Calls the <code>ab-tests</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_4">Arguments<a class="headerlink" href="#arguments_4" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>token::AbstractString</code></dt>
-<dd>The Repository authentication token fetched by calling <a class="x-ref" href="../RepositoryAPI/index.html#function-getrepositorytoken"><code>mPulseAPI.getRepositoryToken</code></a></dd>
+<dd>The Repository authentication token fetched by calling <a class="x-ref" href="../Token/index.html#function-getrepositorytoken"><code>mPulseAPI.getRepositoryToken</code></a></dd>
 <dt><code>appKey::AbstractString</code></dt>
 <dd>The App Key (formerly known as API key) for the app to query.  If you don't know the App Key, use
- <a class="x-ref" href="../RepositoryAPI/index.html#function-getrepositorydomain"><code>mPulseAPI.getRepositoryDomain</code></a> to fetch a domain and then inspect <code>domain["attributes"]["appKey"]</code></dd>
+ <a class="x-ref" href="../Domain/index.html#function-getrepositorydomain"><code>mPulseAPI.getRepositoryDomain</code></a> to fetch a domain and then inspect <code>domain["attributes"]["appKey"]</code></dd>
 </dl>
-<h4 id="optional-arguments_4">Optional Arguments<a class="headerlink" href="#optional-arguments_4" title="Permanent link">&para;</a></h4>
+<h4 id="keyword-arguments_4">Keyword Arguments<a class="headerlink" href="#keyword-arguments_4" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>filters::Dict</code></dt>
 <dd>
@@ -533,7 +582,7 @@ the problem</dd>
 <h4 id="returns_4">Returns<a class="headerlink" href="#returns_4" title="Permanent link">&para;</a></h4>
 <p><code>{DataFrame}</code> A Julia <code>DataFrame</code> with the following columns:</p>
 <p><code>test_name</code>, <code>t_done_median</code>, <code>t_done_moe</code>, <code>t_done_count</code>, and <code>t_done_total_pc</code></p>
-<pre><code class="julia">julia&gt; pgroups = mPulseAPI.getABTestTimers(token, appKey)
+<pre><code class="language-julia">julia&gt; pgroups = mPulseAPI.getABTestTimers(token, appKey)
 69x5 DataFrames.DataFrame
 | Row | test_name                   | t_done_median    | t_done_moe | t_done_count | t_done_total_pc |
 |-----|-----------------------------|------------------|------------|--------------|-----------------|
@@ -546,20 +595,19 @@ the problem</dd>
 | 7   | Slow-SRP                    | 2875             | 169.091    | 2386         | 2.21402         |
 
 </code></pre>
-
 <hr />
 <h3 id="function-getgeotimers">function <code>getGeoTimers</code><a class="headerlink" href="#function-getgeotimers" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/akamai/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L366-L384">QueryAPI.jl#366-384</a></p>
+<p><a class="source-link" href="https://github.com/akamai/mPulseAPI.jl/tree/main/src/QueryAPI.jl#L355-373">QueryAPI.jl#355-373</a></p>
 <p>Calls the <code>geography</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_5">Arguments<a class="headerlink" href="#arguments_5" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>token::AbstractString</code></dt>
-<dd>The Repository authentication token fetched by calling <a class="x-ref" href="../RepositoryAPI/index.html#function-getrepositorytoken"><code>mPulseAPI.getRepositoryToken</code></a></dd>
+<dd>The Repository authentication token fetched by calling <a class="x-ref" href="../Token/index.html#function-getrepositorytoken"><code>mPulseAPI.getRepositoryToken</code></a></dd>
 <dt><code>appKey::AbstractString</code></dt>
 <dd>The App Key (formerly known as API key) for the app to query.  If you don't know the App Key, use
- <a class="x-ref" href="../RepositoryAPI/index.html#function-getrepositorydomain"><code>mPulseAPI.getRepositoryDomain</code></a> to fetch a domain and then inspect <code>domain["attributes"]["appKey"]</code></dd>
+ <a class="x-ref" href="../Domain/index.html#function-getrepositorydomain"><code>mPulseAPI.getRepositoryDomain</code></a> to fetch a domain and then inspect <code>domain["attributes"]["appKey"]</code></dd>
 </dl>
-<h4 id="optional-arguments_5">Optional Arguments<a class="headerlink" href="#optional-arguments_5" title="Permanent link">&para;</a></h4>
+<h4 id="keyword-arguments_5">Keyword Arguments<a class="headerlink" href="#keyword-arguments_5" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>filters::Dict</code></dt>
 <dd>
@@ -611,7 +659,7 @@ the problem</dd>
 <h4 id="returns_5">Returns<a class="headerlink" href="#returns_5" title="Permanent link">&para;</a></h4>
 <p><code>{DataFrame}</code> A Julia <code>DataFrame</code> with the following columns:</p>
 <p><code>country</code>, <code>t_done_median</code>, <code>t_done_moe</code>, <code>t_done_count</code>, and <code>t_done_total_pc</code></p>
-<pre><code class="julia">julia&gt; pgroups = mPulseAPI.getCountryTimers(token, appKey)
+<pre><code class="language-julia">julia&gt; pgroups = mPulseAPI.getCountryTimers(token, appKey)
 69x5 DataFrames.DataFrame
 | Row | country                     | t_done_median    | t_done_moe | t_done_count | t_done_total_pc |
 |-----|-----------------------------|------------------|------------|--------------|-----------------|
@@ -624,18 +672,17 @@ the problem</dd>
 | 7   | PE                          | 2875             | 169.091    | 2386         | 2.21402         |
 
 </code></pre>
-
 <hr />
 <h3 id="function-getmetricsbydimension">function <code>getMetricsByDimension</code><a class="headerlink" href="#function-getmetricsbydimension" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/akamai/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L431-L463">QueryAPI.jl#431-463</a></p>
+<p><a class="source-link" href="https://github.com/akamai/mPulseAPI.jl/tree/main/src/QueryAPI.jl#L420-449">QueryAPI.jl#420-449</a></p>
 <p>Calls the <code>metrics-by-dimension</code> endpoint of the mPulse REST API with the passed in dimension name and filters</p>
 <h4 id="arguments_6">Arguments<a class="headerlink" href="#arguments_6" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>token::AbstractString</code></dt>
-<dd>The Repository authentication token fetched by calling <a class="x-ref" href="../RepositoryAPI/index.html#function-getrepositorytoken"><code>mPulseAPI.getRepositoryToken</code></a></dd>
+<dd>The Repository authentication token fetched by calling <a class="x-ref" href="../Token/index.html#function-getrepositorytoken"><code>mPulseAPI.getRepositoryToken</code></a></dd>
 <dt><code>appKey::AbstractString</code></dt>
 <dd>The App Key (formerly known as API key) for the app to query.  If you don't know the App Key, use
- <a class="x-ref" href="../RepositoryAPI/index.html#function-getrepositorydomain"><code>mPulseAPI.getRepositoryDomain</code></a> to fetch a domain and then inspect <code>domain["attributes"]["appKey"]</code></dd>
+ <a class="x-ref" href="../Domain/index.html#function-getrepositorydomain"><code>mPulseAPI.getRepositoryDomain</code></a> to fetch a domain and then inspect <code>domain["attributes"]["appKey"]</code></dd>
 <dt><code>dimension::AbstractString</code></dt>
 <dd>
 <p>The dimension to split metrics by.  The response contains one row for each value of this dimension.  The following dimensions are supported:</p>
@@ -650,7 +697,7 @@ the problem</dd>
  an up-to-date list.</p>
 </dd>
 </dl>
-<h4 id="optional-arguments_6">Optional Arguments<a class="headerlink" href="#optional-arguments_6" title="Permanent link">&para;</a></h4>
+<h4 id="keyword-arguments_6">Keyword Arguments<a class="headerlink" href="#keyword-arguments_6" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>filters::Dict</code></dt>
 <dd>
@@ -693,7 +740,7 @@ the problem</dd>
 </dl>
 <h4 id="returns_6">Returns<a class="headerlink" href="#returns_6" title="Permanent link">&para;</a></h4>
 <p><code>{DataFrame}</code> A Julia <code>DataFrame</code> with the following columns: <code>:&lt;dimension&gt;</code>, <code>:&lt;CustomMetric Name&gt;</code>...</p>
-<pre><code class="julia">julia&gt; mPulseAPI.getMetricsByDimension(token, appKey, &quot;browser&quot;)
+<pre><code class="language-julia">julia&gt; mPulseAPI.getMetricsByDimension(token, appKey, &quot;browser&quot;)
 243x4 DataFrames.DataFrame
 | Row | browser                          | Conversion | OrderTotal | ServerDown  |
 |-----|----------------------------------|------------|------------|-------------|
@@ -704,20 +751,19 @@ the problem</dd>
 | 5   | &quot;Mobile Safari/8&quot;                | 2.38545    | 2295848    | 0.0         |
 | 6   | &quot;Chrome/49&quot;                      | 2.22828    | 4394331    | 0.0         |
 </code></pre>
-
 <hr />
 <h3 id="function-gettimersmetrics">function <code>getTimersMetrics</code><a class="headerlink" href="#function-gettimersmetrics" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/akamai/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L509-L586">QueryAPI.jl#509-586</a></p>
+<p><a class="source-link" href="https://github.com/akamai/mPulseAPI.jl/tree/main/src/QueryAPI.jl#L495-579">QueryAPI.jl#495-579</a></p>
 <p>Calls the <code>timers-metrics</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_7">Arguments<a class="headerlink" href="#arguments_7" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>token::AbstractString</code></dt>
-<dd>The Repository authentication token fetched by calling <a class="x-ref" href="../RepositoryAPI/index.html#function-getrepositorytoken"><code>mPulseAPI.getRepositoryToken</code></a></dd>
+<dd>The Repository authentication token fetched by calling <a class="x-ref" href="../Token/index.html#function-getrepositorytoken"><code>mPulseAPI.getRepositoryToken</code></a></dd>
 <dt><code>appKey::AbstractString</code></dt>
 <dd>The App Key (formerly known as API key) for the app to query.  If you don't know the App Key, use
- <a class="x-ref" href="../RepositoryAPI/index.html#function-getrepositorydomain"><code>mPulseAPI.getRepositoryDomain</code></a> to fetch a domain and then inspect <code>domain["attributes"]["appKey"]</code></dd>
+ <a class="x-ref" href="../Domain/index.html#function-getrepositorydomain"><code>mPulseAPI.getRepositoryDomain</code></a> to fetch a domain and then inspect <code>domain["attributes"]["appKey"]</code></dd>
 </dl>
-<h4 id="optional-arguments_7">Optional Arguments<a class="headerlink" href="#optional-arguments_7" title="Permanent link">&para;</a></h4>
+<h4 id="keyword-arguments_7">Keyword Arguments<a class="headerlink" href="#keyword-arguments_7" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>filters::Dict</code></dt>
 <dd>
@@ -768,7 +814,7 @@ the problem</dd>
 </ul>
 <p>The last row in the DataFrame is the latest value of the timer or metric.  All preceding rows are historic values over the time period broken down by a predefined time unit.
 For example, for Last24Hours, there will be 1440 entries representing each minute in the 24 hour period.</p>
-<pre><code class="julia">julia&gt; mPulseAPI.getTimersMetrics(token, appKey)
+<pre><code class="language-julia">julia&gt; mPulseAPI.getTimersMetrics(token, appKey)
 1441x16 DataFrames.DataFrame
 | Row  | PageLoad | DNS | DomLoad | DomReady | FirstByte | SSL | FirstLastByte | TCP | DOM Interactive | Sessions | BounceRate | Conversion | OrderTotal | Beacons |
 |------|----------|-----|---------|----------|-----------|-----|---------------|-----|-----------------|----------|------------|------------|------------|---------|
@@ -781,20 +827,19 @@ For example, for Last24Hours, there will be 1440 entries representing each minut
 | 7    | 3453     | 39  | 862     | 3320     | 787       | 64  | 2471          | 32  | 1772            | 356      | 33         | 2.52809    | 108045.0   | 1727    |
 | 8    | 3593     | 46  | 1028    | 3491     | 889       | 92  | 2495          | 33  | 1952            | 314      | 33         | 1.27389    | 150020.0   | 1715    |
 </code></pre>
-
 <hr />
 <h3 id="function-gethistogram">function <code>getHistogram</code><a class="headerlink" href="#function-gethistogram" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/akamai/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L652-L666">QueryAPI.jl#652-666</a></p>
+<p><a class="source-link" href="https://github.com/akamai/mPulseAPI.jl/tree/main/src/QueryAPI.jl#L645-659">QueryAPI.jl#645-659</a></p>
 <p>Calls the <code>histogram</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_8">Arguments<a class="headerlink" href="#arguments_8" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>token::AbstractString</code></dt>
-<dd>The Repository authentication token fetched by calling <a class="x-ref" href="../RepositoryAPI/index.html#function-getrepositorytoken"><code>mPulseAPI.getRepositoryToken</code></a></dd>
+<dd>The Repository authentication token fetched by calling <a class="x-ref" href="../Token/index.html#function-getrepositorytoken"><code>mPulseAPI.getRepositoryToken</code></a></dd>
 <dt><code>appKey::AbstractString</code></dt>
 <dd>The App Key (formerly known as API key) for the app to query.  If you don't know the App Key, use
- <a class="x-ref" href="../RepositoryAPI/index.html#function-getrepositorydomain"><code>mPulseAPI.getRepositoryDomain</code></a> to fetch a domain and then inspect <code>domain["attributes"]["appKey"]</code></dd>
+ <a class="x-ref" href="../Domain/index.html#function-getrepositorydomain"><code>mPulseAPI.getRepositoryDomain</code></a> to fetch a domain and then inspect <code>domain["attributes"]["appKey"]</code></dd>
 </dl>
-<h4 id="optional-arguments_8">Optional Arguments<a class="headerlink" href="#optional-arguments_8" title="Permanent link">&para;</a></h4>
+<h4 id="keyword-arguments_8">Keyword Arguments<a class="headerlink" href="#keyword-arguments_8" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>filters::Dict</code></dt>
 <dd>
@@ -847,16 +892,15 @@ the problem</dd>
 <dt><code>buckets::DataFrame</code></dt>
 <dd>Buckets for the histogram.  These buckets are variable width. See below for a description.</dd>
 </dl>
-<pre><code class="julia">julia&gt; histo = mPulseAPI.getHistogram(token, appKey)
+<pre><code class="language-julia">julia&gt; histo = mPulseAPI.getHistogram(token, appKey)
 Dict{AbstractString,Any} with 4 entries:
   &quot;median&quot;  =&gt; 3439
   &quot;p95&quot;     =&gt; 12843
   &quot;p98&quot;     =&gt; 22816
   &quot;buckets&quot; =&gt; 117x3 DataFrames.DataFrame…
 </code></pre>
-
 <p>The buckets <code>DataFrame</code> has the following columns: <code>:bucket_start</code>, <code>:bucket_end</code>, <code>:element_count</code></p>
-<pre><code class="julia">julia&gt; histo[&quot;buckets&quot;]
+<pre><code class="language-julia">julia&gt; histo[&quot;buckets&quot;]
 117x3 DataFrames.DataFrame
 | Row | bucket_start | bucket_end | element_count |
 |-----|--------------|------------|---------------|
@@ -874,20 +918,19 @@ Dict{AbstractString,Any} with 4 entries:
 | 12  | 13           | 14         | 18            |
 | 13  | 14           | 15         | 19            |
 </code></pre>
-
 <hr />
 <h3 id="function-getsessionsoverpageloadtime">function <code>getSessionsOverPageLoadTime</code><a class="headerlink" href="#function-getsessionsoverpageloadtime" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/akamai/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L686-L688">QueryAPI.jl#686-688</a></p>
+<p><a class="source-link" href="https://github.com/akamai/mPulseAPI.jl/tree/main/src/QueryAPI.jl#L679-681">QueryAPI.jl#679-681</a></p>
 <p>Calls the <code>sessions-per-page-load-time</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_9">Arguments<a class="headerlink" href="#arguments_9" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>token::AbstractString</code></dt>
-<dd>The Repository authentication token fetched by calling <a class="x-ref" href="../RepositoryAPI/index.html#function-getrepositorytoken"><code>mPulseAPI.getRepositoryToken</code></a></dd>
+<dd>The Repository authentication token fetched by calling <a class="x-ref" href="../Token/index.html#function-getrepositorytoken"><code>mPulseAPI.getRepositoryToken</code></a></dd>
 <dt><code>appKey::AbstractString</code></dt>
 <dd>The App Key (formerly known as API key) for the app to query.  If you don't know the App Key, use
- <a class="x-ref" href="../RepositoryAPI/index.html#function-getrepositorydomain"><code>mPulseAPI.getRepositoryDomain</code></a> to fetch a domain and then inspect <code>domain["attributes"]["appKey"]</code></dd>
+ <a class="x-ref" href="../Domain/index.html#function-getrepositorydomain"><code>mPulseAPI.getRepositoryDomain</code></a> to fetch a domain and then inspect <code>domain["attributes"]["appKey"]</code></dd>
 </dl>
-<h4 id="optional-arguments_9">Optional Arguments<a class="headerlink" href="#optional-arguments_9" title="Permanent link">&para;</a></h4>
+<h4 id="keyword-arguments_9">Keyword Arguments<a class="headerlink" href="#keyword-arguments_9" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>filters::Dict</code></dt>
 <dd>
@@ -928,7 +971,7 @@ the problem</dd>
 </dl>
 <h4 id="returns_9">Returns<a class="headerlink" href="#returns_9" title="Permanent link">&para;</a></h4>
 <p><code>{DataFrame}</code> A julia <code>DataFrame</code> mapping the Sessions to a load time bucket:</p>
-<pre><code class="julia">julia&gt; mPulseAPI.getSessionsOverPageLoadTime(token, appKey)
+<pre><code class="language-julia">julia&gt; mPulseAPI.getSessionsOverPageLoadTime(token, appKey)
 60x2 DataFrames.DataFrame
 | Row | t_done | Sessions   |
 |-----|--------|------------|
@@ -943,20 +986,19 @@ the problem</dd>
 | 9   | 900    | 709        |
 | 10  | 1050   | 1246       |
 </code></pre>
-
 <hr />
 <h3 id="function-getmetricoverpageloadtime">function <code>getMetricOverPageLoadTime</code><a class="headerlink" href="#function-getmetricoverpageloadtime" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/akamai/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L713-L737">QueryAPI.jl#713-737</a></p>
+<p><a class="source-link" href="https://github.com/akamai/mPulseAPI.jl/tree/main/src/QueryAPI.jl#L706-730">QueryAPI.jl#706-730</a></p>
 <p>Calls the <code>metric-per-page-load-time</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_10">Arguments<a class="headerlink" href="#arguments_10" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>token::AbstractString</code></dt>
-<dd>The Repository authentication token fetched by calling <a class="x-ref" href="../RepositoryAPI/index.html#function-getrepositorytoken"><code>mPulseAPI.getRepositoryToken</code></a></dd>
+<dd>The Repository authentication token fetched by calling <a class="x-ref" href="../Token/index.html#function-getrepositorytoken"><code>mPulseAPI.getRepositoryToken</code></a></dd>
 <dt><code>appKey::AbstractString</code></dt>
 <dd>The App Key (formerly known as API key) for the app to query.  If you don't know the App Key, use
- <a class="x-ref" href="../RepositoryAPI/index.html#function-getrepositorydomain"><code>mPulseAPI.getRepositoryDomain</code></a> to fetch a domain and then inspect <code>domain["attributes"]["appKey"]</code></dd>
+ <a class="x-ref" href="../Domain/index.html#function-getrepositorydomain"><code>mPulseAPI.getRepositoryDomain</code></a> to fetch a domain and then inspect <code>domain["attributes"]["appKey"]</code></dd>
 </dl>
-<h4 id="optional-arguments_10">Optional Arguments<a class="headerlink" href="#optional-arguments_10" title="Permanent link">&para;</a></h4>
+<h4 id="keyword-arguments_10">Keyword Arguments<a class="headerlink" href="#keyword-arguments_10" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>metric::AbstractString</code></dt>
 <dd>The name of the metric that we want data for.  If not specified, defaults to <code>BounceRate</code></dd>
@@ -1001,7 +1043,7 @@ the problem</dd>
 </dl>
 <h4 id="returns_10">Returns<a class="headerlink" href="#returns_10" title="Permanent link">&para;</a></h4>
 <p><code>{DataFrame}</code> A julia <code>DataFrame</code> mapping the Metric to a load time bucket:</p>
-<pre><code class="julia">julia&gt; mPulseAPI.getMetricOverPageLoadTime(token, appKey)
+<pre><code class="language-julia">julia&gt; mPulseAPI.getMetricOverPageLoadTime(token, appKey)
 60x2 DataFrames.DataFrame
 | Row | t_done | BounceRate |
 |-----|--------|------------|
@@ -1016,20 +1058,19 @@ the problem</dd>
 | 9   | 900    | 20.83      |
 | 10  | 1050   | 24.58      |
 </code></pre>
-
 <hr />
 <h3 id="function-gettimerbyminute">function <code>getTimerByMinute</code><a class="headerlink" href="#function-gettimerbyminute" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/akamai/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L792-L826">QueryAPI.jl#792-826</a></p>
+<p><a class="source-link" href="https://github.com/akamai/mPulseAPI.jl/tree/main/src/QueryAPI.jl#L785-819">QueryAPI.jl#785-819</a></p>
 <p>Calls the <code>by-minute</code> endpoint of the mPulse REST API with the passed in filters</p>
 <h4 id="arguments_11">Arguments<a class="headerlink" href="#arguments_11" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>token::AbstractString</code></dt>
-<dd>The Repository authentication token fetched by calling <a class="x-ref" href="../RepositoryAPI/index.html#function-getrepositorytoken"><code>mPulseAPI.getRepositoryToken</code></a></dd>
+<dd>The Repository authentication token fetched by calling <a class="x-ref" href="../Token/index.html#function-getrepositorytoken"><code>mPulseAPI.getRepositoryToken</code></a></dd>
 <dt><code>appKey::AbstractString</code></dt>
 <dd>The App Key (formerly known as API key) for the app to query.  If you don't know the App Key, use
- <a class="x-ref" href="../RepositoryAPI/index.html#function-getrepositorydomain"><code>mPulseAPI.getRepositoryDomain</code></a> to fetch a domain and then inspect <code>domain["attributes"]["appKey"]</code></dd>
+ <a class="x-ref" href="../Domain/index.html#function-getrepositorydomain"><code>mPulseAPI.getRepositoryDomain</code></a> to fetch a domain and then inspect <code>domain["attributes"]["appKey"]</code></dd>
 </dl>
-<h4 id="optional-arguments_11">Optional Arguments<a class="headerlink" href="#optional-arguments_11" title="Permanent link">&para;</a></h4>
+<h4 id="keyword-arguments_11">Keyword Arguments<a class="headerlink" href="#keyword-arguments_11" title="Permanent link">&para;</a></h4>
 <dl>
 <dt><code>timer::AbstractString</code></dt>
 <dd>
@@ -1089,7 +1130,7 @@ the problem</dd>
 <h4 id="returns_11">Returns<a class="headerlink" href="#returns_11" title="Permanent link">&para;</a></h4>
 <p><code>{DataFrame}</code> A julia <code>DataFrame</code> containing timeseries data for the median value of the timer and its margin of error.
 The fields are: <code>:timestamp</code> in milliseconds since the UNIX epoch, <code>:&lt;TimerName&gt;</code> in milliseconds and <code>:moe</code> in milliseconds.</p>
-<pre><code class="julia">julia&gt; data = mPulseAPI.getTimerByMinute(token, appKey, timer=&quot;PageLoad&quot;)
+<pre><code class="language-julia">julia&gt; data = mPulseAPI.getTimerByMinute(token, appKey, timer=&quot;PageLoad&quot;)
 1440x3 DataFrames.DataFrame
 | Row  | timestamp     | PageLoad | moe  |
 |------|---------------|----------|------|
@@ -1103,10 +1144,9 @@ The fields are: <code>:timestamp</code> in milliseconds since the UNIX epoch, <c
 | 8    | 1463453220000 | 3916     | 182  |
 
 </code></pre>
-
 <hr />
 <h3 id="function-mergemetrics">function <code>mergeMetrics</code><a class="headerlink" href="#function-mergemetrics" title="Permanent link">&para;</a></h3>
-<p><a class="source-link" href="https://github.com/akamai/mPulseAPI.jl/tree/master/src/QueryAPI.jl#L891-L903">QueryAPI.jl#891-903</a></p>
+<p><a class="source-link" href="https://github.com/akamai/mPulseAPI.jl/tree/main/src/QueryAPI.jl#L884-897">QueryAPI.jl#884-897</a></p>
 <p>Merge multiple similar <code>DataFrames</code> into a single <code>DataFrame</code></p>
 <p>Use this method to merge the results from multiple calls to <code>getMetricOverPageLoadTime()</code> and <code>getSessionsOverPageLoadTime()</code>.
 All passed in <code>DataFrame</code>s MUST contain a <code>:t_done</code> column.</p>
@@ -1117,7 +1157,7 @@ All passed in <code>DataFrame</code>s MUST contain a <code>:t_done</code> column
 <dt><code>df2::DataFrame...</code></dt>
 <dd>One or more <code>DataFrame</code> to be merged together with the first one</dd>
 </dl>
-<h3 id="optional-arguments_12">Optional Arguments<a class="headerlink" href="#optional-arguments_12" title="Permanent link">&para;</a></h3>
+<h3 id="keyword-arguments_12">Keyword Arguments<a class="headerlink" href="#keyword-arguments_12" title="Permanent link">&para;</a></h3>
 <dl>
 <dt><code>keyField::Symbol=:t_done</code></dt>
 <dd>The column name to join on.  Defaults to <code>:t_done</code></dd>
@@ -1135,7 +1175,7 @@ All passed in <code>DataFrame</code>s MUST contain a <code>:t_done</code> column
 <li>If multiple <code>DataFrame</code>s are passed in, they are merged using an <code>outer</code> join on the <code>keyField</code> column, and the resulting <code>DataFrame</code> is returned.
   Since we perform an outer join, rows in any of the DataFrames that do not have a matching <code>keyField</code> value found in other DataFrames will be filled with <code>NA</code></li>
 </ul>
-<pre><code class="julia">julia&gt; sessions   = mPulseAPI.getSessionsOverPageLoadTime(token, appKey);
+<pre><code class="language-julia">julia&gt; sessions   = mPulseAPI.getSessionsOverPageLoadTime(token, appKey);
 julia&gt; bouncerate = mPulseAPI.getMetricOverPageLoadTime(token, appKey);
 julia&gt; conversion = mPulseAPI.getMetricOverPageLoadTime(token, appKey, metric=&quot;Conversion&quot;);
 
@@ -1165,7 +1205,6 @@ julia&gt; mPulseAPI.mergeMetrics(sessions, bouncerate, conversion)
 | 48  | 4800   | 6140     | 40.2336    | 1.67129    |
 | 49  | 5100   | 5530     | 42.2393    | 1.32839    |
 </code></pre>
-
 <hr />
               
             </div>
@@ -1174,10 +1213,10 @@ julia&gt; mPulseAPI.mergeMetrics(sessions, bouncerate, conversion)
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../exceptions/index.html" class="btn btn-neutral float-right" title="Exceptions">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../cache_utilities/index.html" class="btn btn-neutral float-right" title="Caching">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../RepositoryAPI/index.html" class="btn btn-neutral" title="Repository API"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../StatisticalModel/index.html" class="btn btn-neutral" title="Statistical Model"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -1187,34 +1226,37 @@ julia&gt; mPulseAPI.mergeMetrics(sessions, bouncerate, conversion)
   <div role="contentinfo">
     <!-- Copyright etc -->
     
-      <p>Akamai, Inc.</p>
+      <p>Copyright © Akamai Technologies. All rights reserved.</p>
     
   </div>
 
   Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
-	  
+      
         </div>
       </div>
 
     </section>
-    
+
   </div>
 
   <div class="rst-versions" role="note" style="cursor: pointer">
     <span class="rst-current-version" data-toggle="rst-current-version">
       
-          <a href="https://github.com/akamai/mPulseAPI.jl/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+          <a href="https://github.com/akamai/mPulseAPI.jl/" class="fa fa-github" style="float: left;"> GitHub</a>
       
       
-        <span><a href="../RepositoryAPI/index.html" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../StatisticalModel/index.html" style="">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../exceptions/index.html" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../cache_utilities/index.html" style="">Next &raquo;</a></span>
       
     </span>
 </div>
-    <script src="../js/theme.js"></script>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/require.js"></script>
+      <script src="../../search/search.js"></script>
 
 </body>
 </html>
