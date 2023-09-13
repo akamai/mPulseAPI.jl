@@ -892,7 +892,7 @@ cd(@__DIR__) do
 
     withenv("LC_ALL" => "C.UTF-8", "LANG" => "C.UTF-8") do
         if run_config["add"]
-            println("INFO    - Deploying to gh-pages.")
+            println("INFO    -  Deploying to gh-pages.")
             success(`mkdocs gh-deploy -c -f $MKDOCSY -v`)
         else
             run(`mkdocs build -c -f $MKDOCSY`)
