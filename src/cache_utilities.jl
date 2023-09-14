@@ -68,7 +68,7 @@ end
 """
 Expire an entry from the domain cache.  Use this if the domain has changed.
 
-#### Keyword Arguments
+### Keyword Arguments
 `domainID::Int64`
 :    The ID of the domain to expire.
 
@@ -79,7 +79,7 @@ Expire an entry from the domain cache.  Use this if the domain has changed.
 :    The App name in mPulse.  This can be got from the mPulse domain configuration dialog.
 
 
-#### Returns
+### Returns
 `true`
 :    on success
 
@@ -92,7 +92,7 @@ clearDomainCache(;domainID::Int64=0, appKey::AbstractString="", appName::Abstrac
 """
 Expire an entry from the tenant cache.  Use this if the tenant has changed.
 
-#### Keyword Arguments
+### Keyword Arguments
 `tenantID::Int64`
 :    The ID of the tenant to expire.
 
@@ -100,7 +100,7 @@ Expire an entry from the tenant cache.  Use this if the tenant has changed.
 :    The Tenant name in mPulse.  This is got from the mPulse domain configuration dialog.
 
 
-#### Returns
+### Returns
 `true`
 :    on success
 
@@ -114,12 +114,12 @@ clearTenantCache(;tenantID::Int64=0, name::AbstractString="") = clearObjectCache
 """
 Expire an entry from the token cache.  Use this if the token associated with this tenant is no longer valid.
 
-#### Arguments
+### Arguments
 `tenant::AbstractString`
 :    The tenant name whose token needs to be expired
 
 
-#### Returns
+### Returns
 `true`
 :    on success
 
@@ -144,14 +144,14 @@ end
 """
 Expire an entry from the alert cache.  Use this if the alert has changed.
 
-#### Keyword Arguments
+### Keyword Arguments
 `alertID::Int64`
 :    The ID of the alert to expire.
 
 `alertName::AbstractString`
 :    The Alert name in mPulse.  This can be found from the mPulse alert configuration dialog.
 
-#### Returns
+### Returns
 `true`
 :    on success
 
@@ -165,14 +165,14 @@ clearAlertCache(;alertID::Int64=0, alertName::AbstractString="") = clearObjectCa
 """
 Expire an entry from the statistical model cache.  Use this if the model has changed.
 
-#### Keyword Arguments
+### Keyword Arguments
 `statModelID::Int64`
 :    The ID of the statistical model to expire.
 
 `statModelName::AbstractString`
 :    The statistical model name in mPulse.  This can be found from the mPulse statistical model configuration dialog.
 
-#### Returns
+### Returns
 `true`
 :    on success
 

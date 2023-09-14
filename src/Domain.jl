@@ -22,11 +22,11 @@ The domain will be cached in memory for 1 hour, so subsequent calls using a matc
 quickly without calling out to the API.  This can be a problem if the domain changes in the repository.
 You can clear the cache for this domain using [`mPulseAPI.clearDomainCache`](@ref) and passing in one of `domainID`, `appKey` or `appName`.
 
-#### Arguments
+### Arguments
 `token::AbstractString`
 :    The Repository authentication token fetched by calling [`getRepositoryToken`](@ref)
 
-#### Keyword Arguments
+### Keyword Arguments
 `domainID::Int64`
 :    The ID of the domain to fetch.  This is the fastest method, but it can be hard to figure out a domain's ID
 
@@ -36,7 +36,7 @@ You can clear the cache for this domain using [`mPulseAPI.clearDomainCache`](@re
 `appName::AbstractString`
 :    The App name in mPulse. This is available from the mPulse domain configuration dialog.
 
-#### Returns
+### Returns
 `{Dict|Array{Dict}}` If one of `domainID`, `appKey` or `appName` are passed in, then a single `domain` object is returned as a `Dict`.
 
 If none of these are passed in, then an array of all domains is returned, each is a `Dict`.
@@ -68,11 +68,11 @@ The `domain` `Dict` has the following fields:
 :    A `Dict` of attributes for this app, including its `AppKey`
 
 `custom_metrics::Dict`
-:    A $(mPulseAPI.readdocs("CustomMetricMap-structure", indent=5))
+:    A $(mPulseAPI.readdocs("CustomMetricMap-structure"))
 
 
 `custom_timers::Dict`
-:    A $(mPulseAPI.readdocs("CustomTimerMap-structure", indent=5))
+:    A $(mPulseAPI.readdocs("CustomTimerMap-structure"))
 
 
 `session_timeout::Int64`
@@ -85,7 +85,7 @@ The `domain` `Dict` has the following fields:
 :    The vertical market that this domain belongs to
 
 
-#### Throws
+### Throws
 `ArgumentError`
 :    if token is empty or domainID, appKey and appName are all empty
 
@@ -152,3 +152,106 @@ function getRepositoryDomain(token::AbstractString; domainID::Int64=0, appKey::A
     end
 end
 
+
+
+"""
+Gets a mapping of custom metric names to database field names from domain XML.  This list also includes valid dates.
+
+### Arguments
+$(mPulseAPI.readdocs("NodeContent-body"))
+
+### Returns
+$(mPulseAPI.readdocs("CustomMetricMap-structure"))
+
+### Throws
+$(mPulseAPI.readdocs("NodeContent-throws"))
+"""
+function getCustomMetricMap(body::Any)
+    custom_metrics = Dict()
+
+    cmets = getXMLNode(body, "CustomMetrics")
+
+    if !isa(cmets, XMLElement)
+        return custom_metrics
+    end
+
+    for node in child_elements(cmets)
+        attributes = attributes_dict(node)
+        if attributes["inactive"] == "false"
+            custom_metric = Dict(
+                "index" => parse(Int, attributes["index"], base=10),
+                "fieldname" => "custommetric" * attributes["index"],
+                "lastModified" => iso8601ToDateTime(attributes["lastModified"]),
+                "description" => attributes["description"]
+            )
+
+            datatypeNode = getXMLNode(node, "DataType")
+            if isa(datatypeNode, XMLElement)
+                custom_metric["dataType"] = attributes_dict(datatypeNode)
+            end
+
+            colorNode = getXMLNode(node, "MetricColors")
+            if isa(colorNode, XMLElement)
+                colors = attributes_dict(colorNode)
+                custom_metric["colors"] = map(k->colors[k], sort(collect(keys(colors))))
+            end
+
+            custom_metrics[attributes["name"]] = custom_metric
+        end
+    end
+
+    return custom_metrics
+end
+
+
+
+
+"""
+Gets a mapping of custom timer names to database field names from domain XML.  This list also includes valid dates.
+
+### Arguments
+$(mPulseAPI.readdocs("NodeContent-body"))
+
+### Returns
+$(mPulseAPI.readdocs("CustomTimerMap-structure"))
+
+### Throws
+$(mPulseAPI.readdocs("NodeContent-throws"))
+"""
+function getCustomTimerMap(body::Any)
+    custom_timers = Dict()
+
+    ctims = getXMLNode(body, "CustomTimers")
+
+    if !isa(ctims, XMLElement)
+        return custom_timers
+    end
+
+    for node in child_elements(ctims)
+        attributes = attributes_dict(node)
+        if attributes["inactive"] == "false"
+            custom_timer = Dict(
+                "index" => parse(Int, attributes["index"], base=10),
+                "fieldname" => "customtimer" * attributes["index"],
+                "mpulseapiname" => "CustomTimer" * attributes["index"],
+                "lastModified" => iso8601ToDateTime(attributes["lastModified"]),
+                "description" => attributes["description"]
+            )
+
+            colorNodes = getXMLNode(node, "TimingColors")
+            if isa(colorNodes, XMLElement)
+                colors = Dict[]
+                for colorNode in child_elements(colorNodes)
+                    color = attributes_dict(colorNode)
+                    push!(colors, color)
+                end
+                custom_timer["colors"] = colors
+            end
+
+
+            custom_timers[attributes["name"]] = custom_timer
+        end
+    end
+
+    return custom_timers
+end

@@ -23,18 +23,18 @@ The alert will be cached in memory for 1 hour, so subsequent calls using a match
 quickly without calling out to the API.  This can be a problem if the alert changes in the repository.
 You can clear the cache for this tenant using [`mPulseAPI.clearAlertCache`](@ref) and passing in `alertID`.
 
-#### Arguments
+### Arguments
 `token::AbstractString`
 :    The Repository authentication token fetched by calling [`getRepositoryToken`](@ref)
 
-#### Keyword Arguments
+### Keyword Arguments
 `alertID::Int64`
 :    The ID of the alert to fetch.
 
 `alertName::AbstractString`
 :    The Alert name in mPulse. This is available from the mPulse domain configuration dialog.
 
-#### Returns
+### Returns
 `{Dict}` The `alert` object with the following fields:
 
 `hidden::Bool`
@@ -88,7 +88,7 @@ You can clear the cache for this tenant using [`mPulseAPI.clearAlertCache`](@ref
 `lastModified::DateTime`
 :    The timestamp when this object was created
 
-#### Throws
+### Throws
 `ArgumentError`
 :    if token is empty or alertID is empty
 
@@ -134,11 +134,11 @@ Updates an Alert object from the mPulse repository
 
 At least one of `alertID` or `alertName` must be passed in to update the alert object.
 
-#### Arguments
+### Arguments
 `token::AbstractString`
 :    The Repository authentication token fetched by calling [`getRepositoryToken`](@ref)
 
-#### Keyword Arguments
+### Keyword Arguments
 `alertID::Int64`
 :    The ID of the alert to update.
 
@@ -154,7 +154,7 @@ At least one of `alertID` or `alertName` must be passed in to update the alert o
 `body::AbstractString|LightXML.XMLElement=""`
 :    An XMLElement (if not empty) containing the body of the alert, containing pertinent information surrounding errors.
 
-#### Returns
+### Returns
 `{Dict}` The updated `alert` object with the following fields:
 
 `hidden::Bool`
@@ -208,7 +208,7 @@ At least one of `alertID` or `alertName` must be passed in to update the alert o
 `lastModified::DateTime`
 :    The timestamp when this object was created
 
-#### Throws
+### Throws
 `ArgumentError`
 :    if token is empty or alertID is empty
 
@@ -242,21 +242,21 @@ Deletes an Alert object from the mPulse repository
 
 At least one of `alertID` or `alertName` must be passed in to delete the alert object.
 
-#### Arguments
+### Arguments
 `token::AbstractString`
 :    The Repository authentication token fetched by calling [`getRepositoryToken`](@ref)
 
-#### Keyword Arguments
+### Keyword Arguments
 `alertID::Int64`
 :    The ID of the alert to update.
 
 `alertName::AbstractString`
 :    The Alert name in mPulse. This is available from the mPulse domain configuration dialog.
 
-#### Returns
+### Returns
 Returns true if the delete is successful, else false.
 
-#### Throws
+### Throws
 `ArgumentError`
 :    if token is empty or alertID is empty
 

@@ -9,7 +9,7 @@
 #
 ###################################################
 """
-$(readchomp(joinpath(dirname(@__DIR__), "README.md")))
+$(replace(readchomp(joinpath(dirname(@__DIR__), "README.md")), "/docs/src/" => ""))
 """
 module mPulseAPI
 
@@ -30,8 +30,7 @@ end
 """
 Change the mPulse API endpoint that we connect to.  The default is `$(mPulseAPI.default_mPulseEndpoint)`
 
-#### Example
-
+### Example
 ```julia
 mPulseAPI.setEndpoints("https://mpulse-alt.soasta.com/concerto")
 ```
@@ -62,7 +61,7 @@ function iso8601ToDateTime(date::AbstractString)
     return DateTime(date)
 end
 
-# Internal convenience function for retrieving object info
+# Internal convenience function for retrieving object info. Mainly used before updating or deleting an object.
 function getObjectInfo(token::AbstractString, objectType::AbstractString, objectID::Int64, name::AbstractString)
 
     if objectType == "alert"
@@ -139,15 +138,16 @@ function readdocs(name::AbstractString, replacers=[]; indent=0)
     return data
 end
 
-include(joinpath(dirname(@__FILE__), "exceptions.jl"))
-include(joinpath(dirname(@__FILE__), "cache_utilities.jl"))
+include(joinpath(@__DIR__, "exceptions.jl"))
+include(joinpath(@__DIR__, "cache_utilities.jl"))
+include(joinpath(@__DIR__, "xml_utilities.jl"))
 
-include(joinpath(dirname(@__FILE__), "RepositoryAPI.jl"))
-include(joinpath(dirname(@__FILE__), "StatisticalModel.jl"))
-include(joinpath(dirname(@__FILE__), "Alert.jl"))
-include(joinpath(dirname(@__FILE__), "Domain.jl"))
-include(joinpath(dirname(@__FILE__), "Tenant.jl"))
-include(joinpath(dirname(@__FILE__), "Token.jl"))
-include(joinpath(dirname(@__FILE__), "QueryAPI.jl"))
+include(joinpath(@__DIR__, "RepositoryAPI.jl"))
+include(joinpath(@__DIR__, "StatisticalModel.jl"))
+include(joinpath(@__DIR__, "Alert.jl"))
+include(joinpath(@__DIR__, "Domain.jl"))
+include(joinpath(@__DIR__, "Tenant.jl"))
+include(joinpath(@__DIR__, "Token.jl"))
+include(joinpath(@__DIR__, "QueryAPI.jl"))
 
 end
