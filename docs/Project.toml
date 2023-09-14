@@ -1,3 +1,5 @@
 [deps]
-YAML = "ddb6d928-2868-570f-bddf-ab3f9cf99eb6"
-mPulseAPI = "314d2b54-f2c3-11ea-15f2-0bcf2fc50b35"
+Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
+
+[compat]
+Documenter = "0.27"

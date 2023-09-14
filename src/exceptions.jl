@@ -8,7 +8,7 @@ export
 """
 Thrown when the REST API has a problem and returns something other than a 2xx response.
 
-#### Fields
+### Fields
 `msg::AbstractString`
 :    The error message
 
@@ -30,7 +30,7 @@ end
 """
 Thrown when the token used to authenticate with the REST API is invalid or has expired
 
-#### Fields
+### Fields
 `msg::AbstractString`
 :    This message is always set to "Error Authenticating with REST API"
 
@@ -52,7 +52,7 @@ end
 """
 Thrown when a request parameter is invalid
 
-#### Fields
+### Fields
 `msg::AbstractString`
 :    The error message sent from the mPulse server
 
@@ -80,7 +80,7 @@ end
 """
 Thrown when the result returned by an API call was not in the expected format
 
-#### Fields
+### Fields
 `msg::AbstractString`
 :    The error message
 
@@ -96,7 +96,7 @@ end
 """
 Thrown when the REST API has an internal server error and returns a `500 Internal Server Error`
 
-#### Fields
+### Fields
 `msg::AbstractString`
 :    The string "Internal Server Error, please report this. Timestamp: <current unix timestamp in seconds since the epoch>"
 

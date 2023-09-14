@@ -35,7 +35,7 @@ Get API results from the mPulse [Query API](http://docs.soasta.com/query-api/)
 
 This method is a generic catch-all that queries the mPulse API and returns results as a Julia data structure matching the JSON structure of the specified API call
 
-#### Arguments
+### Arguments
 $(mPulseAPI.readdocs("APIResults-common-args"))
 
 `query_type::AbstractString`
@@ -43,16 +43,16 @@ $(mPulseAPI.readdocs("APIResults-common-args"))
 
 $(mapfoldl(x -> "   * $x\n", *, mPulseAPI.query_types))
 
-#### Keyword Arguments
+### Keyword Arguments
 $(mPulseAPI.readdocs("APIResults-common-optargs"))
 
-#### Throws
+### Throws
 `ArgumentError`
 :   If the `query_type` is not recognized
 
 $(mPulseAPI.readdocs("APIResults-exceptions"))
 
-#### Returns
+### Returns
 `{Any}` A Julia representation of the JSON returned by the API call. Convenience wrappers in this library may return more appropriate data structures.
 """
 function getAPIResults(token::AbstractString, appKey::AbstractString, query_type::AbstractString; filters::Dict=Dict())
@@ -171,16 +171,16 @@ end
 """
 Calls the `summary` endpoint of the mPulse REST API with the passed in filters
 
-#### Arguments
+### Arguments
 $(mPulseAPI.readdocs("APIResults-common-args"))
 
-#### Keyword Arguments
+### Keyword Arguments
 $(mPulseAPI.readdocs("APIResults-common-optargs"))
 
-#### Throws
+### Throws
 $(mPulseAPI.readdocs("APIResults-exceptions"))
 
-#### Returns
+### Returns
 `{Dict}` A Julia `Dict` with the following string keys:
 
 `n::Int`
@@ -199,7 +199,7 @@ $(mPulseAPI.readdocs("APIResults-exceptions"))
 :   The 95% confidence interval margin of error on the arithmetic mean of the requested timer in milliseconds
 
 
-#### Examples
+### Examples
 
 ```julia
 julia> summary = mPulseAPI.getSummaryTimers(token, appKey)
@@ -222,20 +222,20 @@ end
 """
 Calls the `page-groups` endpoint of the mPulse REST API with the passed in filters
 
-#### Arguments
+### Arguments
 $(mPulseAPI.readdocs("APIResults-common-args"))
 
-#### Keyword Arguments
+### Keyword Arguments
 $(mPulseAPI.readdocs("APIResults-common-optargs"))
 
 $(mPulseAPI.readdocs("friendly-names", ["Page Group", "page_group"]))
 
-#### Throws
+### Throws
 $(mPulseAPI.readdocs("APIResults-exceptions"))
 
 $(mPulseAPI.readdocs("CleanSeriesSeries-exceptions", [""]))
 
-#### Returns
+### Returns
 $(mPulseAPI.readdocs("friendly-names-df", ["page_group", "PageGroup", "www", "blog", "Search", "SKU", "PLU", "(No Page Group)", "Checkout"]))
 """
 function getPageGroupTimers(token::AbstractString, appKey::AbstractString; filters::Dict=Dict(), friendly_names::Bool=false)
@@ -260,20 +260,20 @@ end
 """
 Calls the `browsers` endpoint of the mPulse REST API with the passed in filters
 
-#### Arguments
+### Arguments
 $(mPulseAPI.readdocs("APIResults-common-args"))
 
-#### Keyword Arguments
+### Keyword Arguments
 $(mPulseAPI.readdocs("APIResults-common-optargs"))
 
 $(mPulseAPI.readdocs("friendly-names", ["User Agent", "user_agent"]))
 
-#### Throws
+### Throws
 $(mPulseAPI.readdocs("APIResults-exceptions"))
 
 $(mPulseAPI.readdocs("CleanSeriesSeries-exceptions", [""]))
 
-#### Returns
+### Returns
 $(mPulseAPI.readdocs("friendly-names-df", ["user_agent", "Browser", "Chrome/50", "Safari/9", "Mobile Safari/9", "Firefox/46", "Chrome/49", "IE/11", "Edge/13"]))
 """
 function getBrowserTimers(token::AbstractString, appKey::AbstractString; filters::Dict=Dict(), friendly_names::Bool=false)
@@ -298,20 +298,20 @@ end
 """
 Calls the `ab-tests` endpoint of the mPulse REST API with the passed in filters
 
-#### Arguments
+### Arguments
 $(mPulseAPI.readdocs("APIResults-common-args"))
 
-#### Keyword Arguments
+### Keyword Arguments
 $(mPulseAPI.readdocs("APIResults-common-optargs"))
 
 $(mPulseAPI.readdocs("friendly-names", ["Test Name", "test_name"]))
 
-#### Throws
+### Throws
 $(mPulseAPI.readdocs("APIResults-exceptions"))
 
 $(mPulseAPI.readdocs("CleanSeriesSeries-exceptions", [""]))
 
-#### Returns
+### Returns
 $(mPulseAPI.readdocs("friendly-names-df", ["test_name", "ABTest", "(No Value)", "Test-A", "Test-B", "BlueHead", "Campaign-XXX", "Old-Site", "Slow-SRP"]))
 """
 function getABTestTimers(token::AbstractString, appKey::AbstractString; filters::Dict=Dict(), friendly_names::Bool=false)
@@ -336,20 +336,20 @@ end
 """
 Calls the `geography` endpoint of the mPulse REST API with the passed in filters
 
-#### Arguments
+### Arguments
 $(mPulseAPI.readdocs("APIResults-common-args"))
 
-#### Keyword Arguments
+### Keyword Arguments
 $(mPulseAPI.readdocs("APIResults-common-optargs"))
 
 $(mPulseAPI.readdocs("friendly-names", ["Country", "country"]))
 
-#### Throws
+### Throws
 $(mPulseAPI.readdocs("APIResults-exceptions"))
 
 $(mPulseAPI.readdocs("CleanSeriesSeries-exceptions", [""]))
 
-#### Returns
+### Returns
 $(mPulseAPI.readdocs("friendly-names-df", ["country", "Country", "US", "CA", "MX", "PH", "AU", "KR", "PE"]))
 """
 function getGeoTimers(token::AbstractString, appKey::AbstractString; filters::Dict=Dict(), friendly_names::Bool=false)
@@ -378,30 +378,30 @@ end
 """
 Calls the `metrics-by-dimension` endpoint of the mPulse REST API with the passed in dimension name and filters
 
-#### Arguments
+### Arguments
 $(mPulseAPI.readdocs("APIResults-common-args"))
 
 `dimension::AbstractString`
 :    The dimension to split metrics by.  The response contains one row for each value of this dimension.  The following dimensions are supported:
 
-     * page_group
-     * browser
-     * country
-     * bw_block
-     * ab_test
+* page_group
+* browser
+* country
+* bw_block
+* ab_test
 
-     See [http://docs.soasta.com/query-api/#metrics-by-dimension-parameters](http://docs.soasta.com/query-api/#metrics-by-dimension-parameters) for
-     an up-to-date list.
+See [https://techdocs.akamai.com/mpulse/reference/get-metrics-by-dimension](https://techdocs.akamai.com/mpulse/reference/get-metrics-by-dimension)
+for an up-to-date list.
 
-#### Keyword Arguments
+### Keyword Arguments
 $(mPulseAPI.readdocs("APIResults-common-optargs"))
 
-#### Throws
+### Throws
 $(mPulseAPI.readdocs("APIResults-exceptions"))
 
 $(mPulseAPI.readdocs("CleanSeriesSeries-exceptions", [""]))
 
-#### Returns
+### Returns
 `{DataFrame}` A Julia `DataFrame` with the following columns: `:<dimension>`, `:<CustomMetric Name>`...
 
 ```julia
@@ -454,19 +454,19 @@ end
 """
 Calls the `timers-metrics` endpoint of the mPulse REST API with the passed in filters
 
-#### Arguments
+### Arguments
 $(mPulseAPI.readdocs("APIResults-common-args"))
 
-#### Keyword Arguments
+### Keyword Arguments
 $(mPulseAPI.readdocs("APIResults-common-optargs"))
 
-#### Throws
+### Throws
 $(mPulseAPI.readdocs("APIResults-exceptions"))
 
 `Exception`
 :    If there was an unexpected type error parsing response values
 
-#### Returns
+### Returns
 `{DataFrame}` A `DataFrame` with one column for each timer and metric.  Known columns include:
 
 * `:Beacons` and `:PageLoad` will always be present.
@@ -571,7 +571,7 @@ function getTimersMetrics(token::AbstractString, appKey::AbstractString; filters
     end
 
     if nrow(df) > 1 && all(a -> ismissing(a) || a == 0, map(x -> df[end-1, x], names(df)))
-        # mPulse bug 115785: If penultimate row is all 0s/NAs, remove it
+        # mPulse bug 115785: If penultimate row is all 0s/missing, remove it
         return df[[1:end-2; end], :]
     else
         return df
@@ -584,18 +584,18 @@ end
 """
 Calls the `histogram` endpoint of the mPulse REST API with the passed in filters
 
-#### Arguments
+### Arguments
 $(mPulseAPI.readdocs("APIResults-common-args"))
 
-#### Keyword Arguments
+### Keyword Arguments
 $(mPulseAPI.readdocs("APIResults-common-optargs"))
 
-#### Throws
+### Throws
 $(mPulseAPI.readdocs("APIResults-exceptions"))
 
 $(mPulseAPI.readdocs("CleanSeriesSeries-exceptions"))
 
-#### Returns
+### Returns
 `{Dict}` A Julia `Dict` with the following string keys:
 
 `median::Int`
@@ -664,16 +664,16 @@ end
 """
 Calls the `sessions-per-page-load-time` endpoint of the mPulse REST API with the passed in filters
 
-#### Arguments
+### Arguments
 $(mPulseAPI.readdocs("APIResults-common-args"))
 
-#### Keyword Arguments
+### Keyword Arguments
 $(mPulseAPI.readdocs("APIResults-common-optargs"))
 
-#### Throws
+### Throws
 $(mPulseAPI.readdocs("APIResults-exceptions"))
 
-#### Returns
+### Returns
 $(mPulseAPI.readdocs("MetricOverLoadTime-return-format", ["Sessions", "Sessions", 72, 36, 30, 66, 464, 749, 709, 1246]))
 """
 function getSessionsOverPageLoadTime(token::AbstractString, appKey::AbstractString; filters::Dict=Dict())
@@ -686,22 +686,22 @@ end
 """
 Calls the `metric-per-page-load-time` endpoint of the mPulse REST API with the passed in filters
 
-#### Arguments
+### Arguments
 $(mPulseAPI.readdocs("APIResults-common-args"))
 
-#### Keyword Arguments
+### Keyword Arguments
 `metric::AbstractString`
 :    The name of the metric that we want data for.  If not specified, defaults to `BounceRate`
 
 $(mPulseAPI.readdocs("APIResults-common-optargs"))
 
-#### Throws
+### Throws
 $(mPulseAPI.readdocs("APIResults-exceptions", ["metric"]))
 
 $(mPulseAPI.readdocs("CleanSeriesSeries-exceptions"))
 
-#### Returns
-$(mPulseAPI.readdocs("MetricOverLoadTime-return-format", ["Metric", "BounceRate", "NA", 100.0, 68.57, 12.65, 71.08, 14.51, 20.83, 24.58]))
+### Returns
+$(mPulseAPI.readdocs("MetricOverLoadTime-return-format", ["Metric", "BounceRate", "missing", 100.0, 68.57, 12.65, 71.08, 14.51, 20.83, 24.58]))
 """
 function getMetricOverPageLoadTime(token::AbstractString, appKey::AbstractString; filters::Dict=Dict(), metric::AbstractString="")
     if metric != ""
@@ -744,25 +744,25 @@ const supported_timers = [
 """
 Calls the `by-minute` endpoint of the mPulse REST API with the passed in filters
 
-#### Arguments
+### Arguments
 $(mPulseAPI.readdocs("APIResults-common-args"))
 
-#### Keyword Arguments
+### Keyword Arguments
 `timer::AbstractString`
 :    The name of the timer whose data we want.  If not specified, defaults to `PageLoad`.  Other possible
      values are:
 
 $(join(map(x -> "     * $x", mPulseAPI.supported_timers), "\n"))
-     * &lt;all custom timers&gt;
+     * <all custom timers>
 
 $(mPulseAPI.readdocs("APIResults-common-optargs"))
 
-#### Throws
+### Throws
 $(mPulseAPI.readdocs("APIResults-exceptions", ["timer"]))
 
 $(mPulseAPI.readdocs("CleanSeriesSeries-exceptions"))
 
-#### Returns
+### Returns
 `{DataFrame}` A julia `DataFrame` containing timeseries data for the median value of the timer and its margin of error.
 The fields are: `:timestamp` in milliseconds since the UNIX epoch, `:<TimerName>` in milliseconds and `:moe` in milliseconds.
 
@@ -838,7 +838,7 @@ All passed in `DataFrame`s MUST contain a `:t_done` column.
 :    The column name to join on.  Defaults to `:t_done`
 
 `joinType::Symbol=:outer`
-:    The type of join to perform.  See the `kind` parameter in `?join` for a list of supported join types
+:    The type of join to perform.  Could be `:inner`, `:outer`, `:left`, `:right`, `:cross`.
 
 ### Throws
 `KeyError`
@@ -847,7 +847,7 @@ All passed in `DataFrame`s MUST contain a `:t_done` column.
 ### Returns
 * If only one `DataFrame` is passed in, it is returned as-is.  This is not a copy of the first DataFrame.
 * If multiple `DataFrame`s are passed in, they are merged using an `outer` join on the `keyField` column, and the resulting `DataFrame` is returned.
-  Since we perform an outer join, rows in any of the DataFrames that do not have a matching `keyField` value found in other DataFrames will be filled with `NA`
+  Since we perform an outer join, rows in any of the DataFrames that do not have a matching `keyField` value found in other DataFrames will be filled with `missing`
 
 ```julia
 julia> sessions   = mPulseAPI.getSessionsOverPageLoadTime(token, appKey);
@@ -858,20 +858,20 @@ julia> mPulseAPI.mergeMetrics(sessions, bouncerate, conversion)
 65x4 DataFrames.DataFrame
 | Row | t_done | Sessions | BounceRate | Conversion |
 |-----|--------|----------|------------|------------|
-| 1   | 6      | 1        | NA         | NA         |
-| 2   | 10     | 2        | 50.0       | NA         |
-| 3   | 12     | 2        | 100.0      | NA         |
-| 4   | 17     | 1        | 100.0      | NA         |
-| 5   | 30     | 1        | 100.0      | NA         |
-| 6   | 34     | 1        | NA         | NA         |
-| 7   | 40     | 1        | 100.0      | NA         |
-| 8   | 60     | 2        | 100.0      | NA         |
-| 9   | 70     | 1        | 100.0      | NA         |
-| 10  | 120    | 2        | 100.0      | NA         |
-| 11  | 140    | 1        | NA         | NA         |
-| 12  | 170    | 1        | NA         | NA         |
-| 13  | 190    | 1        | 100.0      | NA         |
-| 14  | 230    | 1        | NA         | NA         |
+| 1   | 6      | 1        | missing    | missing    |
+| 2   | 10     | 2        | 50.0       | missing    |
+| 3   | 12     | 2        | 100.0      | missing    |
+| 4   | 17     | 1        | 100.0      | missing    |
+| 5   | 30     | 1        | 100.0      | missing    |
+| 6   | 34     | 1        | missing    | missing    |
+| 7   | 40     | 1        | 100.0      | missing    |
+| 8   | 60     | 2        | 100.0      | missing    |
+| 9   | 70     | 1        | 100.0      | missing    |
+| 10  | 120    | 2        | 100.0      | missing    |
+| 11  | 140    | 1        | missing    | missing    |
+| 12  | 170    | 1        | missing    | missing    |
+| 13  | 190    | 1        | 100.0      | missing    |
+| 14  | 230    | 1        | missing    | missing    |
 ...
 | 44  | 3750   | 8332     | 29.5915    | 2.25043    |
 | 45  | 3950   | 7957     | 31.7591    | 2.08962    |

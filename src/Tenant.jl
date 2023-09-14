@@ -22,18 +22,18 @@ The tenant will be cached in memory for 1 hour, so subsequent calls using a matc
 quickly without calling out to the API.  This can be a problem if the tenant changes in the repository.
 You can clear the cache for this tenant using [`mPulseAPI.clearTenantCache`](@ref) and passing in one of `tenantID` or `name`.
 
-#### Arguments
+### Arguments
 `token::AbstractString`
 :    The Repository authentication token fetched by calling [`getRepositoryToken`](@ref)
 
-#### Keyword Arguments
+### Keyword Arguments
 `tenantID::Int64`
 :    The ID of the tenant to fetch.  This is the fastest method, but it can be hard to figure out a tenant's ID
 
 `name::AbstractString`
 :    The Tenant name in mPulse.  This is available from the mPulse tenant list.
 
-#### Returns
+### Returns
 `{Dict}` The `tenant` object with the following fields:
 
 `name::AbstractString`
@@ -70,7 +70,7 @@ You can clear the cache for this tenant using [`mPulseAPI.clearTenantCache`](@re
 :    An array of DSWB URLs that are valid auth redirect targets for this tenant
 
 
-#### Throws
+### Throws
 `ArgumentError`
 :    if token is empty or tenantID and name are both empty
 

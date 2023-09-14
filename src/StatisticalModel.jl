@@ -23,18 +23,18 @@ The statistical model will be cached in memory for 1 hour, so subsequent calls u
 quickly without calling out to the API.  This can be a problem if the statistical model changes in the repository.
 You can clear the cache for this tenant using [`mPulseAPI.clearStatModelCache`](@ref) and passing in `statModelID`.
 
-#### Arguments
+### Arguments
 `token::AbstractString`
 :    The Repository authentication token fetched by calling [`getRepositoryToken`](@ref)
 
-#### Keyword Arguments
+### Keyword Arguments
 `statModelID::Int64`
 :    The ID of the statistical model to update.
 
 `statModelName::AbstractString`
 :    The statistical model name in mPulse. This is available from the mPulse domain configuration dialog.
 
-#### Returns
+### Returns
 `{Dict}` The `statisticalmodel` object with the following fields:
 
 `hidden::Bool`
@@ -88,7 +88,7 @@ You can clear the cache for this tenant using [`mPulseAPI.clearStatModelCache`](
 `lastModified::DateTime`
 :    The timestamp when this object was created
 
-#### Throws
+### Throws
 `ArgumentError`
 :    if token is empty or statModelID is empty
 
@@ -125,11 +125,11 @@ Updates an StatisticalModel object from the mPulse repository
 
 At least one of `statModelID` or `statModelName` must be passed in to update the statistical model object.
 
-#### Arguments
+### Arguments
 `token::AbstractString`
 :    The Repository authentication token fetched by calling [`getRepositoryToken`](@ref)
 
-#### Keyword Arguments
+### Keyword Arguments
 `statModelID::Int64`
 :    The ID of the statistical model to update.
 
@@ -145,7 +145,7 @@ At least one of `statModelID` or `statModelName` must be passed in to update the
 `body::AbstractString|LightXML.XMLElement=""`
 :    An XMLElement (if not empty) containing the body of the statistical model, containing pertinent information surrounding errors.
 
-#### Returns
+### Returns
 `{Dict}` The updated `statistical model` object with the following fields:
 
 `hidden::Bool`
@@ -199,7 +199,7 @@ At least one of `statModelID` or `statModelName` must be passed in to update the
 `lastModified::DateTime`
 :    The timestamp when this object was created
 
-#### Throws
+### Throws
 `ArgumentError`
 :    if token is empty or statModelID is empty
 
@@ -233,21 +233,21 @@ Deletes an StatisticalModel object from the mPulse repository
 
 At least one of `statModelID` or `statModelName` must be passed in to delete the Statistical Model object.
 
-#### Arguments
+### Arguments
 `token::AbstractString`
 :    The Repository authentication token fetched by calling [`getRepositoryToken`](@ref)
 
-#### Keyword Arguments
+### Keyword Arguments
 `statModelID::Int64`
 :    The ID of the statistical model to update.
 
 `statModelName::AbstractString`
 :    The statistical model name in mPulse. This is available from the mPulse domain configuration dialog.
 
-#### Returns
+### Returns
 Returns true if the delete is successful, else false.
 
-#### Throws
+### Throws
 `ArgumentError`
 :    if token is empty or statModelID is empty
 

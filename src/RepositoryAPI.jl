@@ -18,10 +18,12 @@ export
 const TokenTimeoutHours = 5
 
 
-# Internal convenience function.  Fetches an object from the repository and caches it for an hour in the appropriate cache object
-# - Returns a single object if filter keys are passed in an filterRequired is set to true (default)
-# - Returns an array of objects if filter keys are not passed in and filterRequired is set to false
-# - Throws an exception if filter keys are not passed in and filterRequired is set to true
+"""
+Internal convenience function.  Fetches an object from the repository and caches it for an hour in the appropriate cache object
+- Returns a single object if `searchKey`s are passed in an `filterRequired` is set to `true` (default)
+- Returns an array of objects if `searchKey`s are not passed in and `filterRequired` is set to `false`
+- Throws an exception if `searchKey`s are not passed in and `filterRequired` is set to `true`
+"""
 function getRepositoryObject(token::AbstractString, objectType::AbstractString, searchKey::Dict{Symbol, Any}; filterRequired::Bool=true)
     global verbose
 
@@ -29,7 +31,7 @@ function getRepositoryObject(token::AbstractString, objectType::AbstractString, 
         throw(ArgumentError("`token' cannot be empty"))
     end
 
-    local isKeySet = false
+    isKeySet = false
 
     if filterRequired
         isKeySet = any(kv -> isa(kv[2], Number) ? kv[2] > 0 : !isempty(kv[2]), searchKey)
@@ -39,7 +41,7 @@ function getRepositoryObject(token::AbstractString, objectType::AbstractString, 
         end
     end
 
-    local object = getObjectFromCache(objectType, searchKey)
+    object = getObjectFromCache(objectType, searchKey)
 
     if object != nothing
         return object
@@ -56,16 +58,18 @@ end
 
 
 
-# Internal convenience function.  Updates an object from the repository.
-function postRepositoryObject(token::AbstractString,
-                              objectType::AbstractString,
-                              searchKey::Dict{Symbol, Any};
-                              attributes::Dict=Dict(),
-                              objectFields::Dict=Dict(),
-                              body::Union{AbstractString, LightXML.XMLElement}="",
-                              filterRequired::Bool=true
+"""
+Internal convenience function.  Updates an object from the repository.
+"""
+function postRepositoryObject(
+    token::AbstractString,
+    objectType::AbstractString,
+    searchKey::Dict{Symbol, Any};
+    attributes::Dict                                 = Dict(),
+    objectFields::Dict                               = Dict(),
+    body::Union{AbstractString, LightXML.XMLElement} = "",
+    filterRequired::Bool                             = true
 )
-
     global verbose
 
     if token == ""
@@ -83,7 +87,7 @@ function postRepositoryObject(token::AbstractString,
     # Retrieve existing (old) attributes
     oldAttributes = Dict{AbstractString, Any}(get(object, "attributes", Dict()))
 
-    local isKeySet = false
+    isKeySet = false
 
     if filterRequired
         isKeySet = any(kv -> isa(kv[2], Number) ? kv[2] > 0 : !isempty(kv[2]), searchKey)
@@ -93,8 +97,8 @@ function postRepositoryObject(token::AbstractString,
         end
     end
 
-    local url = ObjectEndpoint * "/" * objectType * "/$(objectID)"
-    local debugID = "(all)"
+    url = ObjectEndpoint * "/" * objectType * "/$(objectID)"
+    debugID = "(all)"
 
     if verbose
         println("POST $url")
@@ -111,7 +115,9 @@ end
 
 
 
-# Internal convenience function.  Deletes an object from the repository.
+"""
+Internal convenience function.  Deletes an object from the repository.
+"""
 function deleteRepositoryObject(token::AbstractString,
                               objectType::AbstractString,
                               searchKey::Dict{Symbol, Any}
@@ -136,8 +142,8 @@ function deleteRepositoryObject(token::AbstractString,
     # If objectID was not supplied, it will now be available
     objectID = get(object, "id", 0)
 
-    local url = ObjectEndpoint * "/" * objectType * "/$(objectID)"
-    local debugID = "(all)"
+    url = ObjectEndpoint * "/" * objectType * "/$(objectID)"
+    debugID = "(all)"
 
     if verbose
         println("DELETE $url")
@@ -158,178 +164,6 @@ function deleteRepositoryObject(token::AbstractString,
 end
 
 
-
-
-
-
-"""
-Gets a mapping of custom metric names to Snowflake field names from domain XML.  This list also includes valid dates.
-
-#### Arguments
-$(mPulseAPI.readdocs("NodeContent-body"))
-
-#### Returns
-$(mPulseAPI.readdocs("CustomMetricMap-structure"))
-
-#### Throws
-$(mPulseAPI.readdocs("NodeContent-throws"))
-"""
-function getCustomMetricMap(body::Any)
-    custom_metrics = Dict()
-
-    cmets = getXMLNode(body, "CustomMetrics")
-
-    if !isa(cmets, XMLElement)
-        return custom_metrics
-    end
-
-    for node in child_elements(cmets)
-        attributes = attributes_dict(node)
-        if attributes["inactive"] == "false"
-            custom_metric = Dict(
-                "index" => parse(Int, attributes["index"], base=10),
-                "fieldname" => "custommetric" * attributes["index"],
-                "lastModified" => iso8601ToDateTime(attributes["lastModified"]),
-                "description" => attributes["description"]
-            )
-
-            datatypeNode = getXMLNode(node, "DataType")
-            if isa(datatypeNode, XMLElement)
-                custom_metric["dataType"] = attributes_dict(datatypeNode)
-            end
-
-            colorNode = getXMLNode(node, "MetricColors")
-            if isa(colorNode, XMLElement)
-                colors = attributes_dict(colorNode)
-                custom_metric["colors"] = map(k->colors[k], sort(collect(keys(colors))))
-            end
-
-            custom_metrics[attributes["name"]] = custom_metric
-        end
-    end
-
-    return custom_metrics
-end
-
-
-
-
-"""
-Gets a mapping of custom timer names to Snowflake field names from domain XML.  This list also includes valid dates.
-
-#### Arguments
-$(mPulseAPI.readdocs("NodeContent-body"))
-
-#### Returns
-$(mPulseAPI.readdocs("CustomTimerMap-structure"))
-
-#### Throws
-$(mPulseAPI.readdocs("NodeContent-throws"))
-"""
-function getCustomTimerMap(body::Any)
-    custom_timers = Dict()
-
-    ctims = getXMLNode(body, "CustomTimers")
-
-    if !isa(ctims, XMLElement)
-        return custom_timers
-    end
-
-    for node in child_elements(ctims)
-        attributes = attributes_dict(node)
-        if attributes["inactive"] == "false"
-            custom_timer = Dict(
-                "index" => parse(Int, attributes["index"], base=10),
-                "fieldname" => "customtimer" * attributes["index"],
-                "mpulseapiname" => "CustomTimer" * attributes["index"],
-                "lastModified" => iso8601ToDateTime(attributes["lastModified"]),
-                "description" => attributes["description"]
-            )
-
-            colorNodes = getXMLNode(node, "TimingColors")
-            if isa(colorNodes, XMLElement)
-                colors = Dict[]
-                for colorNode in child_elements(colorNodes)
-                    color = attributes_dict(colorNode)
-                    push!(colors, color)
-                end
-                custom_timer["colors"] = colors
-            end
-
-
-            custom_timers[attributes["name"]] = custom_timer
-        end
-    end
-
-    return custom_timers
-end
-
-
-
-
-"""
-Gets the content of a node
-
-#### Arguments
-$(mPulseAPI.readdocs("NodeContent-body"))
-
-`nodeName::AbstractString`
-:    The node whose contents shoudl be returned
-
-`default::Any`
-:    A default value to return if the required node was not found
-
-
-#### Returns
-`{AbstractString|Number|Boolean}` The content of the requested node cast to the same type as `default` or the value of `default` if the node was not found
-
-#### Throws
-$(mPulseAPI.readdocs("NodeContent-throws"))
-"""
-function getNodeContent(body::Any, nodeName::AbstractString, default::Any)
-    node = getXMLNode(body, nodeName)
-
-    # If we have a valid node, get its textContent
-    if isa(node, LightXML.XMLElement)
-        value = content(node)
-
-        # If the default value passed in was a Number, then we cast value to a Number
-        if isa(default, AbstractFloat)
-            value = parse(Float64, value)
-        elseif isa(default, Int)
-            value = parse(Int, value, base=10)
-        elseif isa(default, Bool)
-            if lowercase(value) == "true"
-                value = true
-            else
-                value = false
-            end
-        end
-    else
-        value = default
-    end
-
-    return value
-end
-
-
-
-
-# Internal convenience function
-function getXMLNode(body::Any, nodeName::AbstractString)
-    if isa(body, AbstractString)
-        xdoc = parse_string(body)
-        xroot = root(xdoc)
-    elseif isa(body, LightXML.XMLElement)
-        xroot = body
-    elseif isa(body, Dict) && haskey(body, "body")
-        xroot = body["body"]
-    else
-        throw(ArgumentError("bodyXML must either be an XML String, a LightXML.XMLElement or a Dict() with a `body` element. $(typeof(body)) is unknown."))
-    end
-
-    return find_element(xroot, nodeName)
-end
 
 
 # Internal convenience function used to POST to repository
@@ -450,9 +284,9 @@ end
 # Internal convenience function used to GET from repository
 function getHttpRequest(token::AbstractString, objectType::AbstractString, searchKey::Dict{Symbol, Any}, isKeySet::Bool)
 
-    local url = ObjectEndpoint * "/" * objectType
-    local query = Dict()
-    local debugID = "(all)"
+    url = ObjectEndpoint * "/" * objectType
+    query = Dict()
+    debugID = "(all)"
 
     # Adjust query URL to use ID or search attribute depending on which is passed in
     for (k, v) in searchKey
