@@ -2,6 +2,7 @@ Communicate with the mPulse Query & Repository REST APIs to fetch information ab
 
 [![GH Build](https://github.com/akamai/mPulseAPI.jl/workflows/CI/badge.svg)](https://github.com/akamai/mPulseAPI.jl/actions/workflows/CI.yml?query=branch%3Amain)
 [![Coverage Status](https://coveralls.io/repos/github/akamai/mPulseAPI.jl/badge.svg?branch=main)](https://coveralls.io/github/akamai/mPulseAPI.jl?branch=main)
+[![](https://img.shields.io/badge/docs-dev-blue.svg)](https://akamai.github.io/mPulseAPI.jl/)
 
 ## Documentation
 
