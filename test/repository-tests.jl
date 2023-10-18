@@ -18,7 +18,7 @@ domainNames = map(d -> d["name"], domains)
 @test "mPulseAPI Test" ∈ domainNames
 
 # Get a specific domain
-appKey = filter(d -> d["name"] == "mPulseAPI Test", domains)[1]["attributes"]["appKey"]
+beaconKey = appKey = filter(d -> d["name"] == "mPulseAPI Test", domains)[1]["attributes"]["appKey"]
 @test !isempty(appKey)
 
 domain = getRepositoryDomain(token, appKey=appKey)
