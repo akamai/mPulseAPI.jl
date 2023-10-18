@@ -1,5 +1,5 @@
 """
-Template for config.json requests
+Base URL for config.json requests
 """
 const CONFIG_URL = "https://c.go-mpulse.net/api/config.json"
 
@@ -44,6 +44,9 @@ function getBeaconConfig(appKey::AbstractString, appDomain::AbstractString)
     return config_obj
 end
 
+"""
+Send a beacon to mPulse
+"""
 function sendBeacon(config::Dict, params::Dict)
     beacon_url = "https:" * config["beacon_url"]
 
