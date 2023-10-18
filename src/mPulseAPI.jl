@@ -150,4 +150,6 @@ include(joinpath(@__DIR__, "Tenant.jl"))
 include(joinpath(@__DIR__, "Token.jl"))
 include(joinpath(@__DIR__, "QueryAPI.jl"))
 
+include(joinpath(@__DIR__, "BeaconAPI.jl"))
+
 end

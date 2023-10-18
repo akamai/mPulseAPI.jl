@@ -1,12 +1,9 @@
 const caches = Dict{AbstractString, Dict}()
 
-function writeObjectToCache(cacheType::AbstractString, searchKey::Dict{Symbol, Any}, object::Dict)
+function writeObjectToCache(cacheType::AbstractString, searchKey::Dict{Symbol, <:Any}, object::Dict; expiry::TimePeriod=Dates.Hour(1))
     if !haskey(caches, cacheType)
         caches[cacheType] = Dict()
     end
-
-    # Store object in cache for 1 hour
-    object["lastCached"] = now()
 
     for ky in keys(searchKey)
         k = string(ky)
@@ -16,12 +13,13 @@ function writeObjectToCache(cacheType::AbstractString, searchKey::Dict{Symbol, A
         end
 
         if v != nothing
-            caches[cacheType]["$(k)_$(v)"] =  object
+            # Store object in cache for 1 hour
+            caches[cacheType]["$(k)_$(v)"] = (object = object, expiry = now() + expiry)
         end
     end
 end
 
-function getObjectFromCache(cacheType::AbstractString, searchKey::Dict{Symbol, Any}, fetchStale::Bool=false)
+function getObjectFromCache(cacheType::AbstractString, searchKey::Dict{Symbol, <:Any}, fetchStale::Bool=false)
     if !haskey(caches, cacheType)
         return nothing
     end
@@ -30,8 +28,8 @@ function getObjectFromCache(cacheType::AbstractString, searchKey::Dict{Symbol, A
 
     for (k, v) in searchKey
         if isa(v, Number) ? v > 0 : v != ""
-            if haskey(cache, "$(k)_$(v)") && (fetchStale || cache["$(k)_$(v)"]["lastCached"] > now() - Dates.Hour(1))
-                return cache["$(k)_$(v)"]
+            if haskey(cache, "$(k)_$(v)") && (fetchStale || cache["$(k)_$(v)"].expiry > now())
+                return cache["$(k)_$(v)"].object
             end
         end
     end
@@ -41,7 +39,7 @@ end
 
 
 # Internal convenience method for clearing object cache
-function clearObjectCache(cacheType::AbstractString, searchKey::Dict{Symbol, Any})
+function clearObjectCache(cacheType::AbstractString, searchKey::Dict{Symbol, <:Any})
     local object = getObjectFromCache(cacheType, searchKey)
 
     if object == nothing
@@ -133,7 +131,9 @@ function clearTokenCache(tenant::AbstractString)
     # in previously to make authentication easier
     tenant = "tenant_$tenant"
     if haskey(caches["token"], tenant)
-        caches["token"][tenant]["lastCached"] = caches["token"][tenant]["tokenTimestamp"] = Date(0)
+        object = caches["token"][tenant].object
+        object["tokenTimestamp"] = Date(0)
+        caches["token"][tenant] = (expiry = Date(0), object = object)
         return true
     end
 
