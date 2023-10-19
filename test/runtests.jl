@@ -1,5 +1,5 @@
 using mPulseAPI
-using Test
+using Test, Dates
 
 # Check environment
 if !haskey(ENV, "mPulseAPIToken")
@@ -28,6 +28,7 @@ end
 
 mPulseAPI.setVerbose(verbosity)
 
+t_start = Int(datetime2unix(now())*1000)
 
 @testset "mPulseAPI" begin
     @testset "Repository" begin
@@ -40,6 +41,10 @@ mPulseAPI.setVerbose(verbosity)
 
     @testset "Query" begin
         include("query-tests.jl")
+    end
+
+    @testset "Beacons" begin
+        include("beacon-api.jl")
     end
 
     @testset "Change URL" begin
