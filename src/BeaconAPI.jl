@@ -44,6 +44,8 @@ function getBeaconConfig(appKey::AbstractString, appDomain::AbstractString)
     return config_obj
 end
 
+const mPulseSessions = Dict{String, Dict}()
+
 """
 Send a beacon to mPulse
 """
@@ -51,6 +53,11 @@ function sendBeacon(config::Dict, params::Dict)
     beacon_url = "https:" * config["beacon_url"]
 
     now_ms = Int(datetime2unix(now())*1000)
+    session_id = get(params, "SessionID", config["session_id"])
+
+    session = get(mPulseSessions, session_id, Dict())
+    session_ln = get(session, "sl", 0) + 1
+
 
     beacon_params = Dict{String, Any}(
         "api"      => 1,
@@ -60,10 +67,11 @@ function sendBeacon(config::Dict, params::Dict)
         "h.key"    => config["h.key"],
         "h.t"      => config["h.t"],
         "rt.end"   => now_ms,
-        "rt.si"    => get(params, "SessionID", config["session_id"]),
-        "rt.sl"    => get(params, "SessionLength", 1),
-        "rt.ss"    => get(params, "SessionStart", now_ms),
+        "rt.si"    => session_id,
+        "rt.sl"    => get(params, "SessionLength", session_ln),
+        "rt.ss"    => get(session, "ss", get(params, "SessionStart", now_ms)),
         "rt.start" => "manual",
+        "rt.obo"   => 0,
     )
 
     if haskey(params, "PageGroup")
@@ -74,7 +82,15 @@ function sendBeacon(config::Dict, params::Dict)
     end
     if haskey(params, "tDone")
         beacon_params["t_done"] = params["tDone"]
+        beacon_params["rt.tt"]  = get!(session, "tt", 0) + params["tDone"]
     end
+    if haskey(params, "tStart")
+        beacon_params["rt.tstart"] = params["tStart"]
+    elseif haskey(params, "tDone")
+        beacon_params["rt.tstart"] = now_ms - params["tDone"]
+    end
+
+    session[session_id] = Dict("sl" => beacon_params["rt.sl"], "ss" => beacon_params["rt.ss"], "tt" => beacon_params["rt.tt"])
 
     vars = ["customMetrics", "customDimensions", "customTimers"]
     t_other = []
@@ -98,7 +114,9 @@ function sendBeacon(config::Dict, params::Dict)
     end
 
 
-    res = HTTP.get(beacon_url, query = beacon_params)
+    params = merge(params, beacon_params)
+
+    res = HTTP.get(beacon_url, query = params)
 
     return res.status == 204
 end
