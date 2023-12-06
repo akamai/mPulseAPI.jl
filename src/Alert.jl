@@ -17,7 +17,8 @@ export
 """
 Fetches an Alert object from the mPulse repository
 
-At least one of `alertID` or `alertName` must be passed in to identify the alert.
+At least one of `alertID` or `alertName` must be passed in to identify the alert. If neither are passed in,
+then all alerts for the tenant are returned.
 
 The alert will be cached in memory for 1 hour, so subsequent calls using a matching `alertID` return
 quickly without calling out to the API.  This can be a problem if the alert changes in the repository.
