@@ -10,7 +10,7 @@
 #
 ###################################################
 
-using DataFrames, JSON, Formatting
+using DataFrames, JSON, Format
 
 const nullval = missing
 

@@ -15,7 +15,7 @@ module mPulseAPI
 
 using Dates
 
-using LightXML, Formatting, TimeZones, DataFrames
+using LightXML, Format, TimeZones, DataFrames
 import HTTP
 export LightXML
 
@@ -123,7 +123,7 @@ function readdocs(name::AbstractString, replacers=[]; indent=0)
 
         # And run the whole thing through format
         try
-            data = Formatting.format(data, replacers...)
+            data = Format.format(data, replacers...)
         catch
             @warn replacers
             @warn data

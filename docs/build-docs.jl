@@ -19,7 +19,7 @@
 ###############################################################################################
 
 using ArgParse
-import Formatting, Pkg, YAML, InteractiveUtils
+import Format, Pkg, YAML, InteractiveUtils
 import InteractiveUtils.subtypes
 
 s = ArgParseSettings()
@@ -114,7 +114,7 @@ function symbol2dict(file_deets::Dict, k, k_doc)
                 text = "",
                 binding = k
             )]
-            local cm = `grep -rEl ^$(Formatting.format(declarator[Base.Docs.Binding], name)) $(dirname(pathof(modl)))`
+            local cm = `grep -rEl ^$(Format.format(declarator[Base.Docs.Binding], name)) $(dirname(pathof(modl)))`
 
             possible_path = filter(x -> !occursin(".swp", x), readlines(cm))
             if !isempty(length(possible_path))
@@ -174,7 +174,7 @@ function symbol2dict(file_deets::Dict, k, k_doc)
 
         if string(fn) != name
             # This is an alias, so we should use its own documentation
-            line = findlast(contains(Regex("^$(Formatting.format(declarator[Base.Docs.Binding], name))")), lines)
+            line = findlast(contains(Regex("^$(Format.format(declarator[Base.Docs.Binding], name))")), lines)
             push!(retvals, Dict(
                     :module   => string(modl),
                     :name     => name,
@@ -298,15 +298,15 @@ function symbol2dict(file_deets::Dict, k, k_doc)
             retvals[1][:name] = retvals[1][:basename]
         end
     else
-        line = findlast(contains(Regex("^\\s*$(Formatting.format(declarator[typ], replace(name, r"([{}])" => s"\\\1")))")), lines)
+        line = findlast(contains(Regex("^\\s*$(Format.format(declarator[typ], replace(name, r"([{}])" => s"\\\1")))")), lines)
 
         # We couldn't find the exact type, but it's possible this was an alias of a type, so is defined as a `const`
         if line == nothing && typeof(k) == Base.Docs.Binding
-            line = findlast(contains(Regex("^$(Formatting.format(declarator[Base.Docs.Binding], replace(name, r"([{}])" => s"\\\1")))")), lines)
+            line = findlast(contains(Regex("^$(Format.format(declarator[Base.Docs.Binding], replace(name, r"([{}])" => s"\\\1")))")), lines)
         end
 
         if line == nothing
-            println(Regex("^\\s*$(Formatting.format(declarator[typ], replace(name, r"([{}])" => s"\\\1")))"))
+            println(Regex("^\\s*$(Format.format(declarator[typ], replace(name, r"([{}])" => s"\\\1")))"))
             printwarn("$typ $name not found in $file")
             return retvals
         end
@@ -527,7 +527,7 @@ function getSymbols(modl::Module; order=[Module, DataType, Macro, Function, Base
     expo_order = Dict(true => "1", false => "2")
     type_order = Dict(zip(order, 1:length(order)))
 
-    sort!(symbols, by = x -> Formatting.format("{3}.{1}.{2}.{4:04d}.{5}", expo_order[x[:exported]], type_order[x[:type]], x[:file], x[:line], x[:name]))
+    sort!(symbols, by = x -> Format.format("{3}.{1}.{2}.{4:04d}.{5}", expo_order[x[:exported]], type_order[x[:type]], x[:file], x[:line], x[:name]))
 
     if Pkg.project().path != proj_path
         Pkg.activate(dirname(proj_path))
@@ -649,7 +649,7 @@ function processModulePage(page::Page, mdfile_path::AbstractString)
             # Use HTML here because markdown doesn't support inserting classes into UL and LI elements
             println(md, """<ul class="symbols">""")
             for s in Base.sort(filter(s -> s[:type] != Module, file_symbs), by = s->(!s[:exported], s[:name]))
-                Formatting.printfmtln(md, """<li class="{3:s}" title="{3:s}"><a href="{2:s}">{1:s}</a></li>""", s[:name], joinpath("..", replace(refids[string(s[:module], ".", s[:name])], r"\.md($|#)" => s".html\1")), s[:exported] ? "exported" : "internal")
+                Format.printfmtln(md, """<li class="{3:s}" title="{3:s}"><a href="{2:s}">{1:s}</a></li>""", s[:name], joinpath("..", replace(refids[string(s[:module], ".", s[:name])], r"\.md($|#)" => s".html\1")), s[:exported] ? "exported" : "internal")
             end
             println(md, """</ul>""")
         end
