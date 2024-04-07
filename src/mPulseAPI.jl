@@ -15,7 +15,7 @@ module mPulseAPI
 
 using Dates
 
-using LightXML, Formatting, TimeZones, DataFrames
+using LightXML, Format, TimeZones, DataFrames
 import HTTP
 export LightXML
 
@@ -123,7 +123,7 @@ function readdocs(name::AbstractString, replacers=[]; indent=0)
 
         # And run the whole thing through format
         try
-            data = Formatting.format(data, replacers...)
+            data = Format.format(data, replacers...)
         catch
             @warn replacers
             @warn data
@@ -138,18 +138,18 @@ function readdocs(name::AbstractString, replacers=[]; indent=0)
     return data
 end
 
-include(joinpath(@__DIR__, "exceptions.jl"))
-include(joinpath(@__DIR__, "cache_utilities.jl"))
-include(joinpath(@__DIR__, "xml_utilities.jl"))
+include("exceptions.jl")
+include("cache_utilities.jl")
+include("xml_utilities.jl")
 
-include(joinpath(@__DIR__, "RepositoryAPI.jl"))
-include(joinpath(@__DIR__, "StatisticalModel.jl"))
-include(joinpath(@__DIR__, "Alert.jl"))
-include(joinpath(@__DIR__, "Domain.jl"))
-include(joinpath(@__DIR__, "Tenant.jl"))
-include(joinpath(@__DIR__, "Token.jl"))
-include(joinpath(@__DIR__, "QueryAPI.jl"))
+include("RepositoryAPI.jl")
+include("StatisticalModel.jl")
+include("Alert.jl")
+include("Domain.jl")
+include("Tenant.jl")
+include("Token.jl")
+include("QueryAPI.jl")
 
-include(joinpath(@__DIR__, "BeaconAPI.jl"))
+include("BeaconAPI.jl")
 
 end

@@ -96,12 +96,12 @@ You can clear the cache for this tenant using [`mPulseAPI.clearAlertCache`](@ref
 `mPulseAPIException`
 :    if API access failed for some reason
 """
-function getRepositoryAlert(token::AbstractString; alertID::Int64=0, alertName::AbstractString="")
+function getRepositoryAlert(token::AbstractString; alertID::Int64=0, alertName::AbstractString="", domain::AbstractString="")
 
     alert_list = getRepositoryObject(
                 token,
                 "alert",
-                Dict{Symbol, Any}(:id => alertID, :name => alertName),
+                Dict{Symbol, Any}(:id => alertID, :name => alertName, :domain => domain),
                 filterRequired=false
         )
 
