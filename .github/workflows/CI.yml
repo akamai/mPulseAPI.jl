@@ -9,20 +9,23 @@ on:
     tags: '*'
 jobs:
   test:
-    name: Julia ${{ matrix.version }} - ${{ matrix.os }} - ${{ matrix.arch }} - ${{ github.event_name }}
-    runs-on: ${{ matrix.os }}
+    name: Julia ${{ matrix.version }} - ubuntu-latest - ${{ matrix.arch }} - ${{ github.event_name }}
+    runs-on: 'ubuntu-latest'
+    continue-on-error: ${{ matrix.experimental }}
     strategy:
       fail-fast: true
       max-parallel: ${{ fromJSON(vars.MAX_PARALLEL || '1')}}
       matrix:
-        version: ['1.6', '^1', 'nightly']
-        os:
-          - ubuntu-latest
+        version: ['1.6', '^1']
+        experimental: [false]
         arch:
           - x64
+        include:
+          - version: 'nightly'
+            experimental: true
     steps:
-      - uses: actions/checkout@v3
-      - uses: julia-actions/setup-julia@v1
+      - uses: actions/checkout@v4
+      - uses: julia-actions/setup-julia@v2
         with:
           version: ${{ matrix.version }}
           arch: ${{ matrix.arch }}
