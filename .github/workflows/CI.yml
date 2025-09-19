@@ -17,11 +17,10 @@ jobs:
       fail-fast: true
       max-parallel: ${{ fromJSON(vars.MAX_PARALLEL || '1')}}
       matrix:
-        version: ['min', 'lts', '1']
-        experimental: [false]
-        arch:
-          - x64
+        version: ['min', 'lts', '1', 'nightly']
         include:
+          - experimental: false
+          - arch: 'x64'
           - version: 'nightly'
             experimental: true
     steps:
