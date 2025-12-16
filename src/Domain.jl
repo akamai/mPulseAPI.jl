@@ -36,6 +36,9 @@ You can clear the cache for this domain using [`mPulseAPI.clearDomainCache`](@re
 `appName::AbstractString`
 :    The App name in mPulse. This is available from the mPulse domain configuration dialog.
 
+`filters::Dict{Symbol, Any}`
+:    A `Dict` of additional filters to use if searching for multiple domains. See https://techdocs.akamai.com/mpulse/reference/get-objects-attribute for supported filters.
+
 ### Returns
 `{Dict|Array{Dict}}` If one of `domainID`, `appKey` or `appName` are passed in, then a single `domain` object is returned as a `Dict`.
 
@@ -96,7 +99,7 @@ The `domain` `Dict` has the following fields:
 :    if something unexpected happened while parsing the repository object
 
 """
-function getRepositoryDomain(token::AbstractString; domainID::Int64=0, appKey::AbstractString="", appName::AbstractString="", appID::AbstractString="")
+function getRepositoryDomain(token::AbstractString; domainID::Int64=0, appKey::AbstractString="", appName::AbstractString="", appID::AbstractString="", filters::Dict{Symbol, Any}=Dict{Symbol, Any}())
     # Keep appID for backwards compatibility
     if isempty(appKey) && !isempty(appID)
         appKey = appID
@@ -105,8 +108,9 @@ function getRepositoryDomain(token::AbstractString; domainID::Int64=0, appKey::A
     domain_list = getRepositoryObject(
                 token,
                 "domain",
-                Dict{Symbol, Any}(:id => domainID, :apiKey => appKey, :name => appName),
-                filterRequired=false
+                Dict{Symbol, Any}(:id => domainID, :apiKey => appKey, :name => appName);
+                filterRequired=false,
+                filters
         )
 
     # Always convert to an array for easier processing

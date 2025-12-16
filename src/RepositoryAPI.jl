@@ -24,7 +24,7 @@ Internal convenience function.  Fetches an object from the repository and caches
 - Returns an array of objects if `searchKey`s are not passed in and `filterRequired` is set to `false`
 - Throws an exception if `searchKey`s are not passed in and `filterRequired` is set to `true`
 """
-function getRepositoryObject(token::AbstractString, objectType::AbstractString, searchKey::Dict{Symbol, Any}; filterRequired::Bool=true)
+function getRepositoryObject(token::AbstractString, objectType::AbstractString, searchKey::Dict{Symbol, Any}; filterRequired::Bool=true, filters::Dict{Symbol, Any}=Dict{Symbol, Any}())
     global verbose
 
     if token == ""
@@ -46,7 +46,7 @@ function getRepositoryObject(token::AbstractString, objectType::AbstractString, 
     if object != nothing
         return object
     else
-        object_list = getHttpRequest(token, objectType, searchKey, isKeySet)
+        object_list = getHttpRequest(token, objectType, merge(searchKey, filters), isKeySet)
     end
 
     if isKeySet

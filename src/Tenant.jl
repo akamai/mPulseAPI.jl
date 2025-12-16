@@ -16,9 +16,10 @@ export
 """
 Fetches a Tenant object from the mPulse repository
 
-At least one of `tenantID` or `name` must be passed in to identify the tenant.
+At least one of `tenantID` or `name` must be passed in to identify the tenant. If neither are passed in, the first 10,000 tenants will be returned.
+mPulse currently does not support any option to fetch more than the first 10,000 tenants that match other query parameters. There is no pagination support.
 
-The tenant will be cached in memory for 1 hour, so subsequent calls using a matching `tenantID`, or `name` return
+The tenant(s) will be cached in memory for 1 hour, so subsequent calls using a matching `tenantID`, or `name` return
 quickly without calling out to the API.  This can be a problem if the tenant changes in the repository.
 You can clear the cache for this tenant using [`mPulseAPI.clearTenantCache`](@ref) and passing in one of `tenantID` or `name`.
 
@@ -32,6 +33,9 @@ You can clear the cache for this tenant using [`mPulseAPI.clearTenantCache`](@re
 
 `name::AbstractString`
 :    The Tenant name in mPulse.  This is available from the mPulse tenant list.
+
+`filters::Dict{Symbol, Any}`
+:    A `Dict` of additional filters to use if searching for multiple tenants. See https://techdocs.akamai.com/mpulse/reference/get-objects-attribute for supported filters.
 
 ### Returns
 `{Dict}` The `tenant` object with the following fields:
@@ -78,26 +82,41 @@ You can clear the cache for this tenant using [`mPulseAPI.clearTenantCache`](@re
 :    if API access failed for some reason
 
 """
-function getRepositoryTenant(token::AbstractString; tenantID::Int64=0, name::AbstractString="")
-    tenant = getRepositoryObject(
+function getRepositoryTenant(token::AbstractString; tenantID::Int64=0, name::AbstractString="", filters::Dict{Symbol, Any}=Dict{Symbol, Any}())
+    tenant_list = getRepositoryObject(
                 token,
                 "tenant",
-                Dict{Symbol, Any}(:id => tenantID, :name => name)
+                Dict{Symbol, Any}(:id => tenantID, :name => name);
+                filterRequired=false,
+                filters
         )
 
-    # If the object came out of cache, then it already contains these fields
-    if !haskey(tenant, "dswbUrls")
-        try
-            tenant["dswbUrls"] = filter(u -> u != "", split(getNodeContent(tenant, "DSWBURLs", ""), ','))
-        catch ex
-            # If this is an Exception that we are not prepared to deal with
-            if !isa(ex, LightXML.XMLParseError)
-                rethrow()
-            end
-        end
+    # Always convert to an array for easier processing
+    if !isa(tenant_list, AbstractArray)
+        tenant_list = Dict{AbstractString, Any}[tenant_list]
     end
 
-    tenant["dswb_dsn_name"] = "tenant_$(tenant["id"])"
+    for tenant in tenant_list
+        # If the object came out of cache, then it already contains these fields
+        if !haskey(tenant, "dswbUrls")
+            try
+                tenant["dswbUrls"] = filter(u -> u != "", split(getNodeContent(tenant, "DSWBURLs", ""), ','))
+            catch ex
+                # If this is an Exception that we are not prepared to deal with
+                if !isa(ex, LightXML.XMLParseError)
+                    rethrow()
+                end
+            end
+        end
 
-    return tenant
+        tenant["dswb_dsn_name"] = "tenant_$(tenant["id"])"
+    end
+
+    # Return the first element only if the caller asked for a unique tenant, else
+    # return the list even if it only has one element in it
+    if tenantID != 0 || name != ""
+        return tenant_list[1]
+    else
+        return tenant_list
+    end
 end

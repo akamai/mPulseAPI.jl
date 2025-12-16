@@ -35,6 +35,9 @@ You can clear the cache for this tenant using [`mPulseAPI.clearAlertCache`](@ref
 `alertName::AbstractString`
 :    The Alert name in mPulse. This is available from the mPulse domain configuration dialog.
 
+`filters::Dict{Symbol, Any}`
+:    A `Dict` of additional filters to use if searching for multiple alerts. See https://techdocs.akamai.com/mpulse/reference/get-objects-attribute for supported filters.
+
 ### Returns
 `{Dict}` The `alert` object with the following fields:
 
@@ -96,13 +99,14 @@ You can clear the cache for this tenant using [`mPulseAPI.clearAlertCache`](@ref
 `mPulseAPIException`
 :    if API access failed for some reason
 """
-function getRepositoryAlert(token::AbstractString; alertID::Int64=0, alertName::AbstractString="", domain::AbstractString="")
+function getRepositoryAlert(token::AbstractString; alertID::Int64=0, alertName::AbstractString="", domain::AbstractString="", filters::Dict{Symbol, Any}=Dict{Symbol, Any}())
 
     alert_list = getRepositoryObject(
                 token,
                 "alert",
-                Dict{Symbol, Any}(:id => alertID, :name => alertName, :domain => domain),
-                filterRequired=false
+                Dict{Symbol, Any}(:id => alertID, :name => alertName, :domain => domain);
+                filterRequired=false,
+                filters
         )
 
     # Always convert to an array for easier processing

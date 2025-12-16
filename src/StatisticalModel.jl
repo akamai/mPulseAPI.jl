@@ -34,6 +34,9 @@ You can clear the cache for this tenant using [`mPulseAPI.clearStatModelCache`](
 `statModelName::AbstractString`
 :    The statistical model name in mPulse. This is available from the mPulse domain configuration dialog.
 
+`filters::Dict{Symbol, Any}`
+:    A `Dict` of additional filters to use if searching for multiple models. See https://techdocs.akamai.com/mpulse/reference/get-objects-attribute for supported filters.
+
 ### Returns
 `{Dict}` The `statisticalmodel` object with the following fields:
 
@@ -95,13 +98,14 @@ You can clear the cache for this tenant using [`mPulseAPI.clearStatModelCache`](
 `mPulseAPIException`
 :    if API access failed for some reason
 """
-function getRepositoryStatModel(token::AbstractString; statModelID::Int64=0, statModelName::AbstractString="")
+function getRepositoryStatModel(token::AbstractString; statModelID::Int64=0, statModelName::AbstractString="", filters::Dict{Symbol, Any}=Dict{Symbol, Any}())
 
     statModel_list = getRepositoryObject(
                 token,
                 "statisticalmodel",
-                Dict{Symbol, Any}(:id => statModelID, :name => statModelName),
-                filterRequired=false
+                Dict{Symbol, Any}(:id => statModelID, :name => statModelName);
+                filterRequired=false,
+                filters
         )
 
     # Always convert to an array for easier processing
