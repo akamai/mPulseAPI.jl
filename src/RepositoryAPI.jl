@@ -76,6 +76,16 @@ function postRepositoryObject(
         throw(ArgumentError("`token' cannot be empty"))
     end
 
+    isKeySet = false
+
+    if filterRequired
+        isKeySet = any(kv -> isa(kv[2], Number) ? kv[2] > 0 : !isempty(kv[2]), searchKey)
+
+        if !isKeySet
+            throw(ArgumentError("At least one of `$(join(collect(keys(searchKey)), "', `", "' or `"))' must be set"))
+        end
+    end
+
     objectID = get(searchKey, :id, 0)
     name = get(searchKey, :name, "")
 
@@ -86,16 +96,6 @@ function postRepositoryObject(
 
     # Retrieve existing (old) attributes
     oldAttributes = Dict{AbstractString, Any}(get(object, "attributes", Dict()))
-
-    isKeySet = false
-
-    if filterRequired
-        isKeySet = any(kv -> isa(kv[2], Number) ? kv[2] > 0 : !isempty(kv[2]), searchKey)
-
-        if !isKeySet
-            throw(ArgumentError("At least one of `$(join(collect(keys(searchKey)), "', `", "' or `"))' must be set"))
-        end
-    end
 
     url = ObjectEndpoint * "/" * objectType * "/$(objectID)"
     debugID = "(all)"
@@ -110,7 +110,6 @@ function postRepositoryObject(
     json = buildPostJSON(objectType, objectID, objectFields, oldAttributes, attributes, body)
 
     handlePostResponse(url, objectType, objectID, json, token)
-
 end
 
 
