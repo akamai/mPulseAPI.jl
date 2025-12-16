@@ -52,8 +52,10 @@ The `domain` `Dict` has the following fields:
 `id::Int64`
 :    The app's ID
 
-`body::XMLElement`
-:    An XML object representing the app's XML definition
+`body::LightXML.XMLElement`
+:    An XML object representing the app's XML definition. You can use [`getXMLNode`](@ref) and [`getNodeContent`](@ref) from `mPulseAPI.xml_utilities`,
+     or use [LightXML.jl](https://github.com/JuliaIO/LightXML.jl) directly to parse this object.  `LightXML` is available as `mPulseAPI.LightXML` when you call
+     `using mPulseAPI`.
 
 `tenantID::Int64`
 :    The ID of the tenant that this app is in
