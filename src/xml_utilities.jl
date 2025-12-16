@@ -46,7 +46,18 @@ end
 
 
 
-# Internal convenience function
+"""
+Internal convenience function to get an XML node from a body
+### Arguments
+`body::Any`
+:    The body to search. Can be an XML String, a LightXML.XMLElement or a Dict() with a `body` element.
+
+`nodeName::AbstractString`
+:    The node to find
+
+### Returns
+`{LightXML.XMLElement|Nothing}` The requested node or `nothing` if it was not found
+"""
 function getXMLNode(body::Any, nodeName::AbstractString)
     if isa(body, AbstractString)
         xdoc = parse_string(body)
