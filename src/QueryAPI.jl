@@ -350,7 +350,7 @@ $(mPulseAPI.readdocs("APIResults-exceptions"))
 $(mPulseAPI.readdocs("CleanSeriesSeries-exceptions", [""]))
 
 ### Returns
-$(mPulseAPI.readdocs("friendly-names-df", ["country", "Country", "US", "CA", "MX", "PH", "AU", "KR", "PE"]))
+$(mPulseAPI.readdocs("friendly-names-df", ["country", "Geo", "US", "CA", "MX", "PH", "AU", "KR", "PE"]))
 """
 function getGeoTimers(token::AbstractString, appKey::AbstractString; filters::Dict=Dict(), friendly_names::Bool=false)
     results = getAPIResults(token, appKey, "geography", filters=filters)
@@ -359,14 +359,14 @@ function getGeoTimers(token::AbstractString, appKey::AbstractString; filters::Di
         return DataFrame()
     end
 
-    df = resultsToDataFrame( Symbol[:country, :timerMedian, :timerMOE, :timerN], :primary, results["data"] )
+    df = resultsToDataFrame( Symbol[:country, :timerMedian, :timerN], :primary, results["data"] )
 
     df[!, :t_done_total_pc] = df[!, :timerN] * 100 / sum(df[!, :timerN])
 
     if friendly_names
-        rename!(df, ["Country", "Median Time (ms)", "MoE (ms)", "Measurements", "% of total"])
+        rename!(df, ["Country", "Median Time (ms)", "Measurements", "% of total"])
     else
-        rename!(df, ["country", "t_done_median", "t_done_moe", "t_done_count", "t_done_total_pc"])
+        rename!(df, ["country", "t_done_median", "t_done_count", "t_done_total_pc"])
     end
 
     return df

@@ -29,17 +29,17 @@ end
 
 
 @testset "Dimensions" begin
-    function testDimensionTable(mtd, first_symbol, first_friendly)
+    function testDimensionTable(mtd, first_symbol, first_friendly, has_moe=true)
         local x = "--"
         try
             x = getfield(mPulseAPI, mtd)(token, appKey)
 
-            @test size(x, 2) == 5
-            @test names(x) == map(string, [first_symbol, :t_done_median, :t_done_moe, :t_done_count, :t_done_total_pc])
+            @test size(x, 2) == 5-(!has_moe)
+            @test names(x) == map(string, [first_symbol, :t_done_median] ∪ (has_moe ? [:t_done_moe] : []) ∪ [:t_done_count, :t_done_total_pc])
 
             x = getfield(mPulseAPI, mtd)(token, appKey, friendly_names=true)
-            @test size(x, 2) == 5
-            @test names(x) == [string(first_friendly), "Median Time (ms)", "MoE (ms)", "Measurements", "% of total"]
+            @test size(x, 2) == 5-(!has_moe)
+            @test names(x) == [string(first_friendly), "Median Time (ms)"] ∪ (has_moe ? ["MoE (ms)"] : []) ∪ ["Measurements", "% of total"]
         catch ex
             @warn("mPulseAPI.$mtd")
             show(x)
@@ -65,7 +65,7 @@ end
     end
 
     @testset "Geo" begin
-        testDimensionTable(:getGeoTimers, :country, "Country")
+        testDimensionTable(:getGeoTimers, :country, "Country", false)
     end
 end
 

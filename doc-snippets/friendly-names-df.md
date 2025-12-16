@@ -1,6 +1,6 @@
 `{DataFrame}` A Julia `DataFrame` with the following columns:
 
-`{1}`, `t_done_median`, `t_done_moe`, `t_done_count`, and `t_done_total_pc`
+`{1}`, `t_done_median`, `t_done_moe` (optional), `t_done_count`, and `t_done_total_pc`
 
 ```julia
 julia> pgroups = mPulseAPI.get{2}Timers(token, appKey)
