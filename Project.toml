@@ -1,7 +1,7 @@
 name = "mPulseAPI"
 uuid = "314d2b54-f2c3-11ea-15f2-0bcf2fc50b35"
 authors = ["Akamai mPulse DSWB <dswb@akamai.com>"]
-version = "1.2.2"
+version = "1.2.3"
 
 [deps]
 DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
@@ -13,12 +13,12 @@ LightXML = "9c8b4983-aa76-5018-a973-4c85ecc9e179"
 TimeZones = "f269a46b-ccf7-5d73-abea-4c690281aa53"
 
 [compat]
-DataFrames = "1.6.1"
+DataFrames = "1.7.1"
 Format = "1.3.7"
-HTTP = "1.9.15"
+HTTP = "1.10.19"
 JSON = "0.21.4"
-LightXML = "0.9.1"
-TimeZones = "1.13.0"
+LightXML = "0.9.3"
+TimeZones = "1.22.2"
 julia = "1.6"
 
 [extras]
