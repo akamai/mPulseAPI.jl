@@ -98,3 +98,14 @@ end
 
 (expected_boomerang, previous_boomerang, tenant_boomerang)
 ```
+
+### Get all apps that accept Bot Beacons
+```julia
+using mPulseAPI
+
+# Authenticate, then get tenant and all domains
+token = getRepositoryToken("<tenant name from mPulse>", "<mPulse api token for tenant>")
+domains = getRepositoryDomain(token)
+
+botty_domains = filter(d -> mPulseAPI.getNodeContent(d["body"], "KeepBots", false), domains)
+```
