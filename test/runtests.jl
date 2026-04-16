@@ -1,5 +1,5 @@
 using mPulseAPI
-using Test, Dates, DataFrames, HTTP, LightXML
+using Test, Dates, DataFrames, HTTP, LightXML, TimeZones
 
 mPulseAPIToken  = get(ENV, "mPulseAPIToken", "")
 mPulseAPITenant = get(ENV, "mPulseAPITenant", "")
@@ -17,7 +17,7 @@ end
 
 mPulseAPI.setVerbose(verbosity)
 
-t_start = Int(datetime2unix(now())*1000)
+t_start = mPulseAPI._to_epoch_ms(now())
 
 @testset "mPulseAPI" begin
 
@@ -38,6 +38,10 @@ t_start = Int(datetime2unix(now())*1000)
 
         @testset "Alerts" begin
             include("alert-tests.jl")
+        end
+
+        @testset "Annotations" begin
+            include("annotation-tests.jl")
         end
 
         @testset "Query" begin

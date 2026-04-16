@@ -278,6 +278,26 @@ function HTTP.get(url::String, args...; kwargs...)
     elseif token == "mock-get-unfixable-json"
         # L143-154: JSON that regex can't save (bare `undefined`) → inner catch → mPulseAPIException
         return mPulseAPI.HTTP.Response(200, Vector{UInt8}("{key: undefined}"))
+
+    # --- Annotation API mocks (dispatch on X-Auth-Token) ---
+    elseif token == "mock-ann-200-obj"
+        # getAnnotation success: returns a single annotation as a JSON object
+        return mPulseAPI.HTTP.Response(200, Vector{UInt8}("""{"id":1,"title":"Test","start":1000,"end":2000,"domainID":42}"""))
+    elseif token == "mock-ann-200-array"
+        # getAnnotations success: API returns a bare array (L189)
+        return mPulseAPI.HTTP.Response(200, Vector{UInt8}("""[{"id":1,"title":"Test"}]"""))
+    elseif token == "mock-ann-200-wrapped"
+        # getAnnotations success: API returns {"annotations":[...]} (L191)
+        return mPulseAPI.HTTP.Response(200, Vector{UInt8}("""{"annotations":[{"id":2,"title":"Wrapped"}]}"""))
+    elseif token == "mock-ann-200-badformat"
+        # getAnnotations: unexpected format → mPulseAPIResultFormatException (L193)
+        return mPulseAPI.HTTP.Response(200, Vector{UInt8}("""{"unexpected":"format"}"""))
+    elseif token == "mock-ann-500"
+        # _check_annotation_response: 500 → mPulseAPIBugException (L210)
+        return mPulseAPI.HTTP.Response(500)
+    elseif token == "mock-ann-503"
+        # _check_annotation_response: non-200/401/500 → mPulseAPIException (L212)
+        return mPulseAPI.HTTP.Response(503)
     else
         return mPulseAPI.HTTP.request("GET", url, args...; kwargs...)
     end
@@ -542,6 +562,55 @@ end
         # Mock returns 500 → deleteRepositoryObject throws, so deleteRepositoryStatModel propagates the error.
         t = Test.GenericString("mock-delete-500")
         @test_throws ErrorException mPulseAPI.deleteRepositoryStatModel(t, statModelID=77)
+    end
+
+end
+
+@testset "Annotation (mocked)" begin
+
+    @testset "getAnnotation success → JSON.parse result (L82)" begin
+        # 200 response with JSON object → returns parsed Dict
+        result = mPulseAPI.getAnnotation("mock-ann-200-obj", Int64(1))
+        @test result["id"] == 1
+        @test result["title"] == "Test"
+    end
+
+    @testset "getAnnotations: domainID kwarg populates query (L161)" begin
+        # domainID != nothing → query["domain"] set; array response → L189
+        result = mPulseAPI.getAnnotations("mock-ann-200-array", domainID=Int64(42))
+        @test isa(result, AbstractArray)
+        @test length(result) == 1
+    end
+
+    @testset "getAnnotations: bare array response (L189)" begin
+        result = mPulseAPI.getAnnotations("mock-ann-200-array")
+        @test isa(result, AbstractArray)
+    end
+
+    @testset "getAnnotations: wrapped {annotations:[...]} response (L191)" begin
+        result = mPulseAPI.getAnnotations("mock-ann-200-wrapped")
+        @test isa(result, AbstractArray)
+        @test result[1]["id"] == 2
+    end
+
+    @testset "getAnnotations: unexpected format → mPulseAPIResultFormatException (L193)" begin
+        @test_throws mPulseAPIResultFormatException mPulseAPI.getAnnotations("mock-ann-200-badformat")
+    end
+
+    @testset "_check_annotation_response: 500 → mPulseAPIBugException (L210)" begin
+        @test_throws mPulseAPIBugException mPulseAPI.getAnnotation("mock-ann-500", Int64(1))
+    end
+
+    @testset "_check_annotation_response: 503 → mPulseAPIException (L212)" begin
+        @test_throws mPulseAPIException mPulseAPI.getAnnotation("mock-ann-503", Int64(1))
+    end
+
+    @testset "_to_epoch_ms ZonedDateTime method (L219)" begin
+        # Covers the ZonedDateTime overload; result should be within a few seconds of now
+        zdt = ZonedDateTime(now(), localzone())
+        ms  = mPulseAPI._to_epoch_ms(zdt)
+        @test isa(ms, Int64)
+        @test abs(ms - mPulseAPI._to_epoch_ms(now())) < 5000
     end
 
 end
