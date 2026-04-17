@@ -11,6 +11,7 @@
 import mPulseAPI.getAPIResults
 import mPulseAPI.getRepositoryDomain
 import mPulseAPI.getHttpRequest
+import mPulseAPI.deleteRepositoryObject
 import mPulseAPI.HTTP
 
 # ---------------------------------------------------------------------------
@@ -101,6 +102,24 @@ function getHttpRequest(
     isKeySet::Bool
 )
     return [Dict{String, Any}("id" => 99, "name" => "MockObject")]
+end
+
+# ---------------------------------------------------------------------------
+# Mock: deleteRepositoryObject
+# Intercepts the HTTP DELETE call. Token selects the scenario:
+# "mock-delete-204" → returns HTTP.Response(204) (success path),
+# anything else → calls error() mirroring the real function's L157-159.
+# ---------------------------------------------------------------------------
+function deleteRepositoryObject(
+    token::Test.GenericString,
+    objectType::AbstractString,
+    searchKey::Dict{Symbol, Any}
+)
+    if token == "mock-delete-204"
+        return mPulseAPI.HTTP.Response(204)
+    else
+        error("Non-204 response for deleteRepositoryObject with token: $(repr(token))")
+    end
 end
 
 # ---------------------------------------------------------------------------
@@ -224,7 +243,10 @@ end
 # ---------------------------------------------------------------------------
 function HTTP.get(url::String, args...; kwargs...)
     headers = length(args) >= 1 ? args[1] : nothing
-    token   = headers isa AbstractDict ? Base.get(headers, "X-Auth-Token", "") : ""
+    # Support both X-Auth-Token (RepositoryAPI) and Authentication (QueryAPI)
+    x_token   = headers isa AbstractDict ? Base.get(headers, "X-Auth-Token",   "") : ""
+    auth_token = headers isa AbstractDict ? Base.get(headers, "Authentication", "") : ""
+    token = !isempty(x_token) ? x_token : auth_token
 
     if token == "mock-get-500"
         return mPulseAPI.HTTP.Response(500)
@@ -234,6 +256,28 @@ function HTTP.get(url::String, args...; kwargs...)
         return mPulseAPI.HTTP.Response(200, Vector{UInt8}("""{"objects":[]}"""))
     elseif token == "mock-get-multi"
         return mPulseAPI.HTTP.Response(200, Vector{UInt8}("""{"objects":[{"id":1},{"id":2}]}"""))
+    elseif token == "mock-get-date"
+        return mPulseAPI.HTTP.Response(200, Vector{UInt8}("{}"))
+
+    # --- getAPIResults error-path mocks ---
+    elseif token == "mock-get-invalid-token"
+        # L115-116: code == "ResultsService.InvalidToken" → mPulseAPIAuthException
+        return mPulseAPI.HTTP.Response(400, Vector{UInt8}("""{"code":"ResultsService.InvalidToken"}"""))
+    elseif token == "mock-get-rs-fault"
+        # L110-111: rs_fault wrapper unwrapped; unknown code falls to L131
+        return mPulseAPI.HTTP.Response(400, Vector{UInt8}("""{"rs_fault":{"code":"UnknownCode","message":"wrapped error"}}"""))
+    elseif token == "mock-get-500-body"
+        # L128-129: status 500 with parseable body (no code) → mPulseAPIBugException
+        return mPulseAPI.HTTP.Response(500, Vector{UInt8}("{}"))
+    elseif token == "mock-get-400-no-code"
+        # L130-131: non-500 non-200, no code → mPulseAPIException
+        return mPulseAPI.HTTP.Response(400, Vector{UInt8}("{}"))
+    elseif token == "mock-get-fixable-json"
+        # L143-147: JSON with unquoted keys → fixed by regex → parses OK
+        return mPulseAPI.HTTP.Response(200, Vector{UInt8}("{key: \"value\"}"))
+    elseif token == "mock-get-unfixable-json"
+        # L143-154: JSON that regex can't save (bare `undefined`) → inner catch → mPulseAPIException
+        return mPulseAPI.HTTP.Response(200, Vector{UInt8}("{key: undefined}"))
     else
         return mPulseAPI.HTTP.request("GET", url, args...; kwargs...)
     end
@@ -242,6 +286,59 @@ end
 # ---------------------------------------------------------------------------
 # Tests
 # ---------------------------------------------------------------------------
+
+@testset "getAPIResults filter handling (mocked)" begin
+    # Covers QueryAPI.jl L79: k == "date" && (isa(v, DateTime) || isa(v, Date))
+    # The real getAPIResults is called (plain String token), filters are processed,
+    # then HTTP.get is intercepted via the "Authentication" header.
+    @testset "Date filter value → string(Date(v)) (L79)" begin
+        result = mPulseAPI.getAPIResults("mock-get-date", "key", "summary",
+            filters=Dict("date" => Date(now())))
+        @test isempty(result)
+    end
+
+    @testset "DateTime filter value for 'date' key → string(Date(v)) (L79)" begin
+        result = mPulseAPI.getAPIResults("mock-get-date", "key", "summary",
+            filters=Dict("date" => now()))
+        @test isempty(result)
+    end
+
+    @testset "ResultsService.InvalidToken code → mPulseAPIAuthException (L116)" begin
+        # 400 response with code=="ResultsService.InvalidToken" in body
+        @test_throws mPulseAPIAuthException mPulseAPI.getAPIResults(
+            "mock-get-invalid-token", "key", "summary")
+    end
+
+    @testset "rs_fault wrapper unwrapped + unknown code → mPulseAPIException (L111, L131)" begin
+        # 400 with rs_fault wrapper: L110-111 unwraps it, unknown code falls to L131
+        @test_throws mPulseAPIException mPulseAPI.getAPIResults(
+            "mock-get-rs-fault", "key", "summary")
+    end
+
+    @testset "500 with empty-body → mPulseAPIBugException (L128-129)" begin
+        # 500 with parseable but codeless body → status==500 branch
+        @test_throws mPulseAPIBugException mPulseAPI.getAPIResults(
+            "mock-get-500-body", "key", "summary")
+    end
+
+    @testset "400 with no code → mPulseAPIException (L130-131)" begin
+        # non-500 non-200 with no code → else branch at L131
+        @test_throws mPulseAPIException mPulseAPI.getAPIResults(
+            "mock-get-400-no-code", "key", "summary")
+    end
+
+    @testset "200 with fixable malformed JSON → parsed after cleanup (L143-147)" begin
+        # {key: "value"} → regex quotes the key → JSON.parse succeeds
+        result = mPulseAPI.getAPIResults("mock-get-fixable-json", "key", "summary")
+        @test result["key"] == "value"
+    end
+
+    @testset "200 with unfixable malformed JSON → mPulseAPIException (L143-154)" begin
+        # {key: undefined} → regex can't fix `undefined` → inner catch → throw
+        @test_throws mPulseAPIException mPulseAPI.getAPIResults(
+            "mock-get-unfixable-json", "key", "summary")
+    end
+end
 
 @testset "buildPostJSON" begin
     # objectFields path (L253-256): fields are merged into the JSON dict
@@ -425,6 +522,26 @@ end
         result = mPulseAPI.getRepositoryStatModel("sometoken"; statModelID=77)
         @test result["id"] == 77
         @test result["name"] == "TestModel"
+    end
+
+    @testset "Tenant: no dswbUrls, no body → getNodeContent throws non-XMLParseError → rethrow (L106-107)" begin
+        # Dict with neither dswbUrls nor body: getXMLNode throws ArgumentError (L70 of
+        # xml_utilities.jl), which is not XMLParseError, so the catch block rethrows it.
+        cached = Dict{String, Any}("id" => 44)
+        mPulseAPI.writeObjectToCache("tenant", Dict{Symbol, Any}(:id => 44), cached)
+        @test_throws ArgumentError mPulseAPI.getRepositoryTenant("sometoken"; tenantID=44)
+    end
+
+    @testset "deleteRepositoryStatModel: 204 → true (StatisticalModel.jl L273)" begin
+        # Mock returns 204 → deleteRepositoryStatModel returns true
+        t = Test.GenericString("mock-delete-204")
+        @test mPulseAPI.deleteRepositoryStatModel(t, statModelID=77) == true
+    end
+
+    @testset "deleteRepositoryStatModel: non-204 → throws (StatisticalModel.jl L273)" begin
+        # Mock returns 500 → deleteRepositoryObject throws, so deleteRepositoryStatModel propagates the error.
+        t = Test.GenericString("mock-delete-500")
+        @test_throws ErrorException mPulseAPI.deleteRepositoryStatModel(t, statModelID=77)
     end
 
 end
