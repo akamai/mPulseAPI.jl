@@ -187,29 +187,21 @@ end
 
 # Internal convenience function for handling POST REST API Responses
 function handlePostResponse(url::AbstractString, objectType::AbstractString, objectID::Int64, json::Dict{AbstractString, Any}, token::AbstractString)
-    count = 0
-    while count <= 5
+    resp = nothing
+
+    for attempt in 1:5
         resp = postHttpRequest(url, objectType, objectID, json, token)
 
         if resp.status == 204 # Success
             return resp
 
-        elseif resp.status == 401 # Unauthorized.  The security token is missing or invalid.
-            # Retry once
-            if count > 1
-                throw(mPulseAPIAuthException(resp))
-            end
-
-            count += 1
-        else # Internal server error.  Try again later. Expecting 500 < resp < 509
-            # Retry up to 5 times
-            if count <= 5
-                count += 1
-            else
-                throw(mPulseAPIBugException(resp))
-            end
+        elseif resp.status == 401 && attempt > 1 # Unauthorized.  The security token is missing or invalid, we will only retry once.
+            throw(mPulseAPIAuthException(resp))
         end
     end
+
+    # Internal server error.  Try again later. Expecting 500 < resp < 509
+    throw(mPulseAPIBugException(resp))
 end
 
 # Internal convenience function for building object JSON entry used in POST

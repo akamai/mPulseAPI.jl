@@ -1,5 +1,3 @@
-using DataFrames, HTTP
-
 token  = getRepositoryToken(mPulseAPITenant, mPulseAPIToken)
 domain = getRepositoryDomain(token, appName="mPulse Demo")
 appKey = domain["attributes"]["appKey"]

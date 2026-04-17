@@ -1,5 +1,3 @@
-using LightXML
-
 xml_str = "<root><floatval>3.14</floatval><intval>42</intval><boolval>true</boolval></root>"
 
 # getXMLNode — string body: exercises the AbstractString parse_string path (L63-64)
