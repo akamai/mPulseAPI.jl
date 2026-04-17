@@ -1,6 +1,6 @@
 # mPulseAPI.jl — Skills Reference for AI Agents
 
-`mPulseAPI.jl` is a Julia library (v1.2.3) for communicating with the [Akamai mPulse](https://techdocs.akamai.com/mpulse/reference/api) Query and Repository REST APIs.  It is written for Julia ≥ 1.6 and depends on `DataFrames`, `HTTP`, `JSON`, `LightXML`, `TimeZones`, `Dates`, and `Format`.
+`mPulseAPI.jl` is a Julia library (v1.3.0) for communicating with the [Akamai mPulse](https://techdocs.akamai.com/mpulse/reference/api) Query, Repository, and Annotations REST APIs.  It is written for Julia ≥ 1.6 and depends on `DataFrames`, `HTTP`, `JSON`, `LightXML`, `TimeZones`, `Dates`, and `Format`.
 
 ## Package Layout
 
@@ -17,6 +17,7 @@
 | `src/BeaconAPI.jl` | Send beacons via `config.json` endpoint |
 | `src/cache_utilities.jl` | In-memory object cache (TTL-based) |
 | `src/xml_utilities.jl` | XML parsing helpers (`getXMLNode`, `getNodeContent`) |
+| `src/Annotation.jl` | Annotations API (`getAnnotation`, `getAnnotations`) |
 | `src/exceptions.jl` | Exception type definitions |
 | `doc-snippets/*.md` | Shared docstring fragments interpolated via `readdocs()` |
 
@@ -269,6 +270,75 @@ merged = mPulseAPI.mergeMetrics(sessions, bouncerate, conversion)
 
 ---
 
+## Annotations API
+
+The Annotations API surfaces the real-time alerting annotation history for a domain.  Annotations are written automatically by the mPulse alerting system when an anomaly is detected or cleared, and can be used to reconstruct alert history without re-running detection models locally.
+
+The annotations endpoint is `<APIEndpoint>/mpulse/api/annotations/v1` and is set automatically when `setEndpoints` is called.
+
+### `getAnnotation(token, annotationID) → Dict{String, Any}`
+
+Fetches a single annotation by numeric ID.
+
+```julia
+annotation = mPulseAPI.getAnnotation(token, 42)
+```
+
+**Arguments:**
+
+| Argument | Type | Description |
+|----------|------|-------------|
+| `token` | `AbstractString` | Auth token from `getRepositoryToken` |
+| `annotationID` | `Int64` | Positive integer annotation ID |
+
+**Returned `Dict` fields:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `"id"` | `Int` | Unique annotation ID |
+| `"title"` | `String` | Short description (typically the alert name) |
+| `"start"` | `Int` | Annotation start time (epoch milliseconds) |
+| `"end"` | `Int` | Annotation end time (epoch milliseconds) |
+| `"domainID"` | `Int` | Domain this annotation belongs to |
+
+Additional fields may be present depending on mPulse API version.
+
+**Throws:** `ArgumentError` (empty token or non-positive ID), `mPulseAPIAuthException` (HTTP 401), `mPulseAPIBugException` (HTTP 500), `mPulseAPIException` (other error).
+
+---
+
+### `getAnnotations(token; domainID, dateStart, dateEnd) → Vector`
+
+Fetches all annotations matching the given filters.
+
+```julia
+using Dates
+
+# All annotations for a domain in a time range
+annotations = mPulseAPI.getAnnotations(token,
+    domainID  = 12345,
+    dateStart = DateTime(2024, 1, 1),
+    dateEnd   = DateTime(2024, 1, 31, 23, 59, 59)
+)
+
+# All annotations for the entire tenant (no filters)
+annotations = mPulseAPI.getAnnotations(token)
+```
+
+**Keyword arguments:**
+
+| Argument | Type | Default | Description |
+|----------|------|---------|-------------|
+| `domainID` | `Union{Int64, Nothing}` | `nothing` | Filter to a specific domain; `nothing` returns all domains |
+| `dateStart` | `Union{DateTime, ZonedDateTime, Nothing}` | `nothing` | Start of time range (inclusive); converted to epoch ms |
+| `dateEnd` | `Union{DateTime, ZonedDateTime, Nothing}` | `nothing` | End of time range (inclusive); converted to epoch ms |
+
+**Returns:** `Vector` of annotation `Dict`s (same shape as `getAnnotation`). The API may return either a bare JSON array or `{"annotations": [...]}` — both are normalised to a `Vector` by the library.
+
+**Throws:** `ArgumentError` (empty token), `mPulseAPIAuthException`, `mPulseAPIBugException`, `mPulseAPIException`, `mPulseAPIResultFormatException` (unexpected response format).
+
+---
+
 ## Beacon API
 
 ### `getBeaconConfig(appKey, appDomain) → Dict`
@@ -386,4 +456,4 @@ metrics = mPulseAPI.getTimersMetrics(token, appKey, filters=filters)
 - **Live integration tests** require `mPulseAPIToken` and `mPulseAPITenant` environment variables.
 - **Mock tests** (in `test/mock-tests.jl`) use `Test.GenericString` dispatch overloads for `HTTP.get` and `HTTP.post` to intercept calls without a live server. The mock testset **must run last** in `runtests.jl` because the HTTP overloads persist for the remainder of the test session.
 - Use `Test.GenericString(token_value)` to select a mock scenario by token string value.
-- Branch `annotations` (PR #25) adds `src/Annotation.jl` with `getAnnotation`, `getAnnotations`, and helpers.
+- **Annotation tests** live in `test/annotation-tests.jl` and are included near the end of `runtests.jl` (before the mock testset). They cover `getAnnotation`, `getAnnotations`, and all exception/edge-case paths.
