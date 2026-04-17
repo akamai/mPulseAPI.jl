@@ -74,8 +74,8 @@ function getAPIResults(token::AbstractString, appKey::AbstractString, query_type
         if haskey(query, k) && v == ""
             delete!(query, k)
         elseif k ∈ ["date-start", "date-end"] && isa(v, DateTime)
-            query[k] = string(v, "Z")
-        elseif k == "date" && isa(v, DateTime) || isa(v, Date)
+            query[k] = string(floor(v, Dates.Second), "Z")
+        elseif k == "date" && (isa(v, DateTime) || isa(v, Date))
             query[k] = string(Date(v))
         elseif isa(v, AbstractArray)
             query[k] = v
@@ -567,7 +567,7 @@ function getTimersMetrics(token::AbstractString, appKey::AbstractString; filters
     end
 
     for nullcol in nulls
-        df[!, nullcol] = nullval
+        df[!, nullcol] = fill(nullval, nrow(df))
     end
 
     if nrow(df) > 1 && all(a -> ismissing(a) || a == 0, map(x -> df[end-1, x], names(df)))

@@ -1,10 +1,30 @@
-using DataFrames, HTTP
-
 token  = getRepositoryToken(mPulseAPITenant, mPulseAPIToken)
 domain = getRepositoryDomain(token, appName="mPulse Demo")
 appKey = domain["attributes"]["appKey"]
 
 hasDemoData = true
+
+@testset "Filter handling" begin
+    # Invalid query_type → ArgumentError before any HTTP call
+    @test_throws ArgumentError mPulseAPI.getAPIResults(token, appKey, "invalid-type")
+
+    # Passing "" for an existing default key removes it from the query (exercises L75 delete! path)
+    dc_summary = mPulseAPI.getSummaryTimers(token, appKey, filters=Dict("date-comparator" => ""))
+    @test length(dc_summary) == 5
+
+    # DateTime date-start/date-end values are formatted with a "Z" suffix (exercises L77)
+    dt_summary = mPulseAPI.getSummaryTimers(token, appKey, filters=Dict(
+        "date-start" => now() - Dates.Day(1),
+        "date-end"   => now()
+    ))
+    @test length(dt_summary) == 5
+
+    # Date value (not DateTime) is formatted as a plain date string (exercises L79)
+    date_summary = mPulseAPI.getSummaryTimers(token, appKey, filters=Dict(
+        "date-start" => Date(now() - Dates.Day(1))
+    ))
+    @test length(date_summary) == 5
+end
 
 @testset "Summary" begin
     # We need to add a random string to the appKey to cache bust API results from the previous test
