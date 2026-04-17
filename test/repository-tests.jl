@@ -94,3 +94,15 @@ tenant = getRepositoryTenant(token, name=mPulseAPITenant)
 @test_throws ArgumentError postRepositoryObject("foo", "", Dict{Symbol, Any}())
 @test_throws ArgumentError postRepositoryObject("foo", "tenant", Dict{Symbol, Any}())
 @test_throws mPulseAPIAuthException postRepositoryObject("foo", "tenant", Dict{Symbol, Any}(:id => 1); filterRequired=false)
+
+# deleteRepositoryObject argument validation (no live delete needed)
+@test_throws ArgumentError deleteRepositoryObject("", "domain", Dict{Symbol, Any}(:id => 1))
+@test_throws ArgumentError deleteRepositoryObject("foo", "domain", Dict{Symbol, Any}(:id => 0, :name => ""))
+
+# postRepositoryObject with an unknown objectType reaches the else branch in getObjectInfo
+@test_throws ArgumentError postRepositoryObject("foo", "unknown-type", Dict{Symbol, Any}(:id => 1); filterRequired=false)
+
+# getRepositoryTenant with no ID/name returns the full tenant list (exercises the array-return path)
+tenants = getRepositoryTenant(token)
+@test isa(tenants, AbstractArray)
+@test length(tenants) >= 1

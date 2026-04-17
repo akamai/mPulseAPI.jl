@@ -47,6 +47,10 @@ t_start = Int(datetime2unix(now())*1000)
         include("beacon-api.jl")
     end
 
+    @testset "XML Utilities" begin
+        include("xml-utility-tests.jl")
+    end
+
     @testset "Change URL" begin
         include("zzz_change-url-tests.jl")
     end
