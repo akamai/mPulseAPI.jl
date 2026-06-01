@@ -15,7 +15,7 @@ module mPulseAPI
 
 using Dates
 
-using LightXML, Format, TimeZones, DataFrames
+using LightXML, Format, TimeZones, DataFrames, JSON
 import HTTP
 export LightXML
 
@@ -36,11 +36,12 @@ mPulseAPI.setEndpoints("https://mpulse-alt.soasta.com/concerto")
 ```
 """
 function setEndpoints(APIEndpoint::AbstractString = default_mPulseEndpoint)
-    global mPulseEndpoint     = "$APIEndpoint/mpulse/api/v2/"
-    global RepositoryEndpoint = "$APIEndpoint/services/rest"
-    global RepositoryService  = "$RepositoryEndpoint/RepositoryService/v1"
-    global TokenEndpoint      = "$RepositoryService/Tokens"
-    global ObjectEndpoint     = "$RepositoryService/Objects"
+    global mPulseEndpoint      = "$APIEndpoint/mpulse/api/v2/"
+    global AnnotationsEndpoint = "$APIEndpoint/mpulse/api/annotations/v1"
+    global RepositoryEndpoint  = "$APIEndpoint/services/rest"
+    global RepositoryService   = "$RepositoryEndpoint/RepositoryService/v1"
+    global TokenEndpoint       = "$RepositoryService/Tokens"
+    global ObjectEndpoint      = "$RepositoryService/Objects"
 
     return (mPulseEndpoint, RepositoryService)
 end
@@ -99,6 +100,10 @@ function fixJSONDataType(value::Union{AbstractString, Nothing})
     return value
 end
 
+# Convert DateTime or ZonedDateTime to epoch milliseconds (Int64)
+_to_epoch_ms(dt::DateTime)::Int64      = Int64(round(datetime2unix(dt) * 1000))
+_to_epoch_ms(dt::ZonedDateTime)::Int64 = Int64(round(datetime2unix(dt.utc_datetime) * 1000))
+
 function readdocs(name::AbstractString, replacers=[]; indent=0)
     # read the file and strip out the newline at the end
     data = readchomp( joinpath(dirname(@__DIR__), "doc-snippets", name * ".md") )
@@ -145,6 +150,7 @@ include("xml_utilities.jl")
 include("RepositoryAPI.jl")
 include("StatisticalModel.jl")
 include("Alert.jl")
+include("Annotation.jl")
 include("Domain.jl")
 include("Tenant.jl")
 include("Token.jl")

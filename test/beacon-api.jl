@@ -10,7 +10,7 @@ if !haskey(config, "rate_limited")
     @test haskey(config, "h.key")
     @test haskey(config, "h.t")
 
-    t_end = Int(datetime2unix(now())*1000)
+    t_end = mPulseAPI._to_epoch_ms(now())
     @test mPulseAPI.sendBeacon(config, Dict("PageGroup" => "mPulseAPI Test", "tDone" => t_end - t_start, "Conversion" => 1, "ResourceTimer" => 500, "Url" => "https://github.com/akamai/mPulseAPI.jl/"))
 end
 

@@ -10,7 +10,7 @@ makedocs(
         ]
     ),
     modules=[mPulseAPI],
-    pages = ["index.md", "RepositoryAPI.md", "Alerts.md", "QueryAPI.md", "apiToken.md", "caching.md", "exceptions.md"],
+    pages = ["index.md", "RepositoryAPI.md", "Alerts.md", "Annotations.md", "QueryAPI.md", "apiToken.md", "caching.md", "exceptions.md"],
 )
 
 deploydocs(

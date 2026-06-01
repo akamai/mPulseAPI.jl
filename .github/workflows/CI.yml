@@ -24,8 +24,8 @@ jobs:
           - version: 'nightly'
             experimental: true
     steps:
-      - uses: actions/checkout@v4
-      - uses: julia-actions/setup-julia@v2
+      - uses: actions/checkout@v6
+      - uses: julia-actions/setup-julia@v3
         with:
           version: ${{ matrix.version }}
           arch: ${{ matrix.arch }}
@@ -38,6 +38,7 @@ jobs:
           DA_mPulseAPIAlert:  ${{ vars.DA_MPULSEAPIALERT }}
           mPulseAPIVerbose: ${{ vars.MPULSEAPIVERBOSE }}
           mPulseAPIEndpoint: ${{ vars.MPULSEAPIENDPOINT }}
+          mPulseAPIAnnotationDomainID: ${{ vars.MPULSEAPIANNOTATIONDOMAINID }}
       - run: julia --color=yes --project=. -e 'if VERSION < v"1.9"; using Pkg; Pkg.add("Coverage"); using Coverage; Coveralls.submit(process_folder()); end'
         working-directory: ${{ github.workspace }}
         env:

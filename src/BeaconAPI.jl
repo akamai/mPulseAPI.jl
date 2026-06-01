@@ -52,10 +52,10 @@ Send a beacon to mPulse
 function sendBeacon(config::Dict, params::Dict)
     beacon_url = "https:" * config["beacon_url"]
 
-    now_ms = Int(datetime2unix(now())*1000)
+    now_ms     = _to_epoch_ms(now())
     session_id = get(params, "SessionID", config["session_id"])
 
-    session = get(mPulseSessions, session_id, Dict())
+    session    = get(mPulseSessions, session_id, Dict())
     session_ln = get(session, "sl", 0) + 1
 
 
