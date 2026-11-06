@@ -1,6 +1,6 @@
 const caches = Dict{AbstractString, Dict}()
 
-function writeObjectToCache(cacheType::AbstractString, searchKey::Dict{Symbol, <:Any}, object::Dict; expiry::TimePeriod=Dates.Hour(1))
+function writeObjectToCache(cacheType::AbstractString, searchKey::Dict{Symbol, <:Any}, object::AbstractDict; expiry::TimePeriod=Dates.Hour(1))
     if !haskey(caches, cacheType)
         caches[cacheType] = Dict()
     end
@@ -47,7 +47,7 @@ function clearObjectCache(cacheType::AbstractString, searchKey::Dict{Symbol, <:A
     end
 
     done = false
-    if isa(object, Dict)
+    if isa(object, AbstractDict)
         for ky in keys(searchKey)
             k = string(ky)
             v = haskey(object, k) ? object[k] : haskey(object["attributes"], k) ? object["attributes"][k] : nothing

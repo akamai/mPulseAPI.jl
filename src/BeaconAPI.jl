@@ -49,7 +49,7 @@ const mPulseSessions = Dict{String, Dict}()
 """
 Send a beacon to mPulse
 """
-function sendBeacon(config::Dict, params::Dict)
+function sendBeacon(config::AbstractDict, params::AbstractDict)
     beacon_url = "https:" * config["beacon_url"]
 
     now_ms     = _to_epoch_ms(now())

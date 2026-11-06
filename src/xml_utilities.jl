@@ -64,7 +64,7 @@ function getXMLNode(body::Any, nodeName::AbstractString)
         xroot = root(xdoc)
     elseif isa(body, LightXML.XMLElement)
         xroot = body
-    elseif isa(body, Dict) && haskey(body, "body")
+    elseif isa(body, AbstractDict) && haskey(body, "body")
         xroot = body["body"]
     else
         throw(ArgumentError("bodyXML must either be an XML String, a LightXML.XMLElement or a Dict() with a `body` element. $(typeof(body)) is unknown."))

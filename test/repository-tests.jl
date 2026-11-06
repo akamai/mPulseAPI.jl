@@ -36,7 +36,7 @@ domain = getRepositoryDomain(token, appKey=appKey)
 @test domain["resource_timing"]
 
 # Check custom metrics
-@test isa(domain["custom_metrics"], Dict)
+@test isa(domain["custom_metrics"], AbstractDict)
 @test length(domain["custom_metrics"]) == 3
 
 @test haskey(domain["custom_metrics"], "Conversion")
@@ -64,7 +64,7 @@ domain = getRepositoryDomain(token, appKey=appKey)
 @test domain["custom_metrics"]["OrderTotal"]["dataType"]["decimalPlaces"] == "2"
 
 # Check custom timers
-@test isa(domain["custom_timers"], Dict)
+@test isa(domain["custom_timers"], AbstractDict)
 @test length(domain["custom_timers"]) == 1
 
 @test haskey(domain["custom_timers"], "ResourceTimer")

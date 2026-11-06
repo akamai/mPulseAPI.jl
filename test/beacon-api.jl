@@ -1,6 +1,6 @@
 config = mPulseAPI.getBeaconConfig(beaconKey, "mPulseAPIDemo.net")
 
-@test config isa Dict
+@test config isa AbstractDict
 @test haskey(config, "site_domain")
 @test config["site_domain"] == "mPulseAPIDemo.net"
 

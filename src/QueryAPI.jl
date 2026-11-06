@@ -82,6 +82,14 @@ function getAPIResults(token::AbstractString, appKey::AbstractString, query_type
         end
     end
 
+    query = mapreduce(
+                p -> p[2] isa AbstractVector ?
+                            Pair{String, Any}[p[1] => v for v in p[2]] :
+                            p,
+                vcat,
+                collect(query)
+            )
+
     headers = Dict(
         "Authentication" => token,
         "User-Agent" => "mPulseAPI-julia/1.0.0",
@@ -714,7 +722,7 @@ function getMetricOverPageLoadTime(token::AbstractString, appKey::AbstractString
         results = getAPIResults(token, appKey, "metric-per-page-load-time", filters=filters)
     end
 
-    if isa(results, Dict) && haskey(results, "series") && results["series"] == nothing
+    if isa(results, AbstractDict) && haskey(results, "series") && results["series"] == nothing
         throw(mPulseAPIRequestException("Invalid Metric: $(metric)", "MPulseAPIException.InvalidParameter", "metric", metric, nothing))
     end
 
@@ -898,9 +906,9 @@ end
 
 
 # Convenience method to clean up bad design choices made in mPulse's REST API
-function cleanSeriesSeries(results::Dict)
-    if !isa(results, Dict) || !haskey(results, "series") ||
-            !isa(results["series"], Dict) || !haskey(results["series"], "series") ||
+function cleanSeriesSeries(results::AbstractDict)
+    if !isa(results, AbstractDict) || !haskey(results, "series") ||
+            !isa(results["series"], AbstractDict) || !haskey(results["series"], "series") ||
             !isa(results["series"]["series"], Array)
         throw(mPulseAPIResultFormatException("API response JSON did not have a `series` element", results))
     end
@@ -955,7 +963,7 @@ function resultsToDataFrame(names::Vector{Symbol}, types::Symbol, results::Vecto
                         # First make sure the row is in a recognized format
                         if isa(row, Array)
                             value = row[i]
-                        elseif isa(row, Dict)
+                        elseif isa(row, AbstractDict)
                             value = row[string(n)]
                         else
                             throw(mPulseAPIResultFormatException("Unknown row type: $(typeof(row))", row))
